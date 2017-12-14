@@ -18,24 +18,11 @@ namespace Comisariato.Formularios.Informes
             InitializeComponent();
         }
         Consultas objConsulta = new Consultas();
-        //Select para las compras
-
-        //select e.SERIE1+''+e.SERIE2+''+e.NUMERO as NFactura, d.PRECIOCOMRPA, e.FECHAORDENCOMPRA, d.CANTIDAD
-        //from TbEncabezadoyPieCompra e, TbDetalleCompra d, TbProducto p  where e.IDEMCABEZADOCOMPRA = d.IDENCABEZADOCOMPRA and
-        //d.CODIGOBARRAPRODUCTO = p.CODIGOBARRA and p.CODIGOBARRA = 123456789 and e.FECHAORDENCOMPRA between  '' and ''
-
-        //Select parqa ventas
-
-        //select e.SUCURSAL, e.CAJA, e.NFACTURA, d.PRECIO, d.CANTIDAD, e.FECHA
-        //from TbEncabezadoFactura e, TbDetalleFactura d, TbProducto p where e.IDFACTURA = d.NFACTURA and
-        //d.CODIGOBARRAPRODUCTO = p.CODIGOBARRA and p.CODIGOBARRA = 123456789 and e.FECHA between  '' and ''
         private void FrmKardex_Load(object sender, EventArgs e)
         {
             objConsulta.BoolLlenarComboBox(cbCategoria, "Select IDCATEGORIA as ID, Descripcion as Texto from TbCategoria");
             for (int i = 0; i < 17; i++)
-            {
                 dgvKardex.Rows.Add();
-            }
         }
 
         private void btnGenerarKardex_Click(object sender, EventArgs e)
@@ -57,9 +44,7 @@ namespace Comisariato.Formularios.Informes
                 dgvKardex.Rows[i].Cells[3].Value = dtCompra["PRECIOCOMRPA"];
                 dgvKardex.Rows[i].Cells[4].Value = Convert.ToSingle(dgvKardex.Rows[i].Cells[3].Value) * Convert.ToInt32(dgvKardex.Rows[i].Cells[2].Value);
                 if (i == dgvKardex.RowCount -1)
-                {
                     dgvKardex.Rows.Add();
-                }
                 //dgvKardex.Rows.Insert(1,1);
             }
             
@@ -82,26 +67,26 @@ namespace Comisariato.Formularios.Informes
                         banderaIngreso = true;
                         break;
                     }
-                    //if (Convert.ToString(dgv))
-                    //{
-
-                    //}
+                    if (Convert.ToString(dgvKardex.Rows[j + 1].Cells[1].Value) == "")
+                    {
+                        j++;
+                        break;
+                    }
                 }
                 if (!banderaIngreso)
                 {
                     if (j == dgvKardex.RowCount - 1)
-                    {
                         dgvKardex.Rows.Add();
-                    }
                     int numeroFactura = Convert.ToInt32(dtVenta["NFactura"]), serie1 = Convert.ToInt32(dtVenta["SUCURSAL"]), serie2 = Convert.ToInt32(dtVenta["CAJA"]);
                     //dgvKardex.Rows.Insert(, 1);
                     dgvKardex.Rows[j].Cells[0].Value = dtVenta["FECHA"];
                     dgvKardex.Rows[j].Cells[1].Value = "Venta S/F " + serie1.ToString("D3") + serie2.ToString("D3") + numeroFactura.ToString("D9");
                     dgvKardex.Rows[j].Cells[5].Value = dtVenta["CANTIDAD"];
                     dgvKardex.Rows[j].Cells[6].Value = dtVenta["PRECIO"];
-                    dgvKardex.Rows[j].Cells[7].Value = Convert.ToSingle(dgvKardex.Rows[i].Cells[3].Value) * Convert.ToInt32(dgvKardex.Rows[i].Cells[2].Value);
+                    dgvKardex.Rows[j].Cells[7].Value = Convert.ToSingle(dgvKardex.Rows[j].Cells[3].Value) * Convert.ToInt32(dgvKardex.Rows[j].Cells[2].Value);
                 }
             }
+            calculoExistecia();
         }
         //calcular la existencia
         public void calculoExistecia()
@@ -111,11 +96,9 @@ namespace Comisariato.Formularios.Informes
                 string[] tipo = Convert.ToString(dgvKardex.Rows[i].Cells[1].Value).Split(' ');
                 if (i == 0)
                 {
-                    if (tipo[0] == "Compra")
-                    {
-
-                    }
-                    //dgvKardex.Rows[8].Cells[0].Value = 
+                    dgvKardex.Rows[i].Cells[8].Value = dgvKardex.Rows[i].Cells[2].Value;
+                    dgvKardex.Rows[i].Cells[9].Value = dgvKardex.Rows[i].Cells[3].Value;
+                    dgvKardex.Rows[i].Cells[10].Value = dgvKardex.Rows[i].Cells[4].Value;
                 }
             }
         }
