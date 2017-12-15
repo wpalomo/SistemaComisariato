@@ -23,7 +23,7 @@ namespace Comisariato.Formularios.Transacciones
         private int cantidadanterior = 0, posicion, ivaporcentaje, tipoprecio = 0, cantmayorita = 20, fila,contador=0,factenter, tipoprecio1 = 0, formapago = 0, fr, idcliente,idclienteespe,cantcaja=0;
         private string codactual = "",cantactual="";
         public string numcaja;
-        public string sucursal;
+        public string sucursal,direccionComprador;
         public int numfact=0,IDCLIENTEINICIO;
         internal static int numfactnuevo = 0;
 
@@ -1632,6 +1632,7 @@ namespace Comisariato.Formularios.Transacciones
             frmcobrar.nombre = txtConsumidor.Text;
             frmcobrar.identificacion = txtIdentidicacion.Text;
             frmcobrar.descuentobd = txtDescuento.Text;
+            frmcobrar.direccionComprador = direccionComprador;
             frmcobrar.ivabd = txtIva.Text;
             frmcobrar.subtotal = txtSubTotal.Text;
             frmcobrar.subtotalconiva = txtSubTotalIva.Text;

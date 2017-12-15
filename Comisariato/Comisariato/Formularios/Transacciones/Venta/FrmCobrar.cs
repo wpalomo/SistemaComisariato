@@ -25,7 +25,7 @@ namespace Comisariato.Formularios.Transacciones
         Consultas c;
         public List<String> pedidos;
         public List<String> ivas;
-        public string subtotal, subtotalconiva, descuento, ivasuma, totalapagar, subtotalcero;
+        public string subtotal, subtotalconiva, descuento, ivasuma, totalapagar, subtotalcero,direccionComprador;
         //private bool chequear;
         public FrmCobrar()
         {
@@ -834,6 +834,9 @@ namespace Comisariato.Formularios.Transacciones
                                 FrmFactura.numfactnuevo = Convert.ToInt32(encabezadofact[2]);
                                 this.Close();
                             }
+
+                           
+
                         }
                         else
                         {
@@ -848,6 +851,8 @@ namespace Comisariato.Formularios.Transacciones
                     MessageBox.Show("El dinero recibido de ser mayor o igual al tota a pagar.");
                     txtRecibido.Focus();
                 }
+                FormarXml(sucursal,caja, numfactbd);
+
             }
             catch (Exception EX)
             {
@@ -857,6 +862,76 @@ namespace Comisariato.Formularios.Transacciones
            
         }
 
+        private void FormarXml(int sucursal, int caja,int numfactbd)
+        {
+            if (Program.BoolAutorizadoImprimir)
+            {
+
+                Xml xml = new Xml();
+                xml._crearXml(@"\\AIRCONTROL\Users\Administrador\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
+                InfoTributaria objcit = new InfoTributaria();
+
+                objcit.Ambiente = 1;
+                objcit.TipoEmision = 1;
+                objcit.RazonSociaL = "";
+                objcit.NombreComerciaL = Program.nombreempresa;
+                objcit.RuC = Program.rucempresa;
+                objcit.CodDoC = "01";
+                objcit.EstaB = Program.em.Sucursal.ToString("D3");
+                objcit.PtoEmI = "001";
+                objcit.SecuenciaL = numfactbd.ToString("D9");
+                objcit.DirMatriz = Program.direccionempresa;
+                string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
+                xml.InfoTributaria("infoTributaria", objcit, serie);
+
+
+                InfoFactura objcif = new InfoFactura();
+                objcif.FechaEmision = DateTime.Now.Date.ToShortDateString();
+                if (identificacion != "9999999999999")
+                {
+                    if (identificacion.Length == 10)
+                    {
+                        objcif.TipoIdentificacionComprador = "05";
+                    }
+                    else
+                    {
+                        if (identificacion.Length == 13)
+                        {
+                            objcif.TipoIdentificacionComprador = "04";
+                        }
+                        else
+                        {
+                            objcif.TipoIdentificacionComprador = "06";
+                        }
+                    }
+                }
+                else
+                {
+                    objcif.TipoIdentificacionComprador = "07";
+                }
+
+
+                if (identificacion == "9999999999999")
+                {
+                    objcif.RazonSocialComprador = "CONSUMIDOR FINAL";
+                    objcif.IdentificacionComprador = "9999999999999";
+                    objcif.DireccionComprador = "S/N";
+                }
+                else
+                {
+                    objcif.RazonSocialComprador = nombre;
+                    objcif.IdentificacionComprador = identificacion;
+                    objcif.DireccionComprador = direccionComprador;
+                }
+
+                objcif.ObligadoContabilidad = "SI";
+                //string guiaremision= sucursal.ToString("D3") + "-" + caja.ToString("D3")+"-"+ numfactbd.ToString("D9");
+                objcif.GuiaRemision = sucursal.ToString("D3") + "-" + caja.ToString("D3") + "-" + numfactbd.ToString("D9");
+                xml.infoFactura("infoFactura", objcif);
+                xml.detalleFactura("detalles", dg);
+
+            }
+        }
 
         private int obtenercantidadFactura(int cantidadDeFilas, int ItemsPermitidos)
         {
@@ -941,10 +1016,10 @@ namespace Comisariato.Formularios.Transacciones
             ticket.TextoIzquierda("         Informacion del Consumidor");//Es el mio por si me quieren contactar ...
             ticket.TextoIzquierda("RUC: " + identificacion);
             ticket.TextoIzquierda("Cliente: " + nombre);
-            ticket.TextoIzquierda("Facturado: " + Program.Usuario + "# CAJA: " + numcaja.ToString("D3"));
+            ticket.TextoIzquierda("Facturado: " + Program.Usuario + "  # CAJA: " + numcaja.ToString("D3"));
             //ticket.TextoIzquierda("# CAJA: " + numcaja.ToString("D3"));
             string[] h = DateTime.Now.TimeOfDay.ToString().Split('.');
-            ticket.TextoIzquierda("Fecha: " + fechactual + "          " + h[0]);
+            ticket.TextoIzquierda("Fecha: " + fechactual + "         Hora: " + h[0]);
             if (ckbCheque.Checked && ckbEfectivo.Checked && ckbTarjeta.Checked)
             {
                 ticket.TextoIzquierda("Tipo de pago: Efectivo - Cheque - T. Credito");
