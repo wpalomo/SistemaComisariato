@@ -580,3 +580,4 @@ C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\D
 C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.FrmReimprimirFact.resources
 C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Properties.Resources.resources
 C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.csproj.GenerateResource.Cache
+C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.FrmDevolucionCompra.resources

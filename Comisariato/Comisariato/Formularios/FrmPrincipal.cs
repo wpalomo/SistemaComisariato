@@ -43,6 +43,8 @@ namespace Comisariato.Formularios
         public static FrmInformeVentas FrmInformeVentas;
         public static MenuStrip menuMostrar;
         public static FrmKardex FrmKardex;
+        public static FrmDevolucionCompra FrmDevolucionCompra;
+
         Bitacora  bitacora = new Bitacora();
         //public static void Panel
         public FrmPrincipal()
@@ -458,6 +460,27 @@ namespace Comisariato.Formularios
                 {
                     MessageBox.Show("Para realizar un registro de compra debe de tener registrado lo siguiente:\n*Al menos un proveedor.\n*Al menos una sucursal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+            }
+            else if (nombre == "Devolución en Compras")
+            {
+                //if (FrmDevolucionVenta == null || FrmDevolucionVenta.IsDisposed)
+                //{
+                //    FrmDevolucionVenta = new FrmDevolucionVenta();
+                //    objFuncion.AddFormInPanel(FrmDevolucionVenta, Program.panelPrincipalVariable);
+                //}
+                //else
+                //{
+                //    int index = panelPrincipal.Controls.GetChildIndex(FrmDevolucionVenta);
+                //    FrmDevolucionVenta.BringToFront();
+                //}
+                if (FrmDevolucionCompra == null || FrmDevolucionCompra.IsDisposed)
+                {
+                    FrmDevolucionCompra = new FrmDevolucionCompra();
+                    //FrmDevolucionVenta.BringToFront();
+                    FrmDevolucionCompra.Show();
+                    FrmDevolucionCompra.MdiParent = this;
+                }
+                //else { FrmDevolucionVenta.BringToFront(); }
             }
             else if (nombre == "Orden de Giro")
             {
