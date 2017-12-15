@@ -329,6 +329,10 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@ivat", ivas[i]);
                     cmd.Parameters.AddWithValue("@idempresa", idempresa);
                     cmd.Parameters.AddWithValue("@cantcaja", dg.Rows[i].Cells[8].Value);
+                    cmd.Parameters.AddWithValue("@subtotal0", detallepago[7]);
+                    cmd.Parameters.AddWithValue("@subtotal12", detallepago[8]);
+                    cmd.Parameters.AddWithValue("@totalpagar", detallepago[9]);
+
                     result = cmd.ExecuteNonQuery();
                     contador += 1;
                 }

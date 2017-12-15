@@ -25,7 +25,7 @@ namespace Comisariato.Formularios.Transacciones
         Consultas c;
         public List<String> pedidos;
         public List<String> ivas;
-        public string subtotal, subtotaconiva, descuento, ivasuma, totalapagar;
+        public string subtotal, subtotalconiva, descuento, ivasuma, totalapagar, subtotalcero;
         //private bool chequear;
         public FrmCobrar()
         {
@@ -748,6 +748,15 @@ namespace Comisariato.Formularios.Transacciones
                     detallepago.Add(txtRecibido.Text);
                     detallepago.Add(txtCambio.Text);
 
+
+
+                    detallepago.Add(Funcion.reemplazarcaracter(subtotalcero.ToString()));
+                    detallepago.Add(Funcion.reemplazarcaracter(subtotalconiva.ToString()));
+                    detallepago.Add(Funcion.reemplazarcaracter(totals.ToString()));
+
+
+
+
                     /// codigo byron 
 
                     int totalfacturasAGenerar = 1;
@@ -765,6 +774,7 @@ namespace Comisariato.Formularios.Transacciones
                     int auxiliar = totalfilas;
                     for (int i = 0; i < totalfacturasAGenerar; i++)
                     {
+                        
                         if (auxiliar > ItemsPermitidos)
                         {
                             int aux1 = auxiliar;
@@ -780,6 +790,10 @@ namespace Comisariato.Formularios.Transacciones
                         if (i == 0)
                         {
                             inicioContador = 0;
+                        }
+                        if (ItemsPermitidos == 0)
+                        {
+                            filasaxuiliar = totalfilas;
                         }
                         bool b = c.GuardarFact(filasaxuiliar, dg, encabezadofact, detallepago, ivas, inicioContador);
                         if (b)
@@ -804,8 +818,6 @@ namespace Comisariato.Formularios.Transacciones
 
 
                             Imprimirfact(inicioContador, filasaxuiliar);
-                            /*totalFacturasAImprimir*/
-                            //();
                             encabezadofact[2] = (Convert.ToInt32(encabezadofact[2])+1).ToString();
                             Program.em.Numfact = Convert.ToInt32(encabezadofact[2]);
 

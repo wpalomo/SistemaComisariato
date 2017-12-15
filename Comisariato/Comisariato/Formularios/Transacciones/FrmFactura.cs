@@ -1634,7 +1634,8 @@ namespace Comisariato.Formularios.Transacciones
             frmcobrar.descuentobd = txtDescuento.Text;
             frmcobrar.ivabd = txtIva.Text;
             frmcobrar.subtotal = txtSubTotal.Text;
-            frmcobrar.subtotaconiva = txtSubTotalIva.Text;
+            frmcobrar.subtotalconiva = txtSubTotalIva.Text;
+            frmcobrar.subtotalcero = txtSubTotalcero.Text;
             frmcobrar.descuento = txtDescuento.Text;
             frmcobrar.totalapagar = txtSubTotal.Text;
             frmcobrar.ivasuma = txtIva.Text;
