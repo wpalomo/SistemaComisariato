@@ -29,6 +29,8 @@ namespace Comisariato.Formularios.Transacciones
                 dgvProductosDevolucion.Rows.Add();
             }
             dgvProductosDevolucion.Rows[i].ReadOnly = true;
+            dgvProductosDevolucion.Columns[10].ReadOnly = true;
+            dgvProductosDevolucion.Columns[11].ReadOnly = true;
         }
 
         private void cbProveedor_Leave(object sender, EventArgs e)
@@ -57,7 +59,8 @@ namespace Comisariato.Formularios.Transacciones
                         dgvProductosDevolucion.Rows[i].Cells[4].Value = row["DESCUENTO"];//descuento
                         dgvProductosDevolucion.Rows[i].Cells[5].Value = row["ICE"];//ice
                         dgvProductosDevolucion.Rows[i].Cells[6].Value = row["IRBP"];//irbp
-
+                        dgvProductosDevolucion.Rows[i].Cells[10].ReadOnly = false;
+                        dgvProductosDevolucion.Rows[i].Cells[11].ReadOnly = false;
                     }
                 }
             }

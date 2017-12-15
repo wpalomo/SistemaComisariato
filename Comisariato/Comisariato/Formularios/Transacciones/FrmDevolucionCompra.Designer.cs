@@ -36,6 +36,18 @@
             this.btnSalirCompra = new System.Windows.Forms.Button();
             this.gbDetalleProducto = new System.Windows.Forms.GroupBox();
             this.dgvProductosDevolucion = new System.Windows.Forms.DataGridView();
+            this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precioCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iceProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.irbpProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iva = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidadDevolver = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.devolucion = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.txtTotal = new System.Windows.Forms.TextBox();
             this.txtIRBP = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -53,9 +65,16 @@
             this.BtnLimpiar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.gbEncabezadoCompra = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtAutorizacionNC = new System.Windows.Forms.TextBox();
+            this.txtImpuesto = new System.Windows.Forms.TextBox();
+            this.txtNumeroNC = new System.Windows.Forms.TextBox();
             this.txtNumero = new System.Windows.Forms.TextBox();
+            this.txtSerie1NC = new System.Windows.Forms.TextBox();
             this.txtSerie1 = new System.Windows.Forms.TextBox();
+            this.txtSerie2NC = new System.Windows.Forms.TextBox();
             this.txtSerie2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnProveedor = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
@@ -70,25 +89,6 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtSerie2NC = new System.Windows.Forms.TextBox();
-            this.txtSerie1NC = new System.Windows.Forms.TextBox();
-            this.txtNumeroNC = new System.Windows.Forms.TextBox();
-            this.txtImpuesto = new System.Windows.Forms.TextBox();
-            this.txtAutorizacionNC = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precioCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iceProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.irbpProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iva = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidadDevolver = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.devolucion = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tabControl1.SuspendLayout();
             this.pcOrdenCompra.SuspendLayout();
             this.gbDetalleProducto.SuspendLayout();
@@ -207,6 +207,100 @@
             this.dgvProductosDevolucion.RowHeadersVisible = false;
             this.dgvProductosDevolucion.Size = new System.Drawing.Size(880, 150);
             this.dgvProductosDevolucion.TabIndex = 11;
+            // 
+            // codigo
+            // 
+            this.codigo.FillWeight = 147.1193F;
+            this.codigo.HeaderText = "Código";
+            this.codigo.Name = "codigo";
+            this.codigo.ReadOnly = true;
+            this.codigo.Width = 95;
+            // 
+            // producto
+            // 
+            this.producto.FillWeight = 208.2813F;
+            this.producto.HeaderText = "Producto";
+            this.producto.Name = "producto";
+            this.producto.ReadOnly = true;
+            this.producto.Width = 200;
+            // 
+            // cantidad
+            // 
+            this.cantidad.FillWeight = 60.1572F;
+            this.cantidad.HeaderText = "Cant.";
+            this.cantidad.Name = "cantidad";
+            this.cantidad.ReadOnly = true;
+            this.cantidad.Width = 45;
+            // 
+            // precioCompra
+            // 
+            this.precioCompra.FillWeight = 75.41525F;
+            this.precioCompra.HeaderText = "P.C.";
+            this.precioCompra.Name = "precioCompra";
+            this.precioCompra.ReadOnly = true;
+            this.precioCompra.Width = 50;
+            // 
+            // descuento
+            // 
+            this.descuento.FillWeight = 90.65001F;
+            this.descuento.HeaderText = "Desc.";
+            this.descuento.Name = "descuento";
+            this.descuento.ReadOnly = true;
+            this.descuento.Width = 50;
+            // 
+            // iceProducto
+            // 
+            this.iceProducto.FillWeight = 65.87027F;
+            this.iceProducto.HeaderText = "ICE";
+            this.iceProducto.Name = "iceProducto";
+            this.iceProducto.ReadOnly = true;
+            this.iceProducto.Width = 45;
+            // 
+            // irbpProducto
+            // 
+            this.irbpProducto.FillWeight = 68.26523F;
+            this.irbpProducto.HeaderText = "IRBP";
+            this.irbpProducto.Name = "irbpProducto";
+            this.irbpProducto.ReadOnly = true;
+            this.irbpProducto.Width = 51;
+            // 
+            // subtotal
+            // 
+            this.subtotal.FillWeight = 107.4997F;
+            this.subtotal.HeaderText = "Subtotal";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
+            this.subtotal.Width = 80;
+            // 
+            // iva
+            // 
+            this.iva.FillWeight = 64.72799F;
+            this.iva.HeaderText = "IVA";
+            this.iva.Name = "iva";
+            this.iva.ReadOnly = true;
+            this.iva.Width = 49;
+            // 
+            // total
+            // 
+            this.total.FillWeight = 96.68581F;
+            this.total.HeaderText = "Total";
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
+            this.total.Width = 70;
+            // 
+            // cantidadDevolver
+            // 
+            this.cantidadDevolver.HeaderText = "C. Dev.";
+            this.cantidadDevolver.Name = "cantidadDevolver";
+            this.cantidadDevolver.Width = 80;
+            // 
+            // devolucion
+            // 
+            this.devolucion.HeaderText = "Dev";
+            this.devolucion.Name = "devolucion";
+            this.devolucion.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.devolucion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.devolucion.Width = 40;
             // 
             // txtTotal
             // 
@@ -405,38 +499,108 @@
             this.gbEncabezadoCompra.TabStop = false;
             this.gbEncabezadoCompra.Text = "Datos de la Orden de Compra";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Teal;
+            this.label4.Location = new System.Drawing.Point(459, 24);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 16);
+            this.label4.TabIndex = 51;
+            this.label4.Text = "Autorización:";
+            // 
+            // txtAutorizacionNC
+            // 
+            this.txtAutorizacionNC.Font = new System.Drawing.Font("Arial", 10F);
+            this.txtAutorizacionNC.Location = new System.Drawing.Point(545, 21);
+            this.txtAutorizacionNC.MaxLength = 9;
+            this.txtAutorizacionNC.Name = "txtAutorizacionNC";
+            this.txtAutorizacionNC.ReadOnly = true;
+            this.txtAutorizacionNC.Size = new System.Drawing.Size(185, 23);
+            this.txtAutorizacionNC.TabIndex = 50;
+            // 
+            // txtImpuesto
+            // 
+            this.txtImpuesto.Location = new System.Drawing.Point(597, 52);
+            this.txtImpuesto.Name = "txtImpuesto";
+            this.txtImpuesto.ReadOnly = true;
+            this.txtImpuesto.Size = new System.Drawing.Size(54, 22);
+            this.txtImpuesto.TabIndex = 49;
+            // 
+            // txtNumeroNC
+            // 
+            this.txtNumeroNC.Font = new System.Drawing.Font("Arial", 10F);
+            this.txtNumeroNC.Location = new System.Drawing.Point(298, 21);
+            this.txtNumeroNC.MaxLength = 9;
+            this.txtNumeroNC.Name = "txtNumeroNC";
+            this.txtNumeroNC.ReadOnly = true;
+            this.txtNumeroNC.Size = new System.Drawing.Size(156, 23);
+            this.txtNumeroNC.TabIndex = 4;
+            // 
             // txtNumero
             // 
             this.txtNumero.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtNumero.Location = new System.Drawing.Point(298, 49);
+            this.txtNumero.Location = new System.Drawing.Point(298, 82);
             this.txtNumero.MaxLength = 9;
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(156, 23);
             this.txtNumero.TabIndex = 4;
             // 
+            // txtSerie1NC
+            // 
+            this.txtSerie1NC.Font = new System.Drawing.Font("Arial", 10F);
+            this.txtSerie1NC.Location = new System.Drawing.Point(147, 21);
+            this.txtSerie1NC.MaxLength = 3;
+            this.txtSerie1NC.Name = "txtSerie1NC";
+            this.txtSerie1NC.ReadOnly = true;
+            this.txtSerie1NC.Size = new System.Drawing.Size(56, 23);
+            this.txtSerie1NC.TabIndex = 2;
+            // 
             // txtSerie1
             // 
             this.txtSerie1.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtSerie1.Location = new System.Drawing.Point(147, 49);
+            this.txtSerie1.Location = new System.Drawing.Point(147, 82);
             this.txtSerie1.MaxLength = 3;
             this.txtSerie1.Name = "txtSerie1";
             this.txtSerie1.Size = new System.Drawing.Size(56, 23);
             this.txtSerie1.TabIndex = 2;
             // 
+            // txtSerie2NC
+            // 
+            this.txtSerie2NC.Font = new System.Drawing.Font("Arial", 10F);
+            this.txtSerie2NC.Location = new System.Drawing.Point(217, 21);
+            this.txtSerie2NC.MaxLength = 3;
+            this.txtSerie2NC.Name = "txtSerie2NC";
+            this.txtSerie2NC.ReadOnly = true;
+            this.txtSerie2NC.Size = new System.Drawing.Size(56, 23);
+            this.txtSerie2NC.TabIndex = 3;
+            // 
             // txtSerie2
             // 
             this.txtSerie2.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtSerie2.Location = new System.Drawing.Point(217, 49);
+            this.txtSerie2.Location = new System.Drawing.Point(217, 82);
             this.txtSerie2.MaxLength = 3;
             this.txtSerie2.Name = "txtSerie2";
             this.txtSerie2.Size = new System.Drawing.Size(56, 23);
             this.txtSerie2.TabIndex = 3;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.label2.Location = new System.Drawing.Point(10, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(120, 16);
+            this.label2.TabIndex = 48;
+            this.label2.Text = "N° Nota de Crédito:";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.label1.Location = new System.Drawing.Point(10, 52);
+            this.label1.Location = new System.Drawing.Point(10, 85);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(131, 16);
             this.label1.TabIndex = 48;
@@ -445,7 +609,7 @@
             // btnProveedor
             // 
             this.btnProveedor.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProveedor.Location = new System.Drawing.Point(673, 50);
+            this.btnProveedor.Location = new System.Drawing.Point(462, 53);
             this.btnProveedor.Name = "btnProveedor";
             this.btnProveedor.Size = new System.Drawing.Size(57, 23);
             this.btnProveedor.TabIndex = 47;
@@ -457,7 +621,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Teal;
-            this.label13.Location = new System.Drawing.Point(459, 52);
+            this.label13.Location = new System.Drawing.Point(10, 55);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(69, 16);
@@ -468,9 +632,9 @@
             // 
             this.cbProveedor.DropDownWidth = 225;
             this.cbProveedor.Font = new System.Drawing.Font("Arial", 10F);
-            this.cbProveedor.Location = new System.Drawing.Point(545, 48);
+            this.cbProveedor.Location = new System.Drawing.Point(147, 52);
             this.cbProveedor.Name = "cbProveedor";
-            this.cbProveedor.Size = new System.Drawing.Size(122, 24);
+            this.cbProveedor.Size = new System.Drawing.Size(307, 24);
             this.cbProveedor.TabIndex = 6;
             this.cbProveedor.Leave += new System.EventHandler(this.cbProveedor_Leave);
             // 
@@ -479,7 +643,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Teal;
-            this.label3.Location = new System.Drawing.Point(734, 52);
+            this.label3.Location = new System.Drawing.Point(523, 55);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 16);
             this.label3.TabIndex = 38;
@@ -496,7 +660,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(1048, 546);
+            this.tabPage2.Size = new System.Drawing.Size(926, 520);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Consultar Nota de Credito";
             // 
@@ -588,170 +752,6 @@
             this.label16.Size = new System.Drawing.Size(52, 16);
             this.label16.TabIndex = 17;
             this.label16.Text = "Desde:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.label2.Location = new System.Drawing.Point(10, 24);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 16);
-            this.label2.TabIndex = 48;
-            this.label2.Text = "N° Nota de Crédito:";
-            // 
-            // txtSerie2NC
-            // 
-            this.txtSerie2NC.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtSerie2NC.Location = new System.Drawing.Point(217, 21);
-            this.txtSerie2NC.MaxLength = 3;
-            this.txtSerie2NC.Name = "txtSerie2NC";
-            this.txtSerie2NC.ReadOnly = true;
-            this.txtSerie2NC.Size = new System.Drawing.Size(56, 23);
-            this.txtSerie2NC.TabIndex = 3;
-            // 
-            // txtSerie1NC
-            // 
-            this.txtSerie1NC.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtSerie1NC.Location = new System.Drawing.Point(147, 21);
-            this.txtSerie1NC.MaxLength = 3;
-            this.txtSerie1NC.Name = "txtSerie1NC";
-            this.txtSerie1NC.ReadOnly = true;
-            this.txtSerie1NC.Size = new System.Drawing.Size(56, 23);
-            this.txtSerie1NC.TabIndex = 2;
-            // 
-            // txtNumeroNC
-            // 
-            this.txtNumeroNC.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtNumeroNC.Location = new System.Drawing.Point(298, 21);
-            this.txtNumeroNC.MaxLength = 9;
-            this.txtNumeroNC.Name = "txtNumeroNC";
-            this.txtNumeroNC.ReadOnly = true;
-            this.txtNumeroNC.Size = new System.Drawing.Size(156, 23);
-            this.txtNumeroNC.TabIndex = 4;
-            // 
-            // txtImpuesto
-            // 
-            this.txtImpuesto.Location = new System.Drawing.Point(808, 49);
-            this.txtImpuesto.Name = "txtImpuesto";
-            this.txtImpuesto.ReadOnly = true;
-            this.txtImpuesto.Size = new System.Drawing.Size(54, 22);
-            this.txtImpuesto.TabIndex = 49;
-            // 
-            // txtAutorizacionNC
-            // 
-            this.txtAutorizacionNC.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtAutorizacionNC.Location = new System.Drawing.Point(545, 21);
-            this.txtAutorizacionNC.MaxLength = 9;
-            this.txtAutorizacionNC.Name = "txtAutorizacionNC";
-            this.txtAutorizacionNC.ReadOnly = true;
-            this.txtAutorizacionNC.Size = new System.Drawing.Size(185, 23);
-            this.txtAutorizacionNC.TabIndex = 50;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Teal;
-            this.label4.Location = new System.Drawing.Point(459, 24);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 16);
-            this.label4.TabIndex = 51;
-            this.label4.Text = "Autorización:";
-            // 
-            // codigo
-            // 
-            this.codigo.FillWeight = 147.1193F;
-            this.codigo.HeaderText = "Código";
-            this.codigo.Name = "codigo";
-            this.codigo.ReadOnly = true;
-            this.codigo.Width = 95;
-            // 
-            // producto
-            // 
-            this.producto.FillWeight = 208.2813F;
-            this.producto.HeaderText = "Producto";
-            this.producto.Name = "producto";
-            this.producto.ReadOnly = true;
-            this.producto.Width = 200;
-            // 
-            // cantidad
-            // 
-            this.cantidad.FillWeight = 60.1572F;
-            this.cantidad.HeaderText = "Cant.";
-            this.cantidad.Name = "cantidad";
-            this.cantidad.ReadOnly = true;
-            this.cantidad.Width = 45;
-            // 
-            // precioCompra
-            // 
-            this.precioCompra.FillWeight = 75.41525F;
-            this.precioCompra.HeaderText = "P.C.";
-            this.precioCompra.Name = "precioCompra";
-            this.precioCompra.ReadOnly = true;
-            this.precioCompra.Width = 50;
-            // 
-            // descuento
-            // 
-            this.descuento.FillWeight = 90.65001F;
-            this.descuento.HeaderText = "Desc.";
-            this.descuento.Name = "descuento";
-            this.descuento.ReadOnly = true;
-            this.descuento.Width = 50;
-            // 
-            // iceProducto
-            // 
-            this.iceProducto.FillWeight = 65.87027F;
-            this.iceProducto.HeaderText = "ICE";
-            this.iceProducto.Name = "iceProducto";
-            this.iceProducto.ReadOnly = true;
-            this.iceProducto.Width = 45;
-            // 
-            // irbpProducto
-            // 
-            this.irbpProducto.FillWeight = 68.26523F;
-            this.irbpProducto.HeaderText = "IRBP";
-            this.irbpProducto.Name = "irbpProducto";
-            this.irbpProducto.ReadOnly = true;
-            this.irbpProducto.Width = 51;
-            // 
-            // subtotal
-            // 
-            this.subtotal.FillWeight = 107.4997F;
-            this.subtotal.HeaderText = "Subtotal";
-            this.subtotal.Name = "subtotal";
-            this.subtotal.ReadOnly = true;
-            this.subtotal.Width = 80;
-            // 
-            // iva
-            // 
-            this.iva.FillWeight = 64.72799F;
-            this.iva.HeaderText = "IVA";
-            this.iva.Name = "iva";
-            this.iva.ReadOnly = true;
-            this.iva.Width = 49;
-            // 
-            // total
-            // 
-            this.total.FillWeight = 96.68581F;
-            this.total.HeaderText = "Total";
-            this.total.Name = "total";
-            this.total.ReadOnly = true;
-            this.total.Width = 70;
-            // 
-            // cantidadDevolver
-            // 
-            this.cantidadDevolver.HeaderText = "C. Dev.";
-            this.cantidadDevolver.Name = "cantidadDevolver";
-            this.cantidadDevolver.Width = 80;
-            // 
-            // devolucion
-            // 
-            this.devolucion.HeaderText = "Dev";
-            this.devolucion.Name = "devolucion";
-            this.devolucion.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.devolucion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.devolucion.Width = 40;
             // 
             // FrmDevolucionCompra
             // 
