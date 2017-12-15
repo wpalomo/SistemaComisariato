@@ -727,7 +727,7 @@ namespace Comisariato.Formularios.Transacciones
                     ivabd= Funcion.reemplazarcaracter(ivabd);
                     descuentobd= Funcion.reemplazarcaracter(descuentobd);
 
-                    detallepago.Add(ivabd);
+                    //detallepago.Add(ivabd);
                     detallepago.Add(descuentobd);
                     if (txtEfectivo.Text=="")
                     {
@@ -750,9 +750,9 @@ namespace Comisariato.Formularios.Transacciones
 
 
 
-                    detallepago.Add(Funcion.reemplazarcaracter(subtotalcero.ToString()));
-                    detallepago.Add(Funcion.reemplazarcaracter(subtotalconiva.ToString()));
-                    detallepago.Add(Funcion.reemplazarcaracter(totals.ToString()));
+                    //detallepago.Add(Funcion.reemplazarcaracter(subtotalcero.ToString()));
+                    //detallepago.Add(Funcion.reemplazarcaracter(subtotalconiva.ToString()));
+                    //detallepago.Add(Funcion.reemplazarcaracter(totals.ToString()));
 
 
 
@@ -795,7 +795,14 @@ namespace Comisariato.Formularios.Transacciones
                         {
                             filasaxuiliar = totalfilas;
                         }
+                        List<double> DetallePago = calcularDetallepago(inicioContador, filasaxuiliar);
+                        detallepago.Add(Funcion.reemplazarcaracter(DetallePago[0].ToString()));
+                        detallepago.Add(Funcion.reemplazarcaracter(DetallePago[1].ToString()));
+                        detallepago.Add(Funcion.reemplazarcaracter(DetallePago[2].ToString()));
+                        detallepago.Add(Funcion.reemplazarcaracter(DetallePago[3].ToString()));
+
                         bool b = c.GuardarFact(filasaxuiliar, dg, encabezadofact, detallepago, ivas, inicioContador);
+                        detallepago.RemoveRange(6, 4);
                         if (b)
                         {
 
@@ -934,7 +941,7 @@ namespace Comisariato.Formularios.Transacciones
             ticket.TextoIzquierda("         Informacion del Consumidor");//Es el mio por si me quieren contactar ...
             ticket.TextoIzquierda("RUC: " + identificacion);
             ticket.TextoIzquierda("Cliente: " + nombre);
-            ticket.TextoIzquierda("Facturado: " + Program.Usuario+ "# CAJA: " + numcaja.ToString("D3"));
+            ticket.TextoIzquierda("Facturado: " + Program.Usuario + "# CAJA: " + numcaja.ToString("D3"));
             //ticket.TextoIzquierda("# CAJA: " + numcaja.ToString("D3"));
             string[] h = DateTime.Now.TimeOfDay.ToString().Split('.');
             ticket.TextoIzquierda("Fecha: " + fechactual + "          " + h[0]);
@@ -987,14 +994,14 @@ namespace Comisariato.Formularios.Transacciones
             }
             if (Program.BoolAutorizadoImprimir)
             { ticket.lineasAsteriscos(); }
-            
+
 
 
             ///////////////////PRUEBA
 
 
             //////////////////PRUEBA
-            double imsubtotal = 0F, imivasuma = 0F, subtotaliva = 0F, totaapagar = 0.0f;
+
             //Articulos a vender.
             ticket.EncabezadoVenta();//NOMBRE DEL ARTICULO, CANT, PRECIO, IMPORTE
             ticket.lineasAsteriscos();
@@ -1008,29 +1015,21 @@ namespace Comisariato.Formularios.Transacciones
             {
 
                 double total = Convert.ToDouble(dg.Rows[J].Cells[4].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
-                double iva = 0.0f;
                 if (Convert.ToSingle(dg.Rows[J].Cells[5].Value.ToString()) != 0)
                 {
-                    iva = (Convert.ToDouble(dg.Rows[J].Cells[5].Value.ToString()));
                     ticket.AgregaArticulo("*" + dg.Rows[J].Cells[1].Value.ToString(), int.Parse(dg.Rows[J].Cells[2].Value.ToString()),
                     Convert.ToSingle(dg.Rows[J].Cells[4].Value).ToString("#####0.00"), total.ToString("#####0.00"));
-
-                    imivasuma += Convert.ToDouble(dg.Rows[J].Cells[5].Value);
-                    subtotaliva += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
-                    //subtotaliva += (total + Convert.ToDouble(dg.Rows[i].Cells[5].Value));
                 }
                 else
                 {
                     ticket.AgregaArticulo(" " + dg.Rows[J].Cells[1].Value.ToString(), int.Parse(dg.Rows[J].Cells[2].Value.ToString()),
                 Convert.ToSingle(dg.Rows[J].Cells[4].Value).ToString("#####0.00"), total.ToString("#####0.00"));
-
-                    //imsubtotal += Convert.ToSingle(dg.Rows[i].Cells[4].Value.ToString());
-                    imsubtotal += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
                 }
-                //imsubtotal += total;
-
-                totaapagar += total + iva;
             }
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            List<double> DetallePago = calcularDetallepago(inicioContador, filasaxuiliar);
 
             if (cantidadVendida < cantItems)
             {
@@ -1042,17 +1041,13 @@ namespace Comisariato.Formularios.Transacciones
                 }
             }
 
-            imsubtotal = Math.Round(imsubtotal, 2);
-            subtotaliva = Math.Round(subtotaliva, 2);
-            imivasuma = Math.Round(imivasuma, 2);
-            totaapagar = Math.Round(totaapagar, 2);
             ticket.lineasAsteriscos();
             //Resumen de la venta. Sólo son ejemplos
-            ticket.AgregarTotales("SUBTOTAL  0%", imsubtotal);
-            ticket.AgregarTotales("SUBTOTAL 12% ", subtotaliva);
+            ticket.AgregarTotales("SUBTOTAL  0%", DetallePago[0]);
+            ticket.AgregarTotales("SUBTOTAL 12% ", DetallePago[1]);
             ticket.AgregarTotales("Descuento", Convert.ToSingle(descuento));
-            ticket.AgregarTotales("Iva 12%  ", imivasuma);
-            ticket.AgregarTotales("Total a pagar", Convert.ToSingle(totaapagar));
+            ticket.AgregarTotales("Iva 12%  ", DetallePago[2]);
+            ticket.AgregarTotales("Total a pagar", Convert.ToSingle(DetallePago[3]));
 
             if (Program.BoolAutorizadoImprimir)
             {
@@ -1149,6 +1144,43 @@ namespace Comisariato.Formularios.Transacciones
 
         }
 
+        private List<double> calcularDetallepago(int inicioContador, int filasaxuiliar)
+        {
+            double imsubtotal = 0F, imivasuma = 0F, subtotaliva = 0F, totaapagar = 0.0f;
+            for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
+            {
+
+                double total = Convert.ToDouble(dg.Rows[J].Cells[4].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
+                double iva = 0.0f;
+                if (Convert.ToSingle(dg.Rows[J].Cells[5].Value.ToString()) != 0)
+                {
+                    iva = (Convert.ToDouble(dg.Rows[J].Cells[5].Value.ToString()));
+
+                    imivasuma += Convert.ToDouble(dg.Rows[J].Cells[5].Value);
+                    subtotaliva += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
+                }
+                else
+                {
+                    imsubtotal += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
+                }
+                totaapagar += total + iva;
+            }
+
+            imsubtotal = Math.Round(imsubtotal, 2);
+            subtotaliva = Math.Round(subtotaliva, 2);
+            imivasuma = Math.Round(imivasuma, 2);
+            totaapagar = Math.Round(totaapagar, 2);
+
+            List<double> DetallePago = new List<double>();
+            DetallePago.Add(imsubtotal);
+            DetallePago.Add(subtotaliva);
+            DetallePago.Add(imivasuma);
+            DetallePago.Add(totaapagar);
+
+            return DetallePago;
+
+
+        }
 
         private void ImprimirenRed()
         {
