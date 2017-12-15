@@ -1147,6 +1147,7 @@ namespace Comisariato.Formularios.Transacciones
         private List<double> calcularDetallepago(int inicioContador, int filasaxuiliar)
         {
             double imsubtotal = 0F, imivasuma = 0F, subtotaliva = 0F, totaapagar = 0.0f;
+            filasaxuiliar = filasaxuiliar + inicioContador;
             for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
             {
 
