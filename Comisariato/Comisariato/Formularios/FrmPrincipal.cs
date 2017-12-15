@@ -463,37 +463,40 @@ namespace Comisariato.Formularios
             }
             else if (nombre == "Devolución en Compras")
             {
-                //if (FrmDevolucionVenta == null || FrmDevolucionVenta.IsDisposed)
-                //{
-                //    FrmDevolucionVenta = new FrmDevolucionVenta();
-                //    objFuncion.AddFormInPanel(FrmDevolucionVenta, Program.panelPrincipalVariable);
-                //}
-                //else
-                //{
-                //    int index = panelPrincipal.Controls.GetChildIndex(FrmDevolucionVenta);
-                //    FrmDevolucionVenta.BringToFront();
-                //}
-                if (FrmDevolucionCompra == null || FrmDevolucionCompra.IsDisposed)
+                string IpMaquina = bitacora.LocalIPAddress();
+                DataTable Dt = objConsulta.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
+                bool banderaCaja = false;
+                if (Dt.Rows.Count > 0)
                 {
-                    FrmDevolucionCompra = new FrmDevolucionCompra();
-                    //FrmDevolucionVenta.BringToFront();
-                    FrmDevolucionCompra.Show();
-                    FrmDevolucionCompra.MdiParent = this;
+                    for (int i = 0; i < Dt.Rows.Count; i++)
+                    {
+                        banderaCaja = true;
+                        DataRow myRows = Dt.Rows[i];
+                        if (myRows["TIPODOCUMENTO"].ToString() == "NCRE")
+                        {
+                            banderaCaja = false;
+                            if (FrmDevolucionCompra == null || FrmDevolucionCompra.IsDisposed)
+                            {
+                                FrmDevolucionCompra = new FrmDevolucionCompra();
+                                //FrmDevolucionVenta.BringToFront();
+                                FrmDevolucionCompra.Show();
+                                FrmDevolucionCompra.MdiParent = this;
+                                break;
+                            }
+                        }
+                    }
+                    if (banderaCaja)
+                    {
+                        MessageBox.Show("Caja no registrada");
+                    }
                 }
-                //else { FrmDevolucionVenta.BringToFront(); }
+                else
+                {
+                    MessageBox.Show("Caja no registrada");
+                }
             }
             else if (nombre == "Orden de Giro")
             {
-                //if (FrmOrdenDeGiro == null || FrmOrdenDeGiro.IsDisposed)
-                //{
-                //    FrmOrdenDeGiro = new FrmOrdenDeGiro();
-                //    objFuncion.AddFormInPanel(FrmOrdenDeGiro, Program.panelPrincipalVariable);
-                //}
-                //else
-                //{
-                //    int index = panelPrincipal.Controls.GetChildIndex(FrmOrdenDeGiro);
-                //    FrmOrdenDeGiro.BringToFront();
-                //}
                 string IpMaquina = bitacora.LocalIPAddress();
                 DataTable Dt = objConsulta.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
                 bool banderaCaja = false;
@@ -526,59 +529,18 @@ namespace Comisariato.Formularios
                 else
                 {
                     MessageBox.Show("Caja no registrada");
-                    //FrmOrdenDeGiro = new FrmOrdenDeGiro();
-                    ////FrmOrdenDeGiro.BringToFront();
-                    //FrmOrdenDeGiro.Show();
-                    //FrmOrdenDeGiro.MdiParent = this;
-                    //Asignar(FrmOrdenDeGiro.Text);
-                //}
-
-                //    FrmOrdenDeGiro = new FrmOrdenDeGiro();
-                //    //FrmOrdenDeGiro.BringToFront();
-                //    FrmOrdenDeGiro.Show();
-                //    FrmOrdenDeGiro.MdiParent = this;
-                //    Asignar(FrmOrdenDeGiro.Text);
-                //}
                 }
-                        //}
-                    //}
-                    //if (banderaCaja)
-                    //{
-                    //    MessageBox.Show("Caja no registrada");
-                    //}
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Caja no registrada");
-                //    //FrmOrdenDeGiro = new FrmOrdenDeGiro();
-                //    ////FrmOrdenDeGiro.BringToFront();
-                //    //FrmOrdenDeGiro.Show();
-                //    //FrmOrdenDeGiro.MdiParent = this;
-                //    //Asignar(FrmOrdenDeGiro.Text);
-                //}
-                
+
             }
             else if (nombre == "Devolución en Venta")
             {
-                //if (FrmDevolucionVenta == null || FrmDevolucionVenta.IsDisposed)
-                //{
-                //    FrmDevolucionVenta = new FrmDevolucionVenta();
-                //    objFuncion.AddFormInPanel(FrmDevolucionVenta, Program.panelPrincipalVariable);
-                //}
-                //else
-                //{
-                //    int index = panelPrincipal.Controls.GetChildIndex(FrmDevolucionVenta);
-                //    FrmDevolucionVenta.BringToFront();
-                //}
                 if (FrmDevolucionVenta == null || FrmDevolucionVenta.IsDisposed)
                 {
                     FrmDevolucionVenta = new FrmDevolucionVenta();
-                    //FrmDevolucionVenta.BringToFront();
                     FrmDevolucionVenta.Show();
                     FrmDevolucionVenta.MdiParent = this;
                     Asignar(FrmDevolucionVenta.Text);
                 }
-                //else { FrmDevolucionVenta.BringToFront(); }
             }
             else if (nombre == "Kardex")
             {

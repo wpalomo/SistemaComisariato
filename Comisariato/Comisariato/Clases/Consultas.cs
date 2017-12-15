@@ -1654,5 +1654,29 @@ namespace Comisariato.Clases
                 }
             }
         }
+        //Bitacora bitacora = new Bitacora();
+        public void seriesDocumentoRetencion(TextBox txtNumeroRetencion, TextBox txtSerie1Retencion, TextBox txtSerie2Retencion, TextBox txtAutorizacionRetencion, string tipoDocumento, string ip)
+        {
+            string numcaja = "", sucursal = "", documentoActual = "", autorizacion = "";
+            DataTable Dt = BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + ip + "' and ESTADO=1;");
+            if (Dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < Dt.Rows.Count; i++)
+                {
+                    DataRow myRows = Dt.Rows[i];
+                    if (myRows["TIPODOCUMENTO"].ToString() == tipoDocumento)
+                    {
+                        sucursal = myRows["SERIE1"].ToString();
+                        numcaja = myRows["SERIE2"].ToString();
+                        documentoActual = myRows["DOCUMENTOACTUAL"].ToString();
+                        autorizacion = myRows["AUTORIZACION"].ToString();
+                    }
+                }
+            }
+            txtNumeroRetencion.Text = documentoActual;
+            txtSerie1Retencion.Text = sucursal;
+            txtSerie2Retencion.Text = numcaja;
+            txtAutorizacionRetencion.Text = autorizacion;
+        }
     }
 }

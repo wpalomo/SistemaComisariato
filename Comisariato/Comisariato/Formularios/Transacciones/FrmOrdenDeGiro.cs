@@ -165,7 +165,7 @@ namespace Comisariato.Formularios.Transacciones
                 ObjConsul.BoolLlenarComboBox(cbSustentoTributario, "Select C.IDCODIGOSRI as ID,  C.DESCRIPCION as Texto from TbProveedor P, TbCodigoSRI C  where  P.CREDITO = C.IDCODIGOSRI and  P.IDPROVEEDOR = " + CmbProveedor.SelectedValue + "");
                 cbSustentoTributario.Enabled = false;            
             }
-            seriesDocumentoRetencion();
+           ObjConsul.seriesDocumentoRetencion(txtNumeroRetencion, txtSerie1Retencion, txtSerie2Retencion, txtAutorizacionRetencion, "RET", bitacora.LocalIPAddress());
         }
 
         private void txtNumero_Leave(object sender, EventArgs e)
@@ -405,8 +405,8 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     string numeroRetencion = (Convert.ToInt32(txtNumeroRetencion.Text) + 1).ToString("D9");                    
                     ObjConsul.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET [DOCUMENTOACTUAL] = '"+ numeroRetencion +"' WHERE SERIE1 = '"+ txtSerie1Retencion.Text + "' and SERIE2 = '" + txtSerie2Retencion.Text + "' and IPESTACION = '" + bitacora.LocalIPAddress() + "' and TIPODOCUMENTO = 'RET'");
-                    MessageBox.Show("Cliente Registrado Correctamente ", "Exito", MessageBoxButtons.OK);
-                    seriesDocumentoRetencion();
+                    MessageBox.Show("Cliente Registrado Corsrectamente ", "Exito", MessageBoxButtons.OK);
+                    ObjConsul.seriesDocumentoRetencion(txtNumeroRetencion, txtSerie1Retencion, txtSerie2Retencion, txtAutorizacionRetencion, "RET", bitacora.LocalIPAddress());
                     txtOrdenGiro.Text = (Convert.ToInt32(ObjConsul.ObtenerID("NUMEROORDENGIRO", "TbEncabezadoOrdenGiro", "")) + 1).ToString();
                     inicializar();
                 }
@@ -421,30 +421,30 @@ namespace Comisariato.Formularios.Transacciones
                 MessageBox.Show("Ingrese todos los datos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        public void seriesDocumentoRetencion()
-        {
-            string numcaja = "", sucursal = "", documentoActual = "", autorizacion = "";
-            string IpMaquina = bitacora.LocalIPAddress();
-            DataTable Dt =  ObjConsul.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
-            if (Dt.Rows.Count > 0)
-            {
-                for (int i = 0; i < Dt.Rows.Count; i++)
-                {
-                    DataRow myRows = Dt.Rows[i];
-                    if (myRows["TIPODOCUMENTO"].ToString() == "RET")
-                    {
-                        sucursal = myRows["SERIE1"].ToString();
-                        numcaja = myRows["SERIE2"].ToString();
-                        documentoActual = myRows["DOCUMENTOACTUAL"].ToString();
-                        autorizacion = myRows["AUTORIZACION"].ToString();
-                    }
-                }
-            }
-            txtNumeroRetencion.Text = documentoActual;
-            txtSerie1Retencion.Text = sucursal;
-            txtSerie2Retencion.Text = numcaja;
-            txtAutorizacionRetencion.Text = autorizacion;
-        }
+        //public void seriesDocumentoRetencion()
+        //{
+        //    string numcaja = "", sucursal = "", documentoActual = "", autorizacion = "";
+        //    string IpMaquina = bitacora.LocalIPAddress();
+        //    DataTable Dt =  ObjConsul.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
+        //    if (Dt.Rows.Count > 0)
+        //    {
+        //        for (int i = 0; i < Dt.Rows.Count; i++)
+        //        {
+        //            DataRow myRows = Dt.Rows[i];
+        //            if (myRows["TIPODOCUMENTO"].ToString() == "RET")
+        //            {
+        //                sucursal = myRows["SERIE1"].ToString();
+        //                numcaja = myRows["SERIE2"].ToString();
+        //                documentoActual = myRows["DOCUMENTOACTUAL"].ToString();
+        //                autorizacion = myRows["AUTORIZACION"].ToString();
+        //            }
+        //        }
+        //    }
+        //    txtNumeroRetencion.Text = documentoActual;
+        //    txtSerie1Retencion.Text = sucursal;
+        //    txtSerie2Retencion.Text = numcaja;
+        //    txtAutorizacionRetencion.Text = autorizacion;
+        //}
 
         private void CmbProveedor_KeyDown(object sender, KeyEventArgs e)
         {
