@@ -627,8 +627,8 @@ namespace Comisariato.Formularios
             catch (Exception ex)
             {
             }
+            Program.tamañoVentanaPrincipal = ClientSize.Height;
 
-            
         }        
 
         public void llenarTreeViewPrincipal()
