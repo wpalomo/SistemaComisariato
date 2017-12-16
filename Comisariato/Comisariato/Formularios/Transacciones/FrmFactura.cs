@@ -162,7 +162,7 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     txtIdentidicacion.Text = DatosCliente[0];
                     txtConsumidor.Text = DatosCliente[1];
-                    idcliente = Convert.ToInt32(DatosCliente[2]);
+                    idcliente = Convert.ToInt32(DatosCliente[4]);
                    // rdbFacturaDatos.Checked = true;
                     txtCodigo.Focus();
                 }
@@ -1651,8 +1651,10 @@ namespace Comisariato.Formularios.Transacciones
             ObtenerPedidos();
             frmcobrar.pedidos = pedidos;
             frmcobrar.ivas = Ivas;
+            frmcobrar.DatosCliente = DatosCliente;
             frmcobrar.ShowDialog();
             FrmFactura_Activated(null, null);
+
             //nuevafact();
             //}
 

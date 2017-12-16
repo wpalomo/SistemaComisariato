@@ -159,7 +159,7 @@ namespace Comisariato.Clases
         {
             get
             {
-                return DirMatriz;
+                return dirMatriz;
             }
 
             set
@@ -170,56 +170,27 @@ namespace Comisariato.Clases
 
         public string GenerarClaveAcceso(string fecha,string tipoComprobante,string serie)
         {
-            string clave="",NumCualquiera="00000010";
+            //16122017118021144290011001003000000064000000101
+            string clave ="",NumCualquiera="00000010";
             string[] vector = fecha.Split('/');
             clave = vector[0] + vector[1] + vector[2] + tipoComprobante + Ruc + ambiente + serie + Secuencial + NumCualquiera + tipoEmision;
-            int numeroverificador = DigitoModulo11(Convert.ToInt64(clave));
+            string numeroverificador = GetCheckDigit(clave);
             clave += numeroverificador;
             return clave;
         }
 
-        private int DigitoModulo11(long intNumero)
-
+        public string GetCheckDigit(string number)
         {
-
-            int[] intPesos = { 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9 };
-
-            string strText = intNumero.ToString();
-
-
-
-            if (strText.Length > 16)
-
-                throw new Exception("Número não suportado pela função!");
-
-
-
-            int intSoma = 0;
-
-            int intIdx = 0;
-
-            for (int intPos = strText.Length - 1; intPos >= 0; intPos--)
-
+            int sum = 0;
+            for (int i = number.Length - 1, multiplier = 2; i >= 0; i--)
             {
-
-                intSoma += Convert.ToInt32(strText[intPos].ToString()) * intPesos[intIdx];
-
-                intIdx++;
-
+                sum += (int)char.GetNumericValue(number[i]) * multiplier;
+                if (++multiplier > 9) multiplier = 2;
             }
-
-            int intResto = (intSoma * 10) % 11;
-
-            int intDigito = intResto;
-
-            if (intDigito >= 10)
-
-                intDigito = 0;
-
-
-
-            return intDigito;
-
+            int mod = (sum % 11);
+            if (mod == 0 || mod == 1) return "0";
+            return (11 - mod).ToString();
         }
+
     }
 }

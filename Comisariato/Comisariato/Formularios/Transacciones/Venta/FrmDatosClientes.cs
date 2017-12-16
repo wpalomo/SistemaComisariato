@@ -74,18 +74,16 @@ namespace Comisariato.Formularios.Transacciones
         private void dgvDatosUsuario_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            if (FrmFactura.DatosCliente.Count > 0)
-            {
-                FrmFactura.DatosCliente.Clear();
-            }
-            FrmFactura.verificadorfrm = 0;
-            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[0].Value.ToString());
-            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[1].Value.ToString() + " " + dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString());
-            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString());
-            this.Close();
+            LlenarListaCliente();
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+            LlenarListaCliente();
+        }
+
+
+        public void LlenarListaCliente()
         {
 
             if (FrmFactura.DatosCliente.Count > 0)
@@ -93,9 +91,14 @@ namespace Comisariato.Formularios.Transacciones
                 FrmFactura.DatosCliente.Clear();
             }
             FrmFactura.verificadorfrm = 0;
-            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[0].Value.ToString());
-            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[1].Value.ToString() + " " + dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString());
-            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString());
+
+            //Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL, tbCliente.RAZONSOCIAL, tbCliente.DIRECCION,tbCliente.IDCLIENTE from tbCliente;
+            
+            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[0].Value.ToString()); //Identificacion
+            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[1].Value.ToString() + " " + dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString());//Nombre + Apellido
+            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[5].Value.ToString()); // Direccion
+            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[4].Value.ToString()); //RazonSocial
+            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString()); //IDcLIENTE
             this.Close();
         }
 
@@ -120,15 +123,7 @@ namespace Comisariato.Formularios.Transacciones
                     case Keys.Escape:
                         try
                         {
-                            if (FrmFactura.DatosCliente.Count > 0)
-                            {
-                                FrmFactura.DatosCliente.Clear();
-                            }
-                            FrmFactura.verificadorfrm = 0;
-                            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[0].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[1].Value.ToString() + " " + dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString());
-                            this.Close();
+                            LlenarListaCliente();
                         }
                         catch (Exception)
                         {
@@ -406,7 +401,7 @@ namespace Comisariato.Formularios.Transacciones
         {
             //List<string> ListaClientes = ObjConsul.DatosCliente(TxtConsulta.Text);
             ObjConsul = new Consultas();
-            ObjConsul.boolLlenarDataGridView(dgvDatosUsuario, "Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL, tbCliente.RAZONSOCIAL, tbCliente.DIRECCION from tbCliente where IDENTIFICACION like '%" + TxtConsulta.Text + "%' or NOMBRES like '%" + TxtConsulta.Text + "%' or APELLIDOS like '%" + TxtConsulta.Text + "%';");
+            ObjConsul.boolLlenarDataGridView(dgvDatosUsuario, "Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL, tbCliente.RAZONSOCIAL, tbCliente.DIRECCION,tbCliente.IDCLIENTE from tbCliente where IDENTIFICACION like '%" + TxtConsulta.Text + "%' or NOMBRES like '%" + TxtConsulta.Text + "%' or APELLIDOS like '%" + TxtConsulta.Text + "%';");
         }
     }
 }
