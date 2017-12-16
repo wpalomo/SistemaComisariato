@@ -455,7 +455,11 @@ namespace Comisariato.Clases
                         producto.Iva = Convert.ToInt32(dato["IVA"]);
                         producto.Precioalmayor_sin_iva = Convert.ToSingle(dato["PRECIOVENTAMAYORISTA"]);
                         producto.Precioporcaja_sin_iva = Convert.ToSingle(dato["PRECIOVENTACAJA"]);
+<<<<<<< HEAD
                         producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
+=======
+                        
+>>>>>>> 50ab725f13bb6d33c3482908a3a78eb0d6065d81
                     }
                     else
                     {

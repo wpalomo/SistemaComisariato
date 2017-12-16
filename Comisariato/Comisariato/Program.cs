@@ -26,6 +26,7 @@ namespace Comisariato
         public static bool BoolPreimpresa = false;
         public static bool BoolAutorizadoImprimir = false;
         public static string DatosPreimpresa = "";
+        public static string IVA;
 
         //public static string IDUsuarioMenu = "";
         public static EmcabezadoFactura em = new EmcabezadoFactura();
