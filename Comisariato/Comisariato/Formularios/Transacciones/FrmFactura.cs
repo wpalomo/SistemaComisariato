@@ -162,7 +162,7 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     txtIdentidicacion.Text = DatosCliente[0];
                     txtConsumidor.Text = DatosCliente[1];
-                    idcliente = Convert.ToInt32(DatosCliente[2]);
+                    idcliente = Convert.ToInt32(DatosCliente[4]);
                    // rdbFacturaDatos.Checked = true;
                     txtCodigo.Focus();
                 }
@@ -302,7 +302,7 @@ namespace Comisariato.Formularios.Transacciones
            
         }
 
-        private void factproducto(float iva, int n)
+        private void factproducto(float iva, int n,bool libreimpuesto)
         {
 
             float total = 0.0f;
@@ -393,7 +393,7 @@ namespace Comisariato.Formularios.Transacciones
                      
                         total = (Convert.ToSingle(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text)) + iva;
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
-                        AgregarFila(codigos.Count - 1, total);
+                        AgregarFila(codigos.Count - 1, total, libreimpuesto);
                         Calcular();
                         pr = true;
                     }
@@ -453,7 +453,7 @@ namespace Comisariato.Formularios.Transacciones
                     {
                         total = Convert.ToInt32(txtCantidad.Text) * Convert.ToSingle(txtPrecio.Text);
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
-                        AgregarFila(codigos.Count - 1, total);
+                        AgregarFila(codigos.Count - 1, total, libreimpuesto);
                        
                         pr = true;
                         Calcular();
@@ -470,8 +470,8 @@ namespace Comisariato.Formularios.Transacciones
            // Calcular();
 
         }
-
-        private void AgregarFila(int fila, float total)
+        bool li;
+        private void AgregarFila(int fila, float total,bool LibreImpuesto)
         {
             
             dgvDetalleProductos.Rows[fila].Cells[0].Value = txtCodigo.Text;
@@ -481,6 +481,7 @@ namespace Comisariato.Formularios.Transacciones
             dgvDetalleProductos.Rows[fila].Cells[4].Value = txtPrecio.Text;
             dgvDetalleProductos.Rows[fila].Cells[5].Value = txtIvaPrecio.Text;
             dgvDetalleProductos.Rows[fila].Cells[6].Value = total.ToString("#####0.00"); ;
+            dgvDetalleProductos.Rows[fila].Cells[9].Value = Convert.ToInt32(LibreImpuesto);
             if (rdbCaja.Checked)
             {
                 dgvDetalleProductos.Rows[fila].Cells[8].Value = cantcaja;
@@ -788,6 +789,7 @@ namespace Comisariato.Formularios.Transacciones
                         if (Producto != null)
                         {
                             cantcaja = Producto.Caja;
+                            li = Producto.LibreImpuesto;
                             if (Producto.Cantidad == 0)
                             {
                                 MessageBox.Show("No hay unidades suficientes para vender.");
@@ -931,19 +933,19 @@ namespace Comisariato.Formularios.Transacciones
                                     txtIvaPrecio.Text = iva.ToString("#####0.00");
                                     if (tipoprecio == 1)
                                     {
-                                        factproducto(iva, 1);
+                                        factproducto(iva, 1,true);
                                     }
                                     else
                                     {
                                         if (tipoprecio == 0)
                                         {
-                                            factproducto(iva, 1);
+                                            factproducto(iva, 1,true);
                                         }
                                         else
                                         {
                                             if (tipoprecio == 2)
                                             {
-                                                factproducto(iva, 1);
+                                                factproducto(iva, 1,true);
                                             }
 
                                         }
@@ -964,19 +966,19 @@ namespace Comisariato.Formularios.Transacciones
                                     txtIvaPrecio.Text = iva.ToString("#####0.00");
                                     if (tipoprecio == 1)
                                     {
-                                        factproducto(iva, 1);
+                                        factproducto(iva, 1,true);
                                     }
                                     else
                                     {
                                         if (tipoprecio == 0)
                                         {
-                                            factproducto(iva, 1);
+                                            factproducto(iva, 1,true);
                                         }
                                         else
                                         {
                                             if (tipoprecio == 2)
                                             {
-                                                factproducto(iva, 1);
+                                                factproducto(iva, 1,true);
                                             }
 
                                         }
@@ -1003,20 +1005,20 @@ namespace Comisariato.Formularios.Transacciones
                                 {
                                     if (tipoprecio == 1)
                                     {
-                                        factproducto(iva, 2);
+                                        factproducto(iva, 2,li);
                                     }
                                     else
                                     {
                                         if (tipoprecio == 0)
                                         {
-                                            factproducto(iva, 2);
+                                            factproducto(iva, 2,li);
                                             //txtCodigo.Focus();
                                         }
                                         else
                                         {
                                             if (tipoprecio == 2)
                                             {
-                                                factproducto(iva, 2);
+                                                factproducto(iva, 2,li);
                                                 //  txtCodigo.Focus();
                                             }
 
@@ -1036,20 +1038,20 @@ namespace Comisariato.Formularios.Transacciones
                                 {
                                     if (tipoprecio == 1)
                                     {
-                                        factproducto(iva, 2);
+                                        factproducto(iva, 2,li);
                                     }
                                     else
                                     {
                                         if (tipoprecio == 0)
                                         {
-                                            factproducto(iva, 2);
+                                            factproducto(iva, 2, li);
                                             //txtCodigo.Focus();
                                         }
                                         else
                                         {
                                             if (tipoprecio == 2)
                                             {
-                                                factproducto(iva, 2);
+                                                factproducto(iva, 2,li);
                                                 //  txtCodigo.Focus();
                                             }
 
@@ -1649,8 +1651,10 @@ namespace Comisariato.Formularios.Transacciones
             ObtenerPedidos();
             frmcobrar.pedidos = pedidos;
             frmcobrar.ivas = Ivas;
+            frmcobrar.DatosCliente = DatosCliente;
             frmcobrar.ShowDialog();
             FrmFactura_Activated(null, null);
+
             //nuevafact();
             //}
 

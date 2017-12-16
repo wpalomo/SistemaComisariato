@@ -26,6 +26,7 @@ namespace Comisariato.Formularios.Transacciones
         public List<String> pedidos;
         public List<String> ivas;
         public string subtotal, subtotalconiva, descuento, ivasuma, totalapagar, subtotalcero,direccionComprador;
+        public List<string> DatosCliente;
         //private bool chequear;
         public FrmCobrar()
         {
@@ -868,19 +869,21 @@ namespace Comisariato.Formularios.Transacciones
             {
 
                 Xml xml = new Xml();
-                xml._crearXml(@"\\AIRCONTROL\Users\Administrador\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
+                //C:\Users\Programacion\Desktop\ArchivosXml\Generados
+                //xml._crearXml(@"\\AIRCONTROL\c\Users\Administrador\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
+                xml._crearXml(@"C:\Users\Programacion\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
                 InfoTributaria objcit = new InfoTributaria();
 
                 objcit.Ambiente = 1;
                 objcit.TipoEmision = 1;
-                objcit.RazonSociaL = "";
+                objcit.RazonSociaL = "GALO ALAVA MACAS";
                 objcit.NombreComerciaL = Program.nombreempresa;
                 objcit.RuC = Program.rucempresa;
                 objcit.CodDoC = "01";
                 objcit.EstaB = Program.em.Sucursal.ToString("D3");
                 objcit.PtoEmI = "001";
                 objcit.SecuenciaL = numfactbd.ToString("D9");
-                objcit.DirMatriz = Program.direccionempresa;
+                //objcit.DirMatriz = Program.direccionempresa;
                 string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
                 xml.InfoTributaria("infoTributaria", objcit, serie);
 
@@ -919,13 +922,20 @@ namespace Comisariato.Formularios.Transacciones
                 }
                 else
                 {
-                    objcif.RazonSocialComprador = nombre;
-                    objcif.IdentificacionComprador = identificacion;
-                    objcif.DireccionComprador = direccionComprador;
+                    //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[0].Value.ToString()); //Identificacion
+                    //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[1].Value.ToString() + " " + dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString());//Nombre + Apellido
+                    //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[5].Value.ToString()); // Direccion
+                    //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[4].Value.ToString()); //RazonSocial
+                    objcif.RazonSocialComprador = DatosCliente[3];
+                    objcif.IdentificacionComprador = DatosCliente[0];
+                    objcif.DireccionComprador = DatosCliente[2];
+                    
                 }
-
-                objcif.ObligadoContabilidad = "SI";
-                //string guiaremision= sucursal.ToString("D3") + "-" + caja.ToString("D3")+"-"+ numfactbd.ToString("D9");
+                objcif.TotalSinImpuestos = "" + subtotal;
+                objcif.ObligadoContabilidad = Program.obligadoContabilidad;
+                objcif.TotalSinImpuestos = subtotalcero;
+                objcif.TotalDescuento = descuento;
+                //objcif.BaseImponible=
                 objcif.GuiaRemision = sucursal.ToString("D3") + "-" + caja.ToString("D3") + "-" + numfactbd.ToString("D9");
                 xml.infoFactura("infoFactura", objcif);
                 xml.detalleFactura("detalles", dg);
@@ -1208,8 +1218,8 @@ namespace Comisariato.Formularios.Transacciones
             }
             ticket.CortaTicket();
 
-            String ruta = @"\\AIRCONTROL\BodegaPedido";
-            ticket.ImprimirTicket(ruta);
+            //String ruta = @"\\AIRCONTROL\BodegaPedido";
+            //ticket.ImprimirTicket(ruta);
 
             //ticket.ImprimirTicket("Generic / Text Only");//Nombre de la impresora ticketera
 

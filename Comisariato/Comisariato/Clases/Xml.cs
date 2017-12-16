@@ -69,18 +69,32 @@ namespace Comisariato.Clases
             XmlNode detalles = doc.CreateElement("detalles");
             for (int i = 0; i < dgv.RowCount; i++)
             {
-                XmlNode NodoDetalles;
+                XmlNode NodoDetalles=null;
                 if (Convert.ToString(dgv.Rows[i].Cells[0].Value)!=null)
                 {
-                    if (Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[5].Value)) == 0)
+                    if (Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[9].Value))==1)
                     {
-                        NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "2", "12.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[6].Value));
+                        NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "6", "0", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[6].Value));
                     }
                     else
                     {
-                        NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "2", "12.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[6].Value));
+                        if (Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[5].Value)) == 0)
+                        {
+                            NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "0", "0", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[6].Value));
+                        }
+                        else
+                        {
+                            if (Program.IVA=="14")
+                            {
+                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "3", "14.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[6].Value));
+                            }
+                            else
+                            {
+                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "2", "12.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[6].Value));
+                            }
+                            
+                        }
                     }
-
                     detalles.AppendChild(NodoDetalles);
                 }
                 else
@@ -173,9 +187,9 @@ namespace Comisariato.Clases
             nodofechaemision.InnerText = fechaEmision;
             Nodoraiz.AppendChild(nodofechaemision);
 
-            XmlElement nododirEstablecimiento = doc.CreateElement("dirEstablecimiento");
-            nododirEstablecimiento.InnerText = dirEstablecimiento;
-            Nodoraiz.AppendChild(nododirEstablecimiento);
+            //XmlElement nododirEstablecimiento = doc.CreateElement("dirEstablecimiento");
+            //nododirEstablecimiento.InnerText = dirEstablecimiento;
+            //Nodoraiz.AppendChild(nododirEstablecimiento);
 
             XmlElement nodocontribuyenteEspecial = doc.CreateElement("contribuyenteEspecial");
             nodocontribuyenteEspecial.InnerText = contribuyenteEspecial;
