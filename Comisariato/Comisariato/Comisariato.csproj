@@ -192,6 +192,12 @@
     <Compile Include="Formularios\Inventario\FrmProductos.Designer.cs">
       <DependentUpon>FrmProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\SRI\FrmDeclaracionSRI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\SRI\FrmDeclaracionSRI.Designer.cs">
+      <DependentUpon>FrmDeclaracionSRI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Transacciones\FrmDevolucionCompra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Inventario\FrmProductos.resx">
       <DependentUpon>FrmProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\SRI\FrmDeclaracionSRI.resx">
+      <DependentUpon>FrmDeclaracionSRI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\FrmDevolucionCompra.resx">
       <DependentUpon>FrmDevolucionCompra.cs</DependentUpon>
