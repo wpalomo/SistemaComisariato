@@ -868,12 +868,12 @@ namespace Comisariato.Formularios.Transacciones
             {
 
                 Xml xml = new Xml();
-                xml._crearXml(@"\\AIRCONTROL\Users\Administrador\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
+                xml._crearXml(@"\\AIRCONTROL\Users\Administrador\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9")+"" + DateTime.Now.Date.ToShortDateString() + ".xml", "factura");
                 InfoTributaria objcit = new InfoTributaria();
 
                 objcit.Ambiente = 1;
                 objcit.TipoEmision = 1;
-                objcit.RazonSociaL = "";
+                objcit.RazonSociaL = "GALO ALAVA MACAS";
                 objcit.NombreComerciaL = Program.nombreempresa;
                 objcit.RuC = Program.rucempresa;
                 objcit.CodDoC = "01";
@@ -923,9 +923,8 @@ namespace Comisariato.Formularios.Transacciones
                     objcif.IdentificacionComprador = identificacion;
                     objcif.DireccionComprador = direccionComprador;
                 }
-
+                objcif.TotalSinImpuestos = "" + subtotal;
                 objcif.ObligadoContabilidad = "SI";
-                //string guiaremision= sucursal.ToString("D3") + "-" + caja.ToString("D3")+"-"+ numfactbd.ToString("D9");
                 objcif.GuiaRemision = sucursal.ToString("D3") + "-" + caja.ToString("D3") + "-" + numfactbd.ToString("D9");
                 xml.infoFactura("infoFactura", objcif);
                 xml.detalleFactura("detalles", dg);
