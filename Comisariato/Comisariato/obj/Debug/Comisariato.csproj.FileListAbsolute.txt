@@ -621,7 +621,6 @@ C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariat
 C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.FrmReimprimirFact.resources
 C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Properties.Resources.resources
 C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.csproj.GenerateResource.Cache
-<<<<<<< HEAD
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\bin\Debug\Comisariato.exe.config
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.exe
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.pdb
@@ -662,7 +661,6 @@ C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.FrmReimprimirFact.resources
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Properties.Resources.resources
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.csproj.GenerateResource.Cache
-=======
 C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\bin\Debug\Comisariato.exe.config
 C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.exe
 C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.pdb
