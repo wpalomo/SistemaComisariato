@@ -18,46 +18,105 @@ namespace Comisariato.Formularios.Informes
             InitializeComponent();
         }
         Consultas objConsulta = new Consultas();
-        string cadenaGeneral = "Select EF.SUCURSAL, EF.CAJA, EF.NFACTURA, EF.FECHA, U.USUARIO,	C.NOMBRES + ' ' + C.APELLIDOS AS NOMBRECLIENTE" +
-" from TbEncabezadoFactura EF, TbEmpleado E, TbCliente C, TbUsuario U where E.IDEMPLEADO = EF.IDEMPLEADO AND C.IDCLIENTE = EF.IDCLIENTE" +
-" AND U.IDEMPLEADO = E.IDEMPLEADO", cadeCondicion = "", condicionEntre="";
+        string cadenaGeneral = "select * from Vista_InformeVentas", cadeCondicion = "", condicionEntre="", añoDesde = "", 
+            fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "", 
+            cadenaConsultar = "";
+        
+
         private void FrmVentas_Load(object sender, EventArgs e)
         {
-            objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaGeneral);
+            for (int i = 0; i < 20; i++)
+                dgvInformeVentas.Rows.Add();
+            cadenaConsultar = cadenaGeneral;
+            llenarDgv();
         }
 
-        private void dtpHasta_ValueChanged(object sender, EventArgs e)
+        public void obtenerFechas()
         {
-            string añoDesde = Convert.ToString(dtpDesde.Value.Date.Year), mesDesde = Convert.ToString(dtpDesde.Value.Date.Month), diaDesde = Convert.ToString(dtpDesde.Value.Date.Day);
-            string fechaDesde = añoDesde + "-" + mesDesde + "-" + diaDesde;
-            string añoHasta = Convert.ToString(dtpHasta.Value.Date.Year), mesHasta = Convert.ToString(dtpHasta.Value.Date.Month), diaHasta = Convert.ToString(dtpHasta.Value.Date.Day);
-            string fechaHasta = añoHasta + "-" + mesHasta + "-" + diaHasta;
-            condicionEntre = " AND FECHA between '" + fechaDesde + "' AND '" + fechaHasta + "'";
-            string cadenaConsultar = cadenaGeneral + cadeCondicion + condicionEntre;
-            objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
+            añoDesde = Convert.ToString(dtpDesde.Value.Date.Year);
+            mesDesde = Convert.ToString(dtpDesde.Value.Date.Month);
+            diaDesde = Convert.ToString(dtpDesde.Value.Date.Day);
+            fechaDesde = añoDesde + "-" + mesDesde + "-" + diaDesde;
+            añoHasta = Convert.ToString(dtpHasta.Value.Date.Year);
+            mesHasta = Convert.ToString(dtpHasta.Value.Date.Month);
+            diaHasta = Convert.ToString(dtpHasta.Value.Date.Day);
+            fechaHasta = añoHasta + "-" + mesHasta + "-" + diaHasta;
         }
 
         private void txtConsultar_TextChanged(object sender, EventArgs e)
         {
-            cadeCondicion = " AND (FECHA like '%"+ txtConsultar.Text +"%' OR USUARIO like '%" + txtConsultar.Text + "%' OR C.NOMBRES like '%" + txtConsultar.Text + "%' OR C.APELLIDOS like '%" + txtConsultar.Text + "%')";
-            string cadenaConsultar = cadenaGeneral + cadeCondicion + condicionEntre;
-            objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
+            try
+            {
+                cadeCondicion = " USUARIO like '%" + txtConsultar.Text + "%' OR NombreCliente like '%" + txtConsultar.Text + "%'";
+                cadeCondicion = cadeCondicion + " or NFACTURA like '%" + txtConsultar.Text + "%' or CAJA like '%" + txtConsultar.Text + "%' or SUCURSAL like '%" + txtConsultar.Text + "%'";
+                llenarDgv();
+            }
+            catch (Exception)
+            {
+            }
             //---------------------FALTA REALIZAR EL MINIMO Y MAXIMO DE LOS DATA TIME PIKER----------------------------
-            DataTable fechas = objConsulta.BoolDataTable("select FECHA from TbEncabezadoFactura ORDER BY FECHA");
-            dtpDesde.MinDate = Convert.ToDateTime(fechas.Rows[0]);
+            //DataTable fechas = objConsulta.BoolDataTable("select FECHA from TbEncabezadoFactura ORDER BY FECHA");
+            //dtpDesde.MinDate = Convert.ToDateTime(fechas.Rows[0]);
             //---------------------------------------------------------------------------------------------------------
         }
 
         private void dtpDesde_ValueChanged(object sender, EventArgs e)
         {
-            
-            string añoDesde = Convert.ToString(dtpDesde.Value.Date.Year), mesDesde = Convert.ToString(dtpDesde.Value.Date.Month), diaDesde = Convert.ToString(dtpDesde.Value.Date.Day);
-            string fechaDesde = añoDesde + "-" + mesDesde + "-" + diaDesde;
-            string añoHasta = Convert.ToString(dtpHasta.Value.Date.Year), mesHasta = Convert.ToString(dtpHasta.Value.Date.Month), diaHasta = Convert.ToString(dtpHasta.Value.Date.Day);
-            string fechaHasta = añoHasta + "-" + mesHasta + "-" + diaHasta;
-            condicionEntre = " AND FECHA between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
-            string cadenaConsultar = cadenaGeneral + cadeCondicion + condicionEntre;
-            objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
+            obtenerFechas();
+            condicionEntre = " FECHA between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
+            //objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
+            llenarDgv();
+        }
+        public void llenarDgv()
+        {
+            string and = "", where = "";
+            if (cadeCondicion == "" && condicionEntre == "")
+            {
+                where = "";
+                and = "";
+            }
+            else if (cadeCondicion != "" || condicionEntre != "")
+                where = " where ";
+            if (cadeCondicion != "" && condicionEntre != "")
+            {
+                where = " where ";
+                and = " and ";
+            }
+            cadenaConsultar = cadenaGeneral + where + cadeCondicion + and + condicionEntre;
+            DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
+            if (dt.Rows.Count >0)
+            {//Select EF.SUCURSAL, EF.CAJA, EF.NFACTURA, EF.FECHA, U.USUARIO,	C.NOMBRES + ' ' + C.APELLIDOS AS NOMBRECLIENTE" +
+                dgvInformeVentas.Rows.Clear();
+                for (int i = 0; i < 20; i++)
+                    dgvInformeVentas.Rows.Add();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DataRow row = dt.Rows[i];
+                    if (i == dgvInformeVentas.RowCount -1)
+                        dgvInformeVentas.Rows.Add();
+                    string numeros = Convert.ToInt32(row["SUCURSAL"]).ToString("D3");
+                    dgvInformeVentas.Rows[i].Cells[0].Value = numeros;
+                    numeros = Convert.ToInt32(row["CAJA"]).ToString("D3");
+                    dgvInformeVentas.Rows[i].Cells[1].Value = numeros;
+                    numeros = Convert.ToInt32(row["NFACTURA"]).ToString("D9");
+                    dgvInformeVentas.Rows[i].Cells[2].Value = numeros;
+                    dgvInformeVentas.Rows[i].Cells[3].Value = row["FECHA"];
+                    dgvInformeVentas.Rows[i].Cells[4].Value = row["USUARIO"];
+                    dgvInformeVentas.Rows[i].Cells[5].Value = row["NombreCliente"];
+                    dgvInformeVentas.Rows[i].Cells[6].Value = row["IVA"];
+                    dgvInformeVentas.Rows[i].Cells[7].Value = row["SUBTOTAL0"];
+                    dgvInformeVentas.Rows[i].Cells[8].Value = row["SUBTOTAL12"];
+                    dgvInformeVentas.Rows[i].Cells[9].Value = row["TOTAPAGAR"];
+
+                }
+            }
+            else
+            {
+                dgvInformeVentas.Rows.Clear();
+                for (int i = 0; i < 20; i++)
+                    dgvInformeVentas.Rows.Add();
+            }
+
         }
     }
 }

@@ -513,6 +513,7 @@
             this.txtValorPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtValorPagar.Location = new System.Drawing.Point(342, 75);
             this.txtValorPagar.Name = "txtValorPagar";
+            this.txtValorPagar.ReadOnly = true;
             this.txtValorPagar.Size = new System.Drawing.Size(100, 22);
             this.txtValorPagar.TabIndex = 18;
             this.txtValorPagar.TextChanged += new System.EventHandler(this.txtValorPagar_TextChanged);
