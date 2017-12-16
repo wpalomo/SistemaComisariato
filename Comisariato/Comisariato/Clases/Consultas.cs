@@ -437,7 +437,7 @@ namespace Comisariato.Clases
             try
             {
                 Objc.conectar();
-                SqlCommand Sentencia = new SqlCommand("select U.CAJA, P.IVA as IVA, U.ACTIVO, U.NOMBREPRODUCTO as DETALLE, U.CANTIDAD, U.PRECIOPUBLICO_SIN_IVA as PRECIOVENTAPUBLICO, U.IVAESTADO, U.PRECIOALMAYOR_SIN_IVA as PRECIOVENTAMAYORISTA,  U.PRECIOPORCAJA_SIN_IVA as PRECIOVENTACAJA from TbProducto U, TbParametrosFactura P where U.CODIGOBARRA = '" + codigo + "'");
+                SqlCommand Sentencia = new SqlCommand("select U.CAJA, P.IVA as IVA, U.ACTIVO, U.NOMBREPRODUCTO as DETALLE, U.CANTIDAD, U.PRECIOPUBLICO_SIN_IVA as PRECIOVENTAPUBLICO, U.IVAESTADO, U.PRECIOALMAYOR_SIN_IVA as PRECIOVENTAMAYORISTA,  U.PRECIOPORCAJA_SIN_IVA as PRECIOVENTACAJA,U.LIBREIMPUESTO from TbProducto U, TbParametrosFactura P where U.CODIGOBARRA = '" + codigo + "'");
                 Sentencia.Connection = ConexionBD.connection;
                 SqlDataReader dato = Sentencia.ExecuteReader();
                 if (dato.Read() == true)
@@ -455,6 +455,7 @@ namespace Comisariato.Clases
                         producto.Iva = Convert.ToInt32(dato["IVA"]);
                         producto.Precioalmayor_sin_iva = Convert.ToSingle(dato["PRECIOVENTAMAYORISTA"]);
                         producto.Precioporcaja_sin_iva = Convert.ToSingle(dato["PRECIOVENTACAJA"]);
+                        producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
                     }
                     else
                     {
@@ -1088,6 +1089,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@DISPLAY", ObjProducto.Display);
                 cmd.Parameters.AddWithValue("@ICE", ObjProducto.Ice);
                 cmd.Parameters.AddWithValue("@IRBP", ObjProducto.Irbp);
+                cmd.Parameters.AddWithValue("@LIBREIMPUESTO", ObjProducto.LibreImpuesto);
 
                 if (ObjProducto.Imagenproducto != null)
                 { cmd.Parameters.AddWithValue("@IMAGENPRODUCTO", ObjProducto.Imagenproducto); }

@@ -701,9 +701,7 @@ C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\D
 C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.FrmReimprimirFact.resources
 C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Properties.Resources.resources
 C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.csproj.GenerateResource.Cache
-<<<<<<< HEAD
 >>>>>>> 98d5c06059eb17e9641fd9fc28fac2beb4dcf69a
-=======
 C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\bin\Debug\Comisariato.exe.config
 C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.exe
 C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.pdb
@@ -746,3 +744,4 @@ C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\
 C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Properties.Resources.resources
 C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.csproj.GenerateResource.Cache
 >>>>>>> 0abfc33c37cf66cfa7d2fa00cb4184730152700c
+C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.SRI.FrmDeclaracionSRI.resources
