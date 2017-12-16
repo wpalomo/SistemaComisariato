@@ -1010,6 +1010,7 @@ namespace Comisariato.Formularios.Transacciones
             //if (ItemsPermitidos >= totalfilas)
             //{
             int cantidadVendida = filasaxuiliar;
+            int filasactuales = filasaxuiliar;
             filasaxuiliar = filasaxuiliar + inicioContador;
             for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
             {
@@ -1029,7 +1030,7 @@ namespace Comisariato.Formularios.Transacciones
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            List<double> DetallePago = calcularDetallepago(inicioContador, filasaxuiliar);
+            List<double> DetallePago = calcularDetallepago(inicioContador, filasactuales);
 
             if (cantidadVendida < cantItems)
             {
