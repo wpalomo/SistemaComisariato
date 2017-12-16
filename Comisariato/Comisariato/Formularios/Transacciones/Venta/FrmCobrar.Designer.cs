@@ -365,7 +365,7 @@
             this.MaximizeBox = false;
             this.Name = "FrmCobrar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmCobrar";
+            this.Text = "Realizar Pago";
             this.Load += new System.EventHandler(this.FrmCobrar_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmCobrar_KeyUp);
             this.groupBox1.ResumeLayout(false);
