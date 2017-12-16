@@ -173,7 +173,7 @@ namespace Comisariato.Clases
             //16122017118021144290011001003000000064000000101
             string clave ="",NumCualquiera="00000010";
             string[] vector = fecha.Split('/');
-            clave = vector[0] + vector[1] + vector[2] + tipoComprobante + Ruc + ambiente + serie + Secuencial + NumCualquiera + tipoEmision;
+            clave = vector[0] + vector[1] + vector[2] + "0"+tipoComprobante + Ruc + ambiente + serie + Secuencial + NumCualquiera + tipoEmision;
             string numeroverificador = GetCheckDigit(clave);
             clave += numeroverificador;
             return clave;

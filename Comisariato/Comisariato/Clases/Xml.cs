@@ -70,7 +70,7 @@ namespace Comisariato.Clases
             for (int i = 0; i < dgv.RowCount; i++)
             {
                 XmlNode NodoDetalles=null;
-                if (Convert.ToString(dgv.Rows[i].Cells[0].Value)!=null)
+                if (dgv.Rows[i].Cells[0].Value != null)
                 {
                     if (Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[9].Value))==1)
                     {
@@ -78,7 +78,8 @@ namespace Comisariato.Clases
                     }
                     else
                     {
-                        if (Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[5].Value)) == 0)
+                        //int valor = Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[5].Value));
+                        if (Convert.ToString(dgv.Rows[i].Cells[5].Value) == "0,00")
                         {
                             NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "0", "0", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[6].Value));
                         }

@@ -876,14 +876,14 @@ namespace Comisariato.Formularios.Transacciones
 
                 objcit.Ambiente = 1;
                 objcit.TipoEmision = 1;
-                objcit.RazonSociaL = "GALO ALAVA MACAS";
+                objcit.RazonSociaL = Program.razonsocialempresa;
                 objcit.NombreComerciaL = Program.nombreempresa;
                 objcit.RuC = Program.rucempresa;
                 objcit.CodDoC = "01";
                 objcit.EstaB = Program.em.Sucursal.ToString("D3");
                 objcit.PtoEmI = "001";
                 objcit.SecuenciaL = numfactbd.ToString("D9");
-                //objcit.DirMatriz = Program.direccionempresa;
+                objcit.DirMatriz = Program.direccionempresa;
                 string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
                 xml.InfoTributaria("infoTributaria", objcit, serie);
 

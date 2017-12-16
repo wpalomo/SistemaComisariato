@@ -393,7 +393,7 @@ namespace Comisariato.Formularios.Transacciones
                      
                         total = (Convert.ToSingle(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text)) + iva;
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
-                        AgregarFila(codigos.Count - 1, total, libreimpuesto);
+                        AgregarFila(codigos.Count - 1, total);
                         Calcular();
                         pr = true;
                     }
@@ -453,7 +453,7 @@ namespace Comisariato.Formularios.Transacciones
                     {
                         total = Convert.ToInt32(txtCantidad.Text) * Convert.ToSingle(txtPrecio.Text);
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
-                        AgregarFila(codigos.Count - 1, total, libreimpuesto);
+                        AgregarFila(codigos.Count - 1, total);
                        
                         pr = true;
                         Calcular();
@@ -471,9 +471,13 @@ namespace Comisariato.Formularios.Transacciones
 
         }
         bool li;
-        private void AgregarFila(int fila, float total,bool LibreImpuesto)
+        private void AgregarFila(int fila, float total)
         {
-            
+            if (Producto.LibreImpuesto)
+                dgvDetalleProductos.Rows[fila].Cells[9].Value = 1;
+            else
+                dgvDetalleProductos.Rows[fila].Cells[9].Value = 0;
+
             dgvDetalleProductos.Rows[fila].Cells[0].Value = txtCodigo.Text;
             dgvDetalleProductos.Rows[fila].Cells[1].Value = txtDetalle.Text;
             dgvDetalleProductos.Rows[fila].Cells[2].Value = txtCantidad.Text;
@@ -481,7 +485,7 @@ namespace Comisariato.Formularios.Transacciones
             dgvDetalleProductos.Rows[fila].Cells[4].Value = txtPrecio.Text;
             dgvDetalleProductos.Rows[fila].Cells[5].Value = txtIvaPrecio.Text;
             dgvDetalleProductos.Rows[fila].Cells[6].Value = total.ToString("#####0.00"); ;
-            dgvDetalleProductos.Rows[fila].Cells[9].Value = Convert.ToInt32(LibreImpuesto);
+            //dgvDetalleProductos.Rows[fila].Cells[9].Value = Convert.ToInt32(LibreImpuesto);
             if (rdbCaja.Checked)
             {
                 dgvDetalleProductos.Rows[fila].Cells[8].Value = cantcaja;
@@ -933,19 +937,19 @@ namespace Comisariato.Formularios.Transacciones
                                     txtIvaPrecio.Text = iva.ToString("#####0.00");
                                     if (tipoprecio == 1)
                                     {
-                                        factproducto(iva, 1,true);
+                                        factproducto(iva, 1,false);
                                     }
                                     else
                                     {
                                         if (tipoprecio == 0)
                                         {
-                                            factproducto(iva, 1,true);
+                                            factproducto(iva, 1,false);
                                         }
                                         else
                                         {
                                             if (tipoprecio == 2)
                                             {
-                                                factproducto(iva, 1,true);
+                                                factproducto(iva, 1, false);
                                             }
 
                                         }
@@ -958,7 +962,7 @@ namespace Comisariato.Formularios.Transacciones
                                     pr = false;
                                 }
                             }
-                            else
+                            else //////////// Iva O%
                             {
                                 if (Convert.ToInt32(txtBodega.Text) >= Convert.ToInt32(txtCantidad.Text))
                                 {
@@ -966,19 +970,19 @@ namespace Comisariato.Formularios.Transacciones
                                     txtIvaPrecio.Text = iva.ToString("#####0.00");
                                     if (tipoprecio == 1)
                                     {
-                                        factproducto(iva, 1,true);
+                                        factproducto(iva, 1,false);
                                     }
                                     else
                                     {
                                         if (tipoprecio == 0)
                                         {
-                                            factproducto(iva, 1,true);
+                                            factproducto(iva, 1, false);
                                         }
                                         else
                                         {
                                             if (tipoprecio == 2)
                                             {
-                                                factproducto(iva, 1,true);
+                                                factproducto(iva, 1, false);
                                             }
 
                                         }

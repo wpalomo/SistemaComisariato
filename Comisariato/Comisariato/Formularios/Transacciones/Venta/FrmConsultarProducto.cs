@@ -71,6 +71,7 @@ namespace Comisariato.Formularios.Transacciones
                             FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[6].Value.ToString());
                             FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[7].Value.ToString());
                             FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[8].Value.ToString());
+                            //FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[].Value.ToString());
                             this.Close();
                         }
                         else
