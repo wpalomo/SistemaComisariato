@@ -3,6 +3,7 @@ using Comisariato.Formularios.Informes;
 using Comisariato.Formularios.Mantenimiento;
 using Comisariato.Formularios.Mantenimiento.Empresa;
 using Comisariato.Formularios.Mantenimiento.Inventario;
+using Comisariato.Formularios.SRI;
 using Comisariato.Formularios.Transacciones;
 using Comisariato.Formularios.Transacciones.Devolucion_Venta;
 using System;
@@ -44,6 +45,8 @@ namespace Comisariato.Formularios
         public static MenuStrip menuMostrar;
         public static FrmKardex FrmKardex;
         public static FrmDevolucionCompra FrmDevolucionCompra;
+        public static FrmDeclaracionSRI FrmDeclaracionSRI;
+
 
         Bitacora  bitacora = new Bitacora();
         //public static void Panel
@@ -561,6 +564,27 @@ namespace Comisariato.Formularios
                     FrmKardex.Show();
                     FrmKardex.MdiParent = this;
                     Asignar(FrmKardex.Text);
+                }
+                //else { FrmDevolucionVenta.BringToFront(); }
+            }
+            else if (nombre == "Declaración SRI")
+            {
+                //if (FrmDevolucionVenta == null || FrmDevolucionVenta.IsDisposed)
+                //{
+                //    FrmDevolucionVenta = new FrmDevolucionVenta();
+                //    objFuncion.AddFormInPanel(FrmDevolucionVenta, Program.panelPrincipalVariable);
+                //}
+                //else
+                //{
+                //    int index = panelPrincipal.Controls.GetChildIndex(FrmDevolucionVenta);
+                //    FrmDevolucionVenta.BringToFront();
+                //}
+                if (FrmDeclaracionSRI == null || FrmDeclaracionSRI.IsDisposed)
+                {
+                    FrmDeclaracionSRI = new FrmDeclaracionSRI();
+                    //FrmDevolucionVenta.BringToFront();
+                    FrmDeclaracionSRI.Show();
+                    FrmDeclaracionSRI.MdiParent = this;
                 }
                 //else { FrmDevolucionVenta.BringToFront(); }
             }

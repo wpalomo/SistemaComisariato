@@ -641,6 +641,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void txtPVPConIVAProducto_Enter(object sender, EventArgs e)
         {
+            txtPVPConIVAProducto.Focus();
             txtPVPConIVAProducto.Select(0, txtPVPConIVAProducto.TextLength);
         }
 

@@ -64,10 +64,12 @@ namespace Comisariato.Formularios.Transacciones
                 btnGuardar.Enabled = true;
                 txtIdentidicacion.Enabled = true;
                 txtIdentidicacion.Focus();
+                btnBuscar.Enabled = true;
             }
             else
             {
                 rdbFacturaDatos.Checked = false;
+                btnBuscar.Enabled = false;
                 txtCodigo.Focus();
             }
             //txtCodigo.Focus();
