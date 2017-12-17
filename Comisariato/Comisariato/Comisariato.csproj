@@ -57,6 +57,7 @@
     <Compile Include="Clases\CajaTalonarioEmpresa.cs" />
     <Compile Include="Clases\Cliente.cs" />
     <Compile Include="Clases\CrearTicket.cs" />
+    <Compile Include="Clases\DetalleNotaCredito.cs" />
     <Compile Include="Clases\DetalleOrdenGiro.cs" />
     <Compile Include="Clases\EmcabezadoFactura.cs" />
     <Compile Include="Clases\EncabezadoCompra.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Clases\DetalleCompra.cs" />
     <Compile Include="Clases\Empleado.cs" />
     <Compile Include="Clases\Empresa.cs" />
+    <Compile Include="Clases\EncabezadoNotaCredito.cs" />
     <Compile Include="Clases\EncabezadoOrdenGiro.cs" />
     <Compile Include="Clases\Funcion.cs" />
     <Compile Include="Clases\InfoFactura.cs" />

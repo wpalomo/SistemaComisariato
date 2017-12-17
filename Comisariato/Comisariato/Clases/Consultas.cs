@@ -805,6 +805,7 @@ namespace Comisariato.Clases
             dt.Columns.Add("ESTADO IVA", typeof(int));
             dt.Columns.Add("IVA", typeof(int));
             dt.Columns.Add("Cant. Caja", typeof(int));
+            dt.Columns.Add("LI", typeof(int));
 
             try
             {
@@ -827,12 +828,12 @@ namespace Comisariato.Clases
                         {
                             v = 1;
                             int iva = int.Parse(dato["IVA"].ToString());
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, iva, (int)dato["CAJA"]);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, iva, (int)dato["CAJA"], Convert.ToInt32(dato["LIBREIMPUESTO"]));
                         }
                         else
                         {
                             v = 0;
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, 0, (int)dato["CAJA"]);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, 0, (int)dato["CAJA"], Convert.ToInt32(dato["LIBREIMPUESTO"]));
                         }
                         //dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, (int)dato["IVA"]);
 
@@ -1685,6 +1686,56 @@ namespace Comisariato.Clases
             txtSerie1Retencion.Text = sucursal;
             txtSerie2Retencion.Text = numcaja;
             txtAutorizacionRetencion.Text = autorizacion;
+        }
+        //EjecutarPROCEDUREEncabezadoNotaCredito
+        public bool EjecutarPROCEDUREEncabezadoNotaCredito(EncabezadoNotaCredito objEncabezadoNotaCredito)
+        {
+            try
+            {
+                Objc.conectar();
+                SqlCommand cmd = new SqlCommand("REGISTRAR_ENCABEZADO_NOTAC", ConexionBD.connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IDENCABEZADOCOMPRA", objEncabezadoNotaCredito.IdEncabezadoCompra);
+                cmd.Parameters.AddWithValue("@TOTAL", Funcion.reemplazarcaracter(objEncabezadoNotaCredito.TotalDevolucion.ToString()));
+                cmd.Parameters.AddWithValue("@SERIE1", objEncabezadoNotaCredito.Serie1);
+                cmd.Parameters.AddWithValue("@SERIE2", objEncabezadoNotaCredito.Serie2);
+                cmd.Parameters.AddWithValue("@NUMERO", objEncabezadoNotaCredito.Numero);
+                int result = cmd.ExecuteNonQuery();
+                Objc.Cerrar();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        //EjecutarPROCEDUREDetalleNotaCredito
+        public bool EjecutarPROCEDUREDetalleNotaCredito(DetalleNotaCredito objDetalleNotaCredito)
+        {
+            try
+            {
+                Objc.conectar();
+                SqlCommand cmd = new SqlCommand("REGISTRAR_DETALLE_NC", ConexionBD.connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IDENCABEZADONOTACREDITO", objDetalleNotaCredito.IdEncabezadoNotaCredito);
+                cmd.Parameters.AddWithValue("@CODIGOBARRA", objDetalleNotaCredito.CodigoBarra);
+                cmd.Parameters.AddWithValue("@CANTIDAD", objDetalleNotaCredito.Cantidad);
+                int result = cmd.ExecuteNonQuery();
+                Objc.Cerrar();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
