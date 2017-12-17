@@ -22,6 +22,7 @@ namespace Comisariato.Formularios.Transacciones
         EncabezadoNotaCredito objENC;
         DetalleNotaCredito objDNC;
         int encabezadoCompra = 0;
+        bool ivaEstado = false;
         private void FrmDevolucionCompra_Load(object sender, EventArgs e)
         {
             objConsultas.BoolLlenarComboBox(cbProveedor, "select IDPROVEEDOR AS ID, NOMBRES AS Texto from TbProveedor");
@@ -42,7 +43,7 @@ namespace Comisariato.Formularios.Transacciones
         {
             if (txtSerie1.Text != "" && txtSerie2.Text != "" && txtNumero.Text != "" && cbProveedor.Text != "")
             {
-                string sqlConsultar = "select e.IDEMCABEZADOCOMPRA, e.IMPUESTO, p.NOMBREPRODUCTO,d.CANTIDAD, d.CODIGOBARRAPRODUCTO, d.DESCUENTO, d.ICE, d.PRECIOCOMRPA,d.IRBP" +
+                string sqlConsultar = "select e.IDEMCABEZADOCOMPRA, e.IMPUESTO, p.IVAESTADO, p.NOMBREPRODUCTO,d.CANTIDAD, d.CODIGOBARRAPRODUCTO, d.DESCUENTO, d.ICE, d.PRECIOCOMRPA,d.IRBP" +
                     " from TbEncabezadoyPieCompra e, TbDetalleCompra d, TbProducto p, TbProveedor pro" +
                     " where d.IDENCABEZADOCOMPRA = e.IDEMCABEZADOCOMPRA and p.CODIGOBARRA = d.CODIGOBARRAPRODUCTO" +
                     " and pro.IDPROVEEDOR = e.IDPROVEEDOR and e.SERIE1 = '" + txtSerie1.Text + "' and e.SERIE2 = '" + txtSerie2.Text +"' and e.NUMERO = '"+ txtNumero.Text +"'" +
@@ -68,8 +69,31 @@ namespace Comisariato.Formularios.Transacciones
                         dgvProductosDevolucion.Rows[i].Cells[11].ReadOnly = false;
                         txtImpuesto.Text = row["IMPUESTO"].ToString();
                         encabezadoCompra = Convert.ToInt32(row["IDEMCABEZADOCOMPRA"]);
+                        ivaEstado = Convert.ToBoolean(row["IVAESTADO"]);
+                        float precioCompra = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(dgvProductosDevolucion.Rows[i].Cells[3].Value.ToString()));
+                        float cantidad = Convert.ToInt32(dgvProductosDevolucion.Rows[i].Cells[2].Value.ToString());
+                        float precioICE = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(dgvProductosDevolucion.Rows[i].Cells[5].Value.ToString()));
+                        float precioIRBP = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(dgvProductosDevolucion.Rows[i].Cells[6].Value.ToString()));
+                        float subtotalP = 0.0f;
+                        float totalP = 0.0f;
+                        string[] separadorPorcentaje = txtImpuesto.Text.Split('%');
+                        int tipoIva = Convert.ToInt32(separadorPorcentaje[0]);
+                        float ivaP = 0.0f;
+                        if (ivaEstado)
+                        {
+                            ivaP = (((precioCompra + precioICE) * cantidad) * tipoIva) / 100;
+                        }
+                        else
+                        {
+                            ivaP = 0;
+                        }
+                        subtotalP = ((precioCompra + precioICE + precioIRBP) * cantidad);
+                        totalP = subtotalP + ivaP;
+                        dgvProductosDevolucion.Rows[i].Cells[8].Value = Funcion.reemplazarcaracter(Math.Round(ivaP, 2).ToString("#####0.00"));
+                        dgvProductosDevolucion.Rows[i].Cells[7].Value = Funcion.reemplazarcaracter(Math.Round(subtotalP, 2).ToString("#####0.00"));
+                        dgvProductosDevolucion.Rows[i].Cells[9].Value = Funcion.reemplazarcaracter(Math.Round(totalP, 2).ToString("#####0.00"));
                     }
-                }
+                }                
             }
         }
 
@@ -130,6 +154,14 @@ namespace Comisariato.Formularios.Transacciones
                     dgvProductosDevolucion.Rows[e.RowIndex].Cells[10].ReadOnly = false;
                 }
                 else
+                {
+                    dgvProductosDevolucion.Rows[e.RowIndex].Cells[10].Value = "";
+                    dgvProductosDevolucion.Rows[e.RowIndex].Cells[10].ReadOnly = true;
+                }
+            }
+            if (dgvProductosDevolucion.Columns[e.ColumnIndex].Name == "cantidadDevolver")
+            {
+                if (Convert.ToBoolean(dgvProductosDevolucion.Rows[e.RowIndex].Cells[11].Value) == false)
                 {
                     dgvProductosDevolucion.Rows[e.RowIndex].Cells[10].Value = "";
                     dgvProductosDevolucion.Rows[e.RowIndex].Cells[10].ReadOnly = true;
