@@ -71,6 +71,7 @@
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbReporteVentas.SuspendLayout();
             this.gbReporteCompras.SuspendLayout();
             this.gbReporteRetenciones.SuspendLayout();
@@ -366,10 +367,13 @@
             this.dgvRetencion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Descripcion,
             this.Porcentaje,
-            this.Total});
+            this.Total,
+            this.id});
             this.dgvRetencion.Location = new System.Drawing.Point(9, 24);
             this.dgvRetencion.Name = "dgvRetencion";
-            this.dgvRetencion.Size = new System.Drawing.Size(513, 209);
+            this.dgvRetencion.RowHeadersVisible = false;
+            this.dgvRetencion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRetencion.Size = new System.Drawing.Size(508, 209);
             this.dgvRetencion.TabIndex = 0;
             // 
             // gbReporteNotaCredito
@@ -473,7 +477,7 @@
             this.Descripcion.HeaderText = "Descripción";
             this.Descripcion.Name = "Descripcion";
             this.Descripcion.ReadOnly = true;
-            this.Descripcion.Width = 300;
+            this.Descripcion.Width = 335;
             // 
             // Porcentaje
             // 
@@ -487,6 +491,12 @@
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
             this.Total.ReadOnly = true;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.Visible = false;
             // 
             // FrmDeclaracionSRI
             // 
@@ -567,5 +577,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Porcentaje;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
     }
 }

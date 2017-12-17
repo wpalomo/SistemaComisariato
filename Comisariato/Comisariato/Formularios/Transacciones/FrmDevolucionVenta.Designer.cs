@@ -312,7 +312,7 @@
             this.MinimumSize = new System.Drawing.Size(905, 602);
             this.Name = "FrmDevolucionVenta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Devoluciones";
+            this.Text = "Nota de Débito";
             this.Load += new System.EventHandler(this.FrmDevolucionVenta_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
