@@ -745,3 +745,4 @@ C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\
 C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.csproj.GenerateResource.Cache
 >>>>>>> 0abfc33c37cf66cfa7d2fa00cb4184730152700c
 C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.SRI.FrmDeclaracionSRI.resources
+C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.SRI.FrmDeclaracionSRI.resources
