@@ -27,13 +27,14 @@ namespace Comisariato.Formularios.Transacciones
 
             
             //ObjConsul.boolLlenarDataGridView(dgvProductos, "Select TbProducto.CODIGOBARRA AS CODIGO, TbProducto.DETALLE,TbProducto.CANTIDAD, TbProducto.PRECIOVENTAPUBLICO AS PRECIOPUBLICO, TbProducto.PRECIOVENTAMAYORISTA AS PRECIOMAY, TbProducto.PRECIOVENTACAJA AS PRECIOCAJA from TbProducto;");
-            ObjConsul.BoolCrearDateTable(dgvProductos, "Select  P.IVA as IVA, TbProducto.CODIGOBARRA, TbProducto.ACTIVO, TbProducto.NOMBREPRODUCTO AS DETALLE,TbProducto.CANTIDAD, TbProducto.PRECIOPUBLICO_SIN_IVA AS PRECIOVENTAPUBLICO, TbProducto.PRECIOALMAYOR_SIN_IVA AS PRECIOVENTAMAYORISTA, TbProducto.PRECIOPORCAJA_SIN_IVA AS PRECIOVENTACAJA, TbProducto.IVAESTADO, TbProducto.CAJA from TbProducto , TbParametrosFactura P; ");
+            ObjConsul.BoolCrearDateTable(dgvProductos, "Select  P.IVA as IVA, TbProducto.CODIGOBARRA, TbProducto.ACTIVO, TbProducto.NOMBREPRODUCTO AS DETALLE,TbProducto.CANTIDAD, TbProducto.PRECIOPUBLICO_SIN_IVA AS PRECIOVENTAPUBLICO, TbProducto.PRECIOALMAYOR_SIN_IVA AS PRECIOVENTAMAYORISTA, TbProducto.PRECIOPORCAJA_SIN_IVA AS PRECIOVENTACAJA, TbProducto.IVAESTADO, TbProducto.CAJA, TbProducto.LIBREIMPUESTO from TbProducto , TbParametrosFactura P; ");
+            
         }
 
         private void txtconsultar_TextChanged(object sender, EventArgs e)
         {
             ObjConsul = new Consultas();
-            ObjConsul.BoolCrearDateTable(dgvProductos, "Select  P.IVA as IVA, TbProducto.CODIGOBARRA, TbProducto.ACTIVO, TbProducto.NOMBREPRODUCTO AS DETALLE,TbProducto.CANTIDAD, TbProducto.PRECIOPUBLICO_SIN_IVA AS PRECIOVENTAPUBLICO, TbProducto.PRECIOALMAYOR_SIN_IVA AS PRECIOVENTAMAYORISTA, TbProducto.PRECIOPORCAJA_SIN_IVA AS PRECIOVENTACAJA, TbProducto.IVAESTADO, TbProducto.CAJA from TbProducto , TbParametrosFactura P where NOMBREPRODUCTO like '%" + txtconsultar.Text + "%' or CODIGOBARRA like '%" + txtconsultar.Text +"%';");
+            ObjConsul.BoolCrearDateTable(dgvProductos, "Select  P.IVA as IVA, TbProducto.CODIGOBARRA, TbProducto.ACTIVO, TbProducto.NOMBREPRODUCTO AS DETALLE,TbProducto.CANTIDAD, TbProducto.PRECIOPUBLICO_SIN_IVA AS PRECIOVENTAPUBLICO, TbProducto.PRECIOALMAYOR_SIN_IVA AS PRECIOVENTAMAYORISTA, TbProducto.PRECIOPORCAJA_SIN_IVA AS PRECIOVENTACAJA, TbProducto.IVAESTADO, TbProducto.CAJA,TbProducto.LIBREIMPUESTO from TbProducto , TbParametrosFactura P where NOMBREPRODUCTO like '%" + txtconsultar.Text + "%' or CODIGOBARRA like '%" + txtconsultar.Text +"%';");
         }
 
         private void FrmConsultarProducto_KeyUp(object sender, KeyEventArgs e)
@@ -71,7 +72,7 @@ namespace Comisariato.Formularios.Transacciones
                             FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[6].Value.ToString());
                             FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[7].Value.ToString());
                             FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[8].Value.ToString());
-                            //FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[].Value.ToString());
+                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[9].Value.ToString());
                             this.Close();
                         }
                         else
@@ -115,6 +116,7 @@ namespace Comisariato.Formularios.Transacciones
                 FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[6].Value.ToString());
                 FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[7].Value.ToString());
                 FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[8].Value.ToString());
+                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[9].Value.ToString());
                 this.Close();
             }
             catch (Exception)
