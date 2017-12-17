@@ -67,11 +67,14 @@
     <Compile Include="Clases\Empresa.cs" />
     <Compile Include="Clases\EncabezadoOrdenGiro.cs" />
     <Compile Include="Clases\Funcion.cs" />
+    <Compile Include="Clases\InfoFactura.cs" />
+    <Compile Include="Clases\InfoTributaria.cs" />
     <Compile Include="Clases\ParametrosFactura.cs" />
     <Compile Include="Clases\Producto.cs" />
     <Compile Include="Clases\Proveedor.cs" />
     <Compile Include="Clases\Sucursal.cs" />
     <Compile Include="Clases\Usuario.cs" />
+    <Compile Include="Clases\Xml.cs" />
     <Compile Include="Formularios\Informes\FrmInformesVentas.cs">
       <SubType>Form</SubType>
     </Compile>

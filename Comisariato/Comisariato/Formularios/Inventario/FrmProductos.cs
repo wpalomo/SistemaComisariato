@@ -110,7 +110,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                     bitDataImagen = Funcion.imgToByteArray(img);
                 }
                 //Objconsul.BoolDataTable("SELECT [CANTIDAD]  FROM [dbo].[TbProducto] where IDPRODUCTO = ''")
-                Producto ObjProducto = new Producto(txtNombreProducto.Text, ckbActivoProducto.Checked, txtCodigoBarraProducto.Text, cbTipoProducto.Text, cbUnidadMedidaProducto.Text, txtPeso.Text, Convert.ToInt32(txtStockMaximoProducto.Text), Convert.ToInt32(txtStockMinimoProducto.Text), Convert.ToInt32(txtCajaProducto.Text), Convert.ToInt32(txtUnidadProducto.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaSinIVAProducto.Text)), bitDataImagen, CkbIva.Checked, txtObservacionesProducto.Text, Convert.ToInt32(cbTipoProducto.SelectedValue), 0,Convert.ToInt32(txtDisplay.Text),Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIce.Text)),Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIRBP.Text))/*Convert.ToInt32(txtUnidadProducto.Text)*/);
+                Producto ObjProducto = new Producto(txtNombreProducto.Text, ckbActivoProducto.Checked, txtCodigoBarraProducto.Text, cbTipoProducto.Text, cbUnidadMedidaProducto.Text, txtPeso.Text, Convert.ToInt32(txtStockMaximoProducto.Text), Convert.ToInt32(txtStockMinimoProducto.Text), Convert.ToInt32(txtCajaProducto.Text), Convert.ToInt32(txtUnidadProducto.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaSinIVAProducto.Text)), bitDataImagen, CkbIva.Checked, txtObservacionesProducto.Text, Convert.ToInt32(cbTipoProducto.SelectedValue), 0,Convert.ToInt32(txtDisplay.Text),Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIce.Text)),Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIRBP.Text))/*Convert.ToInt32(txtUnidadProducto.Text)*/,CkbLibreImpuesto.Checked);
 
                 if (!bandera_Estado) // Para identificar si se va ingresar
                 {
@@ -208,6 +208,8 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 CkbICE.Enabled = true;
                 CkbIRBP.Enabled = true;
                 banderaCheckError = true;
+                CkbLibreImpuesto.Checked = false;
+                CkbLibreImpuesto.Enabled = false;
             }
             else
             {
@@ -215,6 +217,8 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 CkbIRBP.Enabled = false;
                 CkbICE.Checked = false;
                 CkbIRBP.Checked = false;
+                CkbLibreImpuesto.Enabled = true;
+                CkbLibreImpuesto.Checked = false;
                 TxtIce.Text = "0";
                 TxtIRBP.Text = "0";
                 banderaCheckError = false;
@@ -641,6 +645,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void txtPVPConIVAProducto_Enter(object sender, EventArgs e)
         {
+            txtPVPConIVAProducto.Focus();
             txtPVPConIVAProducto.Select(0, txtPVPConIVAProducto.TextLength);
         }
 
@@ -852,6 +857,20 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 MessageBox.Show("El Stock Mimimo debe ser menor al Stock Máximo", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 txtStockMinimoProducto.Focus();
                 txtStockMinimoProducto.SelectAll();
+            }
+        }
+
+        private void CkbLibreImpuesto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CkbLibreImpuesto.Checked)
+            {
+                CkbIva.Enabled = false;
+                CkbIva.Checked = false;
+            }
+            else
+            {
+                CkbIva.Enabled = true;
+                CkbIva.Checked = false;
             }
         }
     }

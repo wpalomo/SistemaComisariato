@@ -104,6 +104,8 @@ namespace Comisariato.Formularios.Transacciones
                                 Program.BoolAutorizadoImprimir = Convert.ToBoolean(myRows["AUTORIZADOIMPRIMIR"]);
                                 //TAMANOENCABEZADOFACTURA-TAMANOPIEFACTURA-NUMEROITEMS
                                 Program.DatosPreimpresa = myRows["TAMANOENCABEZADOFACTURA"].ToString() + "-" + myRows["TAMANOPIEFACTURA"].ToString() + "-" + myRows["NUMEROITEMS"].ToString();
+                                Program.IVA = myRows["IVA"].ToString();
+                                Program.obligadoContabilidad= myRows["OBLIGADOLLEVARCONTABILIDAD"].ToString();
                             }
 
                             string condicion = " where CAJA = '" + numcaja + "' and SUCURSAL= '" + sucursal + "';";
