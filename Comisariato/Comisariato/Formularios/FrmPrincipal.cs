@@ -128,6 +128,7 @@ namespace Comisariato.Formularios
             }
             else if (nombre == "Informe Retención")
             {
+                //hillbsasvdb
                 if (FrmInformesRentenciones == null || FrmInformesRentenciones.IsDisposed)
                 {
                     FrmInformesRentenciones = new FrmInformesRentenciones();
