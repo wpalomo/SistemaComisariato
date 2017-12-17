@@ -31,7 +31,6 @@ namespace Comisariato.Clases
         string celular2;
         string observacion;
         int IDCuentaContable;
-        bool contabilidad;
         Consultas ObjConsulta;
 
         public string Tipocliente
@@ -312,20 +311,9 @@ namespace Comisariato.Clases
             }
         }
 
-        public bool Contabilidad
-        {
-            get
-            {
-                return contabilidad;
-            }
 
-            set
-            {
-                contabilidad = value;
-            }
-        }
 
-        public Cliente(string tipocliente, string tipoidentificacion, string identificacion, bool activo, string nombres, string apellidos, DateTime fechaNacimiento, string razonSocial, string email, string direccion, string actividadEconimica, int idParroquia, int casilla, string fax, string celula1, string celular2, string observacion, string especificacionesCategoria, string especificacionesTipoCredito, string condicionesComerCreditoAsignado, string condicionesComerCupoCredito, string condicionesComerDescuento, int IDCuentaContable,bool contabilidad)
+        public Cliente(string tipocliente, string tipoidentificacion, string identificacion, bool activo, string nombres, string apellidos, DateTime fechaNacimiento, string razonSocial, string email, string direccion, string actividadEconimica, int idParroquia, int casilla, string fax, string celula1, string celular2, string observacion, string especificacionesCategoria, string especificacionesTipoCredito, string condicionesComerCreditoAsignado, string condicionesComerCupoCredito, string condicionesComerDescuento, int IDCuentaContable)
         {
             this.Tipocliente = tipocliente;
             this.Tipoidentificacion = tipoidentificacion;
@@ -350,7 +338,6 @@ namespace Comisariato.Clases
             this.CondicionesComerCupoCredito = condicionesComerCupoCredito;
             this.CondicionesComerDescuento = condicionesComerDescuento;
             this.IDCuentaContable = IDCuentaContable;
-            this.contabilidad = contabilidad;
         }
         public Cliente()
         {

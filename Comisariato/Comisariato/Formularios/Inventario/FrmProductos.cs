@@ -67,6 +67,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             cargarDatos("1");
 
             CkbIva.Checked = false;
+            CkbLibreImpuesto.Checked = false;
         }
 
         private void cargarDatos(string condicion)
@@ -400,6 +401,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                     txtPrecioMayorSinIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOALMAYOR_SIN_IVA"].ToString());
                     txtPrecioCajaConIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPORCAJA_IVA"].ToString());
                     txtPrecioCajaSinIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPORCAJA_SIN_IVA"].ToString());
+
                     if (TxtIce.Text != "0" && TxtIce.Text != "")
                         CkbICE.Checked = true;
                     else
@@ -414,6 +416,8 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                         CkbIRBP.Checked = false;
                         TxtIRBP.Text = "0.00";
                     }
+                    CkbLibreImpuesto.Checked = Convert.ToBoolean(myRow["LIBREIMPUESTO"]);
+
                     //CkbICE.Checked = Convert.ToBoolean(myRow["ICEESTADO"]);
                     //CkbIRBP.Checked = Convert.ToBoolean(myRow["IRBPESTADO"]);
 

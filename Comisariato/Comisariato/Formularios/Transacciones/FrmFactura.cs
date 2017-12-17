@@ -254,6 +254,7 @@ namespace Comisariato.Formularios.Transacciones
                             txtCodigo.Text = DatosCliente[0];
                             txtDetalle.Text = DatosCliente[1];
                             txtBodega.Text = DatosCliente[2];
+                            Producto.LibreImpuesto = Convert.ToBoolean(Convert.ToInt32(DatosCliente[9]));
                             txtCantidad.Focus();
                            
                         }
@@ -485,7 +486,7 @@ namespace Comisariato.Formularios.Transacciones
             dgvDetalleProductos.Rows[fila].Cells[4].Value = txtPrecio.Text;
             dgvDetalleProductos.Rows[fila].Cells[5].Value = txtIvaPrecio.Text;
             dgvDetalleProductos.Rows[fila].Cells[6].Value = total.ToString("#####0.00"); ;
-            //dgvDetalleProductos.Rows[fila].Cells[9].Value = Convert.ToInt32(LibreImpuesto);
+            dgvDetalleProductos.Rows[fila].Cells[9].Value = Convert.ToInt32(Producto.LibreImpuesto);
             if (rdbCaja.Checked)
             {
                 dgvDetalleProductos.Rows[fila].Cells[8].Value = cantcaja;

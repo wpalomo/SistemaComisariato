@@ -1014,7 +1014,6 @@
             // 
             this.AplicaImpuesto.HeaderText = "AplicaImpuesto";
             this.AplicaImpuesto.Name = "AplicaImpuesto";
-            this.AplicaImpuesto.Visible = false;
             // 
             // FrmFactura
             // 
