@@ -746,9 +746,7 @@ C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\
 >>>>>>> 0abfc33c37cf66cfa7d2fa00cb4184730152700c
 C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.SRI.FrmDeclaracionSRI.resources
 C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.SRI.FrmDeclaracionSRI.resources
-<<<<<<< HEAD
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.SRI.FrmDeclaracionSRI.resources
-=======
 >>>>>>> 63cc4859d34e0536cd7adeda9ec7b05c42ef56f5
 C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesCompras.resources
 C:\Users\Andres\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesOrdenGiro.resources
