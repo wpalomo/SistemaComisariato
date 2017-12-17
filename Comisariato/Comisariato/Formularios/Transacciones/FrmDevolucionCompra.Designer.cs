@@ -49,19 +49,7 @@
             this.cantidadDevolver = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.devolucion = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.txtTotal = new System.Windows.Forms.TextBox();
-            this.txtIRBP = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtSubtutalIVA = new System.Windows.Forms.TextBox();
-            this.txtSubtotal0 = new System.Windows.Forms.TextBox();
-            this.txtSubtotal = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtIVA = new System.Windows.Forms.TextBox();
-            this.txtICE = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.BtnLimpiar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.gbEncabezadoCompra = new System.Windows.Forms.GroupBox();
@@ -89,6 +77,10 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.pcOrdenCompra.SuspendLayout();
             this.gbDetalleProducto.SuspendLayout();
@@ -108,28 +100,18 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(934, 549);
+            this.tabControl1.Size = new System.Drawing.Size(934, 530);
             this.tabControl1.TabIndex = 2;
             // 
             // pcOrdenCompra
             // 
             this.pcOrdenCompra.BackColor = System.Drawing.Color.Bisque;
+            this.pcOrdenCompra.Controls.Add(this.textBox1);
+            this.pcOrdenCompra.Controls.Add(this.label5);
             this.pcOrdenCompra.Controls.Add(this.btnSalirCompra);
             this.pcOrdenCompra.Controls.Add(this.gbDetalleProducto);
             this.pcOrdenCompra.Controls.Add(this.txtTotal);
-            this.pcOrdenCompra.Controls.Add(this.txtIRBP);
-            this.pcOrdenCompra.Controls.Add(this.label12);
-            this.pcOrdenCompra.Controls.Add(this.label7);
-            this.pcOrdenCompra.Controls.Add(this.txtSubtutalIVA);
-            this.pcOrdenCompra.Controls.Add(this.txtSubtotal0);
-            this.pcOrdenCompra.Controls.Add(this.txtSubtotal);
-            this.pcOrdenCompra.Controls.Add(this.label9);
             this.pcOrdenCompra.Controls.Add(this.label10);
-            this.pcOrdenCompra.Controls.Add(this.label11);
-            this.pcOrdenCompra.Controls.Add(this.txtIVA);
-            this.pcOrdenCompra.Controls.Add(this.txtICE);
-            this.pcOrdenCompra.Controls.Add(this.label6);
-            this.pcOrdenCompra.Controls.Add(this.label5);
             this.pcOrdenCompra.Controls.Add(this.BtnLimpiar);
             this.pcOrdenCompra.Controls.Add(this.BtnGuardar);
             this.pcOrdenCompra.Controls.Add(this.gbEncabezadoCompra);
@@ -138,7 +120,7 @@
             this.pcOrdenCompra.Margin = new System.Windows.Forms.Padding(2);
             this.pcOrdenCompra.Name = "pcOrdenCompra";
             this.pcOrdenCompra.Padding = new System.Windows.Forms.Padding(2);
-            this.pcOrdenCompra.Size = new System.Drawing.Size(926, 520);
+            this.pcOrdenCompra.Size = new System.Drawing.Size(926, 501);
             this.pcOrdenCompra.TabIndex = 0;
             this.pcOrdenCompra.Text = "Nota de Crédito";
             // 
@@ -146,7 +128,7 @@
             // 
             this.btnSalirCompra.Image = global::Comisariato.Properties.Resources.salir2;
             this.btnSalirCompra.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalirCompra.Location = new System.Drawing.Point(24, 452);
+            this.btnSalirCompra.Location = new System.Drawing.Point(18, 406);
             this.btnSalirCompra.Name = "btnSalirCompra";
             this.btnSalirCompra.Size = new System.Drawing.Size(96, 53);
             this.btnSalirCompra.TabIndex = 13;
@@ -156,12 +138,14 @@
             // 
             // gbDetalleProducto
             // 
+            this.gbDetalleProducto.Controls.Add(this.textBox2);
+            this.gbDetalleProducto.Controls.Add(this.label6);
             this.gbDetalleProducto.Controls.Add(this.dgvProductosDevolucion);
             this.gbDetalleProducto.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.gbDetalleProducto.ForeColor = System.Drawing.Color.Teal;
-            this.gbDetalleProducto.Location = new System.Drawing.Point(11, 154);
+            this.gbDetalleProducto.Location = new System.Drawing.Point(11, 138);
             this.gbDetalleProducto.Name = "gbDetalleProducto";
-            this.gbDetalleProducto.Size = new System.Drawing.Size(891, 191);
+            this.gbDetalleProducto.Size = new System.Drawing.Size(891, 262);
             this.gbDetalleProducto.TabIndex = 58;
             this.gbDetalleProducto.TabStop = false;
             this.gbDetalleProducto.Text = "Detalle de Productos";
@@ -201,11 +185,11 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvProductosDevolucion.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvProductosDevolucion.Location = new System.Drawing.Point(6, 20);
+            this.dgvProductosDevolucion.Location = new System.Drawing.Point(6, 45);
             this.dgvProductosDevolucion.Margin = new System.Windows.Forms.Padding(2);
             this.dgvProductosDevolucion.Name = "dgvProductosDevolucion";
             this.dgvProductosDevolucion.RowHeadersVisible = false;
-            this.dgvProductosDevolucion.Size = new System.Drawing.Size(880, 150);
+            this.dgvProductosDevolucion.Size = new System.Drawing.Size(880, 196);
             this.dgvProductosDevolucion.TabIndex = 11;
             // 
             // codigo
@@ -305,155 +289,29 @@
             // txtTotal
             // 
             this.txtTotal.Enabled = false;
-            this.txtTotal.Font = new System.Drawing.Font("Arial", 36F);
-            this.txtTotal.Location = new System.Drawing.Point(643, 442);
+            this.txtTotal.Font = new System.Drawing.Font("Arial", 22F);
+            this.txtTotal.Location = new System.Drawing.Point(638, 406);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.ReadOnly = true;
-            this.txtTotal.Size = new System.Drawing.Size(259, 63);
+            this.txtTotal.Size = new System.Drawing.Size(259, 41);
             this.txtTotal.TabIndex = 20;
-            // 
-            // txtIRBP
-            // 
-            this.txtIRBP.Enabled = false;
-            this.txtIRBP.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtIRBP.Location = new System.Drawing.Point(517, 409);
-            this.txtIRBP.Name = "txtIRBP";
-            this.txtIRBP.ReadOnly = true;
-            this.txtIRBP.Size = new System.Drawing.Size(130, 23);
-            this.txtIRBP.TabIndex = 16;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Arial", 10F);
-            this.label12.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label12.Location = new System.Drawing.Point(653, 354);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(88, 16);
-            this.label12.TabIndex = 55;
-            this.label12.Text = "Subtotal IVA:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial", 10F);
-            this.label7.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label7.Location = new System.Drawing.Point(653, 383);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 16);
-            this.label7.TabIndex = 54;
-            this.label7.Text = "Subtotal 0%:";
-            // 
-            // txtSubtutalIVA
-            // 
-            this.txtSubtutalIVA.Enabled = false;
-            this.txtSubtutalIVA.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtSubtutalIVA.Location = new System.Drawing.Point(772, 351);
-            this.txtSubtutalIVA.Name = "txtSubtutalIVA";
-            this.txtSubtutalIVA.ReadOnly = true;
-            this.txtSubtutalIVA.Size = new System.Drawing.Size(130, 23);
-            this.txtSubtutalIVA.TabIndex = 17;
-            // 
-            // txtSubtotal0
-            // 
-            this.txtSubtotal0.Enabled = false;
-            this.txtSubtotal0.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtSubtotal0.Location = new System.Drawing.Point(772, 380);
-            this.txtSubtotal0.Name = "txtSubtotal0";
-            this.txtSubtotal0.ReadOnly = true;
-            this.txtSubtotal0.Size = new System.Drawing.Size(130, 23);
-            this.txtSubtotal0.TabIndex = 18;
-            // 
-            // txtSubtotal
-            // 
-            this.txtSubtotal.Enabled = false;
-            this.txtSubtotal.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtSubtotal.Location = new System.Drawing.Point(772, 409);
-            this.txtSubtotal.Name = "txtSubtotal";
-            this.txtSubtotal.ReadOnly = true;
-            this.txtSubtotal.Size = new System.Drawing.Size(130, 23);
-            this.txtSubtotal.TabIndex = 19;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial", 10F);
-            this.label9.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label9.Location = new System.Drawing.Point(455, 354);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(30, 16);
-            this.label9.TabIndex = 50;
-            this.label9.Text = "Iva:";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.label10.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label10.Location = new System.Drawing.Point(569, 463);
+            this.label10.Location = new System.Drawing.Point(497, 418);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 16);
+            this.label10.Size = new System.Drawing.Size(103, 16);
             this.label10.TabIndex = 49;
-            this.label10.Text = "Total:";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Arial", 10F);
-            this.label11.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label11.Location = new System.Drawing.Point(653, 412);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(64, 16);
-            this.label11.TabIndex = 48;
-            this.label11.Text = "Subtotal:";
-            // 
-            // txtIVA
-            // 
-            this.txtIVA.Enabled = false;
-            this.txtIVA.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtIVA.Location = new System.Drawing.Point(517, 351);
-            this.txtIVA.Name = "txtIVA";
-            this.txtIVA.ReadOnly = true;
-            this.txtIVA.Size = new System.Drawing.Size(130, 23);
-            this.txtIVA.TabIndex = 14;
-            // 
-            // txtICE
-            // 
-            this.txtICE.Enabled = false;
-            this.txtICE.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtICE.Location = new System.Drawing.Point(517, 380);
-            this.txtICE.Name = "txtICE";
-            this.txtICE.ReadOnly = true;
-            this.txtICE.Size = new System.Drawing.Size(130, 23);
-            this.txtICE.TabIndex = 15;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial", 10F);
-            this.label6.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label6.Location = new System.Drawing.Point(455, 412);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 16);
-            this.label6.TabIndex = 42;
-            this.label6.Text = "IRBP:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial", 10F);
-            this.label5.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label5.Location = new System.Drawing.Point(455, 383);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 16);
-            this.label5.TabIndex = 41;
-            this.label5.Text = "ICE:";
+            this.label10.Text = "Total Compra:";
             // 
             // BtnLimpiar
             // 
             this.BtnLimpiar.Image = global::Comisariato.Properties.Resources.limpiar;
             this.BtnLimpiar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnLimpiar.Location = new System.Drawing.Point(228, 364);
+            this.BtnLimpiar.Location = new System.Drawing.Point(320, 406);
             this.BtnLimpiar.Name = "BtnLimpiar";
             this.BtnLimpiar.Size = new System.Drawing.Size(135, 77);
             this.BtnLimpiar.TabIndex = 12;
@@ -465,7 +323,7 @@
             // 
             this.BtnGuardar.Image = global::Comisariato.Properties.Resources.guardar11;
             this.BtnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnGuardar.Location = new System.Drawing.Point(76, 364);
+            this.BtnGuardar.Location = new System.Drawing.Point(168, 406);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(135, 77);
             this.BtnGuardar.TabIndex = 10;
@@ -492,7 +350,7 @@
             this.gbEncabezadoCompra.Controls.Add(this.label3);
             this.gbEncabezadoCompra.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
             this.gbEncabezadoCompra.ForeColor = System.Drawing.Color.Teal;
-            this.gbEncabezadoCompra.Location = new System.Drawing.Point(11, 20);
+            this.gbEncabezadoCompra.Location = new System.Drawing.Point(11, 8);
             this.gbEncabezadoCompra.Name = "gbEncabezadoCompra";
             this.gbEncabezadoCompra.Size = new System.Drawing.Size(891, 128);
             this.gbEncabezadoCompra.TabIndex = 36;
@@ -753,12 +611,49 @@
             this.label16.TabIndex = 17;
             this.label16.Text = "Desde:";
             // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Font = new System.Drawing.Font("Arial", 22F);
+            this.textBox1.Location = new System.Drawing.Point(638, 453);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(259, 41);
+            this.textBox1.TabIndex = 59;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.label5.ForeColor = System.Drawing.Color.DarkCyan;
+            this.label5.Location = new System.Drawing.Point(497, 465);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(129, 16);
+            this.label5.TabIndex = 60;
+            this.label5.Text = "Total Devolución:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(281, 20);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 16);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Buscar:";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(348, 17);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(262, 23);
+            this.textBox2.TabIndex = 13;
+            // 
             // FrmDevolucionCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(961, 564);
+            this.ClientSize = new System.Drawing.Size(961, 547);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -769,6 +664,7 @@
             this.pcOrdenCompra.ResumeLayout(false);
             this.pcOrdenCompra.PerformLayout();
             this.gbDetalleProducto.ResumeLayout(false);
+            this.gbDetalleProducto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductosDevolucion)).EndInit();
             this.gbEncabezadoCompra.ResumeLayout(false);
             this.gbEncabezadoCompra.PerformLayout();
@@ -789,19 +685,7 @@
         private System.Windows.Forms.GroupBox gbDetalleProducto;
         private System.Windows.Forms.DataGridView dgvProductosDevolucion;
         private System.Windows.Forms.TextBox txtTotal;
-        private System.Windows.Forms.TextBox txtIRBP;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtSubtutalIVA;
-        private System.Windows.Forms.TextBox txtSubtotal0;
-        private System.Windows.Forms.TextBox txtSubtotal;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtIVA;
-        private System.Windows.Forms.TextBox txtICE;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button BtnLimpiar;
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.GroupBox gbEncabezadoCompra;
@@ -841,5 +725,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantidadDevolver;
         private System.Windows.Forms.DataGridViewCheckBoxColumn devolucion;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label6;
     }
 }

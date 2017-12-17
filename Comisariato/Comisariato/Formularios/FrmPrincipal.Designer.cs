@@ -80,21 +80,29 @@
             treeNode25});
             System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Kardex");
             System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Informe Ventas");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Informes", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Informe Compras");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Informe Retención");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Informe Nota de Crédito");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Informe Nota de Débito");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Informes", new System.Windows.Forms.TreeNode[] {
             treeNode27,
-            treeNode28});
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("ATS");
-            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Declaración SRI");
-            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("SRI", new System.Windows.Forms.TreeNode[] {
+            treeNode28,
+            treeNode29,
             treeNode30,
-            treeNode31});
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Enviados");
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Recibidos");
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Eliminados");
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Correo Electrónico", new System.Windows.Forms.TreeNode[] {
-            treeNode33,
+            treeNode31,
+            treeNode32});
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("ATS");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Declaración SRI");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("SRI", new System.Windows.Forms.TreeNode[] {
             treeNode34,
             treeNode35});
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Enviados");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Recibidos");
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Eliminados");
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Correo Electrónico", new System.Windows.Forms.TreeNode[] {
+            treeNode37,
+            treeNode38,
+            treeNode39});
             this.tvPrincipal = new System.Windows.Forms.TreeView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblFecha = new System.Windows.Forms.ToolStripStatusLabel();
@@ -188,31 +196,39 @@
             treeNode27.Text = "Kardex";
             treeNode28.Name = "Nodo0";
             treeNode28.Text = "Informe Ventas";
-            treeNode29.Name = "nodoInforme";
-            treeNode29.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode29.Text = "Informes";
-            treeNode30.Name = "Nodo8";
-            treeNode30.Text = "ATS";
-            treeNode31.Name = "Nodo0";
-            treeNode31.Text = "Declaración SRI";
-            treeNode32.Name = "nodoSRI";
-            treeNode32.Text = "SRI";
-            treeNode33.Name = "Nodo11";
-            treeNode33.Text = "Enviados";
-            treeNode34.Name = "Nodo12";
-            treeNode34.Text = "Recibidos";
-            treeNode35.Name = "Nodo13";
-            treeNode35.Text = "Eliminados";
-            treeNode36.Name = "nodoCorreoElectronico";
-            treeNode36.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode36.Text = "Correo Electrónico";
+            treeNode29.Name = "Nodo0";
+            treeNode29.Text = "Informe Compras";
+            treeNode30.Name = "Nodo1";
+            treeNode30.Text = "Informe Retención";
+            treeNode31.Name = "Nodo4";
+            treeNode31.Text = "Informe Nota de Crédito";
+            treeNode32.Name = "Nodo5";
+            treeNode32.Text = "Informe Nota de Débito";
+            treeNode33.Name = "nodoInforme";
+            treeNode33.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode33.Text = "Informes";
+            treeNode34.Name = "Nodo8";
+            treeNode34.Text = "ATS";
+            treeNode35.Name = "Nodo0";
+            treeNode35.Text = "Declaración SRI";
+            treeNode36.Name = "nodoSRI";
+            treeNode36.Text = "SRI";
+            treeNode37.Name = "Nodo11";
+            treeNode37.Text = "Enviados";
+            treeNode38.Name = "Nodo12";
+            treeNode38.Text = "Recibidos";
+            treeNode39.Name = "Nodo13";
+            treeNode39.Text = "Eliminados";
+            treeNode40.Name = "nodoCorreoElectronico";
+            treeNode40.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode40.Text = "Correo Electrónico";
             this.tvPrincipal.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode14,
             treeNode20,
             treeNode26,
-            treeNode29,
-            treeNode32,
-            treeNode36});
+            treeNode33,
+            treeNode36,
+            treeNode40});
             this.tvPrincipal.Size = new System.Drawing.Size(239, 592);
             this.tvPrincipal.TabIndex = 0;
             this.tvPrincipal.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvPrincipal_NodeMouseClick);
@@ -344,6 +360,7 @@
             this.cambiarContraseñaToolStripMenuItem.Name = "cambiarContraseñaToolStripMenuItem";
             this.cambiarContraseñaToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.cambiarContraseñaToolStripMenuItem.Text = "Cambiar Contraseña";
+            this.cambiarContraseñaToolStripMenuItem.Click += new System.EventHandler(this.cambiarContraseñaToolStripMenuItem_Click);
             // 
             // tsmCerrarSesion
             // 
@@ -365,7 +382,6 @@
             this.msPrincipal1.Size = new System.Drawing.Size(1342, 24);
             this.msPrincipal1.TabIndex = 1;
             this.msPrincipal1.Text = "menuStrip1";
-            this.msPrincipal1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.msPrincipal1_ItemClicked);
             // 
             // FrmPrincipal
             // 

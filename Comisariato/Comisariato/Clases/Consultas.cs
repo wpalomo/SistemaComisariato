@@ -1623,6 +1623,7 @@ namespace Comisariato.Clases
                 //cmd.Parameters.AddWithValue("@IDENCABEZADOCOMPRA", ObjCompra.IdEncabezadoCompra);
                 cmd.Parameters.AddWithValue("@IDENCABEZADOORDENGIRO", objDetalleOrdenGiro.IdEncabezadoOrdenGiro);
                 cmd.Parameters.AddWithValue("@IDRETENCION", objDetalleOrdenGiro.IdRetencion);
+                cmd.Parameters.AddWithValue("@MONTO", Funcion.reemplazarcaracter(objDetalleOrdenGiro.Monto.ToString()));
                 int result = cmd.ExecuteNonQuery();
                 Objc.Cerrar();
                 if (result > 0)

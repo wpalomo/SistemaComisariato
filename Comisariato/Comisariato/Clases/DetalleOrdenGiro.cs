@@ -9,11 +9,13 @@ namespace Comisariato.Clases
     public class DetalleOrdenGiro
     {
         int idEncabezadoOrdenGiro, idRetencion;
+        float monto;
 
-        public DetalleOrdenGiro(int idEncabezadoOrdenGiro, int idRetencion)
+        public DetalleOrdenGiro(int idEncabezadoOrdenGiro, int idRetencion, float monto)
         {
             this.IdEncabezadoOrdenGiro = idEncabezadoOrdenGiro;
             this.IdRetencion = idRetencion;
+            this.Monto = monto;
         }
 
         public int IdEncabezadoOrdenGiro
@@ -39,6 +41,19 @@ namespace Comisariato.Clases
             set
             {
                 idRetencion = value;
+            }
+        }
+
+        public float Monto
+        {
+            get
+            {
+                return monto;
+            }
+
+            set
+            {
+                monto = value;
             }
         }
 

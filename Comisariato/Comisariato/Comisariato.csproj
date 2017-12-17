@@ -75,6 +75,24 @@
     <Compile Include="Clases\Sucursal.cs" />
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Clases\Xml.cs" />
+    <Compile Include="Formularios\FrmCambioClave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmCambioClave.Designer.cs">
+      <DependentUpon>FrmCambioClave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Informes\FrmInformesCompras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Informes\FrmInformesCompras.Designer.cs">
+      <DependentUpon>FrmInformesCompras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Informes\FrmInformesRentenciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Informes\FrmInformesRentenciones.Designer.cs">
+      <DependentUpon>FrmInformesRentenciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Informes\FrmInformesVentas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,11 +225,11 @@
     <Compile Include="Formularios\Transacciones\FrmDevolucionCompra.Designer.cs">
       <DependentUpon>FrmDevolucionCompra.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Transacciones\FrmDevoluciones.cs">
+    <Compile Include="Formularios\Transacciones\FrmDevolucionVenta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\Transacciones\FrmDevoluciones.Designer.cs">
-      <DependentUpon>FrmDevoluciones.cs</DependentUpon>
+    <Compile Include="Formularios\Transacciones\FrmDevolucionVenta.Designer.cs">
+      <DependentUpon>FrmDevolucionVenta.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Transacciones\Venta\FrmAvanse.cs">
       <SubType>Form</SubType>
@@ -275,6 +293,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\FrmCambioClave.resx">
+      <DependentUpon>FrmCambioClave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Informes\FrmInformesCompras.resx">
+      <DependentUpon>FrmInformesCompras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Informes\FrmInformesRentenciones.resx">
+      <DependentUpon>FrmInformesRentenciones.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Informes\FrmInformesVentas.resx">
       <DependentUpon>FrmInformesVentas.cs</DependentUpon>
     </EmbeddedResource>
@@ -341,8 +368,8 @@
     <EmbeddedResource Include="Formularios\Transacciones\FrmDevolucionCompra.resx">
       <DependentUpon>FrmDevolucionCompra.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Transacciones\FrmDevoluciones.resx">
-      <DependentUpon>FrmDevoluciones.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\Transacciones\FrmDevolucionVenta.resx">
+      <DependentUpon>FrmDevolucionVenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmAvanse.resx">
       <DependentUpon>FrmAvanse.cs</DependentUpon>
