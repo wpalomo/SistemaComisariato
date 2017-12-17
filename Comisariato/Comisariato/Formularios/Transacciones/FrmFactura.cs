@@ -1263,6 +1263,7 @@ namespace Comisariato.Formularios.Transacciones
                     dgvDetalleProductos.Rows[i].Cells[4].Value = retencionfact[i].Precioporcaja_sin_iva;
                     dgvDetalleProductos.Rows[i].Cells[5].Value = retencionfact[i].Precioporcaja_sin_iva;
                     dgvDetalleProductos.Rows[i].Cells[6].Value = retencionfact[i].Precioalmayor_sin_iva;
+                    dgvDetalleProductos.Rows[i].Cells[9].Value = Convert.ToInt32(retencionfact[i].LibreImpuesto);
 
                 }
                 if (tipoprecio1==0)
@@ -1310,6 +1311,7 @@ namespace Comisariato.Formularios.Transacciones
 
 
                 DatosCliente = DatosClientefactespe;
+                //AQUI SALE MAL
 
                 if (DatosCliente[0]!="9999999999999")
                 {
@@ -1402,6 +1404,7 @@ namespace Comisariato.Formularios.Transacciones
                             p.Preciopublico_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[4].Value.ToString());
                             p.Precioporcaja_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[5].Value.ToString());
                             p.Precioalmayor_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value.ToString());
+                            p.LibreImpuesto = Convert.ToBoolean(Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[9].Value));
                             //codigos.Add(dgvDetalleProductos.Rows[i].Cells[0].Value.ToString());
                             retencionfact.Add(p);
                         }
@@ -1632,7 +1635,8 @@ namespace Comisariato.Formularios.Transacciones
             //Program.em.Iva = Convert.ToSingle(txtIva.Text);
             Program.em.Idempleado = int.Parse(Program.IDUsuario);
             Program.em.Idcliente = idcliente;
-            Program.em.Numfact = numfact;
+
+           Program.em.Numfact = numfact;
 
             //Consultas objCns = new Consultas();
             // objCns.Insertar("INSERT INTO TbEncabezadoFactura (SUCURSAL,CAJA,NFACTURA,FECHA,HORA,DESCUENTO,IVA,IDEMPLEADO,IDCLIENTE) VALUES ('" + txtSucursal.Text + "','" + txtCaja.Text + "','"+txtNumFact.Text+"','"+Program.FecaInicio+"','"+ DateTime.Now.Date.ToShortDateString()+"','"+ DateTime.Now.TimeOfDay.ToString()+"','0','"+txtIva.Text+"','"+Program.IDUsuario+"','"+idcliente+"'"+ ");");
@@ -1681,8 +1685,10 @@ namespace Comisariato.Formularios.Transacciones
             
 
             txtNumFact.Text = numfactnuevo.ToString("D9");
-            Objconsul.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET [DOCUMENTOACTUAL] = '" + txtNumFact.Text + "'  WHERE  SERIE2 = '" + txtCaja.Text + "' and SERIE1= '" + txtSucursal.Text + "';");
-
+            if (Objconsul.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET [DOCUMENTOACTUAL] = '" + txtNumFact.Text + "'  WHERE  SERIE2 = '" + txtCaja.Text + "' and SERIE1= '" + txtSucursal.Text + "';"))
+            {
+                numfact = numfact + 1;
+            }
             rdbPublico.Checked = true;
             rdbConsumidorFinal.Checked = true;
             //ckbEfectivo.Checked = true;

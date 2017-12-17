@@ -48,6 +48,7 @@ namespace Comisariato.Formularios.Transacciones
             tipòpago = 2;
             if (ckbCheque.Checked)
             {
+                agregarFdgv(dgvCheque);
                 dgvCheque.Enabled = true;
                 dgvCheque.CurrentCell = dgvCheque.Rows[0].Cells[0];
                 dgvCheque.BeginEdit(true);
@@ -56,11 +57,18 @@ namespace Comisariato.Formularios.Transacciones
             else
             {
                 dgvCheque.Enabled = false;
+                dgvCheque.Rows.Clear();
                 Calcular();
             }
         }
 
-       
+       private void agregarFdgv(DataGridView dg)
+       {
+            for (int i = 0; i < 5; i++)
+            {
+                dg.Rows.Add();
+            }
+       }
 
 
         private void ckbEfectivo_CheckedChanged(object sender, EventArgs e)
@@ -88,6 +96,7 @@ namespace Comisariato.Formularios.Transacciones
             tipòpago = 3;
             if (ckbTarjeta.Checked)
             {
+                agregarFdgv(dgvTarjeta);
                 dgvTarjeta.Enabled = true;
                 dgvTarjeta.CurrentCell = dgvTarjeta.Rows[rowsdgvcredito].Cells[0];
                 dgvTarjeta.BeginEdit(true);
@@ -95,6 +104,7 @@ namespace Comisariato.Formularios.Transacciones
             }
             else
             {
+                dgvTarjeta.Rows.Clear();
                 dgvTarjeta.Enabled = false;
                 Calcular();
             }
@@ -885,6 +895,7 @@ namespace Comisariato.Formularios.Transacciones
                 objcit.SecuenciaL = numfactbd.ToString("D9");
                 objcit.DirMatriz = Program.direccionempresa;
                 string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
+
                 xml.InfoTributaria("infoTributaria", objcit, serie);
 
 
@@ -937,7 +948,7 @@ namespace Comisariato.Formularios.Transacciones
                 objcif.TotalDescuento = descuento;
                 //objcif.BaseImponible=
                 objcif.GuiaRemision = sucursal.ToString("D3") + "-" + caja.ToString("D3") + "-" + numfactbd.ToString("D9");
-                xml.infoFactura("infoFactura", objcif);
+                xml.infoFactura("infoFactura", objcif,dgvCheque,dgvTarjeta,ckbEfectivo,txtEfectivo.Text);
                 xml.detalleFactura("detalles", dg);
 
             }
@@ -1439,7 +1450,7 @@ namespace Comisariato.Formularios.Transacciones
                         {
                             for (int i = 0; i < dgvCheque.RowCount; i++)
                             {
-                                if (dgvCheque.Rows[i].Cells[0].Value != null)
+                                if ( dgvCheque.Rows[i].Cells[0].Value != null)
                                 {
                                     string con = Convert.ToString(dgvCheque.Rows[i].Cells[5].Value);
                                     con = Funcion.reemplazarcaracterViceversa(con);
@@ -1476,7 +1487,7 @@ namespace Comisariato.Formularios.Transacciones
                         {
                             string valor = "";
                             valor = Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
-                            if (valor!="")
+                            if (valor!=" ")
                             {
                                 for (int i = 0; i < dgvTarjeta.RowCount; i++)
                                 {
@@ -1528,21 +1539,28 @@ namespace Comisariato.Formularios.Transacciones
                         }
                         else
                         {
+
                             if (ckbCheque.Checked)
                             {
-                                for (int i = 0; i < dgvCheque.RowCount; i++)
+                                string valor = "";
+                                valor = Convert.ToString(dgvCheque.Rows[0].Cells[0].Value);
+                                if (valor!="")
                                 {
-                                    if (dgvCheque.Rows[i].Cells[0].Value != null)
+                                    for (int i = 0; i < dgvCheque.RowCount; i++)
                                     {
-                                        string con = Convert.ToString(dgvCheque.Rows[i].Cells[5].Value);
-                                        con = Funcion.reemplazarcaracterViceversa(con);
-                                        totalCheque += Convert.ToSingle(con);
-                                    }
-                                    else
-                                    {
-                                        break;
+                                        if (dgvCheque.Rows[i].Cells[0].Value != null)
+                                        {
+                                            string con = Convert.ToString(dgvCheque.Rows[i].Cells[5].Value);
+                                            con = Funcion.reemplazarcaracterViceversa(con);
+                                            totalCheque += Convert.ToSingle(con);
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
                                     }
                                 }
+                                
                                 
                                
                                 //if (Convert.ToSingle(r) >= total)
@@ -1608,20 +1626,26 @@ namespace Comisariato.Formularios.Transacciones
                                 {
                                     if (ckbTarjeta.Checked)
                                     {
-                                        for (int i = 0; i < dgvTarjeta.RowCount; i++)
+                                        string valor = "";
+                                        valor = Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
+                                        if (valor!=" ")
                                         {
-                                            if (dgvTarjeta.Rows[i].Cells[0].Value != null)
+                                            for (int i = 0; i < dgvTarjeta.RowCount; i++)
                                             {
-                                                string con = Convert.ToString(dgvTarjeta.Rows[i].Cells[2].Value);
-                                                con = Funcion.reemplazarcaracterViceversa(con);
-                                                TotalCredito += Convert.ToSingle(con);
-                                            }
-                                            else
-                                            {
-                                                break;
-                                            }
+                                                if (dgvTarjeta.Rows[i].Cells[0].Value != null)
+                                                {
+                                                    string con = Convert.ToString(dgvTarjeta.Rows[i].Cells[2].Value);
+                                                    con = Funcion.reemplazarcaracterViceversa(con);
+                                                    TotalCredito += Convert.ToSingle(con);
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
 
+                                            }
                                         }
+                                        
 
 
                                         float cambio = TotalCredito - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
