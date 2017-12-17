@@ -33,8 +33,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.pcOrdenCompra = new System.Windows.Forms.TabPage();
+            this.txtTotalDevolucion = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnSalirCompra = new System.Windows.Forms.Button();
             this.gbDetalleProducto = new System.Windows.Forms.GroupBox();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.dgvProductosDevolucion = new System.Windows.Forms.DataGridView();
             this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,7 +68,6 @@
             this.txtSerie2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnProveedor = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.cbProveedor = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -77,10 +80,6 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.pcOrdenCompra.SuspendLayout();
             this.gbDetalleProducto.SuspendLayout();
@@ -100,13 +99,13 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(934, 530);
+            this.tabControl1.Size = new System.Drawing.Size(934, 607);
             this.tabControl1.TabIndex = 2;
             // 
             // pcOrdenCompra
             // 
             this.pcOrdenCompra.BackColor = System.Drawing.Color.Bisque;
-            this.pcOrdenCompra.Controls.Add(this.textBox1);
+            this.pcOrdenCompra.Controls.Add(this.txtTotalDevolucion);
             this.pcOrdenCompra.Controls.Add(this.label5);
             this.pcOrdenCompra.Controls.Add(this.btnSalirCompra);
             this.pcOrdenCompra.Controls.Add(this.gbDetalleProducto);
@@ -120,38 +119,77 @@
             this.pcOrdenCompra.Margin = new System.Windows.Forms.Padding(2);
             this.pcOrdenCompra.Name = "pcOrdenCompra";
             this.pcOrdenCompra.Padding = new System.Windows.Forms.Padding(2);
-            this.pcOrdenCompra.Size = new System.Drawing.Size(926, 501);
+            this.pcOrdenCompra.Size = new System.Drawing.Size(926, 578);
             this.pcOrdenCompra.TabIndex = 0;
             this.pcOrdenCompra.Text = "Nota de Crédito";
+            // 
+            // txtTotalDevolucion
+            // 
+            this.txtTotalDevolucion.Enabled = false;
+            this.txtTotalDevolucion.Font = new System.Drawing.Font("Arial", 22F);
+            this.txtTotalDevolucion.Location = new System.Drawing.Point(638, 528);
+            this.txtTotalDevolucion.Name = "txtTotalDevolucion";
+            this.txtTotalDevolucion.ReadOnly = true;
+            this.txtTotalDevolucion.Size = new System.Drawing.Size(259, 41);
+            this.txtTotalDevolucion.TabIndex = 59;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.label5.ForeColor = System.Drawing.Color.DarkCyan;
+            this.label5.Location = new System.Drawing.Point(497, 540);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(129, 16);
+            this.label5.TabIndex = 60;
+            this.label5.Text = "Total Devolución:";
             // 
             // btnSalirCompra
             // 
             this.btnSalirCompra.Image = global::Comisariato.Properties.Resources.salir2;
             this.btnSalirCompra.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalirCompra.Location = new System.Drawing.Point(18, 406);
+            this.btnSalirCompra.Location = new System.Drawing.Point(18, 481);
             this.btnSalirCompra.Name = "btnSalirCompra";
             this.btnSalirCompra.Size = new System.Drawing.Size(96, 53);
-            this.btnSalirCompra.TabIndex = 13;
+            this.btnSalirCompra.TabIndex = 10;
             this.btnSalirCompra.Text = "Salir";
             this.btnSalirCompra.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSalirCompra.UseVisualStyleBackColor = true;
             // 
             // gbDetalleProducto
             // 
-            this.gbDetalleProducto.Controls.Add(this.textBox2);
+            this.gbDetalleProducto.Controls.Add(this.txtBuscar);
             this.gbDetalleProducto.Controls.Add(this.label6);
             this.gbDetalleProducto.Controls.Add(this.dgvProductosDevolucion);
             this.gbDetalleProducto.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.gbDetalleProducto.ForeColor = System.Drawing.Color.Teal;
             this.gbDetalleProducto.Location = new System.Drawing.Point(11, 138);
             this.gbDetalleProducto.Name = "gbDetalleProducto";
-            this.gbDetalleProducto.Size = new System.Drawing.Size(891, 262);
-            this.gbDetalleProducto.TabIndex = 58;
+            this.gbDetalleProducto.Size = new System.Drawing.Size(891, 337);
+            this.gbDetalleProducto.TabIndex = 5;
             this.gbDetalleProducto.TabStop = false;
             this.gbDetalleProducto.Text = "Detalle de Productos";
             // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Location = new System.Drawing.Point(348, 17);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(262, 23);
+            this.txtBuscar.TabIndex = 6;
+            this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbProveedor_KeyDown);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(281, 20);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 16);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Buscar:";
+            // 
             // dgvProductosDevolucion
             // 
+            this.dgvProductosDevolucion.AllowUserToResizeRows = false;
             this.dgvProductosDevolucion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -189,8 +227,9 @@
             this.dgvProductosDevolucion.Margin = new System.Windows.Forms.Padding(2);
             this.dgvProductosDevolucion.Name = "dgvProductosDevolucion";
             this.dgvProductosDevolucion.RowHeadersVisible = false;
-            this.dgvProductosDevolucion.Size = new System.Drawing.Size(880, 196);
-            this.dgvProductosDevolucion.TabIndex = 11;
+            this.dgvProductosDevolucion.Size = new System.Drawing.Size(880, 271);
+            this.dgvProductosDevolucion.TabIndex = 7;
+            this.dgvProductosDevolucion.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductosDevolucion_CellEndEdit);
             // 
             // codigo
             // 
@@ -290,7 +329,7 @@
             // 
             this.txtTotal.Enabled = false;
             this.txtTotal.Font = new System.Drawing.Font("Arial", 22F);
-            this.txtTotal.Location = new System.Drawing.Point(638, 406);
+            this.txtTotal.Location = new System.Drawing.Point(638, 481);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.ReadOnly = true;
             this.txtTotal.Size = new System.Drawing.Size(259, 41);
@@ -301,7 +340,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.label10.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label10.Location = new System.Drawing.Point(497, 418);
+            this.label10.Location = new System.Drawing.Point(497, 493);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(103, 16);
             this.label10.TabIndex = 49;
@@ -311,10 +350,10 @@
             // 
             this.BtnLimpiar.Image = global::Comisariato.Properties.Resources.limpiar;
             this.BtnLimpiar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnLimpiar.Location = new System.Drawing.Point(320, 406);
+            this.BtnLimpiar.Location = new System.Drawing.Point(320, 481);
             this.BtnLimpiar.Name = "BtnLimpiar";
             this.BtnLimpiar.Size = new System.Drawing.Size(135, 77);
-            this.BtnLimpiar.TabIndex = 12;
+            this.BtnLimpiar.TabIndex = 9;
             this.BtnLimpiar.Text = "&Limpiar";
             this.BtnLimpiar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnLimpiar.UseVisualStyleBackColor = true;
@@ -323,13 +362,14 @@
             // 
             this.BtnGuardar.Image = global::Comisariato.Properties.Resources.guardar11;
             this.BtnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnGuardar.Location = new System.Drawing.Point(168, 406);
+            this.BtnGuardar.Location = new System.Drawing.Point(168, 481);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(135, 77);
-            this.BtnGuardar.TabIndex = 10;
+            this.BtnGuardar.TabIndex = 8;
             this.BtnGuardar.Text = "&Guardar";
             this.BtnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnGuardar.UseVisualStyleBackColor = true;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // gbEncabezadoCompra
             // 
@@ -344,16 +384,15 @@
             this.gbEncabezadoCompra.Controls.Add(this.txtSerie2);
             this.gbEncabezadoCompra.Controls.Add(this.label2);
             this.gbEncabezadoCompra.Controls.Add(this.label1);
-            this.gbEncabezadoCompra.Controls.Add(this.btnProveedor);
             this.gbEncabezadoCompra.Controls.Add(this.label13);
             this.gbEncabezadoCompra.Controls.Add(this.cbProveedor);
             this.gbEncabezadoCompra.Controls.Add(this.label3);
             this.gbEncabezadoCompra.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
             this.gbEncabezadoCompra.ForeColor = System.Drawing.Color.Teal;
-            this.gbEncabezadoCompra.Location = new System.Drawing.Point(11, 8);
+            this.gbEncabezadoCompra.Location = new System.Drawing.Point(103, 8);
             this.gbEncabezadoCompra.Name = "gbEncabezadoCompra";
-            this.gbEncabezadoCompra.Size = new System.Drawing.Size(891, 128);
-            this.gbEncabezadoCompra.TabIndex = 36;
+            this.gbEncabezadoCompra.Size = new System.Drawing.Size(720, 128);
+            this.gbEncabezadoCompra.TabIndex = 0;
             this.gbEncabezadoCompra.TabStop = false;
             this.gbEncabezadoCompra.Text = "Datos de la Orden de Compra";
             // 
@@ -362,7 +401,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Teal;
-            this.label4.Location = new System.Drawing.Point(459, 24);
+            this.label4.Location = new System.Drawing.Point(429, 24);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 16);
@@ -372,16 +411,16 @@
             // txtAutorizacionNC
             // 
             this.txtAutorizacionNC.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtAutorizacionNC.Location = new System.Drawing.Point(545, 21);
+            this.txtAutorizacionNC.Location = new System.Drawing.Point(515, 21);
             this.txtAutorizacionNC.MaxLength = 9;
             this.txtAutorizacionNC.Name = "txtAutorizacionNC";
             this.txtAutorizacionNC.ReadOnly = true;
             this.txtAutorizacionNC.Size = new System.Drawing.Size(185, 23);
-            this.txtAutorizacionNC.TabIndex = 50;
+            this.txtAutorizacionNC.TabIndex = 63;
             // 
             // txtImpuesto
             // 
-            this.txtImpuesto.Location = new System.Drawing.Point(597, 52);
+            this.txtImpuesto.Location = new System.Drawing.Point(515, 52);
             this.txtImpuesto.Name = "txtImpuesto";
             this.txtImpuesto.ReadOnly = true;
             this.txtImpuesto.Size = new System.Drawing.Size(54, 22);
@@ -390,21 +429,23 @@
             // txtNumeroNC
             // 
             this.txtNumeroNC.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtNumeroNC.Location = new System.Drawing.Point(298, 21);
+            this.txtNumeroNC.Location = new System.Drawing.Point(268, 21);
             this.txtNumeroNC.MaxLength = 9;
             this.txtNumeroNC.Name = "txtNumeroNC";
             this.txtNumeroNC.ReadOnly = true;
             this.txtNumeroNC.Size = new System.Drawing.Size(156, 23);
-            this.txtNumeroNC.TabIndex = 4;
+            this.txtNumeroNC.TabIndex = 62;
             // 
             // txtNumero
             // 
             this.txtNumero.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtNumero.Location = new System.Drawing.Point(298, 82);
+            this.txtNumero.Location = new System.Drawing.Point(268, 82);
             this.txtNumero.MaxLength = 9;
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(156, 23);
             this.txtNumero.TabIndex = 4;
+            this.txtNumero.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNumero_KeyDown);
+            this.txtNumero.Leave += new System.EventHandler(this.cbProveedor_Leave);
             // 
             // txtSerie1NC
             // 
@@ -414,7 +455,7 @@
             this.txtSerie1NC.Name = "txtSerie1NC";
             this.txtSerie1NC.ReadOnly = true;
             this.txtSerie1NC.Size = new System.Drawing.Size(56, 23);
-            this.txtSerie1NC.TabIndex = 2;
+            this.txtSerie1NC.TabIndex = 60;
             // 
             // txtSerie1
             // 
@@ -424,25 +465,27 @@
             this.txtSerie1.Name = "txtSerie1";
             this.txtSerie1.Size = new System.Drawing.Size(56, 23);
             this.txtSerie1.TabIndex = 2;
+            this.txtSerie1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbProveedor_KeyDown);
             // 
             // txtSerie2NC
             // 
             this.txtSerie2NC.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtSerie2NC.Location = new System.Drawing.Point(217, 21);
+            this.txtSerie2NC.Location = new System.Drawing.Point(207, 21);
             this.txtSerie2NC.MaxLength = 3;
             this.txtSerie2NC.Name = "txtSerie2NC";
             this.txtSerie2NC.ReadOnly = true;
             this.txtSerie2NC.Size = new System.Drawing.Size(56, 23);
-            this.txtSerie2NC.TabIndex = 3;
+            this.txtSerie2NC.TabIndex = 61;
             // 
             // txtSerie2
             // 
             this.txtSerie2.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtSerie2.Location = new System.Drawing.Point(217, 82);
+            this.txtSerie2.Location = new System.Drawing.Point(207, 82);
             this.txtSerie2.MaxLength = 3;
             this.txtSerie2.Name = "txtSerie2";
             this.txtSerie2.Size = new System.Drawing.Size(56, 23);
             this.txtSerie2.TabIndex = 3;
+            this.txtSerie2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbProveedor_KeyDown);
             // 
             // label2
             // 
@@ -464,16 +507,6 @@
             this.label1.TabIndex = 48;
             this.label1.Text = "N° Factura Proveedor";
             // 
-            // btnProveedor
-            // 
-            this.btnProveedor.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProveedor.Location = new System.Drawing.Point(462, 53);
-            this.btnProveedor.Name = "btnProveedor";
-            this.btnProveedor.Size = new System.Drawing.Size(57, 23);
-            this.btnProveedor.TabIndex = 47;
-            this.btnProveedor.Text = "Buscar";
-            this.btnProveedor.UseVisualStyleBackColor = true;
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -492,8 +525,9 @@
             this.cbProveedor.Font = new System.Drawing.Font("Arial", 10F);
             this.cbProveedor.Location = new System.Drawing.Point(147, 52);
             this.cbProveedor.Name = "cbProveedor";
-            this.cbProveedor.Size = new System.Drawing.Size(307, 24);
-            this.cbProveedor.TabIndex = 6;
+            this.cbProveedor.Size = new System.Drawing.Size(277, 24);
+            this.cbProveedor.TabIndex = 1;
+            this.cbProveedor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbProveedor_KeyDown);
             this.cbProveedor.Leave += new System.EventHandler(this.cbProveedor_Leave);
             // 
             // label3
@@ -501,7 +535,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Teal;
-            this.label3.Location = new System.Drawing.Point(523, 55);
+            this.label3.Location = new System.Drawing.Point(429, 55);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 16);
             this.label3.TabIndex = 38;
@@ -518,7 +552,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(926, 520);
+            this.tabPage2.Size = new System.Drawing.Size(926, 578);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Consultar Nota de Credito";
             // 
@@ -611,49 +645,12 @@
             this.label16.TabIndex = 17;
             this.label16.Text = "Desde:";
             // 
-            // textBox1
-            // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Arial", 22F);
-            this.textBox1.Location = new System.Drawing.Point(638, 453);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(259, 41);
-            this.textBox1.TabIndex = 59;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.label5.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label5.Location = new System.Drawing.Point(497, 465);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(129, 16);
-            this.label5.TabIndex = 60;
-            this.label5.Text = "Total Devolución:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(281, 20);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 16);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Buscar:";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(348, 17);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(262, 23);
-            this.textBox2.TabIndex = 13;
-            // 
             // FrmDevolucionCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(961, 547);
+            this.ClientSize = new System.Drawing.Size(961, 624);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -693,7 +690,6 @@
         private System.Windows.Forms.TextBox txtSerie1;
         private System.Windows.Forms.TextBox txtSerie2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnProveedor;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox cbProveedor;
         private System.Windows.Forms.Label label3;
@@ -725,9 +721,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantidadDevolver;
         private System.Windows.Forms.DataGridViewCheckBoxColumn devolucion;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtTotalDevolucion;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label label6;
     }
 }
