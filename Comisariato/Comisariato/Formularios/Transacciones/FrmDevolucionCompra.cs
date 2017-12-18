@@ -99,6 +99,15 @@ namespace Comisariato.Formularios.Transacciones
             }
         }
 
+        private void dgvProductosDevolucion_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (e.Control is TextBox)
+            {
+                TextBox txt = e.Control as TextBox;
+                txt.KeyPress += OnlyNumbersdgvcheque_KeyPress;
+            }
+        }
+
         private void cbProveedor_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -262,6 +271,14 @@ namespace Comisariato.Formularios.Transacciones
             catch (Exception EX)
             {
             }
+        }
+        private void OnlyNumbersdgvcheque_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (dgvProductosDevolucion.CurrentCell == dgvProductosDevolucion.CurrentRow.Cells[10])
+            {
+                Funcion.Validar_Numeros(e);
+            }
+
         }
     }
 }

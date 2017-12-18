@@ -209,6 +209,7 @@
             this.dgvProductosDevolucion.Size = new System.Drawing.Size(880, 295);
             this.dgvProductosDevolucion.TabIndex = 7;
             this.dgvProductosDevolucion.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductosDevolucion_CellEndEdit);
+            this.dgvProductosDevolucion.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvProductosDevolucion_EditingControlShowing);
             // 
             // txtTotal
             // 
