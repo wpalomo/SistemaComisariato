@@ -883,7 +883,7 @@ namespace Comisariato.Formularios.Transacciones
                 //C:\Users\Programacion\Desktop\ArchivosXml\Generados
                 //C:\Users\Byron\Desktop\ArchivosXml\Generados
                 //xml._crearXml(@"\\AIRCONTROL\c\Users\Administrador\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
-                xml._crearXml(@"C:\Users\Byron\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
+                xml._crearXml(@"C:\Users\Programacion\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
                 InfoTributaria objcit = new InfoTributaria();
 
                 objcit.Ambiente = 1;
@@ -899,6 +899,16 @@ namespace Comisariato.Formularios.Transacciones
                 string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
 
                 xml.InfoTributaria("infoTributaria", objcit, serie);
+
+
+                double totalSinImpuesto = 0;
+                for (int j = 0; j < dg.RowCount; j++)
+                {
+                    if (dg.Rows[j].Cells[0].Value != null)
+                        totalSinImpuesto += Convert.ToInt32(dg.Rows[j].Cells[2].Value) * Convert.ToDouble(dg.Rows[j].Cells[4].Value);
+                    else
+                        break;
+                }
 
 
                 InfoFactura objcif = new InfoFactura();
@@ -944,13 +954,16 @@ namespace Comisariato.Formularios.Transacciones
                     objcif.DireccionComprador = DatosCliente[2];
                     
                 }
-                objcif.TotalSinImpuestos = "" + subtotal;
+                objcif.TotalSinImpuestos = Funcion.reemplazarcaracter(totalSinImpuesto.ToString("#####0.00"));
                 objcif.ObligadoContabilidad = Program.obligadoContabilidad;
-                objcif.TotalSinImpuestos = subtotalcero;
+                //objcif.TotalSinImpuestos = subtotalcero;
                 objcif.TotalDescuento = descuento;
+                objcif.Propina = "0.00";
+                objcif.Moneda = "DOLAR";
+                objcif.ImporteTotal = txtTotalPagar.Text;
                 //objcif.BaseImponible=
                 objcif.GuiaRemision = sucursal.ToString("D3") + "-" + caja.ToString("D3") + "-" + numfactbd.ToString("D9");
-                xml.infoFactura("infoFactura", objcif,dgvCheque,dgvTarjeta,ckbEfectivo,txtEfectivo.Text);
+                xml.infoFactura("infoFactura", objcif,dgvCheque,dgvTarjeta,ckbEfectivo,txtEfectivo.Text,dg);
                 xml.detalleFactura("detalles", dg);
 
             }

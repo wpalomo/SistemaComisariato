@@ -1264,6 +1264,7 @@ namespace Comisariato.Formularios.Transacciones
                     dgvDetalleProductos.Rows[i].Cells[5].Value = retencionfact[i].Precioporcaja_sin_iva;
                     dgvDetalleProductos.Rows[i].Cells[6].Value = retencionfact[i].Precioalmayor_sin_iva;
                     dgvDetalleProductos.Rows[i].Cells[9].Value = Convert.ToInt32(retencionfact[i].LibreImpuesto);
+                    dgvDetalleProductos.Rows[i].Cells[8].Value = Convert.ToInt32(retencionfact[i].Caja);
 
                 }
                 if (tipoprecio1==0)
@@ -1405,6 +1406,7 @@ namespace Comisariato.Formularios.Transacciones
                             p.Precioporcaja_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[5].Value.ToString());
                             p.Precioalmayor_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value.ToString());
                             p.LibreImpuesto = Convert.ToBoolean(Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[9].Value));
+                            p.Caja= Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[8].Value.ToString());
                             //codigos.Add(dgvDetalleProductos.Rows[i].Cells[0].Value.ToString());
                             retencionfact.Add(p);
                         }
