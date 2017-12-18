@@ -50,11 +50,11 @@ namespace Comisariato.Clases
             doc.Save(rutaXml);
         }
 
-        public void infoFactura(string nodoraiz,InfoFactura objc, DataGridView dgvcheque,DataGridView dgvcredito, CheckBox chkefectivo, string valorefectivo)
+        public void infoFactura(string nodoraiz,InfoFactura objc, DataGridView dgvcheque,DataGridView dgvcredito, CheckBox chkefectivo, string valorefectivo, DataGridView dgvDetalleProductos)
         {
             doc.Load(rutaXml);
 
-            XmlNode NodoInfoTributarios = CrearNodoInfoFactura(objc.FechaEmision,objc.DirEstablecimiento,objc.ContribuyenteEspecial,objc.ObligadoContabilidad,objc.TipoIdentificacionComprador,objc.RazonSocialComprador,objc.IdentificacionComprador,objc.TotalSinImpuestos,objc.TotalDescuento,objc.Codigo,objc.CodigoPorcentaje,objc.DescuentoAdicional,objc.BaseImponible,objc.Valor,objc.Propina,objc.ImporteTotal,objc.Moneda, objc.GuiaRemision, objc.DireccionComprador, dgvcheque, dgvcredito, chkefectivo,valorefectivo);
+            XmlNode NodoInfoTributarios = CrearNodoInfoFactura(objc.FechaEmision,objc.DirEstablecimiento,objc.ContribuyenteEspecial,objc.ObligadoContabilidad,objc.TipoIdentificacionComprador,objc.RazonSocialComprador,objc.IdentificacionComprador,objc.TotalSinImpuestos,objc.TotalDescuento,objc.Codigo,objc.CodigoPorcentaje,objc.DescuentoAdicional,objc.BaseImponible,objc.Valor,objc.Propina,objc.ImporteTotal,objc.Moneda, objc.GuiaRemision, objc.DireccionComprador, dgvcheque, dgvcredito, chkefectivo,valorefectivo,dgvDetalleProductos);
 
             XmlNode nodoRaiz = doc.DocumentElement;
 
@@ -110,6 +110,8 @@ namespace Comisariato.Clases
 
             doc.Save(rutaXml);
         }
+
+
 
         public XmlNode CrearNodoDetalle(string codigoPrincipal, string codigoAuxiliar, string descripcion, string cantidad, string precioUnitario, string descuento, string precioTotalSinImpuesto, string codigo, string codigoPorcentaje, string tarifa, string baseImponible, string valor)
         {
@@ -179,7 +181,7 @@ namespace Comisariato.Clases
             return detalle;
         }
 
-        private XmlNode CrearNodoInfoFactura(string fechaEmision, string dirEstablecimiento, string contribuyenteEspecial, string obligadoContabilidad, string tipoIdentificacionComprador, string razonSocialComprador, string identificacionComprador, string totalSinImpuestos, string totalDescuento, string codigo, string codigoPorcentaje, string descuentoAdicional, string baseImponible, string valor, string propina, string importeTotal, string moneda,string guiaRemision,string direccionComprador,DataGridView dgvcheque,DataGridView dgvcredito,CheckBox chkefectivo,string valorefectivo)
+        private XmlNode CrearNodoInfoFactura(string fechaEmision, string dirEstablecimiento, string contribuyenteEspecial, string obligadoContabilidad, string tipoIdentificacionComprador, string razonSocialComprador, string identificacionComprador, string totalSinImpuestos, string totalDescuento, string codigo, string codigoPorcentaje, string descuentoAdicional, string baseImponible, string valor, string propina, string importeTotal, string moneda,string guiaRemision,string direccionComprador,DataGridView dgvcheque,DataGridView dgvcredito,CheckBox chkefectivo,string valorefectivo,DataGridView dgvDetalle)
         {
             XmlNode Nodoraiz = doc.CreateElement("infoFactura");
 
@@ -217,7 +219,7 @@ namespace Comisariato.Clases
             Nodoraiz.AppendChild(nodoidentificacionComprador);
 
             XmlElement nododireccioncomprador = doc.CreateElement("direccionComprador");
-            nododireccioncomprador.InnerText = identificacionComprador;
+            nododireccioncomprador.InnerText = direccionComprador;
             Nodoraiz.AppendChild(nododireccioncomprador);
 
             XmlElement nodototalSinImpuestos = doc.CreateElement("totalSinImpuestos");
@@ -229,35 +231,36 @@ namespace Comisariato.Clases
             nodototalDescuento.InnerText = Funcion.reemplazarcaracter(descuento);
             Nodoraiz.AppendChild(nodototalDescuento);
 
-            //subnodo del nodo raiz totalConImpuestos
+            
+            ////subnodo del nodo raiz totalConImpuestos
             XmlNode SubNodototalConImpuestos = doc.CreateElement("totalConImpuestos");
-
+            SubNodototalConImpuestos.AppendChild(nodototalConImpuestos(dgvDetalle));
             Nodoraiz.AppendChild(SubNodototalConImpuestos);
 
-            //subnodo del nodo totalConImpuestos
-            XmlNode SubNodototalImpuesto = doc.CreateElement("totalImpuesto");
-            SubNodototalConImpuestos.AppendChild(SubNodototalImpuesto);
+            ////subnodo del nodo totalConImpuestos
+            //XmlNode SubNodototalImpuesto = doc.CreateElement("totalImpuesto");
+            //SubNodototalConImpuestos.AppendChild(SubNodototalImpuesto);
 
-            XmlElement nodocodigo = doc.CreateElement("codigo");
-            nodocodigo.InnerText = codigo;
-            SubNodototalImpuesto.AppendChild(nodocodigo);
+            //XmlElement nodocodigo = doc.CreateElement("codigo");
+            //nodocodigo.InnerText = codigo;
+            //SubNodototalImpuesto.AppendChild(nodocodigo);
 
 
-            XmlElement nodocodigoPorcentaje = doc.CreateElement("codigoPorcentaje");
-            nodocodigoPorcentaje.InnerText = codigoPorcentaje;
-            SubNodototalImpuesto.AppendChild(nodocodigoPorcentaje);
+            //XmlElement nodocodigoPorcentaje = doc.CreateElement("codigoPorcentaje");
+            //nodocodigoPorcentaje.InnerText = codigoPorcentaje;
+            //SubNodototalImpuesto.AppendChild(nodocodigoPorcentaje);
 
-            XmlElement nododescuentoAdicional = doc.CreateElement("descuentoAdicional");
-            nododescuentoAdicional.InnerText = descuentoAdicional;
-            SubNodototalImpuesto.AppendChild(nododescuentoAdicional);
+            //XmlElement nododescuentoAdicional = doc.CreateElement("descuentoAdicional");
+            //nododescuentoAdicional.InnerText = descuentoAdicional;
+            //SubNodototalImpuesto.AppendChild(nododescuentoAdicional);
 
-            XmlElement nodobaseImponible = doc.CreateElement("baseImponible");
-            nodobaseImponible.InnerText = Funcion.reemplazarcaracter(baseImponible);
-            SubNodototalImpuesto.AppendChild(nodobaseImponible);
+            //XmlElement nodobaseImponible = doc.CreateElement("baseImponible");
+            ////nodobaseImponible.InnerText = Funcion.reemplazarcaracter(baseImponible);
+            //SubNodototalImpuesto.AppendChild(nodobaseImponible);
 
-            XmlElement nodovalor = doc.CreateElement("valor");
-            nodovalor.InnerText = valor;
-            SubNodototalImpuesto.AppendChild(nodovalor);
+            //XmlElement nodovalor = doc.CreateElement("valor");
+            //nodovalor.InnerText = valor;
+            //SubNodototalImpuesto.AppendChild(nodovalor);
 
             XmlElement nodopropina = doc.CreateElement("propina");
             nodopropina.InnerText = propina;
@@ -335,6 +338,123 @@ namespace Comisariato.Clases
 
             return Nodoraiz;
         }
+
+
+        private XmlNode nodototalConImpuestos(DataGridView dgv)
+        {
+            //doc.Load(rutaXml);
+            XmlNode SubNodototalConImpuestos = doc.CreateElement("totalConImpuestos");
+            XmlNode NodoDetalles = null;
+            double baseimponiblecero = 0;
+            double baseimponibledoce = 0;
+            double baseimponiblecatorce = 0;
+            double baseimponibleLibreImpuesto = 0;
+            for (int i = 0; i < dgv.RowCount; i++)
+            {
+                if (dgv.Rows[i].Cells[0].Value != null)
+                {
+                    if (Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[9].Value)) == 1)
+                    {
+                        baseimponibleLibreImpuesto += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[4].Value);
+                    }
+                    else
+                    {
+                        //int valor = Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[5].Value));
+                        if (Convert.ToString(dgv.Rows[i].Cells[5].Value) == "0,00")
+                        {
+                            baseimponiblecero += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[4].Value);
+                        }
+                        else
+                        {
+                            if (Program.IVA == "14")
+                            {
+                                baseimponiblecatorce += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[4].Value);
+                            }
+                            else
+                            {
+                                baseimponibledoce += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[4].Value);
+                            }
+
+                        }
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+
+            if (baseimponiblecero > 0)
+            {
+                NodoDetalles = CrearNodoTotalConImpuesto("2", "0", "0.00", Funcion.reemplazarcaracter(baseimponiblecero.ToString("#####0.00")), "0", "0.00");
+                SubNodototalConImpuestos.AppendChild(NodoDetalles);
+            }
+            if (baseimponiblecatorce > 0)
+            {
+                double valorIva = (baseimponiblecatorce * 14) / 100;
+
+                NodoDetalles = CrearNodoTotalConImpuesto("2", "3", "0.00", Funcion.reemplazarcaracter(baseimponiblecatorce.ToString("#####0.00")), "14", valorIva.ToString("#####0.00"));
+                SubNodototalConImpuestos.AppendChild(NodoDetalles);
+            }
+            if (baseimponibledoce > 0)
+            {
+                double valorIva = (baseimponibledoce * 12) / 100;
+                NodoDetalles = CrearNodoTotalConImpuesto("2", "2", "0.00", Funcion.reemplazarcaracter(baseimponibledoce.ToString("#####0.00")), "12", Funcion.reemplazarcaracter(valorIva.ToString("#####0.00")));
+                SubNodototalConImpuestos.AppendChild(NodoDetalles);
+            }
+            if (baseimponibleLibreImpuesto > 0)
+            {
+                NodoDetalles = CrearNodoTotalConImpuesto("2", "6", "0.00", Funcion.reemplazarcaracter(baseimponibleLibreImpuesto.ToString("#####0.00")), "0", "0.00");
+                SubNodototalConImpuestos.AppendChild(NodoDetalles);
+            }
+
+
+            return SubNodototalConImpuestos;
+
+        }
+
+
+        public XmlNode CrearNodoTotalConImpuesto(string codigo, string codigoPorcentaje, string descuentoAdicional, string baseImponible, string tarifa, string valor)
+        {
+            //subnodo del nodo raiz totalConImpuestos
+            //XmlNode SubNodototalConImpuestos = doc.CreateElement("totalImpuesto");
+
+            //Nodoraiz.AppendChild(SubNodototalConImpuestos);
+
+            //subnodo del nodo totalConImpuestos
+            XmlNode SubNodototalImpuesto = doc.CreateElement("totalImpuesto");
+            //SubNodototalConImpuestos.AppendChild(SubNodototalImpuesto);
+
+            XmlElement nodocodigo = doc.CreateElement("codigo");
+            nodocodigo.InnerText = codigo;
+            SubNodototalImpuesto.AppendChild(nodocodigo);
+
+
+            XmlElement nodocodigoPorcentaje = doc.CreateElement("codigoPorcentaje");
+            nodocodigoPorcentaje.InnerText = codigoPorcentaje;
+            SubNodototalImpuesto.AppendChild(nodocodigoPorcentaje);
+
+            //XmlElement nododescuentoAdicional = doc.CreateElement("descuentoAdicional");
+            //nododescuentoAdicional.InnerText = descuentoAdicional;
+            //SubNodototalImpuesto.AppendChild(nododescuentoAdicional);
+
+            XmlElement nodobaseImponible = doc.CreateElement("baseImponible");
+            nodobaseImponible.InnerText = Funcion.reemplazarcaracter(baseImponible);
+            SubNodototalImpuesto.AppendChild(nodobaseImponible);
+
+            XmlElement nodotarifa = doc.CreateElement("tarifa");
+            nodotarifa.InnerText = Funcion.reemplazarcaracter(tarifa);
+            SubNodototalImpuesto.AppendChild(nodotarifa);
+
+            XmlElement nodovalor = doc.CreateElement("valor");
+            nodovalor.InnerText = valor;
+            SubNodototalImpuesto.AppendChild(nodovalor);
+
+            return SubNodototalImpuesto;
+        }
+
 
         private XmlNode agregarformapago(string formapago,string total,string plazo,string unidadTiempo,int verificarnodos)
         {
