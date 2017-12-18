@@ -89,15 +89,15 @@ namespace Comisariato.Clases
         {
             ObjConsulta = new Consultas();
 
-            //if (!ObjConsulta.Existe("IDPROVEEDOR = " + proveedor + " AND NUMERODOCUMENTOPROVEEDOR = " + numeroProveedor + " AND SERIE1PROVEEDOR = " + serie1Proveedor + " AND SERIE2PROVEEDOR", serie2Proveedor.ToString(), "TbEncabezadoOrdenGiro"))
-            //{
+            if (!ObjConsulta.Existe("IDENCABEZADOCOMPRA", IdEncabezadoCompra.ToString(), "TbEncabezadoNotaCredito"))
+            {
                 if (ObjConsulta.EjecutarPROCEDUREEncabezadoNotaCredito(objEncabezadoNotaCredito))
                 {
                     return "Datos Guardados";
                 }
                 else { return "Error al Registrar"; }
-            //}
-            //else { return "Existe"; }
+            }
+            else { return "Existe"; }
         }
     }
 }
