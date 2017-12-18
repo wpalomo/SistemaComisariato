@@ -1008,11 +1008,13 @@
             // 
             this.CantC.HeaderText = "C";
             this.CantC.Name = "CantC";
+            this.CantC.Visible = false;
             // 
             // AplicaImpuesto
             // 
             this.AplicaImpuesto.HeaderText = "AplicaImpuesto";
             this.AplicaImpuesto.Name = "AplicaImpuesto";
+            this.AplicaImpuesto.Visible = false;
             // 
             // FrmFactura
             // 
