@@ -855,14 +855,15 @@ namespace Comisariato.Formularios.Transacciones
                         }
 
                         inicioContador += (filasaxuiliar);
+                        FormarXml(sucursal, caja, numfactbd);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("El dinero recibido de ser mayor o igual al tota a pagar.");
+                    MessageBox.Show("El dinero recibido debe ser mayor o igual al tota a pagar.");
                     txtRecibido.Focus();
                 }
-                FormarXml(sucursal,caja, numfactbd);
+                
 
             }
             catch (Exception EX)
@@ -880,8 +881,9 @@ namespace Comisariato.Formularios.Transacciones
 
                 Xml xml = new Xml();
                 //C:\Users\Programacion\Desktop\ArchivosXml\Generados
+                //C:\Users\Byron\Desktop\ArchivosXml\Generados
                 //xml._crearXml(@"\\AIRCONTROL\c\Users\Administrador\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
-                xml._crearXml(@"C:\Users\Programacion\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
+                xml._crearXml(@"C:\Users\Byron\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
                 InfoTributaria objcit = new InfoTributaria();
 
                 objcit.Ambiente = 1;

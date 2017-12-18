@@ -136,7 +136,7 @@ namespace Comisariato.Clases
             detalle.AppendChild(nodocantidad);
 
             XmlElement nodoprecioUnitario = doc.CreateElement("precioUnitario");
-            nodoprecioUnitario.InnerText = precioUnitario;
+            nodoprecioUnitario.InnerText = Funcion.reemplazarcaracter(precioUnitario);
             detalle.AppendChild(nodoprecioUnitario);
 
             XmlElement nododescuento = doc.CreateElement("descuento");
@@ -144,7 +144,7 @@ namespace Comisariato.Clases
             detalle.AppendChild(nododescuento);
 
             XmlElement nodoprecioTotalSinImpuesto = doc.CreateElement("precioTotalSinImpuesto");
-            nodoprecioTotalSinImpuesto.InnerText = precioTotalSinImpuesto;
+            nodoprecioTotalSinImpuesto.InnerText = Funcion.reemplazarcaracter(precioTotalSinImpuesto);
             detalle.AppendChild(nodoprecioTotalSinImpuesto);
 
             //subnodo del nodo raiz totalConImpuestos
@@ -169,11 +169,11 @@ namespace Comisariato.Clases
             SubNodototalImpuesto.AppendChild(nodotarifa);
 
             XmlElement nodobaseImponible = doc.CreateElement("baseImponible");
-            nodobaseImponible.InnerText = baseImponible;
+            nodobaseImponible.InnerText = Funcion.reemplazarcaracter(baseImponible);
             SubNodototalImpuesto.AppendChild(nodobaseImponible);
 
             XmlElement nodovalor = doc.CreateElement("valor");
-            nodovalor.InnerText = valor;
+            nodovalor.InnerText = Funcion.reemplazarcaracter(valor);
             SubNodototalImpuesto.AppendChild(nodovalor);
 
             return detalle;
@@ -221,11 +221,12 @@ namespace Comisariato.Clases
             Nodoraiz.AppendChild(nododireccioncomprador);
 
             XmlElement nodototalSinImpuestos = doc.CreateElement("totalSinImpuestos");
-            nodototalSinImpuestos.InnerText = totalSinImpuestos;
+            nodototalSinImpuestos.InnerText = Funcion.reemplazarcaracter(totalSinImpuestos);
             Nodoraiz.AppendChild(nodototalSinImpuestos);
 
             XmlElement nodototalDescuento = doc.CreateElement("totalDescuento");
-            nodototalDescuento.InnerText = totalDescuento;
+            string descuento = Convert.ToSingle(totalDescuento).ToString("#####0.00");
+            nodototalDescuento.InnerText = Funcion.reemplazarcaracter(descuento);
             Nodoraiz.AppendChild(nodototalDescuento);
 
             //subnodo del nodo raiz totalConImpuestos
@@ -251,7 +252,7 @@ namespace Comisariato.Clases
             SubNodototalImpuesto.AppendChild(nododescuentoAdicional);
 
             XmlElement nodobaseImponible = doc.CreateElement("baseImponible");
-            nodobaseImponible.InnerText = baseImponible;
+            nodobaseImponible.InnerText = Funcion.reemplazarcaracter(baseImponible);
             SubNodototalImpuesto.AppendChild(nodobaseImponible);
 
             XmlElement nodovalor = doc.CreateElement("valor");
