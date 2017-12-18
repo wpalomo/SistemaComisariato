@@ -1008,7 +1008,6 @@
             // 
             this.CantC.HeaderText = "C";
             this.CantC.Name = "CantC";
-            this.CantC.Visible = false;
             // 
             // AplicaImpuesto
             // 
