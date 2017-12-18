@@ -761,3 +761,7 @@ C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariat
 C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesCompras.resources
 C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesRentenciones.resources
 >>>>>>> 1596aae378fe107d358588dfca5b25d882395c44
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.FrmCambioClave.resources
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesCompras.resources
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesRentenciones.resources
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.SRI.FrmDeclaracionSRI.resources

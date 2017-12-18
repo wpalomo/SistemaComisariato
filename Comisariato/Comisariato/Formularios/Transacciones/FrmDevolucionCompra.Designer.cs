@@ -552,7 +552,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(926, 501);
+            this.tabPage2.Size = new System.Drawing.Size(926, 578);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Consultar Nota de Credito";
             // 
