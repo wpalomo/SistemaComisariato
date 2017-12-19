@@ -24,11 +24,18 @@ namespace Comisariato.Formularios.Transacciones
         int encabezadoCompra = 0;
         bool ivaEstado = false;
         float sumasubiva = 0.0f, sumasubcero = 0.0f, totalpagar = 0.0f, ivatotal = 0.0f, sumaice = 0.0f, sumairbp = 0.0f, subtotalPie = 0.0f;
-        private void FrmDevolucionCompra_Load(object sender, EventArgs e)
+
+        public void inicializar()
         {
-            objConsultas.BoolLlenarComboBox(cbProveedor, "select IDPROVEEDOR AS ID, NOMBRES AS Texto from TbProveedor");
-            objConsultas.seriesDocumentoRetencion(txtNumeroNC, txtSerie1NC, txtSerie2NC, txtAutorizacionNC, "NCRE", bitacora.LocalIPAddress());
             int i = 0;
+            objConsultas.seriesDocumentoRetencion(txtNumeroNC, txtSerie1NC, txtSerie2NC, txtAutorizacionNC, "NCRE", bitacora.LocalIPAddress());
+            txtSerie1.Text = "";
+            txtSerie2.Text = "";
+            txtNumero.Text = "";
+            txtImpuesto.Text = "";
+            txtTotal.Text = "";
+            txtTotalDevolucion.Text = "";
+            dgvProductosDevolucion.Rows.Clear();
             for (i = 0; i < 20; i++)
             {
                 dgvProductosDevolucion.Rows.Add();
@@ -36,6 +43,12 @@ namespace Comisariato.Formularios.Transacciones
             dgvProductosDevolucion.Rows[i].ReadOnly = true;
             dgvProductosDevolucion.Columns[10].ReadOnly = true;
             dgvProductosDevolucion.Columns[11].ReadOnly = true;
+
+        }
+        private void FrmDevolucionCompra_Load(object sender, EventArgs e)
+        {
+            objConsultas.BoolLlenarComboBox(cbProveedor, "select IDPROVEEDOR AS ID, NOMBRES AS Texto from TbProveedor");
+            inicializar();
             SendKeys.Send("{TAB}");
             SendKeys.Send("{TAB}");
         }
@@ -108,6 +121,16 @@ namespace Comisariato.Formularios.Transacciones
             }
         }
 
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            inicializar();
+        }
+
+        private void btnSalirCompra_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void cbProveedor_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -163,9 +186,15 @@ namespace Comisariato.Formularios.Transacciones
                                 //string idEncabezadoNC = objConsultas.ObtenerValorCampo("IDENCABEZADONOTACREDITO", "TbEncabezadoNotaCredito", " where IDENCABEZADOCOMPRA = " + encabezadoCompra + "");
                                 objConsultas.EjecutarSQL("DELETE FROM [dbo].[TbEncabezadoNotaCredito] WHEREz IDENCABEZADOCOMPRA = " + encabezadoCompra + "");
                                 objConsultas.EjecutarSQL("DELETE FROM [dbo].[TbDetalleNotaCredito] WHEREz IDENCABEZADONOTACREDITO = " + idEncabezadoNC + "");
+                                inicializar();
                             }
                             else
+                            {
                                 MessageBox.Show("Guardada correctamente la Nota de Crédito");
+                                string numeroNC = (Convert.ToInt32(txtNumeroNC.Text) + 1).ToString("D9");
+                                objConsultas.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET [DOCUMENTOACTUAL] = '" + numeroNC + "' WHERE SERIE1 = '" + txtSerie1NC.Text + "' and SERIE2 = '" + txtSerie2NC.Text + "' and IPESTACION = '" + bitacora.LocalIPAddress() + "' and TIPODOCUMENTO = 'NCRE'");
+                                inicializar();
+                            }
                         }
                         else if (resultado == "Error al Registrar")
                         {
@@ -278,7 +307,6 @@ namespace Comisariato.Formularios.Transacciones
             {
                 Funcion.Validar_Numeros(e);
             }
-
         }
     }
 }

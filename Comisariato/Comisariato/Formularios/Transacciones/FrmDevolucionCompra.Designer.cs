@@ -38,6 +38,18 @@
             this.btnSalirCompra = new System.Windows.Forms.Button();
             this.gbDetalleProducto = new System.Windows.Forms.GroupBox();
             this.dgvProductosDevolucion = new System.Windows.Forms.DataGridView();
+            this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precioCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iceProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.irbpProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iva = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidadDevolver = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.devolucion = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.txtTotal = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.BtnLimpiar = new System.Windows.Forms.Button();
@@ -66,18 +78,6 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precioCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iceProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.irbpProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iva = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidadDevolver = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.devolucion = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tabControl1.SuspendLayout();
             this.pcOrdenCompra.SuspendLayout();
             this.gbDetalleProducto.SuspendLayout();
@@ -153,6 +153,7 @@
             this.btnSalirCompra.Text = "Salir";
             this.btnSalirCompra.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSalirCompra.UseVisualStyleBackColor = true;
+            this.btnSalirCompra.Click += new System.EventHandler(this.btnSalirCompra_Click);
             // 
             // gbDetalleProducto
             // 
@@ -211,6 +212,101 @@
             this.dgvProductosDevolucion.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductosDevolucion_CellEndEdit);
             this.dgvProductosDevolucion.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvProductosDevolucion_EditingControlShowing);
             // 
+            // codigo
+            // 
+            this.codigo.FillWeight = 147.1193F;
+            this.codigo.HeaderText = "Código";
+            this.codigo.Name = "codigo";
+            this.codigo.ReadOnly = true;
+            this.codigo.Width = 95;
+            // 
+            // producto
+            // 
+            this.producto.FillWeight = 208.2813F;
+            this.producto.HeaderText = "Producto";
+            this.producto.Name = "producto";
+            this.producto.ReadOnly = true;
+            this.producto.Width = 200;
+            // 
+            // cantidad
+            // 
+            this.cantidad.FillWeight = 60.1572F;
+            this.cantidad.HeaderText = "Cant.";
+            this.cantidad.Name = "cantidad";
+            this.cantidad.ReadOnly = true;
+            this.cantidad.Width = 45;
+            // 
+            // precioCompra
+            // 
+            this.precioCompra.FillWeight = 75.41525F;
+            this.precioCompra.HeaderText = "P.C.";
+            this.precioCompra.Name = "precioCompra";
+            this.precioCompra.ReadOnly = true;
+            this.precioCompra.Width = 50;
+            // 
+            // descuento
+            // 
+            this.descuento.FillWeight = 90.65001F;
+            this.descuento.HeaderText = "Desc.";
+            this.descuento.Name = "descuento";
+            this.descuento.ReadOnly = true;
+            this.descuento.Width = 50;
+            // 
+            // iceProducto
+            // 
+            this.iceProducto.FillWeight = 65.87027F;
+            this.iceProducto.HeaderText = "ICE";
+            this.iceProducto.Name = "iceProducto";
+            this.iceProducto.ReadOnly = true;
+            this.iceProducto.Width = 45;
+            // 
+            // irbpProducto
+            // 
+            this.irbpProducto.FillWeight = 68.26523F;
+            this.irbpProducto.HeaderText = "IRBP";
+            this.irbpProducto.Name = "irbpProducto";
+            this.irbpProducto.ReadOnly = true;
+            this.irbpProducto.Width = 51;
+            // 
+            // subtotal
+            // 
+            this.subtotal.FillWeight = 107.4997F;
+            this.subtotal.HeaderText = "Subtotal";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
+            this.subtotal.Width = 80;
+            // 
+            // iva
+            // 
+            this.iva.FillWeight = 64.72799F;
+            this.iva.HeaderText = "IVA";
+            this.iva.Name = "iva";
+            this.iva.ReadOnly = true;
+            this.iva.Width = 49;
+            // 
+            // total
+            // 
+            this.total.FillWeight = 96.68581F;
+            this.total.HeaderText = "Total";
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
+            this.total.Width = 70;
+            // 
+            // cantidadDevolver
+            // 
+            this.cantidadDevolver.HeaderText = "C. Dev.";
+            this.cantidadDevolver.MaxInputLength = 5;
+            this.cantidadDevolver.Name = "cantidadDevolver";
+            this.cantidadDevolver.Width = 80;
+            // 
+            // devolucion
+            // 
+            this.devolucion.HeaderText = "Dev";
+            this.devolucion.Name = "devolucion";
+            this.devolucion.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.devolucion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.devolucion.Width = 40;
+            // 
             // txtTotal
             // 
             this.txtTotal.Enabled = false;
@@ -243,6 +339,7 @@
             this.BtnLimpiar.Text = "&Limpiar";
             this.BtnLimpiar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnLimpiar.UseVisualStyleBackColor = true;
+            this.BtnLimpiar.Click += new System.EventHandler(this.BtnLimpiar_Click);
             // 
             // BtnGuardar
             // 
@@ -531,101 +628,6 @@
             this.label16.TabIndex = 17;
             this.label16.Text = "Desde:";
             // 
-            // codigo
-            // 
-            this.codigo.FillWeight = 147.1193F;
-            this.codigo.HeaderText = "Código";
-            this.codigo.Name = "codigo";
-            this.codigo.ReadOnly = true;
-            this.codigo.Width = 95;
-            // 
-            // producto
-            // 
-            this.producto.FillWeight = 208.2813F;
-            this.producto.HeaderText = "Producto";
-            this.producto.Name = "producto";
-            this.producto.ReadOnly = true;
-            this.producto.Width = 200;
-            // 
-            // cantidad
-            // 
-            this.cantidad.FillWeight = 60.1572F;
-            this.cantidad.HeaderText = "Cant.";
-            this.cantidad.Name = "cantidad";
-            this.cantidad.ReadOnly = true;
-            this.cantidad.Width = 45;
-            // 
-            // precioCompra
-            // 
-            this.precioCompra.FillWeight = 75.41525F;
-            this.precioCompra.HeaderText = "P.C.";
-            this.precioCompra.Name = "precioCompra";
-            this.precioCompra.ReadOnly = true;
-            this.precioCompra.Width = 50;
-            // 
-            // descuento
-            // 
-            this.descuento.FillWeight = 90.65001F;
-            this.descuento.HeaderText = "Desc.";
-            this.descuento.Name = "descuento";
-            this.descuento.ReadOnly = true;
-            this.descuento.Width = 50;
-            // 
-            // iceProducto
-            // 
-            this.iceProducto.FillWeight = 65.87027F;
-            this.iceProducto.HeaderText = "ICE";
-            this.iceProducto.Name = "iceProducto";
-            this.iceProducto.ReadOnly = true;
-            this.iceProducto.Width = 45;
-            // 
-            // irbpProducto
-            // 
-            this.irbpProducto.FillWeight = 68.26523F;
-            this.irbpProducto.HeaderText = "IRBP";
-            this.irbpProducto.Name = "irbpProducto";
-            this.irbpProducto.ReadOnly = true;
-            this.irbpProducto.Width = 51;
-            // 
-            // subtotal
-            // 
-            this.subtotal.FillWeight = 107.4997F;
-            this.subtotal.HeaderText = "Subtotal";
-            this.subtotal.Name = "subtotal";
-            this.subtotal.ReadOnly = true;
-            this.subtotal.Width = 80;
-            // 
-            // iva
-            // 
-            this.iva.FillWeight = 64.72799F;
-            this.iva.HeaderText = "IVA";
-            this.iva.Name = "iva";
-            this.iva.ReadOnly = true;
-            this.iva.Width = 49;
-            // 
-            // total
-            // 
-            this.total.FillWeight = 96.68581F;
-            this.total.HeaderText = "Total";
-            this.total.Name = "total";
-            this.total.ReadOnly = true;
-            this.total.Width = 70;
-            // 
-            // cantidadDevolver
-            // 
-            this.cantidadDevolver.HeaderText = "C. Dev.";
-            this.cantidadDevolver.MaxInputLength = 5;
-            this.cantidadDevolver.Name = "cantidadDevolver";
-            this.cantidadDevolver.Width = 80;
-            // 
-            // devolucion
-            // 
-            this.devolucion.HeaderText = "Dev";
-            this.devolucion.Name = "devolucion";
-            this.devolucion.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.devolucion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.devolucion.Width = 40;
-            // 
             // FrmDevolucionCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -635,6 +637,8 @@
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximumSize = new System.Drawing.Size(977, 663);
+            this.MinimumSize = new System.Drawing.Size(977, 663);
             this.Name = "FrmDevolucionCompra";
             this.Text = "Nota de Crédito";
             this.Load += new System.EventHandler(this.FrmDevolucionCompra_Load);

@@ -28,7 +28,7 @@ namespace Comisariato.Formularios.Informes
             for (int i = 0; i < 20; i++)
                 dgvInformeVentas.Rows.Add();
             cadenaConsultar = cadenaGeneral;
-            llenarDgv();
+            //llenarDgv();
         }
 
         public void obtenerFechas()
