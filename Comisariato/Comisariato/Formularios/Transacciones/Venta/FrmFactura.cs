@@ -1321,6 +1321,7 @@ namespace Comisariato.Formularios.Transacciones
 
 
                 DatosCliente = DatosClientefactespe;
+               
                 //AQUI SALE MAL
 
                 if (DatosCliente[0]!="9999999999999")
@@ -1341,6 +1342,7 @@ namespace Comisariato.Formularios.Transacciones
                 contador = 0;
                 txtCodigo.Focus();
                 hayfactenespera = false;
+                DatosClientefactespe.Clear();
             }
             catch (Exception ex)
             {
@@ -1428,7 +1430,11 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        DatosClientefactespe = DatosCliente;
+                        for (int i = 0; i < DatosCliente.Count; i++)
+                        {
+                            DatosClientefactespe.Add(DatosCliente[i]);
+                        }
+                        //DatosClientefactespe = DatosCliente;
                     }
 
                     RecogerDatosAnteriores();

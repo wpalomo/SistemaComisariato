@@ -749,6 +749,7 @@ namespace Comisariato.Clases
                 Objc.Cerrar();
                 if (dato.Read() == true)
                 {
+                    datos.Identificacion = (String)dato["IDENTIFICACION"];
                     datos.Nombres = (String)dato["NOMBRES"];// + " " + (String)dato["APELLIDOS"] + ";" + dato["IDCLIENTE"];
                     datos.Apellidos = (String)dato["APELLIDOS"];
                     datos.Casilla = Convert.ToInt32(dato["IDCLIENTE"]);
