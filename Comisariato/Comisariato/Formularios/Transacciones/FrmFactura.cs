@@ -39,6 +39,7 @@ namespace Comisariato.Formularios.Transacciones
         List<string> codigos;
         List<string> codigosfactespe = new List<string>();
         List<string> DatosClientefactespe = new List<string>();
+        List<string> DatosClienteAUX = new List<string>();
 
         private bool estadoiva, pr, escribiendo = false;
         Producto Producto;
@@ -657,6 +658,13 @@ namespace Comisariato.Formularios.Transacciones
                             //string[] vector = datoscliente.Split(';');
                             if (cliente.Activo)
                             {
+
+                                DatosCliente.Add(cliente.Identificacion); //Identificacion
+                                DatosCliente.Add(cliente.Nombres + " " + cliente.Apellidos);//Nombre + Apellido
+                                DatosCliente.Add(cliente.Direccion); // Direccion
+                                DatosCliente.Add(cliente.RazonSocial); //RazonSocial
+                                DatosCliente.Add("" + cliente.Casilla); //IDcLIENTE
+
                                 txtConsumidor.Text = cliente.Nombres + " " + cliente.Apellidos;
                                 idcliente = cliente.Casilla;
                                 comprobarmetodo = true;
@@ -757,6 +765,7 @@ namespace Comisariato.Formularios.Transacciones
             FrmConsultarProducto p = new FrmConsultarProducto();
             p.ShowDialog();
             txtCodigo.Focus();
+            FrmFactura_Activated(null, null);
 
         }
 
@@ -1419,8 +1428,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        DatosClientefactespe.Add(txtIdentidicacion.Text);
-                        DatosClientefactespe.Add(txtConsumidor.Text);
+                        DatosClientefactespe = DatosCliente;
                     }
 
                     RecogerDatosAnteriores();
@@ -1578,6 +1586,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     break;
                 case Keys.F6:
+                    DatosClienteAUX = DatosCliente;
                     FrmConsultarProducto FrmConsultarProduct = new FrmConsultarProducto();
                     //if (FrmConsultarProduct == null || FrmConsultarProduct.IsDisposed)
                     //{
@@ -1587,7 +1596,7 @@ namespace Comisariato.Formularios.Transacciones
                     FrmConsultarProduct.ShowDialog();
 
                     //}
-                    
+                   
                     if (DatosCliente.Count>0)
                     {
                         txtCantidad.Focus();
@@ -1595,6 +1604,7 @@ namespace Comisariato.Formularios.Transacciones
                         if (DatosCliente.Count > 0)
                         {
                             DatosCliente.Clear();
+                            DatosCliente = DatosClienteAUX;
                         }
                     }
                     else
