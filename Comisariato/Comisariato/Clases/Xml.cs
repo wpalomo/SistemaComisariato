@@ -207,7 +207,7 @@ namespace Comisariato.Clases
             Nodoraiz.AppendChild(nodotipoIdentificacionComprador);
 
             XmlElement nodoguiaremision = doc.CreateElement("guiaRemision");
-            nodoguiaremision.InnerText = tipoIdentificacionComprador;
+            nodoguiaremision.InnerText = guiaRemision;
             Nodoraiz.AppendChild(nodoguiaremision);
 
             XmlElement nodorazonSocialComprador = doc.CreateElement("razonSocialComprador");
