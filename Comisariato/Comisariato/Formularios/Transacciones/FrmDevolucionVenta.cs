@@ -14,18 +14,24 @@ namespace Comisariato.Formularios.Transacciones.Devolucion_Venta
     public partial class FrmDevolucionVenta : Form
     {
         EmcabezadoFactura em;
-        Consultas c;
+        Consultas c = new Consultas();
         List<Producto> product;
         private int posindexp = 0;
         List<int> indezp = new List<int>();
         List<String> pedidos = new List<String>();
+        Bitacora bitacora = new Bitacora();
         public FrmDevolucionVenta()
         {
             InitializeComponent();
-            for (int i = 0; i < 21; i++)
+            c.seriesDocumentoRetencion(txtNumeroND, txtSerie1ND, txtSerie2ND, txtAutorizacionND, "NDEB", bitacora.LocalIPAddress());
+            int i = 0;
+            for (i = 0; i < 21; i++)
             {
-                DgvDetalleFact.Rows.Add("");
+                DgvDetalleFact.Rows.Add();
             }
+            DgvDetalleFact.Rows[i-1].ReadOnly = true;
+            DgvDetalleFact.Columns[6].ReadOnly = true;
+            DgvDetalleFact.Columns[7].ReadOnly = true;
             lblUsuario.Text = "";
         }
 
@@ -80,6 +86,8 @@ namespace Comisariato.Formularios.Transacciones.Devolucion_Venta
                 total = (product[i].Cantidad * product[i].Preciopublico_sin_iva) + iva;
                 DgvDetalleFact.Rows[i].Cells[4].Value = iva;
                 DgvDetalleFact.Rows[i].Cells[5].Value = total;
+                DgvDetalleFact.Rows[i].Cells[6].ReadOnly = false;
+                DgvDetalleFact.Rows[i].Cells[7].ReadOnly = false;
                 totalfactura += total;
             }
             txtTotalFactura.Text = totalfactura.ToString("#####0.00");
@@ -194,7 +202,7 @@ namespace Comisariato.Formularios.Transacciones.Devolucion_Venta
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LimpiarTodo();
+            
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -282,60 +290,7 @@ namespace Comisariato.Formularios.Transacciones.Devolucion_Venta
 
         private void button2_Click(object sender, EventArgs e)
         {
-            c = new Consultas();
-            try
-            {
-                ObtenerPedidos();
-                if (indezp.Count>0)
-                {
-                    if (!verificarNull())
-                    {
-                        if (!verificarLimites())
-                        {
-                            if (MessageBox.Show("¿Estas seguro de darle de baja a estos Items?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                            {
-
-                                bool b = c.DevolucionVenta(pedidos, Convert.ToInt32(txtNumFact.Text));
-                                if (b)
-                                {
-                                    MessageBox.Show("Cambios realizados con exito.");
-                                    LimpiarTodo();
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Error al realizar devolucion.");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Hay una cantidad que sobrepasa a la cantidad vendida.\nFila: " + posicion + 1);
-                            DgvDetalleFact.CurrentCell = DgvDetalleFact.Rows[posicion].Cells[6];
-                            DgvDetalleFact.BeginEdit(true);
-                        }
-                       
-                    }
-                    else
-                    {
-                        MessageBox.Show("Hay un producto seleccionado sin cantidad.\nPor favor ingresa la cantidad. Fila: "+posicion+1);
-                        DgvDetalleFact.CurrentCell = DgvDetalleFact.Rows[posicion].Cells[6];
-                        DgvDetalleFact.BeginEdit(true);
-                    }
-                   
-                    
-                      
-                }
-                else
-                {
-                    MessageBox.Show("Selecciona al menos un Item.");
-                }
-               
-            }
-            catch (Exception)
-            {
-
-                //throw;
-            }
+            
         }
 
         private void LimpiarTodo()
@@ -421,11 +376,6 @@ namespace Comisariato.Formularios.Transacciones.Devolucion_Venta
             return limite;
         }
 
-        private void txtNumFact_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void DgvDetalleFact_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (DgvDetalleFact.CurrentCell==this.DgvDetalleFact.Rows[e.RowIndex].Cells[6])
@@ -434,9 +384,93 @@ namespace Comisariato.Formularios.Transacciones.Devolucion_Venta
             }
         }
 
+        private void BtnGuardar_Click(object sender, EventArgs e)
+        {
+            c = new Consultas();
+            try
+            {
+                ObtenerPedidos();
+                if (indezp.Count > 0)
+                {
+                    if (!verificarNull())
+                    {
+                        if (!verificarLimites())
+                        {
+                            if (MessageBox.Show("¿Estas seguro de darle de baja a estos Items?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+
+                                bool b = c.DevolucionVenta(pedidos, Convert.ToInt32(txtNumFact.Text));
+                                if (b)
+                                {
+                                    MessageBox.Show("Cambios realizados con exito.");
+                                    LimpiarTodo();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Error al realizar devolucion.");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Hay una cantidad que sobrepasa a la cantidad vendida.\nFila: " + posicion + 1);
+                            DgvDetalleFact.CurrentCell = DgvDetalleFact.Rows[posicion].Cells[6];
+                            DgvDetalleFact.BeginEdit(true);
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Hay un producto seleccionado sin cantidad.\nPor favor ingresa la cantidad. Fila: " + posicion + 1);
+                        DgvDetalleFact.CurrentCell = DgvDetalleFact.Rows[posicion].Cells[6];
+                        DgvDetalleFact.BeginEdit(true);
+                    }
+
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Selecciona al menos un Item.");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+        }
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarTodo();
+        }
+
         private void FrmDevolucionVenta_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void DgvDetalleFact_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (e.Control is TextBox)
+            {
+                TextBox txt = e.Control as TextBox;
+                txt.KeyPress += OnlyNumbersdgvcheque_KeyPress;
+            }
+        }
+        private void OnlyNumbersdgvcheque_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (DgvDetalleFact.CurrentCell == DgvDetalleFact.CurrentRow.Cells[6])
+            {
+                Funcion.Validar_Numeros(e);
+            }
+        }
+
+        private void btnSalirCompra_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

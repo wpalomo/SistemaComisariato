@@ -77,6 +77,8 @@
     <Compile Include="Clases\Sucursal.cs" />
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Clases\Xml.cs" />
+    <Compile Include="Clases\EncabezadoNotaDebito.cs" />
+    <Compile Include="Clases\DetalleNotaDebito.cs" />
     <Compile Include="Formularios\FrmCambioClave.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,10 +277,10 @@
     <Compile Include="Formularios\Transacciones\Venta\FrmDatosClientes.Designer.cs">
       <DependentUpon>FrmDatosClientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Transacciones\FrmFactura.cs">
+    <Compile Include="Formularios\Transacciones\Venta\FrmFactura.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\Transacciones\FrmFactura.Designer.cs">
+    <Compile Include="Formularios\Transacciones\Venta\FrmFactura.Designer.cs">
       <DependentUpon>FrmFactura.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Transacciones\FrmOrdenDeGiro.cs">
@@ -394,7 +396,7 @@
     <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmDatosClientes.resx">
       <DependentUpon>FrmDatosClientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Transacciones\FrmFactura.resx">
+    <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmFactura.resx">
       <DependentUpon>FrmFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\FrmOrdenDeGiro.resx">
