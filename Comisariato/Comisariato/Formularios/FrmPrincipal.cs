@@ -162,7 +162,6 @@ namespace Comisariato.Formularios
                     FrmSucursal.Show();
                     FrmSucursal.MdiParent = this;
                     //FrmSucursal.BringToFront();
-                    Asignar(FrmSucursal.Text);
                 }
                 //else { FrmProducto.BringToFront(); }
             }
@@ -175,7 +174,6 @@ namespace Comisariato.Formularios
                     FrmProveedor.Show();
                     FrmProveedor.MdiParent = this;
                     //FrmProveedor.BringToFront();
-                    Asignar(FrmProveedor.Text);
                 }
                 //else { FrmProducto.BringToFront(); }
             }
@@ -188,7 +186,6 @@ namespace Comisariato.Formularios
                     FrmUsuario.Show();
                     FrmUsuario.MdiParent = this;
                     //FrmUsuario.BringToFront();
-                    Asignar(FrmUsuario.Text);
                 }
                 //else { FrmProducto.BringToFront(); }
             }
@@ -201,7 +198,6 @@ namespace Comisariato.Formularios
                     ////FrmProducto.BringToFront();
                     FrmProducto.Show();
                     FrmProducto.MdiParent = this;
-                    Asignar(FrmProducto.Text);
                 }
                 //else { FrmProducto.BringToFront(); }
             }
@@ -213,7 +209,6 @@ namespace Comisariato.Formularios
                     //FrmCategoriaProducto.BringToFront();
                     FrmCategoriaProducto.Show();
                     FrmCategoriaProducto.MdiParent = this;
-                    Asignar(FrmCategoriaProducto.Text);
                 }
                 //else { FrmCategoriaProducto.BringToFront(); }
 
@@ -226,7 +221,6 @@ namespace Comisariato.Formularios
                     //FrmCreacionBodega.BringToFront();
                     FrmCreacionBodega.Show();
                     FrmCreacionBodega.MdiParent = this;
-                    Asignar(FrmCreacionBodega.Text);
                 }
                 //else { FrmCreacionBodega.BringToFront(); }
             }
@@ -238,7 +232,6 @@ namespace Comisariato.Formularios
                     //FrmComboProducto.BringToFront();
                     FrmComboProducto.Show();
                     FrmComboProducto.MdiParent = this;
-                    Asignar(FrmComboProducto.Text);
                 }
                 //else { FrmCreacionBodega.BringToFront(); }
             }
@@ -250,7 +243,6 @@ namespace Comisariato.Formularios
                     //FrmAsignacionProductoBodega.BringToFront();
                     FrmAsignacionProductoBodega.Show();
                     FrmAsignacionProductoBodega.MdiParent = this;
-                    Asignar(FrmAsignacionProductoBodega.Text);
                 }
                 //else { FrmAsignacionProductoBodega.BringToFront(); }
             }
@@ -266,7 +258,6 @@ namespace Comisariato.Formularios
                         //FrmClaveUsuario.BringToFront();
                         FrmClaveUsuario.Show();
                         FrmClaveUsuario.MdiParent = this;
-                        Asignar(FrmClaveUsuario.Text);
                     }
                     //else { FrmClaveUsuario.BringToFront(); }
                 }
@@ -281,7 +272,6 @@ namespace Comisariato.Formularios
                         //FrmCompra.BringToFront();
                         FrmCompra.Show();
                         FrmCompra.MdiParent = this;
-                        Asignar(FrmCompra.Text);
                     }
                     //else { FrmCompra.BringToFront(); }
                 }
@@ -344,7 +334,6 @@ namespace Comisariato.Formularios
                                 //FrmOrdenDeGiro.BringToFront();
                                 FrmOrdenDeGiro.Show();
                                 FrmOrdenDeGiro.MdiParent = this;
-                                Asignar(FrmOrdenDeGiro.Name);
                                 break;
                             }
                             //else { FrmOrdenDeGiro.BringToFront(); }
@@ -419,10 +408,6 @@ namespace Comisariato.Formularios
             }
         }
 
-        private void Asignar(string nombreF)
-        {
-            //ventanaToolStripMenuItem.DropDownItems.Add(new ToolStripMenuItem(nombreF));
-        }
 
 
         private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
@@ -530,7 +515,8 @@ namespace Comisariato.Formularios
             if (FrmCambioClave == null || FrmCambioClave.IsDisposed)
             {
                 FrmCambioClave = new FrmCambioClave();
-                FrmCambioClave.ShowDialog();
+                FrmCambioClave.Show();
+                FrmCambioClave.MdiParent = this;
             }
         }
     }

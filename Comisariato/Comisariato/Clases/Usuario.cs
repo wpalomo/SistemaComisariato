@@ -156,5 +156,30 @@ namespace Comisariato.Clases
             }
             else { return "Sin Accion"; }
         }
+
+
+        public bool ChangePassword(string nueva,string actual, string confirm)
+        {
+            try
+            {
+                ObjConsulta = new Consultas();
+                if (ObjConsulta.Existe("CONTRASEÑA", actual, "TbUsuario"))
+                {
+                    ObjConsulta.EjecutarSQL("UPDATE TbUsuario SET CONTRASEÑA = '"+nueva+"'  WHERE IDUSUARIO = '" + Program.IDUsuarioMenu + "'");
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+            }
+        }
+
     }
 }

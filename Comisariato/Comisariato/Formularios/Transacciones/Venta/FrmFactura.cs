@@ -1180,14 +1180,29 @@ namespace Comisariato.Formularios.Transacciones
 
         private void dgvDetalleProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgvDetalleProductos.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
-            txtCodigo.Focus();
+            try
+            {
+                dgvDetalleProductos.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
+                txtCodigo.Focus();
+            }
+            catch (Exception)
+            {
+
+            }
+            
         }
 
         private void dgvDetalleProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgvDetalleProductos.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
-            txtCodigo.Focus();
+            try
+            {
+                dgvDetalleProductos.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
+                txtCodigo.Focus();
+            }
+            catch (Exception)
+            {
+            }
+            
 
         }
 
