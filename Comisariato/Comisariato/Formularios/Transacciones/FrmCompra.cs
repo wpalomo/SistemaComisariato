@@ -514,7 +514,9 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                         break;
                     }
                 }
-                ivatotal = (sumasubiva + sumaice) * 0.12f;
+                string[] s = cbImpuesto.Text.Split('%');
+                float iva = Convert.ToSingle(s[0]) / 100;
+                ivatotal = (sumasubiva + sumaice) * iva;
                 txtIRBP.Text = Funcion.reemplazarcaracter(Math.Round(sumairbp, 2).ToString("#####0.00"));
                 txtICE.Text = Funcion.reemplazarcaracter(Math.Round(sumaice, 2).ToString("#####0.00"));
                 txtSubtotal0.Text = Funcion.reemplazarcaracter(Math.Round(sumasubcero, 2).ToString("#####0.00"));

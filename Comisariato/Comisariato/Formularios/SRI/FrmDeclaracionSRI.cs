@@ -73,7 +73,7 @@ namespace Comisariato.Formularios.SRI
                 }
                 //REPORTE RETENCION
                 String consultaRetencion = "select do.IDRETENCION, c.DESCRIPCION, c.RETENCION, do.MONTO from TbEncabezadoOrdenGiro eo, TbDetalleOrdenGiro do, TbCodigoSRI c" +
-                                            " where do.IDENCABEZADOORDENGIRO = eo.IDORDENGIRO and eo.FECHAORDENGIRO between '2017-12-1' and '2017-12-17'" +
+                                            " where do.IDENCABEZADOORDENGIRO = eo.IDORDENGIRO and eo.FECHAORDENGIRO between '"+fechaDesde+ "' and '" + fechaHasta + "'" +
                                             " and c.IDCODIGOSRI = do.IDRETENCION";
                 dt = objConsultas.BoolDataTable(consultaRetencion);
                 if (dt.Rows.Count > 0)
@@ -85,6 +85,8 @@ namespace Comisariato.Formularios.SRI
                         dgvRetencion.Rows[i].Cells[1].Value = row["RETENCION"].ToString();
                         dgvRetencion.Rows[i].Cells[2].Value = row["MONTO"].ToString();
                         dgvRetencion.Rows[i].Cells[3].Value = row["IDRETENCION"].ToString();
+                        if (i == dgvRetencion.RowCount - 1)
+                            dgvRetencion.Rows.Add();
                     }
                 }
                 for (int i = 0; i < dgvRetencion.RowCount - 1; i++)
@@ -101,6 +103,7 @@ namespace Comisariato.Formularios.SRI
                                     dgvRetencion.Rows[i].Cells[2].Value = "0";
                                 dgvRetencion.Rows[i].Cells[2].Value = Convert.ToSingle(dgvRetencion.Rows[i].Cells[2].Value) + Convert.ToSingle(dgvRetencion.Rows[j].Cells[2].Value);
                                 dgvRetencion.Rows.Remove(dgvRetencion.Rows[j]);
+                                dgvRetencion.Rows.Add();
                             }
                         }
                         if (Convert.ToString(dgvRetencion.Rows[j].Cells[0].Value) == "")
@@ -108,6 +111,22 @@ namespace Comisariato.Formularios.SRI
                     }
                     if (Convert.ToString(dgvRetencion.Rows[i].Cells[0].Value) == "")
                         break;
+                }
+                //
+
+                string consultaNC = "select SUM(SUBTOTAL0) AS Exento, SUM(SUBTOTAL12) as Gravado, SUM(IVA) as IVA, SUM(TOTALDEVOLUCION) as TOTAL " +
+                                    " from TbEncabezadoNotaCredito where FECHA between '"+ fechaDesde +"' and '"+ fechaHasta +"'";
+                dt = objConsultas.BoolDataTable(consultaNC);
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DataRow row = dt.Rows[i];
+                        txtExentoNC.Text = row["Exento"].ToString();
+                        txtGravadoNC.Text = row["Gravado"].ToString();
+                        txtIvaNC.Text = row["IVA"].ToString();
+                        txtTotalNC.Text = row["TOTAL"].ToString();
+                    }
                 }
             }
             catch (Exception)

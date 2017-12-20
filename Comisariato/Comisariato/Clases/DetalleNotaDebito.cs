@@ -8,21 +8,9 @@ namespace Comisariato.Clases
 {
     public class DetalleNotaDebito
     {
-        int idEncabezadoNotaCredito, cantidad;
+        int idEncabezadoNotaDebito, cantidad;
         string codigoBarra;
 
-        public int IdEncabezadoNotaCredito
-        {
-            get
-            {
-                return idEncabezadoNotaCredito;
-            }
-
-            set
-            {
-                idEncabezadoNotaCredito = value;
-            }
-        }
 
         public int Cantidad
         {
@@ -49,20 +37,34 @@ namespace Comisariato.Clases
                 codigoBarra = value;
             }
         }
+
+        public int IdEncabezadoNotaDebito
+        {
+            get
+            {
+                return idEncabezadoNotaDebito;
+            }
+
+            set
+            {
+                idEncabezadoNotaDebito = value;
+            }
+        }
+
         public DetalleNotaDebito(int idEncabezado, int cantidad, string codigoBarra)
         {
-            this.IdEncabezadoNotaCredito = idEncabezado;
+            this.IdEncabezadoNotaDebito = idEncabezado;
             this.CodigoBarra = codigoBarra;
             this.Cantidad = cantidad;
         }
         Consultas ObjConsulta;
-        public string InsertarDetalleNC(DetalleNotaCredito objDetalleNotaCredito)
+        public string InsertarDetalleND(DetalleNotaDebito objDetalleNotaDebito)
         {
             ObjConsulta = new Consultas();
 
             //if (!ObjConsulta.Existe("IDPROVEEDOR = " + proveedor + " AND NUMERODOCUMENTOPROVEEDOR = " + numeroProveedor + " AND SERIE1PROVEEDOR = " + serie1Proveedor + " AND SERIE2PROVEEDOR", serie2Proveedor.ToString(), "TbEncabezadoOrdenGiro"))
             //{
-            if (ObjConsulta.EjecutarPROCEDUREDetalleNotaCredito(objDetalleNotaCredito))
+            if (ObjConsulta.EjecutarPROCEDUREDetalleNotaDebito(objDetalleNotaDebito))
             {
                 return "Datos Guardados";
             }

@@ -9,7 +9,7 @@ namespace Comisariato.Clases
     public class EncabezadoNotaDebito
     {
         string serie1, serie2, numero;
-        int idEncabezadoCompra;
+        int idEncabezadoVenta;
         float totalDevolucion;
 
         public string Serie1
@@ -51,19 +51,6 @@ namespace Comisariato.Clases
             }
         }
 
-        public int IdEncabezadoCompra
-        {
-            get
-            {
-                return idEncabezadoCompra;
-            }
-
-            set
-            {
-                idEncabezadoCompra = value;
-            }
-        }
-
         public float TotalDevolucion
         {
             get
@@ -76,22 +63,36 @@ namespace Comisariato.Clases
                 totalDevolucion = value;
             }
         }
+
+        public int IdEncabezadoVenta
+        {
+            get
+            {
+                return idEncabezadoVenta;
+            }
+
+            set
+            {
+                idEncabezadoVenta = value;
+            }
+        }
+
         public EncabezadoNotaDebito(string serie1, string serie2, string numero, int idEncabezado, float totalDevolucion)
         {
             this.Serie1 = serie1;
             this.Serie2 = serie2;
             this.Numero = numero;
-            this.IdEncabezadoCompra = idEncabezado;
+            this.IdEncabezadoVenta = idEncabezado;
             this.TotalDevolucion = totalDevolucion;
         }
         Consultas ObjConsulta;
-        public string InsertarEncabezadoNC(EncabezadoNotaCredito objEncabezadoNotaCredito)
+        public string InsertarEncabezadoND(EncabezadoNotaDebito objEncabezadoNotaDebito)
         {
             ObjConsulta = new Consultas();
 
-            if (!ObjConsulta.Existe("IDENCABEZADOCOMPRA", IdEncabezadoCompra.ToString(), "TbEncabezadoNotaCredito"))
+            if (!ObjConsulta.Existe("IDENCABEZADOVENTA", IdEncabezadoVenta.ToString(), "TbEncabezadoNotaDebito"))
             {
-                if (ObjConsulta.EjecutarPROCEDUREEncabezadoNotaCredito(objEncabezadoNotaCredito))
+                if (ObjConsulta.EjecutarPROCEDUREEncabezadoNotaDebito(objEncabezadoNotaDebito))
                 {
                     return "Datos Guardados";
                 }

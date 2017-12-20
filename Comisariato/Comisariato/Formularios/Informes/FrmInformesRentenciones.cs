@@ -18,7 +18,7 @@ namespace Comisariato.Formularios.Informes
             InitializeComponent();
         }
         Consultas objConsulta = new Consultas();
-        string cadenaGeneral = "select * from Vista_InformeVentas", cadeCondicion = "", condicionEntre="", añoDesde = "", 
+        string cadenaGeneral = "select * from Vista_InformeRetenciones", cadeCondicion = "", condicionEntre="", añoDesde = "", 
             fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "", 
             cadenaConsultar = "";
         
@@ -26,9 +26,9 @@ namespace Comisariato.Formularios.Informes
         private void FrmVentas_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < 20; i++)
-                dgvInformeVentas.Rows.Add();
+                dgvInformeRetenciones.Rows.Add();
             cadenaConsultar = cadenaGeneral;
-            llenarDgv();
+            //llenarDgv();
         }
 
         public void obtenerFechas()
@@ -47,8 +47,8 @@ namespace Comisariato.Formularios.Informes
         {
             try
             {
-                cadeCondicion = " USUARIO like '%" + txtConsultar.Text + "%' OR NombreCliente like '%" + txtConsultar.Text + "%'";
-                cadeCondicion = cadeCondicion + " or NFACTURA like '%" + txtConsultar.Text + "%' or CAJA like '%" + txtConsultar.Text + "%' or SUCURSAL like '%" + txtConsultar.Text + "%'";
+                cadeCondicion = " NOMBRES like '%" + txtConsultar.Text + "%'";
+                cadeCondicion = cadeCondicion + " or NUMERODOCUMENTOPROVEEDOR like '%" + txtConsultar.Text + "%' or SERIE2PROVEEDOR like '%" + txtConsultar.Text + "%' or SERIE1PROVEEDOR like '%" + txtConsultar.Text + "%'";
                 llenarDgv();
             }
             catch (Exception)
@@ -63,59 +63,53 @@ namespace Comisariato.Formularios.Informes
         private void dtpDesde_ValueChanged(object sender, EventArgs e)
         {
             obtenerFechas();
-            condicionEntre = " FECHA between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
+            condicionEntre = " FECHARETENCION between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
             //objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
             llenarDgv();
         }
         public void llenarDgv()
         {
-            //string and = "", where = "";
-            //if (cadeCondicion == "" && condicionEntre == "")
-            //{
-            //    where = "";
-            //    and = "";
-            //}
-            //else if (cadeCondicion != "" || condicionEntre != "")
-            //    where = " where ";
-            //if (cadeCondicion != "" && condicionEntre != "")
-            //{
-            //    where = " where ";
-            //    and = " and ";
-            //}
-            //cadenaConsultar = cadenaGeneral + where + cadeCondicion + and + condicionEntre;
-            //DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
-            //if (dt.Rows.Count >0)
-            //{//Select EF.SUCURSAL, EF.CAJA, EF.NFACTURA, EF.FECHA, U.USUARIO,	C.NOMBRES + ' ' + C.APELLIDOS AS NOMBRECLIENTE" +
-            //    dgvInformeVentas.Rows.Clear();
-            //    for (int i = 0; i < 20; i++)
-            //        dgvInformeVentas.Rows.Add();
-            //    for (int i = 0; i < dt.Rows.Count; i++)
-            //    {
-            //        DataRow row = dt.Rows[i];
-            //        if (i == dgvInformeVentas.RowCount -1)
-            //            dgvInformeVentas.Rows.Add();
-            //        string numeros = Convert.ToInt32(row["SUCURSAL"]).ToString("D3");
-            //        dgvInformeVentas.Rows[i].Cells[0].Value = numeros;
-            //        numeros = Convert.ToInt32(row["CAJA"]).ToString("D3");
-            //        dgvInformeVentas.Rows[i].Cells[1].Value = numeros;
-            //        numeros = Convert.ToInt32(row["NFACTURA"]).ToString("D9");
-            //        dgvInformeVentas.Rows[i].Cells[2].Value = numeros;
-            //        dgvInformeVentas.Rows[i].Cells[3].Value = row["FECHA"];
-            //        dgvInformeVentas.Rows[i].Cells[4].Value = row["USUARIO"];
-            //        dgvInformeVentas.Rows[i].Cells[5].Value = row["NombreCliente"];
-            //        dgvInformeVentas.Rows[i].Cells[6].Value = row["IVA"];
-            //        dgvInformeVentas.Rows[i].Cells[7].Value = row["SUBTOTAL0"];
-            //        dgvInformeVentas.Rows[i].Cells[8].Value = row["SUBTOTAL12"];
-            //        dgvInformeVentas.Rows[i].Cells[9].Value = row["TOTAPAGAR"];
+            string and = "", where = "";
+            if (cadeCondicion == "" && condicionEntre == "")
+            {
+                where = "";
+                and = "";
+            }
+            else if (cadeCondicion != "" || condicionEntre != "")
+                where = " where ";
+            if (cadeCondicion != "" && condicionEntre != "")
+            {
+                where = " where ";
+                and = " and ";
+            }
+            cadenaConsultar = cadenaGeneral + where + cadeCondicion + and + condicionEntre;
+            DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
+            if (dt.Rows.Count > 0)
+            {//Select EF.SUCURSAL, EF.CAJA, EF.NFACTURA, EF.FECHA, U.USUARIO,	C.NOMBRES + ' ' + C.APELLIDOS AS NOMBRECLIENTE" +
+                dgvInformeRetenciones.Rows.Clear();
+                for (int i = 0; i < 20; i++)
+                    dgvInformeRetenciones.Rows.Add();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DataRow row = dt.Rows[i];
+                    if (i == dgvInformeRetenciones.RowCount - 1)
+                        dgvInformeRetenciones.Rows.Add();
+                    string numeros = Convert.ToInt32(row["SERIE1PROVEEDOR"]).ToString("D3") + Convert.ToInt32(row["SERIE2PROVEEDOR"]).ToString("D3")+ Convert.ToInt32(row["NUMERODOCUMENTOPROVEEDOR"]).ToString("D9");
+                    dgvInformeRetenciones.Rows[i].Cells[0].Value = numeros;
+                    dgvInformeRetenciones.Rows[i].Cells[1].Value = row["FECHARETENCION"];
+                    dgvInformeRetenciones.Rows[i].Cells[2].Value = row["NOMBRES"];
+                    dgvInformeRetenciones.Rows[i].Cells[3].Value = row["DESCRIPCION"];
+                    dgvInformeRetenciones.Rows[i].Cells[4].Value = row["RETENCION"];
+                    dgvInformeRetenciones.Rows[i].Cells[6].Value = row["MONTO"];
 
-            //    }
-            //}
-            //else
-            //{
-            //    dgvInformeVentas.Rows.Clear();
-            //    for (int i = 0; i < 20; i++)
-            //        dgvInformeVentas.Rows.Add();
-            //}
+                }
+            }
+            else
+            {
+                dgvInformeRetenciones.Rows.Clear();
+                for (int i = 0; i < 20; i++)
+                    dgvInformeRetenciones.Rows.Add();
+            }
 
         }
     }

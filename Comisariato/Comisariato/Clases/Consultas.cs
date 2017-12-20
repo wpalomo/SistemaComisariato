@@ -381,7 +381,7 @@ namespace Comisariato.Clases
             }
             catch (Exception ex)
             {
-                MessageBox.Show("" + ex.Message);
+                //MessageBox.Show("" + ex.Message);
                 return false;
             }
         }
@@ -1697,10 +1697,13 @@ namespace Comisariato.Clases
                 SqlCommand cmd = new SqlCommand("REGISTRAR_ENCABEZADO_NOTAC", ConexionBD.connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IDENCABEZADOCOMPRA", objEncabezadoNotaCredito.IdEncabezadoCompra);
-                cmd.Parameters.AddWithValue("@TOTAL", Funcion.reemplazarcaracter(objEncabezadoNotaCredito.TotalDevolucion.ToString()));
+                cmd.Parameters.AddWithValue("@TOTAL", Funcion.reemplazarcaracter(Math.Round(objEncabezadoNotaCredito.TotalDevolucion, 6).ToString()));
                 cmd.Parameters.AddWithValue("@SERIE1", objEncabezadoNotaCredito.Serie1);
                 cmd.Parameters.AddWithValue("@SERIE2", objEncabezadoNotaCredito.Serie2);
                 cmd.Parameters.AddWithValue("@NUMERO", objEncabezadoNotaCredito.Numero);
+                cmd.Parameters.AddWithValue("@SUBTOTAL0", Funcion.reemplazarcaracter(Math.Round(objEncabezadoNotaCredito.Sub0, 6).ToString()));
+                cmd.Parameters.AddWithValue("@SUBTOTAL12", Funcion.reemplazarcaracter(Math.Round(objEncabezadoNotaCredito.Sub12, 6).ToString()));
+                cmd.Parameters.AddWithValue("@IVA", Funcion.reemplazarcaracter(Math.Round(objEncabezadoNotaCredito.Iva, 6).ToString()));
                 int result = cmd.ExecuteNonQuery();
                 Objc.Cerrar();
                 if (result > 0)
@@ -1725,6 +1728,56 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@IDENCABEZADONOTACREDITO", objDetalleNotaCredito.IdEncabezadoNotaCredito);
                 cmd.Parameters.AddWithValue("@CODIGOBARRA", objDetalleNotaCredito.CodigoBarra);
                 cmd.Parameters.AddWithValue("@CANTIDAD", objDetalleNotaCredito.Cantidad);
+                int result = cmd.ExecuteNonQuery();
+                Objc.Cerrar();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        //EjecutarPROCEDUREEncabezadoNotaDebito
+        public bool EjecutarPROCEDUREEncabezadoNotaDebito(EncabezadoNotaDebito objEncabezadoNotaDebito)
+        {
+            try
+            {
+                Objc.conectar();
+                SqlCommand cmd = new SqlCommand("REGISTRAR_ENCABEZADO_NOTAD", ConexionBD.connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IDENCABEZADOVENTA", objEncabezadoNotaDebito.IdEncabezadoVenta);
+                cmd.Parameters.AddWithValue("@TOTAL", Funcion.reemplazarcaracter(objEncabezadoNotaDebito.TotalDevolucion.ToString()));
+                cmd.Parameters.AddWithValue("@SERIE1", objEncabezadoNotaDebito.Serie1);
+                cmd.Parameters.AddWithValue("@SERIE2", objEncabezadoNotaDebito.Serie2);
+                cmd.Parameters.AddWithValue("@NUMERO", objEncabezadoNotaDebito.Numero);
+                int result = cmd.ExecuteNonQuery();
+                Objc.Cerrar();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        //EjecutarPROCEDUREDetalleNotaDebito DetalleNotaDebito objDetalleNotaDebito
+        public bool EjecutarPROCEDUREDetalleNotaDebito(DetalleNotaDebito objDetalleNotaDebito)
+        {
+            try
+            {
+                Objc.conectar();
+                SqlCommand cmd = new SqlCommand("REGISTRAR_DETALLE_ND", ConexionBD.connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IDENCABEZADONOTADEBITO", objDetalleNotaDebito.IdEncabezadoNotaDebito);
+                cmd.Parameters.AddWithValue("@CODIGOBARRA", objDetalleNotaDebito.CodigoBarra);
+                cmd.Parameters.AddWithValue("@CANTIDAD", objDetalleNotaDebito.Cantidad);
                 int result = cmd.ExecuteNonQuery();
                 Objc.Cerrar();
                 if (result > 0)
