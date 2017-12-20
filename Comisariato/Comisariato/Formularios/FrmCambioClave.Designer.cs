@@ -175,6 +175,7 @@
             this.btnLimpiarProveedor.Text = "&Limpiar";
             this.btnLimpiarProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLimpiarProveedor.UseVisualStyleBackColor = true;
+            this.btnLimpiarProveedor.Click += new System.EventHandler(this.btnLimpiarProveedor_Click);
             // 
             // btnGuardarProveedor
             // 
@@ -187,6 +188,7 @@
             this.btnGuardarProveedor.Text = "&Guardar";
             this.btnGuardarProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardarProveedor.UseVisualStyleBackColor = true;
+            this.btnGuardarProveedor.Click += new System.EventHandler(this.btnGuardarProveedor_Click);
             // 
             // FrmCambioClave
             // 
