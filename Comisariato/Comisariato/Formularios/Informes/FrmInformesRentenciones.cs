@@ -18,7 +18,7 @@ namespace Comisariato.Formularios.Informes
             InitializeComponent();
         }
         Consultas objConsulta = new Consultas();
-        string cadenaGeneral = "select * from Vista_InformeRetenciones", cadeCondicion = "", condicionEntre="", añoDesde = "", 
+        string cadenaGeneral = "select * from Vista_InformeRetenciones where IDCODIGOSRI = IDRETENCION ", cadeCondicion = "", condicionEntre="", añoDesde = "", 
             fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "", 
             cadenaConsultar = "";
         
@@ -47,7 +47,7 @@ namespace Comisariato.Formularios.Informes
         {
             try
             {
-                cadeCondicion = " NOMBRES like '%" + txtConsultar.Text + "%'";
+                cadeCondicion = " and NOMBRES like '%" + txtConsultar.Text + "%'";
                 cadeCondicion = cadeCondicion + " or NUMERODOCUMENTOPROVEEDOR like '%" + txtConsultar.Text + "%' or SERIE2PROVEEDOR like '%" + txtConsultar.Text + "%' or SERIE1PROVEEDOR like '%" + txtConsultar.Text + "%'";
                 llenarDgv();
             }
@@ -63,25 +63,25 @@ namespace Comisariato.Formularios.Informes
         private void dtpDesde_ValueChanged(object sender, EventArgs e)
         {
             obtenerFechas();
-            condicionEntre = " FECHARETENCION between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
+            condicionEntre = " AND FECHARETENCION between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
             //objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
             llenarDgv();
         }
         public void llenarDgv()
         {
             string and = "", where = "";
-            if (cadeCondicion == "" && condicionEntre == "")
-            {
-                where = "";
-                and = "";
-            }
-            else if (cadeCondicion != "" || condicionEntre != "")
-                where = " where ";
-            if (cadeCondicion != "" && condicionEntre != "")
-            {
-                where = " where ";
-                and = " and ";
-            }
+            //if (cadeCondicion == "" && condicionEntre == "")
+            //{
+            //    //where = "";
+            //    and = "";
+            //}
+            //else if (cadeCondicion != "" || condicionEntre != "")
+            //    //where = " where ";
+            //if (cadeCondicion != "" && condicionEntre != "")
+            //{
+            //    //where = " where ";
+            //    and = " and ";
+            //}
             cadenaConsultar = cadenaGeneral + where + cadeCondicion + and + condicionEntre;
             DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
             if (dt.Rows.Count > 0)

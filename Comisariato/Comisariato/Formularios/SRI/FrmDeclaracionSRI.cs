@@ -89,6 +89,14 @@ namespace Comisariato.Formularios.SRI
                             dgvRetencion.Rows.Add();
                     }
                 }
+                else
+                {
+                    dgvRetencion.Rows.Clear();
+                    for (int i = 0; i < 15; i++)
+                    {
+                        dgvRetencion.Rows.Add();
+                    }
+                }
                 for (int i = 0; i < dgvRetencion.RowCount - 1; i++)
                 {
                     for (int j = i+1; j < dgvRetencion.RowCount - 1; j++)
