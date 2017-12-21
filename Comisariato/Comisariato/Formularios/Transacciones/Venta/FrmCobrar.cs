@@ -1247,7 +1247,7 @@ namespace Comisariato.Formularios.Transacciones
             //String ruta = @"\\AIRCONTROL\BodegaPedido";
             //ticket.ImprimirTicket(ruta);
 
-            //ticket.ImprimirTicket("Generic / Text Only");//Nombre de la impresora ticketera
+            ticket.ImprimirTicket("Generic / Text Only");//Nombre de la impresora ticketera
 
 
             //}

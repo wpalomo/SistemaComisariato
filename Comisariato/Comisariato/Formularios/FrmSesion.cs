@@ -52,8 +52,7 @@ namespace Comisariato
 
         private void BtnIniciar_Click(object sender, EventArgs e)
         {
-            //float total = 1;
-           // MessageBox.Show("$ 0.00");
+           
             Consultas c = new Consultas();
             if (txtUsuario.Text != "")
             {
@@ -82,7 +81,26 @@ namespace Comisariato
                     }
                     else
                     {
-                        lblError.Text = "Credenciales incorrectas.";
+                        if (c.ConsultarPrimerRegisto("TbUsuario", ""))
+                        {
+                            lblError.Text = "Credenciales incorrectas.";
+                        }
+                        else
+                        {
+                            String[] datosArchivoConfigPersona = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosAdmin.shc");
+                            String[] datosArchivoConfigEmpresa = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosEmpresa.shc");
+                            if (datosArchivoConfigPersona != null && datosArchivoConfigEmpresa != null)
+                            {
+                                if (datosArchivoConfigPersona[2] == txtUsuario.Text && datosArchivoConfigPersona[3] == txtContraseña.Text)
+                                {
+                                    c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
+                                    c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
+                                }
+
+                            }
+
+                            BtnIniciar_Click(null, null);
+                        }
                     }
 
                 }

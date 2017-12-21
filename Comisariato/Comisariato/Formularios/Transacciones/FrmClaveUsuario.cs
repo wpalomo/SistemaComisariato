@@ -50,6 +50,7 @@ namespace Comisariato.Formularios.Transacciones
         {
             try
             {
+
                 if (txtClave.Text != "")
                 {
                     c = new Consultas();

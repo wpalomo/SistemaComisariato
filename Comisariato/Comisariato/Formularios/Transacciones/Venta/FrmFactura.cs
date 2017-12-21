@@ -110,14 +110,19 @@ namespace Comisariato.Formularios.Transacciones
                 DataRow myRow = dt.Rows[0];
 
                 //Se almacena el campo foto de la tabla en el arreglo de bytes
-                MyData = (byte[])myRow["LOGO"];
-                //Se inicializa un flujo en memoria del arreglo de bytes
-                MemoryStream stream = new MemoryStream(MyData);
-                //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
-                //el cual contiene el arreglo de bytes
-                this.pictureBox1.BackgroundImage = Image.FromStream(stream);
-              
-
+                if (Convert.ToString(myRow["LOGO"]) != "")
+                {
+                    MyData = (byte[])myRow["LOGO"];
+                    //Se inicializa un flujo en memoria del arreglo de bytes
+                    MemoryStream stream = new MemoryStream(MyData);
+                    //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
+                    //el cual contiene el arreglo de bytes
+                    this.pictureBox1.BackgroundImage = Image.FromStream(stream);
+                }
+                else
+                {
+                    this.pictureBox1.BackgroundImage =Comisariato.Properties.Resources.no_logo;
+                }
             }
 
             txtCodigo.Focus();

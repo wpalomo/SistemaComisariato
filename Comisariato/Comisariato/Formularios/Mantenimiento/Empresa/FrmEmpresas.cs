@@ -243,7 +243,8 @@ namespace Comisariato.Formularios
                     txtGerenteEmpresa.Text = myRow["GERENTE"].ToString();
                     txtDireccionEmpresa.Text = myRow["DIRECCION"].ToString();
                     txtEmailEmpresa.Text = myRow["EMAIL"].ToString();
-                    dtpFechaInicioContableEmpresa.Value = Convert.ToDateTime(myRow["FECHAINICIOCONTABLE"]);
+                    if (myRow["FECHAINICIOCONTABLE"].ToString() != "")
+                        dtpFechaInicioContableEmpresa.Value = Convert.ToDateTime(myRow["FECHAINICIOCONTABLE"]);
                     txtCeluar1Empresa.Text = myRow["CELULAR1"].ToString();
                     txtCelular2Empresa.Text = myRow["CELULAR2"].ToString();
                     txtRUCContadorEmpresa.Text = myRow["RUCCONTADOR"].ToString();
