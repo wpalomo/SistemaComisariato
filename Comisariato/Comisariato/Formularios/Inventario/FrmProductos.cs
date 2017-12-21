@@ -632,35 +632,41 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void txtStockMaximoProducto_Enter(object sender, EventArgs e)
         {
-            txtStockMaximoProducto.Select(0, txtStockMaximoProducto.TextLength);
+
+            txtStockMaximoProducto.SelectAll();
+            txtStockMaximoProducto.Focus();
         }
 
         private void txtCajaProducto_Enter(object sender, EventArgs e)
         {
-            txtCajaProducto.Select(0, txtCajaProducto.TextLength);
+            txtCajaProducto.SelectAll();
+            txtCajaProducto.Focus();
         }
 
         private void txtStockMinimoProducto_Enter(object sender, EventArgs e)
         {
-            txtStockMinimoProducto.Select(0, txtStockMinimoProducto.TextLength);
+            txtStockMinimoProducto.SelectAll();
+            txtStockMinimoProducto.Focus();
         }
 
        
 
         private void txtPVPConIVAProducto_Enter(object sender, EventArgs e)
         {
+            txtPVPConIVAProducto.SelectAll();
             txtPVPConIVAProducto.Focus();
-            txtPVPConIVAProducto.Select(0, txtPVPConIVAProducto.TextLength);
         }
 
         private void txtPrecioMayorConIVAProducto_Enter(object sender, EventArgs e)
         {
-            txtPrecioMayorConIVAProducto.Select(0, txtPrecioMayorConIVAProducto.TextLength);
+            txtPrecioMayorConIVAProducto.SelectAll();
+            txtPrecioMayorConIVAProducto.Focus();
         }
 
         private void txtPrecioCajaConIVAProducto_Enter(object sender, EventArgs e)
         {
-            txtPrecioCajaConIVAProducto.Select(0, txtPrecioCajaConIVAProducto.TextLength);
+            txtPrecioCajaConIVAProducto.SelectAll();
+            txtPrecioCajaConIVAProducto.Focus();
         }
 
         private void dgvDatosProducto_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -876,6 +882,86 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 CkbIva.Enabled = true;
                 CkbIva.Checked = false;
             }
+        }
+
+        private void txtPVPConIVAProducto_Click(object sender, EventArgs e)
+        {
+            txtPVPConIVAProducto.SelectAll();
+            txtPVPConIVAProducto.Focus();
+        }
+
+        private void txtPVPSinIVAProducto_Click(object sender, EventArgs e)
+        {
+            txtPVPSinIVAProducto.SelectAll();
+        }
+
+        private void txtPrecioMayorConIVAProducto_Click(object sender, EventArgs e)
+        {
+            txtPrecioMayorConIVAProducto.SelectAll();
+            txtPrecioMayorConIVAProducto.Focus();
+
+        }
+
+        private void txtPrecioCajaConIVAProducto_Click(object sender, EventArgs e)
+        {
+            txtPrecioCajaConIVAProducto.SelectAll();
+            txtPrecioCajaConIVAProducto.Focus();
+        }
+
+        private void txtPrecioMayorSinIVAProducto_Click(object sender, EventArgs e)
+        {
+            txtPrecioMayorSinIVAProducto.SelectAll();
+        }
+
+        private void txtPrecioCajaSinIVAProducto_Click(object sender, EventArgs e)
+        {
+            txtPrecioCajaSinIVAProducto.SelectAll();
+        }
+
+        private void TxtIce_Click(object sender, EventArgs e)
+        {
+            TxtIce.SelectAll();
+        }
+
+        private void TxtIRBP_Click(object sender, EventArgs e)
+        {
+            TxtIRBP.SelectAll();
+        }
+
+        private void txtCajaProducto_Click(object sender, EventArgs e)
+        {
+            txtCajaProducto.SelectAll();
+            txtCajaProducto.Focus();
+        }
+
+        private void txtDisplay_Click(object sender, EventArgs e)
+        {
+            txtDisplay.SelectAll();
+            txtDisplay.Focus();
+        }
+
+        private void txtUnidadProducto_Click(object sender, EventArgs e)
+        {
+            txtUnidadProducto.SelectAll();
+            txtUnidadProducto.Focus();
+        }
+
+        private void txtPeso_Click(object sender, EventArgs e)
+        {
+            txtPeso.SelectAll();
+            txtPeso.Focus();
+        }
+
+        private void txtStockMaximoProducto_Click(object sender, EventArgs e)
+        {
+            txtStockMaximoProducto.SelectAll();
+            txtStockMaximoProducto.Focus();
+        }
+
+        private void txtStockMinimoProducto_Click(object sender, EventArgs e)
+        {
+            txtStockMinimoProducto.SelectAll();
+            txtStockMinimoProducto.Focus();
         }
     }
 }

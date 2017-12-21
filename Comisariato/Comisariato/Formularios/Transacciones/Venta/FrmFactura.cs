@@ -1172,10 +1172,7 @@ namespace Comisariato.Formularios.Transacciones
 
         private void BtnCalculadora_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.EnableRaisingEvents = false;
-            proc.StartInfo.FileName = "calc";
-            proc.Start();
+            
         }
 
         private void dgvDetalleProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
