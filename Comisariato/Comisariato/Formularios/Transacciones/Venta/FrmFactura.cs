@@ -110,14 +110,19 @@ namespace Comisariato.Formularios.Transacciones
                 DataRow myRow = dt.Rows[0];
 
                 //Se almacena el campo foto de la tabla en el arreglo de bytes
-                MyData = (byte[])myRow["LOGO"];
-                //Se inicializa un flujo en memoria del arreglo de bytes
-                MemoryStream stream = new MemoryStream(MyData);
-                //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
-                //el cual contiene el arreglo de bytes
-                this.pictureBox1.BackgroundImage = Image.FromStream(stream);
-              
-
+                if (Convert.ToString(myRow["LOGO"]) != "")
+                {
+                    MyData = (byte[])myRow["LOGO"];
+                    //Se inicializa un flujo en memoria del arreglo de bytes
+                    MemoryStream stream = new MemoryStream(MyData);
+                    //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
+                    //el cual contiene el arreglo de bytes
+                    this.pictureBox1.BackgroundImage = Image.FromStream(stream);
+                }
+                else
+                {
+                    this.pictureBox1.BackgroundImage =Comisariato.Properties.Resources.no_logo;
+                }
             }
 
             txtCodigo.Focus();
@@ -1172,22 +1177,34 @@ namespace Comisariato.Formularios.Transacciones
 
         private void BtnCalculadora_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.EnableRaisingEvents = false;
-            proc.StartInfo.FileName = "calc";
-            proc.Start();
+            
         }
 
         private void dgvDetalleProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgvDetalleProductos.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
-            txtCodigo.Focus();
+            try
+            {
+                dgvDetalleProductos.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
+                txtCodigo.Focus();
+            }
+            catch (Exception)
+            {
+
+            }
+            
         }
 
         private void dgvDetalleProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgvDetalleProductos.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
-            txtCodigo.Focus();
+            try
+            {
+                dgvDetalleProductos.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
+                txtCodigo.Focus();
+            }
+            catch (Exception)
+            {
+            }
+            
 
         }
 

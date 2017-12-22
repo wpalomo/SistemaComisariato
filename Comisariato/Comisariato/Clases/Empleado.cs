@@ -370,7 +370,10 @@ namespace Comisariato.Clases
 
 
 
-     
+
+
+
+
 
         //No eh trabajado desde aqui en adelante ANDRES
         public string ModificarEmpleado(string Identificacion, byte[] foto)

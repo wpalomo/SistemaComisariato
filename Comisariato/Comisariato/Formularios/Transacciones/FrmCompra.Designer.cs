@@ -31,6 +31,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label13 = new System.Windows.Forms.Label();
             this.cbSucursal = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -90,22 +92,32 @@
             this.dtpFechaOC = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dgvDatosProducto = new System.Windows.Forms.DataGridView();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.txtConsultar = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpHasta = new System.Windows.Forms.DateTimePicker();
+            this.dtpDesde = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.dgvInformeCompras = new System.Windows.Forms.DataGridView();
+            this.Factura = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Irbp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Subtotal0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Subtotal12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.pcOrdenCompra.SuspendLayout();
             this.gbDetalleProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductosIngresos)).BeginInit();
             this.gbEncabezadoCompra.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDatosProducto)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeCompras)).BeginInit();
             this.SuspendLayout();
             // 
             // label13
@@ -208,7 +220,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 10F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -231,7 +243,7 @@
             this.total});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 8F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Teal;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -802,8 +814,8 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Bisque;
-            this.tabPage2.Controls.Add(this.dgvDatosProducto);
-            this.tabPage2.Controls.Add(this.textBox7);
+            this.tabPage2.Controls.Add(this.dgvInformeCompras);
+            this.tabPage2.Controls.Add(this.txtConsultar);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
@@ -814,34 +826,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Consultar Orden de  Compra";
             // 
-            // dgvDatosProducto
+            // txtConsultar
             // 
-            this.dgvDatosProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosProducto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvDatosProducto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatosProducto.Location = new System.Drawing.Point(17, 132);
-            this.dgvDatosProducto.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvDatosProducto.Name = "dgvDatosProducto";
-            this.dgvDatosProducto.Size = new System.Drawing.Size(1012, 399);
-            this.dgvDatosProducto.TabIndex = 14;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(556, 57);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(414, 22);
-            this.textBox7.TabIndex = 4;
-            this.textBox7.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
+            this.txtConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConsultar.Location = new System.Drawing.Point(556, 57);
+            this.txtConsultar.Name = "txtConsultar";
+            this.txtConsultar.Size = new System.Drawing.Size(414, 22);
+            this.txtConsultar.TabIndex = 4;
+            this.txtConsultar.TextChanged += new System.EventHandler(this.txtConsultar_TextChanged);
+            this.txtConsultar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
             // 
             // label8
             // 
@@ -856,8 +849,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dateTimePicker3);
-            this.groupBox2.Controls.Add(this.dateTimePicker2);
+            this.groupBox2.Controls.Add(this.dtpHasta);
+            this.groupBox2.Controls.Add(this.dtpDesde);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.ForeColor = System.Drawing.Color.Teal;
@@ -868,23 +861,25 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fecha";
             // 
-            // dateTimePicker3
+            // dtpHasta
             // 
-            this.dateTimePicker3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker3.Location = new System.Drawing.Point(91, 66);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(292, 22);
-            this.dateTimePicker3.TabIndex = 20;
-            this.dateTimePicker3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
+            this.dtpHasta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpHasta.Location = new System.Drawing.Point(91, 66);
+            this.dtpHasta.Name = "dtpHasta";
+            this.dtpHasta.Size = new System.Drawing.Size(292, 22);
+            this.dtpHasta.TabIndex = 20;
+            this.dtpHasta.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
+            this.dtpHasta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
             // 
-            // dateTimePicker2
+            // dtpDesde
             // 
-            this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker2.Location = new System.Drawing.Point(91, 27);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(292, 22);
-            this.dateTimePicker2.TabIndex = 19;
-            this.dateTimePicker2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
+            this.dtpDesde.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDesde.Location = new System.Drawing.Point(91, 27);
+            this.dtpDesde.Name = "dtpDesde";
+            this.dtpDesde.Size = new System.Drawing.Size(292, 22);
+            this.dtpDesde.TabIndex = 19;
+            this.dtpDesde.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
+            this.dtpDesde.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
             // 
             // label14
             // 
@@ -905,6 +900,128 @@
             this.label16.Size = new System.Drawing.Size(52, 16);
             this.label16.TabIndex = 17;
             this.label16.Text = "Desde:";
+            // 
+            // dgvInformeCompras
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 10F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvInformeCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvInformeCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInformeCompras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Factura,
+            this.Fecha,
+            this.Proveedor,
+            this.dataGridViewTextBoxColumn1,
+            this.Ice,
+            this.Irbp,
+            this.Subtotal0,
+            this.Subtotal12,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3});
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 8F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvInformeCompras.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvInformeCompras.Location = new System.Drawing.Point(6, 133);
+            this.dgvInformeCompras.Name = "dgvInformeCompras";
+            this.dgvInformeCompras.ReadOnly = true;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvInformeCompras.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvInformeCompras.RowHeadersVisible = false;
+            this.dgvInformeCompras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvInformeCompras.Size = new System.Drawing.Size(1039, 406);
+            this.dgvInformeCompras.TabIndex = 22;
+            // 
+            // Factura
+            // 
+            this.Factura.FillWeight = 160.7917F;
+            this.Factura.HeaderText = "Factura";
+            this.Factura.Name = "Factura";
+            this.Factura.ReadOnly = true;
+            this.Factura.Width = 135;
+            // 
+            // Fecha
+            // 
+            this.Fecha.FillWeight = 82.69291F;
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            // 
+            // Proveedor
+            // 
+            this.Proveedor.FillWeight = 82.69291F;
+            this.Proveedor.HeaderText = "Proveedor";
+            this.Proveedor.Name = "Proveedor";
+            this.Proveedor.ReadOnly = true;
+            this.Proveedor.Width = 265;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.FillWeight = 82.69291F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Iva";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 55;
+            // 
+            // Ice
+            // 
+            this.Ice.HeaderText = "ICE";
+            this.Ice.Name = "Ice";
+            this.Ice.ReadOnly = true;
+            this.Ice.Width = 60;
+            // 
+            // Irbp
+            // 
+            this.Irbp.HeaderText = "IRBP";
+            this.Irbp.Name = "Irbp";
+            this.Irbp.ReadOnly = true;
+            this.Irbp.Width = 60;
+            // 
+            // Subtotal0
+            // 
+            this.Subtotal0.FillWeight = 82.69291F;
+            this.Subtotal0.HeaderText = "Sub 0%";
+            this.Subtotal0.Name = "Subtotal0";
+            this.Subtotal0.ReadOnly = true;
+            this.Subtotal0.Width = 85;
+            // 
+            // Subtotal12
+            // 
+            this.Subtotal12.FillWeight = 82.69291F;
+            this.Subtotal12.HeaderText = "Sub12%";
+            this.Subtotal12.Name = "Subtotal12";
+            this.Subtotal12.ReadOnly = true;
+            this.Subtotal12.Width = 85;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "IVA%";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.FillWeight = 82.69291F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Total";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 80;
             // 
             // FrmCompra
             // 
@@ -932,9 +1049,9 @@
             this.gbEncabezadoCompra.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDatosProducto)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeCompras)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -945,9 +1062,8 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage pcOrdenCompra;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox txtConsultar;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.DataGridView dgvDatosProducto;
         private System.Windows.Forms.Button BtnLimpiar;
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.TextBox txtIVA;
@@ -971,8 +1087,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cbTerminoPago;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dtpHasta;
+        private System.Windows.Forms.DateTimePicker dtpDesde;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.GroupBox gbDetalleProducto;
@@ -1007,5 +1123,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn iva;
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
+        private System.Windows.Forms.DataGridView dgvInformeCompras;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Factura;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Irbp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal0;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }

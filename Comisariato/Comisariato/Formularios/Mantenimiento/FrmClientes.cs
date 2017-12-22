@@ -715,5 +715,10 @@ namespace Comisariato.Formularios
                 SendKeys.Send("{TAB}");
             }
         }
+
+        private void txtCasillaCliente_Click(object sender, EventArgs e)
+        {
+            txtCasillaCliente.SelectAll();
+        }
     }
 }

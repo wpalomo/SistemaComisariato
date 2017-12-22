@@ -191,7 +191,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        MessageBox.Show("No existe registro para este #factura del proveedor seleccionado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //MessageBox.Show("No existe registro para este #factura del proveedor seleccionado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         inicializar();
                     }
                 }

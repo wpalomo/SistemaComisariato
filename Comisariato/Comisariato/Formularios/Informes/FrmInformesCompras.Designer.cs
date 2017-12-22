@@ -41,7 +41,6 @@
             this.dgvInformeCompras = new System.Windows.Forms.DataGridView();
             this.Factura = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Iva = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ice = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -142,7 +141,6 @@
             this.dgvInformeCompras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Factura,
             this.Fecha,
-            this.Usuario,
             this.Proveedor,
             this.Iva,
             this.Ice,
@@ -153,7 +151,7 @@
             this.Total});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10F);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 8F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -190,21 +188,13 @@
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
             // 
-            // Usuario
-            // 
-            this.Usuario.FillWeight = 82.69291F;
-            this.Usuario.HeaderText = "Usuario";
-            this.Usuario.Name = "Usuario";
-            this.Usuario.ReadOnly = true;
-            this.Usuario.Width = 90;
-            // 
             // Proveedor
             // 
             this.Proveedor.FillWeight = 82.69291F;
             this.Proveedor.HeaderText = "Proveedor";
             this.Proveedor.Name = "Proveedor";
             this.Proveedor.ReadOnly = true;
-            this.Proveedor.Width = 175;
+            this.Proveedor.Width = 265;
             // 
             // Iva
             // 
@@ -246,7 +236,7 @@
             // 
             // Subtotal
             // 
-            this.Subtotal.HeaderText = "Subtotal";
+            this.Subtotal.HeaderText = "IVA%";
             this.Subtotal.Name = "Subtotal";
             this.Subtotal.ReadOnly = true;
             this.Subtotal.Width = 90;
@@ -294,7 +284,6 @@
         private System.Windows.Forms.DataGridView dgvInformeCompras;
         private System.Windows.Forms.DataGridViewTextBoxColumn Factura;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Iva;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ice;

@@ -58,26 +58,24 @@
             this.label9 = new System.Windows.Forms.Label();
             this.gbReporteRetenciones = new System.Windows.Forms.GroupBox();
             this.dgvRetencion = new System.Windows.Forms.DataGridView();
-            this.gbReporteNotaCredito = new System.Windows.Forms.GroupBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.dgvNotaCredito = new System.Windows.Forms.DataGridView();
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gbReporteNotaCredito = new System.Windows.Forms.GroupBox();
+            this.txtTotalNC = new System.Windows.Forms.TextBox();
+            this.txtIvaNC = new System.Windows.Forms.TextBox();
+            this.txtGravadoNC = new System.Windows.Forms.TextBox();
+            this.txtExentoNC = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.gbReporteVentas.SuspendLayout();
             this.gbReporteCompras.SuspendLayout();
             this.gbReporteRetenciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRetencion)).BeginInit();
             this.gbReporteNotaCredito.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNotaCredito)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGenerarKardex
@@ -376,57 +374,82 @@
             this.dgvRetencion.Size = new System.Drawing.Size(508, 209);
             this.dgvRetencion.TabIndex = 0;
             // 
+            // Descripcion
+            // 
+            this.Descripcion.HeaderText = "Descripción";
+            this.Descripcion.Name = "Descripcion";
+            this.Descripcion.ReadOnly = true;
+            this.Descripcion.Width = 335;
+            // 
+            // Porcentaje
+            // 
+            this.Porcentaje.HeaderText = "%";
+            this.Porcentaje.Name = "Porcentaje";
+            this.Porcentaje.ReadOnly = true;
+            this.Porcentaje.Width = 50;
+            // 
+            // Total
+            // 
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.Visible = false;
+            // 
             // gbReporteNotaCredito
             // 
-            this.gbReporteNotaCredito.Controls.Add(this.textBox11);
-            this.gbReporteNotaCredito.Controls.Add(this.textBox12);
-            this.gbReporteNotaCredito.Controls.Add(this.textBox13);
-            this.gbReporteNotaCredito.Controls.Add(this.textBox14);
+            this.gbReporteNotaCredito.Controls.Add(this.txtTotalNC);
+            this.gbReporteNotaCredito.Controls.Add(this.txtIvaNC);
+            this.gbReporteNotaCredito.Controls.Add(this.txtGravadoNC);
+            this.gbReporteNotaCredito.Controls.Add(this.txtExentoNC);
             this.gbReporteNotaCredito.Controls.Add(this.label13);
             this.gbReporteNotaCredito.Controls.Add(this.label14);
             this.gbReporteNotaCredito.Controls.Add(this.label15);
             this.gbReporteNotaCredito.Controls.Add(this.label16);
-            this.gbReporteNotaCredito.Controls.Add(this.dgvNotaCredito);
             this.gbReporteNotaCredito.Font = new System.Drawing.Font("Arial", 10F);
             this.gbReporteNotaCredito.ForeColor = System.Drawing.Color.Teal;
             this.gbReporteNotaCredito.Location = new System.Drawing.Point(15, 356);
             this.gbReporteNotaCredito.Name = "gbReporteNotaCredito";
-            this.gbReporteNotaCredito.Size = new System.Drawing.Size(1025, 226);
+            this.gbReporteNotaCredito.Size = new System.Drawing.Size(1025, 66);
             this.gbReporteNotaCredito.TabIndex = 16;
             this.gbReporteNotaCredito.TabStop = false;
             this.gbReporteNotaCredito.Text = "Reporte de Nota de Crédito";
             // 
-            // textBox11
+            // txtTotalNC
             // 
-            this.textBox11.Location = new System.Drawing.Point(819, 23);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(127, 23);
-            this.textBox11.TabIndex = 15;
+            this.txtTotalNC.Location = new System.Drawing.Point(819, 23);
+            this.txtTotalNC.Name = "txtTotalNC";
+            this.txtTotalNC.ReadOnly = true;
+            this.txtTotalNC.Size = new System.Drawing.Size(127, 23);
+            this.txtTotalNC.TabIndex = 15;
             // 
-            // textBox12
+            // txtIvaNC
             // 
-            this.textBox12.Location = new System.Drawing.Point(603, 23);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.ReadOnly = true;
-            this.textBox12.Size = new System.Drawing.Size(127, 23);
-            this.textBox12.TabIndex = 14;
+            this.txtIvaNC.Location = new System.Drawing.Point(603, 23);
+            this.txtIvaNC.Name = "txtIvaNC";
+            this.txtIvaNC.ReadOnly = true;
+            this.txtIvaNC.Size = new System.Drawing.Size(127, 23);
+            this.txtIvaNC.TabIndex = 14;
             // 
-            // textBox13
+            // txtGravadoNC
             // 
-            this.textBox13.Location = new System.Drawing.Point(384, 23);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.ReadOnly = true;
-            this.textBox13.Size = new System.Drawing.Size(127, 23);
-            this.textBox13.TabIndex = 13;
+            this.txtGravadoNC.Location = new System.Drawing.Point(384, 23);
+            this.txtGravadoNC.Name = "txtGravadoNC";
+            this.txtGravadoNC.ReadOnly = true;
+            this.txtGravadoNC.Size = new System.Drawing.Size(127, 23);
+            this.txtGravadoNC.TabIndex = 13;
             // 
-            // textBox14
+            // txtExentoNC
             // 
-            this.textBox14.Location = new System.Drawing.Point(156, 23);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.ReadOnly = true;
-            this.textBox14.Size = new System.Drawing.Size(127, 23);
-            this.textBox14.TabIndex = 12;
+            this.txtExentoNC.Location = new System.Drawing.Point(156, 23);
+            this.txtExentoNC.Name = "txtExentoNC";
+            this.txtExentoNC.ReadOnly = true;
+            this.txtExentoNC.Size = new System.Drawing.Size(127, 23);
+            this.txtExentoNC.TabIndex = 12;
             // 
             // label13
             // 
@@ -464,47 +487,13 @@
             this.label16.TabIndex = 8;
             this.label16.Text = "Exento:";
             // 
-            // dgvNotaCredito
-            // 
-            this.dgvNotaCredito.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvNotaCredito.Location = new System.Drawing.Point(9, 64);
-            this.dgvNotaCredito.Name = "dgvNotaCredito";
-            this.dgvNotaCredito.Size = new System.Drawing.Size(1008, 133);
-            this.dgvNotaCredito.TabIndex = 0;
-            // 
-            // Descripcion
-            // 
-            this.Descripcion.HeaderText = "Descripción";
-            this.Descripcion.Name = "Descripcion";
-            this.Descripcion.ReadOnly = true;
-            this.Descripcion.Width = 335;
-            // 
-            // Porcentaje
-            // 
-            this.Porcentaje.HeaderText = "%";
-            this.Porcentaje.Name = "Porcentaje";
-            this.Porcentaje.ReadOnly = true;
-            this.Porcentaje.Width = 50;
-            // 
-            // Total
-            // 
-            this.Total.HeaderText = "Total";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.Visible = false;
-            // 
             // FrmDeclaracionSRI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1065, 619);
+            this.ClientSize = new System.Drawing.Size(1065, 438);
             this.Controls.Add(this.gbReporteNotaCredito);
             this.Controls.Add(this.gbReporteRetenciones);
             this.Controls.Add(this.gbReporteCompras);
@@ -527,7 +516,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvRetencion)).EndInit();
             this.gbReporteNotaCredito.ResumeLayout(false);
             this.gbReporteNotaCredito.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNotaCredito)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -565,11 +553,10 @@
         private System.Windows.Forms.GroupBox gbReporteRetenciones;
         private System.Windows.Forms.DataGridView dgvRetencion;
         private System.Windows.Forms.GroupBox gbReporteNotaCredito;
-        private System.Windows.Forms.DataGridView dgvNotaCredito;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox txtTotalNC;
+        private System.Windows.Forms.TextBox txtIvaNC;
+        private System.Windows.Forms.TextBox txtGravadoNC;
+        private System.Windows.Forms.TextBox txtExentoNC;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;

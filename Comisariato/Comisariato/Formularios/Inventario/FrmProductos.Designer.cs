@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcProducto = new System.Windows.Forms.TabControl();
             this.tpNuevoProducto = new System.Windows.Forms.TabPage();
             this.txtNombreProducto = new System.Windows.Forms.RichTextBox();
@@ -49,6 +49,7 @@
             this.btnBuscarImagenProducto = new System.Windows.Forms.Button();
             this.pbImagenProducto = new System.Windows.Forms.PictureBox();
             this.gbImpuestosProducto = new System.Windows.Forms.GroupBox();
+            this.CkbLibreImpuesto = new System.Windows.Forms.CheckBox();
             this.TxtIRBP = new System.Windows.Forms.TextBox();
             this.TxtIce = new System.Windows.Forms.TextBox();
             this.CkbIRBP = new System.Windows.Forms.CheckBox();
@@ -87,7 +88,6 @@
             this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txtConsultarProducto = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.CkbLibreImpuesto = new System.Windows.Forms.CheckBox();
             this.tcProducto.SuspendLayout();
             this.tpNuevoProducto.SuspendLayout();
             this.gbDescripcionProducto.SuspendLayout();
@@ -241,6 +241,7 @@
             this.txtPeso.Size = new System.Drawing.Size(43, 22);
             this.txtPeso.TabIndex = 10;
             this.txtPeso.Text = "0";
+            this.txtPeso.Click += new System.EventHandler(this.txtPeso_Click);
             this.txtPeso.Enter += new System.EventHandler(this.txtPeso_Enter);
             this.txtPeso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
@@ -253,6 +254,7 @@
             this.txtUnidadProducto.Size = new System.Drawing.Size(53, 22);
             this.txtUnidadProducto.TabIndex = 9;
             this.txtUnidadProducto.Text = "0";
+            this.txtUnidadProducto.Click += new System.EventHandler(this.txtUnidadProducto_Click);
             this.txtUnidadProducto.Enter += new System.EventHandler(this.txtUnidadProducto_Enter);
             this.txtUnidadProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
@@ -380,6 +382,19 @@
             this.gbImpuestosProducto.TabStop = false;
             this.gbImpuestosProducto.Text = "Impuestos";
             // 
+            // CkbLibreImpuesto
+            // 
+            this.CkbLibreImpuesto.AutoSize = true;
+            this.CkbLibreImpuesto.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.CkbLibreImpuesto.Location = new System.Drawing.Point(10, 115);
+            this.CkbLibreImpuesto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.CkbLibreImpuesto.Name = "CkbLibreImpuesto";
+            this.CkbLibreImpuesto.Size = new System.Drawing.Size(130, 20);
+            this.CkbLibreImpuesto.TabIndex = 22;
+            this.CkbLibreImpuesto.Text = "Libre de Impuesto";
+            this.CkbLibreImpuesto.UseVisualStyleBackColor = true;
+            this.CkbLibreImpuesto.CheckedChanged += new System.EventHandler(this.CkbLibreImpuesto_CheckedChanged);
+            // 
             // TxtIRBP
             // 
             this.TxtIRBP.Enabled = false;
@@ -390,6 +405,7 @@
             this.TxtIRBP.Size = new System.Drawing.Size(118, 22);
             this.TxtIRBP.TabIndex = 21;
             this.TxtIRBP.Text = "0.0";
+            this.TxtIRBP.Click += new System.EventHandler(this.TxtIRBP_Click);
             this.TxtIRBP.Enter += new System.EventHandler(this.TxtIRBP_Enter);
             this.TxtIRBP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtIRBP_KeyPress);
             // 
@@ -403,6 +419,7 @@
             this.TxtIce.Size = new System.Drawing.Size(118, 22);
             this.TxtIce.TabIndex = 20;
             this.TxtIce.Text = "0.0";
+            this.TxtIce.Click += new System.EventHandler(this.TxtIce_Click);
             this.TxtIce.Enter += new System.EventHandler(this.TxtIce_Enter);
             this.TxtIce.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtIce_KeyPress);
             // 
@@ -450,12 +467,12 @@
             // 
             // gbPreciosProducto
             // 
+            this.gbPreciosProducto.Controls.Add(this.txtPVPConIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPrecioCajaSinIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPrecioMayorSinIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPVPSinIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPrecioCajaConIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPrecioMayorConIVAProducto);
-            this.gbPreciosProducto.Controls.Add(this.txtPVPConIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.label17);
             this.gbPreciosProducto.Controls.Add(this.label13);
             this.gbPreciosProducto.Controls.Add(this.label9);
@@ -480,6 +497,7 @@
             this.txtPrecioCajaSinIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPrecioCajaSinIVAProducto.TabIndex = 18;
             this.txtPrecioCajaSinIVAProducto.Text = "0.0";
+            this.txtPrecioCajaSinIVAProducto.Click += new System.EventHandler(this.txtPrecioCajaSinIVAProducto_Click);
             this.txtPrecioCajaSinIVAProducto.Enter += new System.EventHandler(this.txtPrecioCajaSinIVAProducto_Enter);
             this.txtPrecioCajaSinIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCajaSinIVAProducto_KeyPress);
             this.txtPrecioCajaSinIVAProducto.Leave += new System.EventHandler(this.txtPVPSinIVAProducto_Leave);
@@ -493,6 +511,7 @@
             this.txtPrecioMayorSinIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPrecioMayorSinIVAProducto.TabIndex = 17;
             this.txtPrecioMayorSinIVAProducto.Text = "0.0";
+            this.txtPrecioMayorSinIVAProducto.Click += new System.EventHandler(this.txtPrecioMayorSinIVAProducto_Click);
             this.txtPrecioMayorSinIVAProducto.Enter += new System.EventHandler(this.txtPrecioMayorSinIVAProducto_Enter);
             this.txtPrecioMayorSinIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioMayorSinIVAProducto_KeyPress);
             this.txtPrecioMayorSinIVAProducto.Leave += new System.EventHandler(this.txtPVPSinIVAProducto_Leave);
@@ -506,6 +525,7 @@
             this.txtPVPSinIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPVPSinIVAProducto.TabIndex = 16;
             this.txtPVPSinIVAProducto.Text = "0.0";
+            this.txtPVPSinIVAProducto.Click += new System.EventHandler(this.txtPVPSinIVAProducto_Click);
             this.txtPVPSinIVAProducto.TextChanged += new System.EventHandler(this.txtPVPSinIVAProducto_TextChanged);
             this.txtPVPSinIVAProducto.Enter += new System.EventHandler(this.txtPVPSinIVAProducto_Enter);
             this.txtPVPSinIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPVPSinIVAProducto_KeyPress);
@@ -520,6 +540,7 @@
             this.txtPrecioCajaConIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPrecioCajaConIVAProducto.TabIndex = 21;
             this.txtPrecioCajaConIVAProducto.Text = "0.0";
+            this.txtPrecioCajaConIVAProducto.Click += new System.EventHandler(this.txtPrecioCajaConIVAProducto_Click);
             this.txtPrecioCajaConIVAProducto.TextChanged += new System.EventHandler(this.txtPVPConIVAProducto_TextChanged_1);
             this.txtPrecioCajaConIVAProducto.Enter += new System.EventHandler(this.txtPrecioCajaConIVAProducto_Enter);
             this.txtPrecioCajaConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCajaConIVAProducto_KeyPress);
@@ -534,6 +555,7 @@
             this.txtPrecioMayorConIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPrecioMayorConIVAProducto.TabIndex = 20;
             this.txtPrecioMayorConIVAProducto.Text = "0.0";
+            this.txtPrecioMayorConIVAProducto.Click += new System.EventHandler(this.txtPrecioMayorConIVAProducto_Click);
             this.txtPrecioMayorConIVAProducto.TextChanged += new System.EventHandler(this.txtPVPConIVAProducto_TextChanged_1);
             this.txtPrecioMayorConIVAProducto.Enter += new System.EventHandler(this.txtPrecioMayorConIVAProducto_Enter);
             this.txtPrecioMayorConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioMayorConIVAProducto_KeyPress);
@@ -548,6 +570,7 @@
             this.txtPVPConIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPVPConIVAProducto.TabIndex = 19;
             this.txtPVPConIVAProducto.Text = "0.0";
+            this.txtPVPConIVAProducto.Click += new System.EventHandler(this.txtPVPConIVAProducto_Click);
             this.txtPVPConIVAProducto.TextChanged += new System.EventHandler(this.txtPVPConIVAProducto_TextChanged_1);
             this.txtPVPConIVAProducto.Enter += new System.EventHandler(this.txtPVPConIVAProducto_Enter);
             this.txtPVPConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPVPConIVAProducto_KeyPress_1);
@@ -642,6 +665,7 @@
             this.txtStockMinimoProducto.Size = new System.Drawing.Size(143, 22);
             this.txtStockMinimoProducto.TabIndex = 12;
             this.txtStockMinimoProducto.Text = "0";
+            this.txtStockMinimoProducto.Click += new System.EventHandler(this.txtStockMinimoProducto_Click);
             this.txtStockMinimoProducto.Enter += new System.EventHandler(this.txtStockMinimoProducto_Enter);
             this.txtStockMinimoProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             this.txtStockMinimoProducto.Leave += new System.EventHandler(this.txtStockMinimoProducto_Leave);
@@ -655,6 +679,7 @@
             this.txtStockMaximoProducto.Size = new System.Drawing.Size(143, 22);
             this.txtStockMaximoProducto.TabIndex = 11;
             this.txtStockMaximoProducto.Text = "0";
+            this.txtStockMaximoProducto.Click += new System.EventHandler(this.txtStockMaximoProducto_Click);
             this.txtStockMaximoProducto.Enter += new System.EventHandler(this.txtStockMaximoProducto_Enter);
             this.txtStockMaximoProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
@@ -667,6 +692,7 @@
             this.txtDisplay.Size = new System.Drawing.Size(53, 22);
             this.txtDisplay.TabIndex = 8;
             this.txtDisplay.Text = "0";
+            this.txtDisplay.Click += new System.EventHandler(this.txtDisplay_Click);
             this.txtDisplay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
             // label11
@@ -698,6 +724,7 @@
             this.txtCajaProducto.Size = new System.Drawing.Size(54, 22);
             this.txtCajaProducto.TabIndex = 7;
             this.txtCajaProducto.Text = "0";
+            this.txtCajaProducto.Click += new System.EventHandler(this.txtCajaProducto_Click);
             this.txtCajaProducto.Enter += new System.EventHandler(this.txtCajaProducto_Enter);
             this.txtCajaProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
@@ -811,14 +838,14 @@
             this.dgvDatosProducto.AllowUserToOrderColumns = true;
             this.dgvDatosProducto.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDatosProducto.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosProducto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDatosProducto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dgvDatosProducto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosProducto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar,
@@ -867,19 +894,6 @@
             this.label25.TabIndex = 7;
             this.label25.Text = "Consultar:";
             // 
-            // CkbLibreImpuesto
-            // 
-            this.CkbLibreImpuesto.AutoSize = true;
-            this.CkbLibreImpuesto.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.CkbLibreImpuesto.Location = new System.Drawing.Point(10, 115);
-            this.CkbLibreImpuesto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.CkbLibreImpuesto.Name = "CkbLibreImpuesto";
-            this.CkbLibreImpuesto.Size = new System.Drawing.Size(130, 20);
-            this.CkbLibreImpuesto.TabIndex = 22;
-            this.CkbLibreImpuesto.Text = "Libre de Impuesto";
-            this.CkbLibreImpuesto.UseVisualStyleBackColor = true;
-            this.CkbLibreImpuesto.CheckedChanged += new System.EventHandler(this.CkbLibreImpuesto_CheckedChanged);
-            // 
             // FrmProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -891,6 +905,8 @@
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1068, 652);
+            this.MinimumSize = new System.Drawing.Size(1068, 652);
             this.Name = "FrmProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Administrar Productos";

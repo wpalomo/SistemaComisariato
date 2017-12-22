@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSucursal = new System.Windows.Forms.TextBox();
             this.txtCaja = new System.Windows.Forms.TextBox();
             this.txtNumFact = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCliente = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtAutorizacionND = new System.Windows.Forms.TextBox();
             this.txtNumeroND = new System.Windows.Forms.TextBox();
@@ -102,7 +103,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txtCliente);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtAutorizacionND);
             this.groupBox1.Controls.Add(this.txtNumeroND);
@@ -135,15 +136,15 @@
             this.label1.TabIndex = 70;
             this.label1.Text = "Cliente:";
             // 
-            // textBox1
+            // txtCliente
             // 
-            this.textBox1.Font = new System.Drawing.Font("Arial", 10F);
-            this.textBox1.Location = new System.Drawing.Point(517, 49);
-            this.textBox1.MaxLength = 9;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(280, 23);
-            this.textBox1.TabIndex = 71;
+            this.txtCliente.Font = new System.Drawing.Font("Arial", 10F);
+            this.txtCliente.Location = new System.Drawing.Point(517, 49);
+            this.txtCliente.MaxLength = 9;
+            this.txtCliente.Name = "txtCliente";
+            this.txtCliente.ReadOnly = true;
+            this.txtCliente.Size = new System.Drawing.Size(280, 23);
+            this.txtCliente.TabIndex = 71;
             // 
             // label5
             // 
@@ -246,14 +247,14 @@
             this.DgvDetalleFact.AllowUserToOrderColumns = true;
             this.DgvDetalleFact.AllowUserToResizeColumns = false;
             this.DgvDetalleFact.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DgvDetalleFact.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DgvDetalleFact.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DgvDetalleFact.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CODIGO,
             this.DETALLE,
@@ -263,6 +264,14 @@
             this.TOTAL,
             this.Column1,
             this.Anular});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 8F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DgvDetalleFact.DefaultCellStyle = dataGridViewCellStyle2;
             this.DgvDetalleFact.Location = new System.Drawing.Point(18, 138);
             this.DgvDetalleFact.Name = "DgvDetalleFact";
             this.DgvDetalleFact.RowHeadersVisible = false;
@@ -510,7 +519,7 @@
         private System.Windows.Forms.TextBox txtSerie2ND;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn CODIGO;
         private System.Windows.Forms.DataGridViewTextBoxColumn DETALLE;
         private System.Windows.Forms.DataGridViewTextBoxColumn CANTIDAD;

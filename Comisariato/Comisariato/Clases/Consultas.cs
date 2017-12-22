@@ -39,7 +39,7 @@ namespace Comisariato.Clases
             try
             {
                 Objc.conectar();
-                SqlCommand Sentencia = new SqlCommand("SELECT TbUsuario.CONTRASEÑA, TbUsuario.USUARIO, TbTipousuario.TIPO, TbUsuario.IDTIPOUSUARIO, TbEmpresa.NOMBRECOMERCIAL, TbEmpresa.RUC, TbEmpresa.DIRECCION,TbEmpresa.RAZONSOCIAL from TbUsuario  INNER JOIN TbTipousuario ON(TbUsuario.FACTURA='1') and TbUsuario.USUARIO = '" + Program.Usuario + "' and TbUsuario.CONTRASEÑA= '" + Contraseña + "' INNER JOIN TbEmpresa ON (TbEmpresa.IDEMPRESA='" + Program.IDEMPRESA + "' );");
+                SqlCommand Sentencia = new SqlCommand("SELECT TbUsuario.CONTRASEÑA, TbUsuario.USUARIO, TbTipousuario.TIPO, TbUsuario.IDTIPOUSUARIO, TbEmpresa.NOMBRECOMERCIAL, TbEmpresa.RUC, TbEmpresa.DIRECCION,TbEmpresa.RAZONSOCIAL from TbUsuario  INNER JOIN TbTipousuario ON(TbUsuario.FACTURA='1') and TbUsuario.USUARIO = '" + Program.Usuario + "' and TbUsuario.CONTRASEÑA= '" + Contraseña + "' INNER JOIN TbEmpresa ON (TbEmpresa.IDEMPRESA='" + Program.IDEMPRESA + "')  where TbTipousuario.IDTIPOUSUARIO = TbUsuario.IDTIPOUSUARIO;");
                 Sentencia.Connection = ConexionBD.connection;
                 SqlDataReader dato = Sentencia.ExecuteReader();
                 Objc.Cerrar();
@@ -47,7 +47,7 @@ namespace Comisariato.Clases
                 {
                     Program.nombreempresa = (String)dato["NOMBRECOMERCIAL"];
                     Program.rucempresa = (String)dato["RUC"];
-                    Program.direccionempresa = (String)dato["DIRECCION"];
+                    Program.direccionempresa = Convert.ToString( dato["DIRECCION"]);
                     Program.razonsocialempresa = (String)dato["RAZONSOCIAL"];
                     return true;
                 }
@@ -82,6 +82,32 @@ namespace Comisariato.Clases
                     Program.IDTIPOUSUARIO = "" + (int)dato["IDTIPOUSUARIO"];
                     Program.IDEMPRESA = "" + (int)dato["IDEMPRESA"];
                     datosiniciosesion("" + (int)dato["IDEMPLEADO"]);
+                    return true;
+                }
+
+                else { return false; }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al conectar la base de Datos " + ex.Message, "Comprobar usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                return false;
+            }
+        }
+
+        public bool ConsultarPrimerRegisto(String tabla, String condicion)
+        {
+            try
+            {
+                Objc.conectar();
+                string sql = "SELECT TOP 1 * from "+ tabla + "  "+condicion+"";
+                //string sql = "select U.IDUSUARIO, U.IDEMPLEADO, U.USUARIO, U.CONTRASEÑA, U.IDTIPOUSUARIO, U.IDEMPRESA, U.ACTIVO from TbUsuario U where U.USUARIO='" + Usuario + "' and  U.CONTRASEÑA='" + Contraseña + "'";
+                SqlCommand Sentencia = new SqlCommand(sql);
+                Sentencia.Connection = ConexionBD.connection;
+                //int valor = Convert.ToInt32(Sentencia.ExecuteScalar());
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                if (dato.Read() == true)
+                {
                     return true;
                 }
 
@@ -381,7 +407,7 @@ namespace Comisariato.Clases
             }
             catch (Exception ex)
             {
-                MessageBox.Show("" + ex.Message);
+                //MessageBox.Show("" + ex.Message);
                 return false;
             }
         }
@@ -1697,10 +1723,13 @@ namespace Comisariato.Clases
                 SqlCommand cmd = new SqlCommand("REGISTRAR_ENCABEZADO_NOTAC", ConexionBD.connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IDENCABEZADOCOMPRA", objEncabezadoNotaCredito.IdEncabezadoCompra);
-                cmd.Parameters.AddWithValue("@TOTAL", Funcion.reemplazarcaracter(objEncabezadoNotaCredito.TotalDevolucion.ToString()));
+                cmd.Parameters.AddWithValue("@TOTAL", Funcion.reemplazarcaracter(Math.Round(objEncabezadoNotaCredito.TotalDevolucion, 6).ToString()));
                 cmd.Parameters.AddWithValue("@SERIE1", objEncabezadoNotaCredito.Serie1);
                 cmd.Parameters.AddWithValue("@SERIE2", objEncabezadoNotaCredito.Serie2);
                 cmd.Parameters.AddWithValue("@NUMERO", objEncabezadoNotaCredito.Numero);
+                cmd.Parameters.AddWithValue("@SUBTOTAL0", Funcion.reemplazarcaracter(Math.Round(objEncabezadoNotaCredito.Sub0, 6).ToString()));
+                cmd.Parameters.AddWithValue("@SUBTOTAL12", Funcion.reemplazarcaracter(Math.Round(objEncabezadoNotaCredito.Sub12, 6).ToString()));
+                cmd.Parameters.AddWithValue("@IVA", Funcion.reemplazarcaracter(Math.Round(objEncabezadoNotaCredito.Iva, 6).ToString()));
                 int result = cmd.ExecuteNonQuery();
                 Objc.Cerrar();
                 if (result > 0)
@@ -1738,5 +1767,79 @@ namespace Comisariato.Clases
                 return false;
             }
         }
+        //EjecutarPROCEDUREEncabezadoNotaDebito
+        public bool EjecutarPROCEDUREEncabezadoNotaDebito(EncabezadoNotaDebito objEncabezadoNotaDebito)
+        {
+            try
+            {
+                Objc.conectar();
+                SqlCommand cmd = new SqlCommand("REGISTRAR_ENCABEZADO_NOTAD", ConexionBD.connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IDENCABEZADOVENTA", objEncabezadoNotaDebito.IdEncabezadoVenta);
+                cmd.Parameters.AddWithValue("@TOTAL", Funcion.reemplazarcaracter(objEncabezadoNotaDebito.TotalDevolucion.ToString()));
+                cmd.Parameters.AddWithValue("@SERIE1", objEncabezadoNotaDebito.Serie1);
+                cmd.Parameters.AddWithValue("@SERIE2", objEncabezadoNotaDebito.Serie2);
+                cmd.Parameters.AddWithValue("@NUMERO", objEncabezadoNotaDebito.Numero);
+                int result = cmd.ExecuteNonQuery();
+                Objc.Cerrar();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        //EjecutarPROCEDUREDetalleNotaDebito DetalleNotaDebito objDetalleNotaDebito
+        public bool EjecutarPROCEDUREDetalleNotaDebito(DetalleNotaDebito objDetalleNotaDebito)
+        {
+            try
+            {
+                Objc.conectar();
+                SqlCommand cmd = new SqlCommand("REGISTRAR_DETALLE_ND", ConexionBD.connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IDENCABEZADONOTADEBITO", objDetalleNotaDebito.IdEncabezadoNotaDebito);
+                cmd.Parameters.AddWithValue("@CODIGOBARRA", objDetalleNotaDebito.CodigoBarra);
+                cmd.Parameters.AddWithValue("@CANTIDAD", objDetalleNotaDebito.Cantidad);
+                int result = cmd.ExecuteNonQuery();
+                Objc.Cerrar();
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public string InsertarDatosPrincipalesConfiguracionUser(string cedula, string NombresApellidos, string usuario, string contraseña)
+        {
+            if (EjecutarSQL("INSERT INTO [dbo].[TbEmpleado] ([TIPOIDENTIFICACION] ,[IDENTIFICACION] ,[NOMBRES] ,[APELLIDOS] ,[ACTIVO])  VALUES " +
+                " ( '1','" + cedula + "', '" + NombresApellidos + "' ,'" + NombresApellidos + "' , '1')"))
+            {
+                EjecutarSQL("INSERT INTO [dbo].[TbUsuario]([IDEMPLEADO],[USUARIO],[CONTRASEÑA],[IDTIPOUSUARIO],[IDEMPRESA],[ACTIVO]) VALUES " +
+                "(1,'" + usuario + "', '" + contraseña + "',1,1 ,'1')");
+                return "Datos Guardados";
+            }
+            else { return "Error"; }
+        }
+
+        public string InsertarDatosPrincipalesConfiguracionEmpresa(string [] datosArchivoConfigEmpresa)
+        {
+            if (EjecutarSQL("INSERT INTO [dbo].[TbEmpresa]([NOMBRE],[RUC],[NOMBRECOMERCIAL] ,[RAZONSOCIAL] ,[GERENTE])"+
+                "VALUES ('"+ datosArchivoConfigEmpresa[1]+ "','"+ datosArchivoConfigEmpresa[0] + "','"+ datosArchivoConfigEmpresa[1] + "','"+ datosArchivoConfigEmpresa[2] + "','"+ datosArchivoConfigEmpresa[3] + "')"))
+            {
+                return "Datos Guardados";
+            }
+            else { return "Error"; }
+        }
+
+        
     }
 }

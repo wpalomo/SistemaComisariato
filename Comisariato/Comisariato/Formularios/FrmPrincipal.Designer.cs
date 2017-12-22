@@ -115,6 +115,7 @@
             this.contactosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.emailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msPrincipal2 = new System.Windows.Forms.MenuStrip();
+            this.calculadoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ventanaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -322,7 +323,8 @@
             this.inicioToolStripMenuItem,
             this.ayudaToolStripMenuItem,
             this.contactosToolStripMenuItem,
-            this.emailToolStripMenuItem});
+            this.emailToolStripMenuItem,
+            this.calculadoraToolStripMenuItem});
             this.msPrincipal2.Location = new System.Drawing.Point(0, 24);
             this.msPrincipal2.MdiWindowListItem = this.inicioToolStripMenuItem;
             this.msPrincipal2.Name = "msPrincipal2";
@@ -332,6 +334,15 @@
             this.msPrincipal2.TabIndex = 2;
             this.msPrincipal2.Text = "menuStrip1";
             this.msPrincipal2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.msPrincipal_ItemClicked);
+            // 
+            // calculadoraToolStripMenuItem
+            // 
+            this.calculadoraToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.calculadoraToolStripMenuItem.Image = global::Comisariato.Properties.Resources.calculadora_1;
+            this.calculadoraToolStripMenuItem.Name = "calculadoraToolStripMenuItem";
+            this.calculadoraToolStripMenuItem.Size = new System.Drawing.Size(104, 20);
+            this.calculadoraToolStripMenuItem.Text = "Calculadora";
+            this.calculadoraToolStripMenuItem.Click += new System.EventHandler(this.calculadoraToolStripMenuItem_Click);
             // 
             // ventanaToolStripMenuItem
             // 
@@ -387,6 +398,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Comisariato.Properties.Resources.Splashaircontrol;
             this.ClientSize = new System.Drawing.Size(1342, 662);
             this.Controls.Add(this.tvPrincipal);
             this.Controls.Add(this.MenuIzq);
@@ -437,5 +449,6 @@
         private System.Windows.Forms.ToolStripMenuItem cambiarContraseñaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmCerrarSesion;
         private System.Windows.Forms.MenuStrip msPrincipal1;
+        private System.Windows.Forms.ToolStripMenuItem calculadoraToolStripMenuItem;
     }
 }

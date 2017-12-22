@@ -38,17 +38,16 @@
             this.label16 = new System.Windows.Forms.Label();
             this.txtConsultar = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.dgvInformeVentas = new System.Windows.Forms.DataGridView();
+            this.dgvInformeRetenciones = new System.Windows.Forms.DataGridView();
             this.Factura = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BaseImponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeVentas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeRetenciones)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -125,7 +124,7 @@
             this.label8.TabIndex = 21;
             this.label8.Text = "Consultar:";
             // 
-            // dgvInformeVentas
+            // dgvInformeRetenciones
             // 
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -134,12 +133,11 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInformeVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvInformeVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvInformeVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvInformeRetenciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvInformeRetenciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInformeRetenciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Factura,
             this.Fecha,
-            this.Usuario,
             this.Proveedor,
             this.Descripcion,
             this.porcentaje,
@@ -147,15 +145,15 @@
             this.Monto});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10F);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 8F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvInformeVentas.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvInformeVentas.Location = new System.Drawing.Point(14, 126);
-            this.dgvInformeVentas.Name = "dgvInformeVentas";
-            this.dgvInformeVentas.ReadOnly = true;
+            this.dgvInformeRetenciones.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvInformeRetenciones.Location = new System.Drawing.Point(14, 126);
+            this.dgvInformeRetenciones.Name = "dgvInformeRetenciones";
+            this.dgvInformeRetenciones.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 10F);
@@ -163,11 +161,11 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInformeVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvInformeVentas.RowHeadersVisible = false;
-            this.dgvInformeVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvInformeVentas.Size = new System.Drawing.Size(1039, 442);
-            this.dgvInformeVentas.TabIndex = 21;
+            this.dgvInformeRetenciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvInformeRetenciones.RowHeadersVisible = false;
+            this.dgvInformeRetenciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvInformeRetenciones.Size = new System.Drawing.Size(1039, 442);
+            this.dgvInformeRetenciones.TabIndex = 21;
             // 
             // Factura
             // 
@@ -183,14 +181,7 @@
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
-            // 
-            // Usuario
-            // 
-            this.Usuario.FillWeight = 82.69291F;
-            this.Usuario.HeaderText = "Usuario";
-            this.Usuario.Name = "Usuario";
-            this.Usuario.ReadOnly = true;
-            this.Usuario.Width = 110;
+            this.Fecha.Width = 145;
             // 
             // Proveedor
             // 
@@ -198,7 +189,7 @@
             this.Proveedor.HeaderText = "Proveedor";
             this.Proveedor.Name = "Proveedor";
             this.Proveedor.ReadOnly = true;
-            this.Proveedor.Width = 225;
+            this.Proveedor.Width = 250;
             // 
             // Descripcion
             // 
@@ -206,7 +197,7 @@
             this.Descripcion.HeaderText = "Descripción";
             this.Descripcion.Name = "Descripcion";
             this.Descripcion.ReadOnly = true;
-            this.Descripcion.Width = 160;
+            this.Descripcion.Width = 200;
             // 
             // porcentaje
             // 
@@ -238,18 +229,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(1065, 580);
-            this.Controls.Add(this.dgvInformeVentas);
+            this.Controls.Add(this.dgvInformeRetenciones);
             this.Controls.Add(this.txtConsultar);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox2);
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "FrmInformesRentenciones";
-            this.Text = "Informes de Ventas";
+            this.Text = "Informes de Retenciones";
             this.Load += new System.EventHandler(this.FrmVentas_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeVentas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeRetenciones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,10 +255,9 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtConsultar;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.DataGridView dgvInformeVentas;
+        private System.Windows.Forms.DataGridView dgvInformeRetenciones;
         private System.Windows.Forms.DataGridViewTextBoxColumn Factura;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn porcentaje;

@@ -223,7 +223,8 @@ namespace Comisariato.Formularios
 
                     txtUsuario.Text = myRow["USUARIO"].ToString();
                     txtContraseñaUsuario.Text = myRow["CONTRASEÑA"].ToString();
-                    ckbFacturaUsuario.Checked = Convert.ToBoolean(myRow["FACTURA"]);
+                    if (myRow["FACTURA"].ToString() != "")
+                        ckbFacturaUsuario.Checked = Convert.ToBoolean(myRow["FACTURA"]);
                     
                 }
 

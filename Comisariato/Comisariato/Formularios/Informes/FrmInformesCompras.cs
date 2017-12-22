@@ -18,7 +18,7 @@ namespace Comisariato.Formularios.Informes
             InitializeComponent();
         }
         Consultas objConsulta = new Consultas();
-        string cadenaGeneral = "select * from Vista_InformeVentas", cadeCondicion = "", condicionEntre="", añoDesde = "", 
+        string cadenaGeneral = "select * from Vista_InformeCompras", cadeCondicion = "", condicionEntre="", añoDesde = "", 
             fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "", 
             cadenaConsultar = "";
         
@@ -28,7 +28,7 @@ namespace Comisariato.Formularios.Informes
             for (int i = 0; i < 20; i++)
                 dgvInformeCompras.Rows.Add();
             cadenaConsultar = cadenaGeneral;
-            llenarDgv();
+            //llenarDgv();
         }
 
         public void obtenerFechas()
@@ -47,8 +47,8 @@ namespace Comisariato.Formularios.Informes
         {
             try
             {
-                cadeCondicion = " USUARIO like '%" + txtConsultar.Text + "%' OR NombreCliente like '%" + txtConsultar.Text + "%'";
-                cadeCondicion = cadeCondicion + " or NFACTURA like '%" + txtConsultar.Text + "%' or CAJA like '%" + txtConsultar.Text + "%' or SUCURSAL like '%" + txtConsultar.Text + "%'";
+                cadeCondicion = " NOMBRES like '%" + txtConsultar.Text + "%'";
+                cadeCondicion = cadeCondicion + " or NUMERO like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%'";
                 llenarDgv();
             }
             catch (Exception)
@@ -63,7 +63,7 @@ namespace Comisariato.Formularios.Informes
         private void dtpDesde_ValueChanged(object sender, EventArgs e)
         {
             obtenerFechas();
-            condicionEntre = " FECHA between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
+            condicionEntre = " FECHAORDENCOMPRA between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
             //objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
             llenarDgv();
         }
@@ -84,7 +84,7 @@ namespace Comisariato.Formularios.Informes
             }
             cadenaConsultar = cadenaGeneral + where + cadeCondicion + and + condicionEntre;
             DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
-            if (dt.Rows.Count >0)
+            if (dt.Rows.Count > 0)
             {//Select EF.SUCURSAL, EF.CAJA, EF.NFACTURA, EF.FECHA, U.USUARIO,	C.NOMBRES + ' ' + C.APELLIDOS AS NOMBRECLIENTE" +
                 dgvInformeCompras.Rows.Clear();
                 for (int i = 0; i < 20; i++)
@@ -92,21 +92,19 @@ namespace Comisariato.Formularios.Informes
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     DataRow row = dt.Rows[i];
-                    if (i == dgvInformeCompras.RowCount -1)
+                    if (i == dgvInformeCompras.RowCount - 1)
                         dgvInformeCompras.Rows.Add();
-                    string numeros = Convert.ToInt32(row["SUCURSAL"]).ToString("D3");
+                    string numeros = Convert.ToInt32(row["SERIE1"]).ToString("D3") + Convert.ToInt32(row["SERIE2"]).ToString("D3") + Convert.ToInt32(row["NUMERO"]).ToString("D9"); ;
                     dgvInformeCompras.Rows[i].Cells[0].Value = numeros;
-                    numeros = Convert.ToInt32(row["CAJA"]).ToString("D3");
-                    dgvInformeCompras.Rows[i].Cells[1].Value = numeros;
-                    numeros = Convert.ToInt32(row["NFACTURA"]).ToString("D9");
-                    dgvInformeCompras.Rows[i].Cells[2].Value = numeros;
-                    dgvInformeCompras.Rows[i].Cells[3].Value = row["FECHA"];
-                    dgvInformeCompras.Rows[i].Cells[4].Value = row["USUARIO"];
-                    dgvInformeCompras.Rows[i].Cells[5].Value = row["NombreCliente"];
-                    dgvInformeCompras.Rows[i].Cells[6].Value = row["IVA"];
-                    dgvInformeCompras.Rows[i].Cells[7].Value = row["SUBTOTAL0"];
-                    dgvInformeCompras.Rows[i].Cells[8].Value = row["SUBTOTAL12"];
-                    dgvInformeCompras.Rows[i].Cells[9].Value = row["TOTAPAGAR"];
+                    dgvInformeCompras.Rows[i].Cells[1].Value = row["FECHAORDENCOMPRA"];
+                    dgvInformeCompras.Rows[i].Cells[2].Value = row["NOMBRES"];
+                    dgvInformeCompras.Rows[i].Cells[3].Value = row["TOTALIVA"]; 
+                    dgvInformeCompras.Rows[i].Cells[4].Value = row["TOTALICE"];
+                    dgvInformeCompras.Rows[i].Cells[5].Value = row["TOTALIRBP"];
+                    dgvInformeCompras.Rows[i].Cells[6].Value = row["SUBTOTAL0"];
+                    dgvInformeCompras.Rows[i].Cells[7].Value = row["SUBTOTALIVA"];
+                    dgvInformeCompras.Rows[i].Cells[8].Value = row["IMPUESTO"];
+                    dgvInformeCompras.Rows[i].Cells[9].Value = row["TOTAL"];
 
                 }
             }

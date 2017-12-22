@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcEmpleado = new System.Windows.Forms.TabControl();
             this.tpNuevoEmpleado = new System.Windows.Forms.TabPage();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -292,6 +292,7 @@
             this.TxtSueldoExtra.Size = new System.Drawing.Size(166, 22);
             this.TxtSueldoExtra.TabIndex = 16;
             this.TxtSueldoExtra.Text = "0";
+            this.TxtSueldoExtra.Click += new System.EventHandler(this.TxtSueldoExtra_Click);
             this.TxtSueldoExtra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSueldoExtra_KeyPress);
             // 
             // TxtSueldoMensual
@@ -302,6 +303,7 @@
             this.TxtSueldoMensual.Size = new System.Drawing.Size(166, 22);
             this.TxtSueldoMensual.TabIndex = 14;
             this.TxtSueldoMensual.Text = "0";
+            this.TxtSueldoMensual.Click += new System.EventHandler(this.TxtSueldoMensual_Click);
             this.TxtSueldoMensual.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSueldoMensual_KeyPress);
             // 
             // TxtMovimientoQuincenal
@@ -312,6 +314,7 @@
             this.TxtMovimientoQuincenal.Size = new System.Drawing.Size(206, 22);
             this.TxtMovimientoQuincenal.TabIndex = 19;
             this.TxtMovimientoQuincenal.Text = "0";
+            this.TxtMovimientoQuincenal.Click += new System.EventHandler(this.TxtMovimientoQuincenal_Click);
             this.TxtMovimientoQuincenal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMovimientoQuincenal_KeyPress);
             // 
             // TxtLibretaMilitar
@@ -879,14 +882,14 @@
             this.DgvDatosEmpleado.AllowUserToOrderColumns = true;
             this.DgvDatosEmpleado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DgvDatosEmpleado.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DgvDatosEmpleado.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DgvDatosEmpleado.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DgvDatosEmpleado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgvDatosEmpleado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar,

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbEncabezadoKardex = new System.Windows.Forms.GroupBox();
             this.btnGenerarKardex = new System.Windows.Forms.Button();
             this.cbCategoria = new System.Windows.Forms.ComboBox();
@@ -263,6 +264,14 @@
             this.cantidadExistecia,
             this.costoExistencia,
             this.totalExistencia});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 8F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvKardex.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvKardex.Location = new System.Drawing.Point(0, 52);
             this.dgvKardex.Name = "dgvKardex";
             this.dgvKardex.RowHeadersVisible = false;

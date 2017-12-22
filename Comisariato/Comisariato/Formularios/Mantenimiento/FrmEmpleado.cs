@@ -41,7 +41,7 @@ namespace Comisariato.Formularios.Mantenimiento
         private void cargarDatos(string condicion)
         {
             consultas = new Consultas();
-            consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select IDEMPLEADO as ID, IDENTIFICACION as 'CEDULA/RUC', NOMBRES, APELLIDOS,DIRECCION,CELULAR1,CELULAR2,EMAIL from TbEmpleado WHERE ACTIVO =" + condicion + " AND  NOMBRES != 'ADMINISTRADOR';");
+            consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select * from View_VistaClientes WHERE ACTIVO =" + condicion + ";");
             DgvDatosEmpleado.Columns["ID"].Visible = false;
         }
 
@@ -316,14 +316,14 @@ namespace Comisariato.Formularios.Mantenimiento
         {
             if (rbtActivosEmpleado.Checked)
             {
-                consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select IDEMPLEADO as ID, IDENTIFICACION as 'CEDULA/RUC', NOMBRES, APELLIDOS,DIRECCION,CELULAR1,CELULAR2,EMAIL from TbEmpleado where ACTIVO = 1 and IDENTIFICACION like '%" + TxtBuscar.Text + "%' or NOMBRES like '%" + TxtBuscar.Text + "%' or APELLIDOS like '%" + TxtBuscar.Text + "%' AND  NOMBRES != 'ADMINISTRADOR';");
-                DgvDatosEmpleado.Columns[1].HeaderText = "Desabilitar";
+                consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select * from View_VistaClientes where ACTIVO = 1 AND [CEDULA/RUC] like '%" + TxtBuscar.Text + "%' or NOMBRES like '%" + TxtBuscar.Text + "%' or APELLIDOS like '%" + TxtBuscar.Text + "%' AND  NOMBRES != 'ADMINISTRADOR';");
+                //DgvDatosEmpleado.Columns[1].HeaderText = "Desabilitar";
                 DgvDatosEmpleado.Columns["ID"].Visible = false;
             }
             else if (rbtInactivosEmpleado.Checked)
             {
-                consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select IDEMPLEADO as ID, IDENTIFICACION as 'CEDULA/RUC', NOMBRES, APELLIDOS,DIRECCION,CELULAR1,CELULAR2,EMAIL from TbEmpleado where ACTIVO = 0 and IDENTIFICACION like '%" + TxtBuscar + "%' or NOMBRES like '%" + TxtBuscar.Text + "%' or APELLIDOS like '%" + TxtBuscar.Text + "%' AND  NOMBRES != 'ADMINISTRADOR';");
-                DgvDatosEmpleado.Columns[1].HeaderText = "Habilitar";
+                consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select * from View_VistaClientes where  ACTIVO = 0 AND [CEDULA/RUC] like '%" + TxtBuscar + "%' or NOMBRES like '%" + TxtBuscar.Text + "%' or APELLIDOS like '%" + TxtBuscar.Text + "%' AND  NOMBRES != 'ADMINISTRADOR';");
+                //DgvDatosEmpleado.Columns[1].HeaderText = "Habilitar";
                 DgvDatosEmpleado.Columns["ID"].Visible = false;
             }
         }
@@ -574,6 +574,21 @@ namespace Comisariato.Formularios.Mantenimiento
         private void FrmEmpleado_FormClosing(object sender, FormClosingEventArgs e)
         {
             TxtIdentidad.Text = "";
+        }
+
+        private void TxtMovimientoQuincenal_Click(object sender, EventArgs e)
+        {
+            TxtMovimientoQuincenal.SelectAll();
+        }
+
+        private void TxtSueldoMensual_Click(object sender, EventArgs e)
+        {
+            TxtSueldoMensual.SelectAll();
+        }
+
+        private void TxtSueldoExtra_Click(object sender, EventArgs e)
+        {
+            TxtSueldoExtra.SelectAll();
         }
     }
 }

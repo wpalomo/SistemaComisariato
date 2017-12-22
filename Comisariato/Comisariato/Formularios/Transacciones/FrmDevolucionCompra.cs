@@ -158,7 +158,7 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     if (txtSerie1.Text != "" && txtSerie2.Text != "" && txtNumero.Text != "")
                     {
-                        objENC = new EncabezadoNotaCredito(txtSerie1NC.Text, txtSerie2NC.Text, txtNumeroNC.Text, encabezadoCompra, Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalDevolucion.Text)));
+                        objENC = new EncabezadoNotaCredito(txtSerie1NC.Text, txtSerie2NC.Text, txtNumeroNC.Text, encabezadoCompra, Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalDevolucion.Text)), sumasubcero, sumasubiva, ivatotal);
                         string resultado = objENC.InsertarEncabezadoNC(objENC);
                         if (resultado == "Datos Guardados")
                         {
@@ -184,8 +184,8 @@ namespace Comisariato.Formularios.Transacciones
                             {
                                 MessageBox.Show("Error al guardar la Nota de Crédito", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 //string idEncabezadoNC = objConsultas.ObtenerValorCampo("IDENCABEZADONOTACREDITO", "TbEncabezadoNotaCredito", " where IDENCABEZADOCOMPRA = " + encabezadoCompra + "");
-                                objConsultas.EjecutarSQL("DELETE FROM [dbo].[TbEncabezadoNotaCredito] WHEREz IDENCABEZADOCOMPRA = " + encabezadoCompra + "");
-                                objConsultas.EjecutarSQL("DELETE FROM [dbo].[TbDetalleNotaCredito] WHEREz IDENCABEZADONOTACREDITO = " + idEncabezadoNC + "");
+                                objConsultas.EjecutarSQL("DELETE FROM [dbo].[TbEncabezadoNotaCredito] WHERE IDENCABEZADOCOMPRA = " + encabezadoCompra + "");
+                                objConsultas.EjecutarSQL("DELETE FROM [dbo].[TbDetalleNotaCredito] WHERE IDENCABEZADONOTACREDITO = " + idEncabezadoNC + "");
                                 inicializar();
                             }
                             else
@@ -199,7 +199,7 @@ namespace Comisariato.Formularios.Transacciones
                         else if (resultado == "Error al Registrar")
                         {
                             MessageBox.Show("Error al guardar la Nota de Crédito", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            objConsultas.EjecutarSQL("DELETE FROM [dbo].[TbEncabezadoNotaCredito] WHEREz IDENCABEZADOCOMPRA = " + encabezadoCompra + "");
+                            objConsultas.EjecutarSQL("DELETE FROM [dbo].[TbEncabezadoNotaCredito] WHERE IDENCABEZADOCOMPRA = " + encabezadoCompra + "");
                         }
                         else if(resultado == "Existe")
                             MessageBox.Show("Ya existe la Nota de Crédito", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -281,7 +281,9 @@ namespace Comisariato.Formularios.Transacciones
                         break;
                     }
                 }
-                ivatotal = (sumasubiva + sumaice) * 0.12f;
+                string[] s = txtImpuesto.Text.Split('%');
+                float iva = Convert.ToSingle(s[0]) / 100;
+                ivatotal = (sumasubiva + sumaice) * iva;
                 subtotalPie = sumasubcero + sumasubiva;
                 totalpagar = sumairbp + sumaice + subtotalPie + ivatotal;
                 if (posicion == 2)

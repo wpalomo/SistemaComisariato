@@ -89,6 +89,9 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             txtIVA.Text = "0.0";
             txtFlete.Text = "0.0";
             cbTerminoPago.SelectedIndex = 0;
+            for (int i = 0; i < 20; i++)
+                dgvInformeCompras.Rows.Add();
+            cadenaConsultar = cadenaGeneral;
         }
         //FrmOrdenDeGiro frmOrdenDeGiro = new FrmOrdenDeGiro();
         private void BtnGuardar_Click(object sender, EventArgs e)
@@ -514,7 +517,9 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                         break;
                     }
                 }
-                ivatotal = (sumasubiva + sumaice) * 0.12f;
+                string[] s = cbImpuesto.Text.Split('%');
+                float iva = Convert.ToSingle(s[0]) / 100;
+                ivatotal = (sumasubiva + sumaice) * iva;
                 txtIRBP.Text = Funcion.reemplazarcaracter(Math.Round(sumairbp, 2).ToString("#####0.00"));
                 txtICE.Text = Funcion.reemplazarcaracter(Math.Round(sumaice, 2).ToString("#####0.00"));
                 txtSubtotal0.Text = Funcion.reemplazarcaracter(Math.Round(sumasubcero, 2).ToString("#####0.00"));
@@ -632,6 +637,95 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 e.Handled = true;
                 dgvProductosIngresos.Focus();
             }
+        }
+        Consultas objConsulta = new Consultas();
+        string cadenaGeneral = "select * from Vista_InformeCompras", cadeCondicion = "", condicionEntre = "", añoDesde = "",
+            fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "",
+            cadenaConsultar = "";
+
+        private void txtConsultar_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                cadeCondicion = " NOMBRES like '%" + txtConsultar.Text + "%'";
+                cadeCondicion = cadeCondicion + " or NUMERO like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%'";
+                llenarDgv();
+            }
+            catch (Exception)
+            {
+            }
+            //---------------------FALTA REALIZAR EL MINIMO Y MAXIMO DE LOS DATA TIME PIKER----------------------------
+            //DataTable fechas = objConsulta.BoolDataTable("select FECHA from TbEncabezadoFactura ORDER BY FECHA");
+            //dtpDesde.MinDate = Convert.ToDateTime(fechas.Rows[0]);
+            //---------------------------------------------------------------------------------------------------------
+        }
+
+        public void obtenerFechas()
+        {
+            añoDesde = Convert.ToString(dtpDesde.Value.Date.Year);
+            mesDesde = Convert.ToString(dtpDesde.Value.Date.Month);
+            diaDesde = Convert.ToString(dtpDesde.Value.Date.Day);
+            fechaDesde = añoDesde + "-" + mesDesde + "-" + diaDesde;
+            añoHasta = Convert.ToString(dtpHasta.Value.Date.Year);
+            mesHasta = Convert.ToString(dtpHasta.Value.Date.Month);
+            diaHasta = Convert.ToString(dtpHasta.Value.Date.Day);
+            fechaHasta = añoHasta + "-" + mesHasta + "-" + diaHasta;
+        }
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            obtenerFechas();
+            condicionEntre = " FECHAORDENCOMPRA between '" + fechaDesde + "' AND '" + fechaHasta + "'";
+            //objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
+            llenarDgv();
+        }
+        public void llenarDgv()
+        {
+            string and = "", where = "";
+            if (cadeCondicion == "" && condicionEntre == "")
+            {
+                where = "";
+                and = "";
+            }
+            else if (cadeCondicion != "" || condicionEntre != "")
+                where = " where ";
+            if (cadeCondicion != "" && condicionEntre != "")
+            {
+                where = " where ";
+                and = " and ";
+            }
+            cadenaConsultar = cadenaGeneral + where + cadeCondicion + and + condicionEntre;
+            DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
+            if (dt.Rows.Count > 0)
+            {//Select EF.SUCURSAL, EF.CAJA, EF.NFACTURA, EF.FECHA, U.USUARIO,	C.NOMBRES + ' ' + C.APELLIDOS AS NOMBRECLIENTE" +
+                dgvInformeCompras.Rows.Clear();
+                for (int i = 0; i < 20; i++)
+                    dgvInformeCompras.Rows.Add();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DataRow row = dt.Rows[i];
+                    if (i == dgvInformeCompras.RowCount - 1)
+                        dgvInformeCompras.Rows.Add();
+                    string numeros = Convert.ToInt32(row["SERIE1"]).ToString("D3") + Convert.ToInt32(row["SERIE2"]).ToString("D3") + Convert.ToInt32(row["NUMERO"]).ToString("D9"); ;
+                    dgvInformeCompras.Rows[i].Cells[0].Value = numeros;
+                    dgvInformeCompras.Rows[i].Cells[1].Value = row["FECHAORDENCOMPRA"];
+                    dgvInformeCompras.Rows[i].Cells[2].Value = row["NOMBRES"];
+                    dgvInformeCompras.Rows[i].Cells[3].Value = row["TOTALIVA"];
+                    dgvInformeCompras.Rows[i].Cells[4].Value = row["TOTALICE"];
+                    dgvInformeCompras.Rows[i].Cells[5].Value = row["TOTALIRBP"];
+                    dgvInformeCompras.Rows[i].Cells[6].Value = row["SUBTOTAL0"];
+                    dgvInformeCompras.Rows[i].Cells[7].Value = row["SUBTOTALIVA"];
+                    dgvInformeCompras.Rows[i].Cells[8].Value = row["IMPUESTO"];
+                    dgvInformeCompras.Rows[i].Cells[9].Value = row["TOTAL"];
+
+                }
+            }
+            else
+            {
+                dgvInformeCompras.Rows.Clear();
+                for (int i = 0; i < 20; i++)
+                    dgvInformeCompras.Rows.Add();
+            }
+
         }
 
         private void txtSerie2_KeyPress(object sender, KeyPressEventArgs e)
