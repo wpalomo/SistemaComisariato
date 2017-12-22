@@ -260,6 +260,7 @@
             this.txtRUCSucursal.Font = new System.Drawing.Font("Arial", 9.75F);
             this.txtRUCSucursal.Location = new System.Drawing.Point(127, 128);
             this.txtRUCSucursal.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtRUCSucursal.MaxLength = 13;
             this.txtRUCSucursal.Name = "txtRUCSucursal";
             this.txtRUCSucursal.Size = new System.Drawing.Size(172, 22);
             this.txtRUCSucursal.TabIndex = 4;
