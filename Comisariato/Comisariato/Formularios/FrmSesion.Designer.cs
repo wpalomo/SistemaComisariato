@@ -36,6 +36,8 @@
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.PboxSalir = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbEmpresa = new System.Windows.Forms.ComboBox();
             this.PanelSesion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PboxSalir)).BeginInit();
             this.SuspendLayout();
@@ -43,21 +45,23 @@
             // PanelSesion
             // 
             this.PanelSesion.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.PanelSesion.Controls.Add(this.cbEmpresa);
             this.PanelSesion.Controls.Add(this.lblError);
             this.PanelSesion.Controls.Add(this.label2);
+            this.PanelSesion.Controls.Add(this.label3);
             this.PanelSesion.Controls.Add(this.label1);
             this.PanelSesion.Controls.Add(this.BtnIniciar);
             this.PanelSesion.Controls.Add(this.txtContraseña);
             this.PanelSesion.Controls.Add(this.txtUsuario);
             this.PanelSesion.Location = new System.Drawing.Point(168, 125);
             this.PanelSesion.Name = "PanelSesion";
-            this.PanelSesion.Size = new System.Drawing.Size(313, 283);
+            this.PanelSesion.Size = new System.Drawing.Size(313, 329);
             this.PanelSesion.TabIndex = 1;
             // 
             // lblError
             // 
             this.lblError.AutoSize = true;
-            this.lblError.Location = new System.Drawing.Point(45, 190);
+            this.lblError.Location = new System.Drawing.Point(42, 219);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(35, 13);
             this.lblError.TabIndex = 6;
@@ -68,7 +72,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(42, 135);
+            this.label2.Location = new System.Drawing.Point(39, 164);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 15);
             this.label2.TabIndex = 4;
@@ -80,7 +84,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(42, 81);
+            this.label1.Location = new System.Drawing.Point(39, 110);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 15);
             this.label1.TabIndex = 3;
@@ -89,7 +93,7 @@
             // BtnIniciar
             // 
             this.BtnIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnIniciar.Location = new System.Drawing.Point(114, 229);
+            this.BtnIniciar.Location = new System.Drawing.Point(111, 258);
             this.BtnIniciar.Name = "BtnIniciar";
             this.BtnIniciar.Size = new System.Drawing.Size(88, 23);
             this.BtnIniciar.TabIndex = 2;
@@ -100,7 +104,7 @@
             // txtContraseña
             // 
             this.txtContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraseña.Location = new System.Drawing.Point(45, 153);
+            this.txtContraseña.Location = new System.Drawing.Point(42, 182);
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.PasswordChar = '*';
             this.txtContraseña.Size = new System.Drawing.Size(231, 24);
@@ -111,7 +115,7 @@
             // txtUsuario
             // 
             this.txtUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsuario.Location = new System.Drawing.Point(45, 99);
+            this.txtUsuario.Location = new System.Drawing.Point(42, 128);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(231, 24);
             this.txtUsuario.TabIndex = 0;
@@ -128,6 +132,25 @@
             this.PboxSalir.TabIndex = 2;
             this.PboxSalir.TabStop = false;
             this.PboxSalir.Click += new System.EventHandler(this.PboxSalir_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(39, 57);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 15);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "EMPRESA:";
+            // 
+            // cbEmpresa
+            // 
+            this.cbEmpresa.FormattingEnabled = true;
+            this.cbEmpresa.Location = new System.Drawing.Point(42, 76);
+            this.cbEmpresa.Name = "cbEmpresa";
+            this.cbEmpresa.Size = new System.Drawing.Size(231, 21);
+            this.cbEmpresa.TabIndex = 7;
             // 
             // FrmLogin
             // 
@@ -161,6 +184,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblError;
+        private System.Windows.Forms.ComboBox cbEmpresa;
+        private System.Windows.Forms.Label label3;
     }
 }
 

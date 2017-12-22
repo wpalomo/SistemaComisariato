@@ -28,10 +28,10 @@ namespace Comisariato.Clases
         {
             try
             {
-                string[] datosArchivoConfig = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\Conexion.shc");
-                string[] servidorPuerto = datosArchivoConfig[0].Split(':');
-                String conection = "data source = " + servidorPuerto[0] + ", " + servidorPuerto[1] + "; initial catalog = " + datosArchivoConfig[1] + "; user id = " + datosArchivoConfig[2] + "; password = " + datosArchivoConfig[3] + ";";
-                connection = new SqlConnection(conection);
+                //string[] datosArchivoConfig = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\Conexion.shc");
+                //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
+                //String conection = "data source = " + servidorPuerto[0] + ", " + servidorPuerto[1] + "; initial catalog = " + datosArchivoConfig[1] + "; user id = " + datosArchivoConfig[2] + "; password = " + datosArchivoConfig[3] + ";";
+                connection = new SqlConnection("Data Source=DJSERATO\\SQLEXPRESS;Initial Catalog=BDComisariato;Integrated Security=True");
                 connection.Open();
                
             }
@@ -43,9 +43,9 @@ namespace Comisariato.Clases
         }
         public void Cerrar()
         {
-            string[] datosArchivoConfig = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\Conexion.shc");
-            string[] servidorPuerto = datosArchivoConfig[0].Split(':');
-            connection = new SqlConnection("data source = " + servidorPuerto[0] + ", " + servidorPuerto[1] + "; initial catalog = " + datosArchivoConfig[1] + "; user id = " + datosArchivoConfig[2] + "; password = " + datosArchivoConfig[3] + ";");
+            //string[] datosArchivoConfig = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\Conexion.shc");
+            //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
+            connection = new SqlConnection("Data Source=DJSERATO\\SQLEXPRESS;Initial Catalog=BDComisariato;Integrated Security=True");
             connection.Close();
         }
     }
