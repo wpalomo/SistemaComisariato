@@ -1821,7 +1821,7 @@ namespace Comisariato.Clases
         public string InsertarDatosPrincipalesConfiguracionUser(string cedula, string NombresApellidos, string usuario, string contraseña)
         {
             if (EjecutarSQL("INSERT INTO [dbo].[TbEmpleado] ([TIPOIDENTIFICACION] ,[IDENTIFICACION] ,[NOMBRES] ,[APELLIDOS] ,[ACTIVO])  VALUES " +
-                " ( '1','" + cedula + "', '" + NombresApellidos + "' ,'" + NombresApellidos + "' , '1')"))
+                " ( '1','" + cedula + "', '" + NombresApellidos + "' ,' ' , '1')"))
             {
                 EjecutarSQL("INSERT INTO [dbo].[TbUsuario]([IDEMPLEADO],[USUARIO],[CONTRASEÑA],[IDTIPOUSUARIO],[IDEMPRESA],[ACTIVO]) VALUES " +
                 "(1,'" + usuario + "', '" + contraseña + "',1,1 ,'1')");

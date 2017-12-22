@@ -103,6 +103,7 @@
             treeNode37,
             treeNode38,
             treeNode39});
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.tvPrincipal = new System.Windows.Forms.TreeView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblFecha = new System.Windows.Forms.ToolStripStatusLabel();
@@ -347,7 +348,7 @@
             // ventanaToolStripMenuItem
             // 
             this.ventanaToolStripMenuItem.Name = "ventanaToolStripMenuItem";
-            this.ventanaToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.ventanaToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.ventanaToolStripMenuItem.Text = "Ventana";
             // 
             // ayudaToolStripMenuItem1
@@ -407,6 +408,7 @@
             this.Controls.Add(this.msPrincipal1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.msPrincipal1;
             this.Margin = new System.Windows.Forms.Padding(5);
