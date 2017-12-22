@@ -19,11 +19,19 @@ namespace Comisariato.Clases
         //------------------------------Conexion Byron ----------------------------------------//
         //Data Source = DESKTOP-SI5M9C5; Initial Catalog = BDComisariato; Integrated Security = True
 
+
+        
+        
+
+
         public void conectar()
         {
             try
             {
-                connection = new SqlConnection("Data Source=DESKTOP-FUFA7EG\\ANDRES;Initial Catalog=BDComisariato;Integrated Security=True");
+                string[] datosArchivoConfig = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\Conexion.shc");
+                string[] servidorPuerto = datosArchivoConfig[0].Split(':');
+                String conection = "data source = " + servidorPuerto[0] + ", " + servidorPuerto[1] + "; initial catalog = " + datosArchivoConfig[1] + "; user id = " + datosArchivoConfig[2] + "; password = " + datosArchivoConfig[3] + ";";
+                connection = new SqlConnection(conection);
                 connection.Open();
                
             }
@@ -35,7 +43,9 @@ namespace Comisariato.Clases
         }
         public void Cerrar()
         {
-            connection = new SqlConnection("Data Source=DESKTOP-FUFA7EG\\ANDRES;Initial Catalog=BDComisariato;Integrated Security=True");
+            string[] datosArchivoConfig = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\Conexion.shc");
+            string[] servidorPuerto = datosArchivoConfig[0].Split(':');
+            connection = new SqlConnection("data source = " + servidorPuerto[0] + ", " + servidorPuerto[1] + "; initial catalog = " + datosArchivoConfig[1] + "; user id = " + datosArchivoConfig[2] + "; password = " + datosArchivoConfig[3] + ";");
             connection.Close();
         }
     }

@@ -105,7 +105,6 @@
             this.txtContraseña.PasswordChar = '*';
             this.txtContraseña.Size = new System.Drawing.Size(231, 24);
             this.txtContraseña.TabIndex = 1;
-            this.txtContraseña.Text = "ADMINISTRADOR";
             this.txtContraseña.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
             this.txtContraseña.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContraseña_KeyPress);
             // 
@@ -116,7 +115,6 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(231, 24);
             this.txtUsuario.TabIndex = 0;
-            this.txtUsuario.Text = "ADMIN";
             this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
             this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             // 

@@ -459,17 +459,20 @@ namespace Comisariato.Formularios
             if (dt.Rows.Count > 0)
             {
                 DataRow myRow = dt.Rows[0];
+                string valor = myRow["FONDOPANTALLA"].ToString();
 
-                MyData = (byte[])myRow["FONDOPANTALLA"];
-                MemoryStream stream = new MemoryStream(MyData);
-                //this.panelPrincipal.BackgroundImage = Image.FromStream(stream);
-                this.BackgroundImage = Image.FromStream(stream);
-                this.BackgroundImageLayout = ImageLayout.Stretch;
-
+                if (myRow["FONDOPANTALLA"].ToString() != "")
+                {
+                    MyData = (byte[])myRow["FONDOPANTALLA"];
+                    MemoryStream stream = new MemoryStream(MyData);
+                    //this.panelPrincipal.BackgroundImage = Image.FromStream(stream);
+                    this.BackgroundImage = Image.FromStream(stream);
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
+                }
             }
             try
             {
-                if (Program.Usuario !="ADMIN")
+                if (Program.IDTIPOUSUARIO != "1")
                 {
                     llenarTreeViewPrincipal();
                 }

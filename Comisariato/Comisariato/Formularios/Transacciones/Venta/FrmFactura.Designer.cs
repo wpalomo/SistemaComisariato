@@ -88,7 +88,6 @@
             this.rdbCaja = new System.Windows.Forms.RadioButton();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtConsumidor = new System.Windows.Forms.TextBox();
@@ -108,6 +107,7 @@
             this.btnEliminarFact = new System.Windows.Forms.Button();
             this.btnFactEspera = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleProductos)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -741,17 +741,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Clientes";
             // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGuardar.Image = global::Comisariato.Properties.Resources.disk;
-            this.btnGuardar.Location = new System.Drawing.Point(340, 17);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(37, 32);
-            this.btnGuardar.TabIndex = 49;
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
             // label14
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -999,6 +988,17 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 40;
             this.pictureBox1.TabStop = false;
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGuardar.Image = global::Comisariato.Properties.Resources.disk;
+            this.btnGuardar.Location = new System.Drawing.Point(340, 17);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(37, 32);
+            this.btnGuardar.TabIndex = 49;
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // FrmFactura
             // 
