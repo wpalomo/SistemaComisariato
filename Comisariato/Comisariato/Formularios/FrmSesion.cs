@@ -95,11 +95,10 @@ namespace Comisariato
                                 {
                                     c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
                                     c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
+                                    BtnIniciar_Click(null, null);
                                 }
 
                             }
-
-                            BtnIniciar_Click(null, null);
                         }
                     }
 

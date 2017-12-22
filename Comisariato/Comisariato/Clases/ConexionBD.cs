@@ -30,8 +30,8 @@ namespace Comisariato.Clases
             {
                 string[] datosArchivoConfig = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\Conexion.shc");
                 string[] servidorPuerto = datosArchivoConfig[0].Split(':');
-
-                connection = new SqlConnection("data source = "+ servidorPuerto[0]+ ", " + servidorPuerto[1] + "; initial catalog = "+ datosArchivoConfig[1] + "; user id = "+ datosArchivoConfig[2] + "; password = "+ datosArchivoConfig[3] + ";");
+                String conection = "data source = " + servidorPuerto[0] + ", " + servidorPuerto[1] + "; initial catalog = " + datosArchivoConfig[1] + "; user id = " + datosArchivoConfig[2] + "; password = " + datosArchivoConfig[3] + ";";
+                connection = new SqlConnection(conection);
                 connection.Open();
                
             }
