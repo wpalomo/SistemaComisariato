@@ -41,6 +41,23 @@ namespace Comisariato
         Consultas objConsulta = new Consultas();
         private void FrmLogin_Load(object sender, EventArgs e)
         {
+            Consultas c = new Consultas();
+            if (!c.ConsultarPrimerRegisto("TbUsuario", ""))
+            {
+
+                String[] datosArchivoConfigPersona = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosAdmin.shc");
+                String[] datosArchivoConfigEmpresa = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosEmpresa.shc");
+                if (datosArchivoConfigPersona != null && datosArchivoConfigEmpresa != null)
+                {
+                    if (datosArchivoConfigPersona[2] == txtUsuario.Text && datosArchivoConfigPersona[3] == txtContraseña.Text)
+                    {
+                        c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
+                        c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
+                        //BtnIniciar_Click(null, null);
+                    }
+
+                }
+            }
             objConsulta.BoolLlenarComboBox(cbEmpresa, "select IDEMPRESA as ID, NOMBRE as Texto from TbEmpresa");
             PanelSesion.BackColor = Color.FromArgb(100, 0xFF, 0xFF, 0XFF);
             BtnIniciar.BackColor = Color.FromArgb(224, 224, 224);
@@ -83,25 +100,25 @@ namespace Comisariato
                     }
                     else
                     {
-                        if (c.ConsultarPrimerRegisto("TbUsuario", ""))
-                        {
+                        //if (c.ConsultarPrimerRegisto("TbUsuario", ""))
+                        //{
                             lblError.Text = "Credenciales incorrectas.";
-                        }
-                        else
-                        {
-                            String[] datosArchivoConfigPersona = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosAdmin.shc");
-                            String[] datosArchivoConfigEmpresa = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosEmpresa.shc");
-                            if (datosArchivoConfigPersona != null && datosArchivoConfigEmpresa != null)
-                            {
-                                if (datosArchivoConfigPersona[2] == txtUsuario.Text && datosArchivoConfigPersona[3] == txtContraseña.Text)
-                                {
-                                    c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
-                                    c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
-                                    BtnIniciar_Click(null, null);
-                                }
+                        //}
+                        //else
+                        //{
+                            //String[] datosArchivoConfigPersona = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosAdmin.shc");
+                            //String[] datosArchivoConfigEmpresa = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosEmpresa.shc");
+                            //if (datosArchivoConfigPersona != null && datosArchivoConfigEmpresa != null)
+                            //{
+                                //if (datosArchivoConfigPersona[2] == txtUsuario.Text && datosArchivoConfigPersona[3] == txtContraseña.Text)
+                                //{
+                                    //c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
+                                    //c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
+                                    //BtnIniciar_Click(null, null);
+                                //}
 
-                            }
-                        }
+                            //}
+                        //}
                     }
 
                 }

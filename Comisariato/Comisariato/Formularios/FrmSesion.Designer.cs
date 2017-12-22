@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             this.PanelSesion = new System.Windows.Forms.Panel();
+            this.cbEmpresa = new System.Windows.Forms.ComboBox();
             this.lblError = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BtnIniciar = new System.Windows.Forms.Button();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.PboxSalir = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cbEmpresa = new System.Windows.Forms.ComboBox();
             this.PanelSesion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PboxSalir)).BeginInit();
             this.SuspendLayout();
@@ -57,6 +58,14 @@
             this.PanelSesion.Name = "PanelSesion";
             this.PanelSesion.Size = new System.Drawing.Size(313, 329);
             this.PanelSesion.TabIndex = 1;
+            // 
+            // cbEmpresa
+            // 
+            this.cbEmpresa.FormattingEnabled = true;
+            this.cbEmpresa.Location = new System.Drawing.Point(42, 76);
+            this.cbEmpresa.Name = "cbEmpresa";
+            this.cbEmpresa.Size = new System.Drawing.Size(231, 21);
+            this.cbEmpresa.TabIndex = 7;
             // 
             // lblError
             // 
@@ -78,6 +87,17 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "CONTRASEÑA:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(39, 57);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 15);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "EMPRESA:";
             // 
             // label1
             // 
@@ -133,25 +153,6 @@
             this.PboxSalir.TabStop = false;
             this.PboxSalir.Click += new System.EventHandler(this.PboxSalir_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(39, 57);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 15);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "EMPRESA:";
-            // 
-            // cbEmpresa
-            // 
-            this.cbEmpresa.FormattingEnabled = true;
-            this.cbEmpresa.Location = new System.Drawing.Point(42, 76);
-            this.cbEmpresa.Name = "cbEmpresa";
-            this.cbEmpresa.Size = new System.Drawing.Size(231, 21);
-            this.cbEmpresa.TabIndex = 7;
-            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,6 +163,7 @@
             this.Controls.Add(this.PboxSalir);
             this.Controls.Add(this.PanelSesion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
