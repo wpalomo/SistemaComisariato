@@ -49,12 +49,12 @@ namespace Comisariato
                 String[] datosArchivoConfigEmpresa = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosEmpresa.shc");
                 if (datosArchivoConfigPersona != null && datosArchivoConfigEmpresa != null)
                 {
-                    if (datosArchivoConfigPersona[2] == txtUsuario.Text && datosArchivoConfigPersona[3] == txtContraseña.Text)
-                    {
+                    //if (datosArchivoConfigPersona[2] == txtUsuario.Text && datosArchivoConfigPersona[3] == txtContraseña.Text)
+                    //{
                         c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
                         c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
                         //BtnIniciar_Click(null, null);
-                    }
+                    //}
 
                 }
             }
