@@ -962,6 +962,7 @@ namespace Comisariato.Formularios.Transacciones
                 objcif.Moneda = "DOLAR";
                 objcif.ImporteTotal = txtTotalPagar.Text;
                 //objcif.BaseImponible=
+                objcif.ContribuyenteEspecial = Program.direccionempresa;
                 objcif.GuiaRemision = sucursal.ToString("D3") + "-" + caja.ToString("D3") + "-" + numfactbd.ToString("D9");
                 xml.infoFactura("infoFactura", objcif,dgvCheque,dgvTarjeta,ckbEfectivo,txtEfectivo.Text,dg);
                 xml.detalleFactura("detalles", dg);

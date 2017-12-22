@@ -194,7 +194,7 @@ namespace Comisariato.Clases
             //nododirEstablecimiento.InnerText = dirEstablecimiento;
             //Nodoraiz.AppendChild(nododirEstablecimiento);
 
-            XmlElement nodocontribuyenteEspecial = doc.CreateElement("contribuyenteEspecial");
+            XmlElement nodocontribuyenteEspecial = doc.CreateElement("dirEstablecimiento");
             nodocontribuyenteEspecial.InnerText = contribuyenteEspecial;
             Nodoraiz.AppendChild(nodocontribuyenteEspecial);
 
@@ -233,9 +233,9 @@ namespace Comisariato.Clases
 
             
             ////subnodo del nodo raiz totalConImpuestos
-            XmlNode SubNodototalConImpuestos = doc.CreateElement("totalConImpuestos");
-            SubNodototalConImpuestos.AppendChild(nodototalConImpuestos(dgvDetalle));
-            Nodoraiz.AppendChild(SubNodototalConImpuestos);
+            //XmlNode SubNodototalConImpuestos = doc.CreateElement("totalConImpuestos");
+            //SubNodototalConImpuestos.AppendChild(nodototalConImpuestos(dgvDetalle));
+            Nodoraiz.AppendChild(nodototalConImpuestos(dgvDetalle));
 
             ////subnodo del nodo totalConImpuestos
             //XmlNode SubNodototalImpuesto = doc.CreateElement("totalImpuesto");
