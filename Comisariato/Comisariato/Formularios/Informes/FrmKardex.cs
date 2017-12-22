@@ -29,11 +29,11 @@ namespace Comisariato.Formularios.Informes
         {
             DataTable datosCompra = objConsulta.BoolDataTable("select e.SERIE1+''+e.SERIE2+''+e.NUMERO as NFactura, d.PRECIOCOMRPA, e.FECHAORDENCOMPRA, d.CANTIDAD" +
             " from TbEncabezadoyPieCompra e, TbDetalleCompra d, TbProducto p  where e.IDEMCABEZADOCOMPRA = d.IDENCABEZADOCOMPRA and" +
-            " d.CODIGOBARRAPRODUCTO = p.CODIGOBARRA and p.CODIGOBARRA = 123456789 and e.FECHAORDENCOMPRA between  '"+ Convert.ToString(dtpDesde.Value) + "' and '" + Convert.ToString(dtpHasta.Value) + "' order by e.FECHAORDENCOMPRA");
+            " d.CODIGOBARRAPRODUCTO = p.CODIGOBARRA and p.CODIGOBARRA = '"+ txtProducto.Text +"' and e.FECHAORDENCOMPRA between  '"+ Convert.ToString(dtpDesde.Value) + "' and '" + Convert.ToString(dtpHasta.Value) + "' order by e.FECHAORDENCOMPRA");
 
             DataTable datosVenta = objConsulta.BoolDataTable("select e.SUCURSAL, e.CAJA, e.NFACTURA, d.PRECIO, d.CANTIDAD, e.FECHA" +
             " from TbEncabezadoFactura e, TbDetalleFactura d, TbProducto p where e.IDFACTURA = d.NFACTURA and" +
-            " d.CODIGOBARRAPRODUCTO = p.CODIGOBARRA and p.CODIGOBARRA = 123456789 and e.FECHA between  '" + Convert.ToString(dtpDesde.Value) + "' and '" + Convert.ToString(dtpHasta.Value) + "' order by e.FECHA");
+            " d.CODIGOBARRAPRODUCTO = p.CODIGOBARRA and p.CODIGOBARRA = '" + txtProducto.Text + "' and e.FECHA between  '" + Convert.ToString(dtpDesde.Value) + "' and '" + Convert.ToString(dtpHasta.Value) + "' order by e.FECHA");
             
             for (int i = 0; i < datosCompra.Rows.Count; i++)
             {

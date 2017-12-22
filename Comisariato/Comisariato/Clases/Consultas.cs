@@ -66,7 +66,7 @@ namespace Comisariato.Clases
             try
             {
                 Objc.conectar();
-                string sql = "select U.IDUSUARIO ,U.IDEMPLEADO, U.USUARIO, U.CONTRASEÑA, U.IDTIPOUSUARIO, U.IDEMPRESA, U.ACTIVO from TbUsuario U where U.USUARIO='" + Usuario + "' and  U.CONTRASEÑA='" + Contraseña + "'";
+                string sql = "select U.IDUSUARIO ,U.IDEMPLEADO, U.USUARIO, U.CONTRASEÑA, U.IDTIPOUSUARIO, U.IDEMPRESA, U.ACTIVO from TbUsuario U where U.USUARIO='" + Usuario + "' and  U.CONTRASEÑA='" + Contraseña + "' AND U.IDEMPRESA = "+ Program.EmpresaUsuario;
                 //string sql = "select U.IDUSUARIO, U.IDEMPLEADO, U.USUARIO, U.CONTRASEÑA, U.IDTIPOUSUARIO, U.IDEMPRESA, U.ACTIVO from TbUsuario U where U.USUARIO='" + Usuario + "' and  U.CONTRASEÑA='" + Contraseña + "'";
                 SqlCommand Sentencia = new SqlCommand(sql);
                 Sentencia.Connection = ConexionBD.connection;
