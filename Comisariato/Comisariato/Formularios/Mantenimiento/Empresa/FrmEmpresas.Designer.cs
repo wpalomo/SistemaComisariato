@@ -348,6 +348,7 @@
             // 
             this.txtCelular2Empresa.Location = new System.Drawing.Point(563, 82);
             this.txtCelular2Empresa.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCelular2Empresa.MaxLength = 10;
             this.txtCelular2Empresa.Name = "txtCelular2Empresa";
             this.txtCelular2Empresa.Size = new System.Drawing.Size(252, 22);
             this.txtCelular2Empresa.TabIndex = 8;
@@ -357,6 +358,7 @@
             // 
             this.txtCeluar1Empresa.Location = new System.Drawing.Point(563, 59);
             this.txtCeluar1Empresa.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCeluar1Empresa.MaxLength = 10;
             this.txtCeluar1Empresa.Name = "txtCeluar1Empresa";
             this.txtCeluar1Empresa.Size = new System.Drawing.Size(252, 22);
             this.txtCeluar1Empresa.TabIndex = 6;
@@ -489,6 +491,7 @@
             // 
             this.txtRUCEmpresa.Location = new System.Drawing.Point(128, 12);
             this.txtRUCEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.txtRUCEmpresa.MaxLength = 13;
             this.txtRUCEmpresa.Name = "txtRUCEmpresa";
             this.txtRUCEmpresa.Size = new System.Drawing.Size(270, 22);
             this.txtRUCEmpresa.TabIndex = 2;
@@ -521,6 +524,7 @@
             // 
             this.txtCelular2ContadorEmpresa.Location = new System.Drawing.Point(527, 119);
             this.txtCelular2ContadorEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCelular2ContadorEmpresa.MaxLength = 10;
             this.txtCelular2ContadorEmpresa.Name = "txtCelular2ContadorEmpresa";
             this.txtCelular2ContadorEmpresa.Size = new System.Drawing.Size(166, 22);
             this.txtCelular2ContadorEmpresa.TabIndex = 15;
@@ -540,6 +544,7 @@
             // 
             this.txtCelular1ContadorEmpresa.Location = new System.Drawing.Point(250, 119);
             this.txtCelular1ContadorEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCelular1ContadorEmpresa.MaxLength = 10;
             this.txtCelular1ContadorEmpresa.Name = "txtCelular1ContadorEmpresa";
             this.txtCelular1ContadorEmpresa.Size = new System.Drawing.Size(166, 22);
             this.txtCelular1ContadorEmpresa.TabIndex = 14;
@@ -587,6 +592,7 @@
             // 
             this.txtRUCContadorEmpresa.Location = new System.Drawing.Point(250, 20);
             this.txtRUCContadorEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.txtRUCContadorEmpresa.MaxLength = 13;
             this.txtRUCContadorEmpresa.Name = "txtRUCContadorEmpresa";
             this.txtRUCContadorEmpresa.Size = new System.Drawing.Size(166, 22);
             this.txtRUCContadorEmpresa.TabIndex = 11;

@@ -327,6 +327,15 @@ namespace Comisariato.Clases
             }
         }
 
+        public static String reemplazarcaracterFecha(String cadena)
+        {
+                string[] fecha = cadena.Split('/');
+
+                string FinalFecha = fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+
+                return FinalFecha;
+        }
+
 
         public static String reemplazarcaracterViceversa(String cadena)
         {

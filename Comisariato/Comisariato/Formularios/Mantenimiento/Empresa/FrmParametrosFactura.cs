@@ -84,7 +84,15 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
         {
             FrmRegistrarIVA frmRegistrarIVA = new FrmRegistrarIVA();
             objFuncion.AddFormInPanel(frmRegistrarIVA/*, Program.panelPrincipalVariable*/);
+
             Program.FormularioLlamado = true;
+            if (FrmPrincipal.FrmRegistrarIVA == null || FrmPrincipal.FrmRegistrarIVA.IsDisposed)
+            {
+                FrmPrincipal.FrmRegistrarIVA = new FrmRegistrarIVA();
+                FrmPrincipal.FrmRegistrarIVA.MdiParent = Program.panelPrincipalVariable;
+                FrmPrincipal.FrmRegistrarIVA.BringToFront();
+                FrmPrincipal.FrmRegistrarIVA.Show();
+            }
         }
         public void inicializarDatos()
         {

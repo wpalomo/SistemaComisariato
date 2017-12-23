@@ -275,7 +275,7 @@ namespace Comisariato.Clases
             ObjConsulta = new Consultas();
 
             if (ObjConsulta.EjecutarSQL("UPDATE [dbo].[TbEmpresa] SET[NOMBRE] = '"+nombreEmpresa.ToUpper() + "' ,[RUC] = '"+rucEmpresa+ "',[NOMBRECOMERCIAL] = '"+nombreComercial.ToUpper() + "',[RAZONSOCIAL] = '"+razonSocial.ToUpper() + "',[GERENTE] = '"+gerente.ToUpper() + "'"
-                + ",[DIRECCION] = '"+direccion.ToUpper() + "' ,[EMAIL] = '"+emailEmpresa+ "',[FECHAINICIOCONTABLE] = '"+fechaInicioContable.ToShortDateString()+ "',[CELULAR1] = '"+celular1Empresa+ "',[CELULAR2] = '"+Celular2Empresa+ "',[RUCCONTADOR] = '"+rucContador+ "',[NOMBRECONTADOR] = '"+nombreContador.ToUpper() + "'"
+                + ",[DIRECCION] = '"+direccion.ToUpper() + "' ,[EMAIL] = '"+emailEmpresa+ "',[FECHAINICIOCONTABLE] = '"+Funcion.reemplazarcaracterFecha(fechaInicioContable.ToShortDateString())+ "',[CELULAR1] = '"+celular1Empresa+ "',[CELULAR2] = '"+Celular2Empresa+ "',[RUCCONTADOR] = '"+rucContador+ "',[NOMBRECONTADOR] = '"+nombreContador.ToUpper() + "'"
                 + ",[EMAILCONTADOR] = '"+emailContador+ "' ,[CELULAR1CONTADOR] = '"+celular1Contador+ "',[CELULAR2CONTADOR] = '"+celular2Contador+ "'"
                 + " WHERE  RUC = '" + RUC + "'"))
             {

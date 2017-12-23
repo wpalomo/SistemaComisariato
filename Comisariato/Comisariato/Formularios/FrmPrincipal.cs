@@ -49,6 +49,7 @@ namespace Comisariato.Formularios
         public static FrmDevolucionCompra FrmDevolucionCompra;
         public static FrmDeclaracionSRI FrmDeclaracionSRI;
         public static FrmCambioClave FrmCambioClave;
+        public static FrmRegistrarIVA FrmRegistrarIVA;
 
         Bitacora  bitacora = new Bitacora();
         //public static void Panel
