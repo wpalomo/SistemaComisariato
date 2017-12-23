@@ -540,6 +540,10 @@ namespace Comisariato.Formularios
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celBoton = dgvDatosCliente.Rows[e.RowIndex].Cells["modificarCliente"] as DataGridViewButtonCell;
                 Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+
+                PictureBox nuevopicture = new PictureBox();
+                nuevopicture.Image = global::Comisariato.Properties.Resources.Modificar;
+
                 e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 dgvDatosCliente.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                 dgvDatosCliente.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -553,7 +557,8 @@ namespace Comisariato.Formularios
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                     DataGridViewButtonCell celBoton = this.dgvDatosCliente.Rows[e.RowIndex].Cells["DeshabilitarCliente"] as DataGridViewButtonCell;
-                    Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+                    //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+                    Icon icoAtomico = new Icon(Comisariato.Properties.Resources.Modificar.ToString());
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.dgvDatosCliente.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.dgvDatosCliente.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
