@@ -271,15 +271,18 @@ namespace Comisariato.Formularios.Mantenimiento
                     {
                         DataRow myRow = dt.Rows[0];
 
-                        //Se almacena el campo foto de la tabla en el arreglo de bytes
-                        MyData = (byte[])myRow["IMAGEN"];
-                        MyDataImagen = MyData;
-                        //Se inicializa un flujo en memoria del arreglo de bytes
-                        MemoryStream stream = new MemoryStream(MyData);
-                        //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
-                        //el cual contiene el arreglo de bytes
-                        PictureFoto.Image = Image.FromStream(stream);
+                        if (myRow["IMAGEN"] != System.DBNull.Value)
+                        {
+                            //Se almacena el campo foto de la tabla en el arreglo de bytes
+                            MyData = (byte[])myRow["IMAGEN"];
+                            MyDataImagen = MyData;
 
+                            //Se inicializa un flujo en memoria del arreglo de bytes
+                            MemoryStream stream = new MemoryStream(MyData);
+                            //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
+                            //el cual contiene el arreglo de bytes
+                            PictureFoto.Image = Image.FromStream(stream);
+                        }
                         //Cargar los demas Datos
                         cmbTipoDocumento.SelectedItem = myRow["TIPOIDENTIFICACION"].ToString();
                         TxtIdentidad.Text = myRow["IDENTIFICACION"].ToString();
@@ -289,15 +292,19 @@ namespace Comisariato.Formularios.Mantenimiento
                         TxtDireccion.Text = myRow["DIRECCION"].ToString();
                         //CmbParroquia
 
-                        consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref CmbPais, ref CmbProvincia, ref CmbCanton, ref CmbParroquia);
+                        if(myRow["IDPARROQUIA"] != System.DBNull.Value)
+                            consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref CmbPais, ref CmbProvincia, ref CmbCanton, ref CmbParroquia);
 
                         TxtEmail.Text = myRow["EMAIL"].ToString();
-                        DtpFechaNacimiento.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
+                        if (myRow["FECHANACIMIENTO"] != System.DBNull.Value)
+                            DtpFechaNacimiento.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
                         CmbTipoLicencia.SelectedItem = myRow["TIPOLICENCIA"].ToString();
                         CmbTipoSangre.SelectedItem = myRow["TIPOSANGRE"].ToString();
                         TxtLibretaMilitar.Text = myRow["LIBRETAMILITAR"].ToString();
-                        CkbDiscapacidad.Checked = Convert.ToBoolean(myRow["DISCAPACIDAD"]);
-                        NupDiscapacidad.Value = Convert.ToInt32(myRow["PORCENTAJEDISCAPACIDAD"]);
+                        if (myRow["DISCAPACIDAD"] != System.DBNull.Value)
+                            CkbDiscapacidad.Checked = Convert.ToBoolean(myRow["DISCAPACIDAD"]);
+                        if (myRow["PORCENTAJEDISCAPACIDAD"] != System.DBNull.Value)
+                            NupDiscapacidad.Value = Convert.ToInt32(myRow["PORCENTAJEDISCAPACIDAD"]);
                         TxtMovimientoQuincenal.Text = myRow["MOVIMIENTOQUINCENAL"].ToString();
                         CmbGenero.SelectedItem = myRow["GENERO"].ToString();
                         CmbEstadoCivil.SelectedItem = myRow["ESTADOCIVIL"].ToString();

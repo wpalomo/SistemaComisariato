@@ -297,19 +297,14 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
 
         private void txtRUCSucursal_Leave(object sender, EventArgs e)
         {
-            if (txtRUCSucursal.Text.Length != 13 || txtRUCSucursal.Text.Substring(10, 3) != "001")
+            if (txtRUCSucursal.Text != "")
             {
-                //if (txtRUCSucursal.Text.Substring(10, 3) != "001" /*|| Funcion.VerificarCedula(txtRUCSucursal.Text.Substring(0, 10)) == false*/)
-                //{
+                if (txtRUCSucursal.Text.Length != 13 || txtRUCSucursal.Text.Substring(10, 3) != "001")
+                {
                     MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     txtRUCSucursal.Focus();
                     txtRUCSucursal.Select(0, txtRUCSucursal.Text.Length);
-                //}
-                //}
-                //else
-                //{
-                //MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtRUCSucursal.Focus();
-                //txtRUCSucursal.Select(0, txtRUCSucursal.Text.Length);
+                }
             }
         }
 
