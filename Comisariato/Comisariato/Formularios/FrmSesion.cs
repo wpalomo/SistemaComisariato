@@ -38,7 +38,7 @@ namespace Comisariato
             ReleaseCapture();
             SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
-        Consultas objConsulta = new Consultas();
+       // Consultas objConsulta = new Consultas();
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             Consultas c = new Consultas();
@@ -58,7 +58,7 @@ namespace Comisariato
 
                 }
             }
-            objConsulta.BoolLlenarComboBox(cbEmpresa, "select IDEMPRESA as ID, NOMBRE as Texto from TbEmpresa");
+            c.BoolLlenarComboBox(cbEmpresa, "select IDEMPRESA as ID, NOMBRE as Texto from TbEmpresa");
             PanelSesion.BackColor = Color.FromArgb(100, 0xFF, 0xFF, 0XFF);
             BtnIniciar.BackColor = Color.FromArgb(224, 224, 224);
             
