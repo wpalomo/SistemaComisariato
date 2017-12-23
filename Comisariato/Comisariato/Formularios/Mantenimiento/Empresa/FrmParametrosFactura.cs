@@ -108,6 +108,8 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
             TxtAncho.Text = "";
             TxtLargo.Text = "";
             TxtNumeroItemsFactura.Text = "";
+            TxtTamañoEncabezadoFact.Text = "";
+            TxtTamañoPieFact.Text = "";
         }
 
 

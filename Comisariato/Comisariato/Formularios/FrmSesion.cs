@@ -38,7 +38,11 @@ namespace Comisariato
             ReleaseCapture();
             SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
-        Consultas objConsulta = new Consultas();
+        // Consultas objConsulta = new Consultas();
+
+
+        bool PrimerIngresoSistemaLogin = false;
+
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             Consultas c = new Consultas();
@@ -53,12 +57,13 @@ namespace Comisariato
                     //{
                         c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
                         c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
-                        //BtnIniciar_Click(null, null);
+                    //BtnIniciar_Click(null, null);
+                    PrimerIngresoSistemaLogin = true;
                     //}
 
                 }
             }
-            objConsulta.BoolLlenarComboBox(cbEmpresa, "select IDEMPRESA as ID, NOMBRE as Texto from TbEmpresa");
+            c.BoolLlenarComboBox(cbEmpresa, "select IDEMPRESA as ID, NOMBRE as Texto from TbEmpresa");
             PanelSesion.BackColor = Color.FromArgb(100, 0xFF, 0xFF, 0XFF);
             BtnIniciar.BackColor = Color.FromArgb(224, 224, 224);
             
@@ -210,6 +215,7 @@ namespace Comisariato
                             Program.FecaInicio = Funcion.reemplazarcaracterFecha(DateTime.Now.Date.ToShortDateString());
                             Program.horainicio = DateTime.Now.TimeOfDay.ToString();
                             FrmPrincipal p = new FrmPrincipal();
+                            p.primerIngresoSistema = this.PrimerIngresoSistemaLogin;
                             Bitacora ObjBitacora = new Bitacora("00:00:00", "Inicio de Sessión");
                             ObjBitacora.insertarBitacora();
                             p.Show();
@@ -223,25 +229,7 @@ namespace Comisariato
                     }
                     else
                     {
-                        //if (c.ConsultarPrimerRegisto("TbUsuario", ""))
-                        //{
                         lblError.Text = "Credenciales incorrectas.";
-                        //}
-                        //else
-                        //{
-                        //String[] datosArchivoConfigPersona = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosAdmin.shc");
-                        //String[] datosArchivoConfigEmpresa = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosEmpresa.shc");
-                        //if (datosArchivoConfigPersona != null && datosArchivoConfigEmpresa != null)
-                        //{
-                        //if (datosArchivoConfigPersona[2] == txtUsuario.Text && datosArchivoConfigPersona[3] == txtContraseña.Text)
-                        //{
-                        //c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
-                        //c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
-                        //BtnIniciar_Click(null, null);
-                        //}
-
-                        //}
-                        //}
                     }
 
                 }
