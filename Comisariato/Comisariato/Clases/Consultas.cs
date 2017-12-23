@@ -1848,6 +1848,44 @@ namespace Comisariato.Clases
             else { return "Error"; }
         }
 
-        
+        public bool boolLlenarDataGrid(DataGridView data, String SQL, int tamañoDataGrid, int cantidadCamposConsulta, int columnaInicial)
+        {
+            try
+            {
+                DataTable dt = BoolDataTable(SQL);
+                if (dt.Rows.Count > 0)
+                {
+                    data.Rows.Clear();
+                    for (int i = 0; i < tamañoDataGrid; i++)
+                        data.Rows.Add();
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        int cantidadInicio = columnaInicial;
+                        DataRow row = dt.Rows[i];
+                        if (i == data.RowCount - 1)
+                            data.Rows.Add();
+                        for (int j = 0; j < cantidadCamposConsulta +1; j++)
+                        {
+                            if (Convert.ToString(row[j]) != "")
+                            {
+                                data.Rows[i].Cells[cantidadInicio].Value = row[j];
+                            }
+                            cantidadInicio++;
+                        }
+                    }
+                }
+                else
+                {
+                    data.Rows.Clear();
+                    for (int i = 0; i < tamañoDataGrid; i++)
+                        data.Rows.Add();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
