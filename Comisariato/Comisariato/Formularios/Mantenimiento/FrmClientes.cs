@@ -305,124 +305,126 @@ namespace Comisariato.Formularios
         private void dgvDatosCliente_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Cliente ObjCliente = new Cliente();
-            if (rbtActivosCliente.Checked)
+            if (Convert.ToString(dgvDatosCliente.CurrentRow.Cells[2].Value) != "")
+            {
+                if (rbtActivosCliente.Checked)
             {
                 if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
                 {
-                    ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[9].Value.ToString(), 2);
-                    cargarDatos("1");
+                        ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 2);
+                        cargarDatos("1");
                 }
             }
             else if (rbtInactivosCliente.Checked)
             {
                 if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
                 {
-                    ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[9].Value.ToString(), 1);
-                    cargarDatos("0");
+                        ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 1);
+                        cargarDatos("0");
                 }
             }
 
-            if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "modificarCliente")
-            {
-                //este vale
-
-                //MessageBox.Show("modificar toca");
-                bandera_Estado = true;
-                tcCliente.SelectedIndex = 0;
-                btnGuardarCliente.Text = "&Modificar";
-                btnLimpiarCliente.Text = "&Cancelar";
-                identificacion = dgvDatosCliente.CurrentRow.Cells[9].Value.ToString();
-
-                //Llenar el DataTable
-                DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDCLIENTE = " + dgvDatosCliente.CurrentRow.Cells[2].Value.ToString() + "");
-                if (dt.Rows.Count > 0)
+                if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "modificarCliente")
                 {
-                    DataRow myRow = dt.Rows[0];
-                    cbTipoCliente.SelectedItem = myRow["TIPOCLIENTE"].ToString();
-                    //llenar identificacion y seleccionar combobox tipodoc
-                    txtIdentificacionCliente.Text = myRow["IDENTIFICACION"].ToString();
-                    if (myRow["IDENTIFICACION"].ToString().Length == 10)
-                        cbIdentificacionCliente.SelectedIndex = 0;
-                    else if (myRow["IDENTIFICACION"].ToString().Length == 13)
-                        cbIdentificacionCliente.SelectedIndex = 1;
-                    else
-                        cbIdentificacionCliente.SelectedIndex = 2;
+                    //este vale
 
-                    ckClienteActivo.Checked = Convert.ToBoolean(myRow["ACTIVO"]);
-                    txtNombresCliente.Text = myRow["NOMBRES"].ToString();
-                    txtApellidosCliente.Text = myRow["APELLIDOS"].ToString();
-                    dtpFechaNacimientoCliente.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
-                    txtRazonSocialCliente.Text = myRow["RAZONSOCIAL"].ToString();
-                    txtEmailCliente.Text = myRow["EMAIL"].ToString();
-                    txtDireccion.Text = myRow["DIRECCION"].ToString();
-                    cbActividadEconomicaCliente.SelectedItem = myRow["ACTIVIDADECONOMICA"].ToString();
-                    //// cargar los combo de pais canton provincia y parroquia
-                    consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisCliente, ref cbProvinciaCliente, ref cbCantonCliente, ref cbParroquiaCliente);
+                    //MessageBox.Show("modificar toca");
+                    bandera_Estado = true;
+                    tcCliente.SelectedIndex = 0;
+                    btnGuardarCliente.Text = "&Modificar";
+                    btnLimpiarCliente.Text = "&Cancelar";
+                    identificacion = dgvDatosCliente.CurrentRow.Cells[2].Value.ToString();
 
-                    cbCategoriaCliente.SelectedItem = myRow["ESPECIFICACIONES_CATEGORIA"].ToString();
-
-                    // marcar especificaciones TIPO CREDITO
-                    String tipoCredito = myRow["ESPECIFICACIONES_TIPOCREDITO"].ToString();
-                    if (tipoCredito == "Crédito")
-                        rbCreditoCliente.Checked = true;
-                    else if (tipoCredito == "Contado")
-                        rbContadoCliente.Checked = true;
-                    else
-                        rbAmbasCliente.Checked = true;
-
-                    txtCreditoAsignadoCliente.Text = myRow["CONDICIONES_COMERC_CREDITOASIGNADO"].ToString();
-                    txtCupoCreditoCliente.Text = myRow["CONDICIONES_COMERC_CUPOCREDITO"].ToString();
-                    txtDescuentoCliente.Text = myRow["CONDICIONES_COMERC_DESCUENTO"].ToString();
-                    txtCasillaCliente.Text = myRow["CASILLA"].ToString();
-                    txtFaxCliente.Text = myRow["FAX"].ToString();
-                    txtCelular1Cliente.Text = myRow["CELULAR1"].ToString();
-                    txtCelular2Cliente.Text = myRow["CELULAR2"].ToString();
-                    txtObservacionCliente.Text = myRow["OBSERVACION"].ToString();
-
-                    cbCuentaContable.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
-                    int indexcuenta = cbCuentaContable.SelectedIndex;
-                    cbCuentaContable.SelectedIndex = indexcuenta;
-
-
-
-                    //cargar lista OTRA INFORMACION Cliente
-                    DataTable DTOtrainformacion = consultas.BoolDataTable("Select * from TbOtraInformacionCliente where IDCLIENTE = " + dgvDatosCliente.CurrentRow.Cells[2].Value.ToString() + "");
-                    int contador = 0;
-                    if (DTOtrainformacion.Rows.Count > 0)
+                    //Llenar el DataTable
+                    DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDCLIENTE = " + dgvDatosCliente.CurrentRow.Cells[9].Value.ToString() + "");
+                    if (dt.Rows.Count > 0)
                     {
+                        DataRow myRow = dt.Rows[0];
+                        cbTipoCliente.SelectedItem = myRow["TIPOCLIENTE"].ToString();
+                        //llenar identificacion y seleccionar combobox tipodoc
+                        txtIdentificacionCliente.Text = myRow["IDENTIFICACION"].ToString();
+                        if (myRow["IDENTIFICACION"].ToString().Length == 10)
+                            cbIdentificacionCliente.SelectedIndex = 0;
+                        else if (myRow["IDENTIFICACION"].ToString().Length == 13)
+                            cbIdentificacionCliente.SelectedIndex = 1;
+                        else
+                            cbIdentificacionCliente.SelectedIndex = 2;
 
-                        while (DTOtrainformacion.Rows.Count - 1 >= contador)
+                        ckClienteActivo.Checked = Convert.ToBoolean(myRow["ACTIVO"]);
+                        txtNombresCliente.Text = myRow["NOMBRES"].ToString();
+                        txtApellidosCliente.Text = myRow["APELLIDOS"].ToString();
+                        dtpFechaNacimientoCliente.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
+                        txtRazonSocialCliente.Text = myRow["RAZONSOCIAL"].ToString();
+                        txtEmailCliente.Text = myRow["EMAIL"].ToString();
+                        txtDireccion.Text = myRow["DIRECCION"].ToString();
+                        cbActividadEconomicaCliente.SelectedItem = myRow["ACTIVIDADECONOMICA"].ToString();
+                        //// cargar los combo de pais canton provincia y parroquia
+                        consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisCliente, ref cbProvinciaCliente, ref cbCantonCliente, ref cbParroquiaCliente);
+
+                        cbCategoriaCliente.SelectedItem = myRow["ESPECIFICACIONES_CATEGORIA"].ToString();
+
+                        // marcar especificaciones TIPO CREDITO
+                        String tipoCredito = myRow["ESPECIFICACIONES_TIPOCREDITO"].ToString();
+                        if (tipoCredito == "Crédito")
+                            rbCreditoCliente.Checked = true;
+                        else if (tipoCredito == "Contado")
+                            rbContadoCliente.Checked = true;
+                        else
+                            rbAmbasCliente.Checked = true;
+
+                        txtCreditoAsignadoCliente.Text = myRow["CONDICIONES_COMERC_CREDITOASIGNADO"].ToString();
+                        txtCupoCreditoCliente.Text = myRow["CONDICIONES_COMERC_CUPOCREDITO"].ToString();
+                        txtDescuentoCliente.Text = myRow["CONDICIONES_COMERC_DESCUENTO"].ToString();
+                        txtCasillaCliente.Text = myRow["CASILLA"].ToString();
+                        txtFaxCliente.Text = myRow["FAX"].ToString();
+                        txtCelular1Cliente.Text = myRow["CELULAR1"].ToString();
+                        txtCelular2Cliente.Text = myRow["CELULAR2"].ToString();
+                        txtObservacionCliente.Text = myRow["OBSERVACION"].ToString();
+
+                        cbCuentaContable.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
+                        int indexcuenta = cbCuentaContable.SelectedIndex;
+                        cbCuentaContable.SelectedIndex = indexcuenta;
+
+
+
+                        //cargar lista OTRA INFORMACION Cliente
+                        DataTable DTOtrainformacion = consultas.BoolDataTable("Select * from TbOtraInformacionCliente where IDCLIENTE = " + dgvDatosCliente.CurrentRow.Cells[2].Value.ToString() + "");
+                        int contador = 0;
+                        if (DTOtrainformacion.Rows.Count > 0)
                         {
-                            DataRow row = DTOtrainformacion.Rows[contador];
-                            if (row["TIPO"].ToString() == "Representante Legal")
-                            {
-                                txtIdentificacionRepresentanteLegalCliente.Text = row["IDENTIFICACION"].ToString();
-                                txtNombreRepresentanteLegalCliente.Text = row["NOMBRE"].ToString();
-                                txtEmailRepresentanteLegalCliente.Text = row["EMAIL"].ToString();
-                                txtCelularRepresentanteLegalCliente.Text = row["CELULAR"].ToString();
-                            }
-                            else if (row["TIPO"].ToString() == "Gerente General")
-                            {
-                                txtIdentificacionGerenteGeneralCliente.Text = row["IDENTIFICACION"].ToString();
-                                txtNombreGerenteGeneralCliente.Text = row["NOMBRE"].ToString();
-                                txtEmailGerenteGeneralCliente.Text = row["EMAIL"].ToString();
-                                txtCelularGerenteGeneralCliente.Text = row["CELULAR"].ToString();
-                            }
 
-                            else if (row["TIPO"].ToString() == "Garante")
+                            while (DTOtrainformacion.Rows.Count - 1 >= contador)
                             {
-                                txtIdentificacionGaranteCliente.Text = row["IDENTIFICACION"].ToString();
-                                txtNombreGaranteCliente.Text = row["NOMBRE"].ToString();
-                                txtEmailGaranteCliente.Text = row["EMAIL"].ToString();
-                                txtCelularGaranteCliente.Text = row["CELULAR"].ToString();
+                                DataRow row = DTOtrainformacion.Rows[contador];
+                                if (row["TIPO"].ToString() == "Representante Legal")
+                                {
+                                    txtIdentificacionRepresentanteLegalCliente.Text = row["IDENTIFICACION"].ToString();
+                                    txtNombreRepresentanteLegalCliente.Text = row["NOMBRE"].ToString();
+                                    txtEmailRepresentanteLegalCliente.Text = row["EMAIL"].ToString();
+                                    txtCelularRepresentanteLegalCliente.Text = row["CELULAR"].ToString();
+                                }
+                                else if (row["TIPO"].ToString() == "Gerente General")
+                                {
+                                    txtIdentificacionGerenteGeneralCliente.Text = row["IDENTIFICACION"].ToString();
+                                    txtNombreGerenteGeneralCliente.Text = row["NOMBRE"].ToString();
+                                    txtEmailGerenteGeneralCliente.Text = row["EMAIL"].ToString();
+                                    txtCelularGerenteGeneralCliente.Text = row["CELULAR"].ToString();
+                                }
+
+                                else if (row["TIPO"].ToString() == "Garante")
+                                {
+                                    txtIdentificacionGaranteCliente.Text = row["IDENTIFICACION"].ToString();
+                                    txtNombreGaranteCliente.Text = row["NOMBRE"].ToString();
+                                    txtEmailGaranteCliente.Text = row["EMAIL"].ToString();
+                                    txtCelularGaranteCliente.Text = row["CELULAR"].ToString();
+                                }
+                                contador++;
                             }
-                            contador++;
                         }
+
                     }
 
                 }
-
-
 
             }
         }
@@ -430,8 +432,11 @@ namespace Comisariato.Formularios
         private void cargarDatos(string condicion)
         {
             consultas = new Consultas();
-            consultas.boolLlenarDataGridView(dgvDatosCliente, "Select IDCLIENTE as ID, RAZONSOCIAL as 'RAZON SOCIAL', TIPOCLIENTE as 'TIPO' , ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO',DIRECCION, APELLIDOS,NOMBRES,IDENTIFICACION AS 'CEDULA/RUC',CELULAR1,CELULAR2 from TbCliente WHERE ACTIVO=" + condicion + ";");
-            dgvDatosCliente.Columns["ID"].Visible = false;
+            string consulta = "Select IDENTIFICACION AS 'CEDULA/RUC',NOMBRES, APELLIDOS, DIRECCION, CELULAR1, TIPOCLIENTE as 'TIPO', ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO', IDCLIENTE as ID from TbCliente WHERE ACTIVO=" + condicion + ";";
+            consultas.boolLlenarDataGrid(dgvDatosCliente, consulta, 15, 7, 2);
+            for (int i = 0; i < dgvDatosCliente.RowCount; i++)
+                if (Convert.ToString(dgvDatosCliente.Rows[i].Cells[2].Value) == "")
+                    dgvDatosCliente.Rows[i].ReadOnly = true;
         }
 
         private void rbtActivosCliente_CheckedChanged(object sender, EventArgs e)
@@ -540,6 +545,10 @@ namespace Comisariato.Formularios
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celBoton = dgvDatosCliente.Rows[e.RowIndex].Cells["modificarCliente"] as DataGridViewButtonCell;
                 Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+
+                PictureBox nuevopicture = new PictureBox();
+                nuevopicture.Image = global::Comisariato.Properties.Resources.Modificar;
+
                 e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 dgvDatosCliente.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                 dgvDatosCliente.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -553,7 +562,8 @@ namespace Comisariato.Formularios
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                     DataGridViewButtonCell celBoton = this.dgvDatosCliente.Rows[e.RowIndex].Cells["DeshabilitarCliente"] as DataGridViewButtonCell;
-                    Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+                    //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+                    Icon icoAtomico = new Icon(Comisariato.Properties.Resources.Modificar.ToString());
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.dgvDatosCliente.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.dgvDatosCliente.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;

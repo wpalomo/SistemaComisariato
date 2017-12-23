@@ -23,7 +23,7 @@ namespace Comisariato.Formularios
         String GlovalIDUsuario = "";
         private void FrmUsuarios_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 10; i++)
             {
                 dgvDatosUsuario.Rows.Add();
             }
@@ -75,8 +75,9 @@ namespace Comisariato.Formularios
 
         private void cargarDatos(string condicion)
         {
-            objConsul.boolLlenarDataGridView(dgvDatosUsuario, "Select IDUSUARIO as ID, USUARIO,CONTRASEÑA,FACTURA, E.NOMBRE from TbUsuario U, TbEmpresa E where U.IDEMPRESA= E.IDEMPRESA AND ACTIVO = '" + condicion + "';");
-            dgvDatosUsuario.Columns["ID"].Visible = false;
+            string consulta = "Select USUARIO,CONTRASEÑA,FACTURA, E.NOMBRE, IDUSUARIO as ID from TbUsuario U, TbEmpresa E where U.IDEMPRESA= E.IDEMPRESA AND ACTIVO = '" + condicion + "';";
+            //dgvDatosUsuario.Columns["ID"].Visible = false;
+            objConsul.boolLlenarDataGrid(dgvDatosUsuario, consulta, 10, 4, 2);
         }
 
         private void btnGuardarUsuario_Click(object sender, EventArgs e)
@@ -179,57 +180,60 @@ namespace Comisariato.Formularios
         private void dgvDatosUsuario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Usuario ObjUsuario = new Usuario();
-            if (rbtActivos.Checked)
+            if (Convert.ToString(dgvDatosUsuario.CurrentRow.Cells[6].Value) != "")
             {
-                if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                if (rbtActivos.Checked)
                 {
-                    ObjUsuario.EstadoUsuario(dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString(), 2);
-                    cargarDatos("1");
+                    if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                    {
+                        ObjUsuario.EstadoUsuario(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString(), 2);
+                        cargarDatos("1");
+                    }
                 }
-            }
-            else if (rbtInactivos.Checked)
-            {
-                if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                else if (rbtInactivos.Checked)
                 {
-                    ObjUsuario.EstadoUsuario(dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString(), 1);
-                    cargarDatos("0");
-                }
-            }
-
-            if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Modificar")
-            {
-                GlovalIDUsuario = dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString();
-                tcUsuario.SelectedIndex = 0;
-                bandera_Estado = true;
-                //Llenar el DataTable
-                DataTable dt = objConsul.BoolDataTable("Select * from TbUsuario where IDUSUARIO = " + GlovalIDUsuario + "");
-                //Verificar si tiene Datos
-                if (dt.Rows.Count > 0)
-                {
-                    DataRow myRow = dt.Rows[0];
-
-
-                    cbPersonaUsuario.SelectedValue = Convert.ToInt32(myRow["IDEMPLEADO"]);
-                    int indexUSUARIO = cbPersonaUsuario.SelectedIndex;
-                    cbPersonaUsuario.SelectedIndex = indexUSUARIO;
-
-                    cbTipoUsuario.SelectedValue = Convert.ToInt32(myRow["IDTIPOUSUARIO"]);
-                    int indexTIPOUSUARIO = cbTipoUsuario.SelectedIndex;
-                    cbTipoUsuario.SelectedIndex = indexTIPOUSUARIO;
-
-                    CheckListBEmpresas.SelectedValue = Convert.ToInt32(myRow["IDEMPRESA"]);
-                    int indexIDEMPRESA = CheckListBEmpresas.SelectedIndex;
-                    CheckListBEmpresas.SetItemChecked(indexIDEMPRESA, true);
-
-                    txtUsuario.Text = myRow["USUARIO"].ToString();
-                    txtContraseñaUsuario.Text = myRow["CONTRASEÑA"].ToString();
-                    if (myRow["FACTURA"].ToString() != "")
-                        ckbFacturaUsuario.Checked = Convert.ToBoolean(myRow["FACTURA"]);
-                    
+                    if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                    {
+                        ObjUsuario.EstadoUsuario(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString(), 1);
+                        cargarDatos("0");
+                    }
                 }
 
-                btnLimpiarProveedor.Text = "&Cancelar";
-                btnGuardarUsuario.Text = "&Modificar";
+                if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Modificar")
+                {
+                    GlovalIDUsuario = dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString();
+                    tcUsuario.SelectedIndex = 0;
+                    bandera_Estado = true;
+                    //Llenar el DataTable
+                    DataTable dt = objConsul.BoolDataTable("Select * from TbUsuario where IDUSUARIO = " + GlovalIDUsuario + "");
+                    //Verificar si tiene Datos
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataRow myRow = dt.Rows[0];
+
+
+                        cbPersonaUsuario.SelectedValue = Convert.ToInt32(myRow["IDEMPLEADO"]);
+                        int indexUSUARIO = cbPersonaUsuario.SelectedIndex;
+                        cbPersonaUsuario.SelectedIndex = indexUSUARIO;
+
+                        cbTipoUsuario.SelectedValue = Convert.ToInt32(myRow["IDTIPOUSUARIO"]);
+                        int indexTIPOUSUARIO = cbTipoUsuario.SelectedIndex;
+                        cbTipoUsuario.SelectedIndex = indexTIPOUSUARIO;
+
+                        CheckListBEmpresas.SelectedValue = Convert.ToInt32(myRow["IDEMPRESA"]);
+                        int indexIDEMPRESA = CheckListBEmpresas.SelectedIndex;
+                        CheckListBEmpresas.SetItemChecked(indexIDEMPRESA, true);
+
+                        txtUsuario.Text = myRow["USUARIO"].ToString();
+                        txtContraseñaUsuario.Text = myRow["CONTRASEÑA"].ToString();
+                        if (myRow["FACTURA"].ToString() != "")
+                            ckbFacturaUsuario.Checked = Convert.ToBoolean(myRow["FACTURA"]);
+
+                    }
+
+                    btnLimpiarProveedor.Text = "&Cancelar";
+                    btnGuardarUsuario.Text = "&Modificar";
+                }
             }
         }
 
@@ -246,20 +250,23 @@ namespace Comisariato.Formularios
                 //dgvDatosProveedor.Columns[1].HeaderText = "Habilitar";
             }
         }
+    
 
         private void txtConsultarUsuario_TextChanged(object sender, EventArgs e)
         {
             if (rbtActivos.Checked)
             {
-                objConsul.boolLlenarDataGridView(dgvDatosUsuario, "Select IDUSUARIO as ID, USUARIO,CONTRASEÑA,FACTURA, E.NOMBRE from TbUsuario U, TbEmpresa E where U.IDEMPRESA= E.IDEMPRESA AND  ACTIVO = 1 and USUARIO like '%" + txtConsultarUsuario.Text + "%' or E.NOMBRE like '%" + txtConsultarUsuario.Text + "%';");
+                string consulta = "Select USUARIO,CONTRASEÑA,FACTURA, E.NOMBRE, IDUSUARIO as ID from TbUsuario U, TbEmpresa E where U.IDEMPRESA= E.IDEMPRESA AND  ACTIVO = 1 and (USUARIO like '%" + txtConsultarUsuario.Text + "%' or E.NOMBRE like '%" + txtConsultarUsuario.Text + "%');";
                 //dgvDatosProveedor.Columns[1].HeaderText = "Desabilitar";
-                dgvDatosUsuario.Columns["ID"].Visible = false;
+                //dgvDatosUsuario.Columns["ID"].Visible = false;
+                objConsul.boolLlenarDataGrid(dgvDatosUsuario, consulta, 10, 4, 2);
             }
             else if (rbtInactivos.Checked)
             {
-                objConsul.boolLlenarDataGridView(dgvDatosUsuario, "Select IDUSUARIO as ID, USUARIO,CONTRASEÑA,FACTURA, E.NOMBRE from TbUsuario U, TbEmpresa E where U.IDEMPRESA= E.IDEMPRESA AND  ACTIVO = 0 and USUARIO like '%" + txtConsultarUsuario.Text + "%' or E.NOMBRE like '%" + txtConsultarUsuario.Text + "%';");
+                string consulta = "Select USUARIO,CONTRASEÑA,FACTURA, E.NOMBRE, IDUSUARIO as ID from TbUsuario U, TbEmpresa E where U.IDEMPRESA= E.IDEMPRESA AND  ACTIVO = 0 and (USUARIO like '%" + txtConsultarUsuario.Text + "%' or E.NOMBRE like '%" + txtConsultarUsuario.Text + "%');";
                 //dgvDatosProveedor.Columns[1].HeaderText = "Habilitar";
-                dgvDatosUsuario.Columns["ID"].Visible = false;
+                //dgvDatosUsuario.Columns["ID"].Visible = false;
+                objConsul.boolLlenarDataGrid(dgvDatosUsuario, consulta, 10, 4, 2);
             }
         }
 
