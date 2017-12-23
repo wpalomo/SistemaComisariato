@@ -162,6 +162,8 @@ namespace Comisariato.Formularios
             //consultas.BoolLlenarComboBoxDgv((DataGridViewComboBoxColumn)dgvCodigoRetencionProveedor.Columns[1].i, "select CS.IDCODIGOSRI as ID, '[' + CS.CODIGOSRI + '] - ' + CS.DESCRIPCION as Texto from TbCodigoSRI CS, TbTipoCodigoSRI TCS WHERE TCS.IDTIPOCODIGOSRI = CS.IDTIPOCODIGOSRI AND TCS.CODIGO = 'COD_RET_FUE' or TCS.CODIGO = 'COD_RET_IVA'");
             //dgvCodigoRetencionProveedor.Rows[0].Cells[1].Value = columnaComboFI;
             Program.FormularioProveedorCompra = true;
+            for (int i = 0; i < 15; i++)
+                dgvDatosProveedor.Rows.Add();
         }
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
@@ -302,113 +304,119 @@ namespace Comisariato.Formularios
         private void cargarDatos(string condicion)
         {
             consultas = new Consultas();
-            consultas.boolLlenarDataGridView(dgvDatosProveedor, "Select IDProveedor AS ID, Identificacion,NOMBRES AS 'Nombre Proveedor', Nacionalidad,RAZONSOCIAL as 'Razón Social',GIRACHEQUEA as 'Gira Cheque' from TbProveedor WHERE ESTADO = " + condicion + ";");
-            dgvDatosProveedor.Columns["ID"].Visible = false;
+            //consultas.boolLlenarDataGridView(dgvDatosProveedor, "Select Identificacion,NOMBRES AS 'Nombre Proveedor', Nacionalidad,RAZONSOCIAL as 'Razón Social', Naturaleza, DIRECCION,  IDProveedor AS ID from TbProveedor WHERE ESTADO = " + condicion + ";");
+            string consulta = "Select Identificacion,NOMBRES AS 'Nombre Proveedor', Nacionalidad,RAZONSOCIAL as 'Razón Social', Naturaleza, DIRECCION,  IDProveedor AS ID from TbProveedor WHERE ESTADO =" + condicion;
+            consultas.boolLlenarDataGrid(dgvDatosProveedor, consulta, 15, 6, 2);
+            //dgvDatosProveedor.Columns["ID"].Visible = false;
         }
 
         private void TxtConsultar_TextChanged(object sender, EventArgs e)
         {
-
             if (rbtActivosProveedor.Checked)
             {
-                consultas.boolLlenarDataGridView(dgvDatosProveedor, "Select IDProveedor AS ID, identificacion,NOMBRES AS 'NOMBRE PROVEEDOR', NACIONALIDAD,RAZONSOCIAL,GIRACHEQUEA as 'GIRA CHEQUE' from TbProveedor where ESTADO = 1 and IDENTIFICACION like '%" + txtConsultarProveedor.Text + "%' or NOMBRES like '%" + txtConsultarProveedor.Text + "%'");
+                string consulta = "Select Identificacion,NOMBRES AS 'Nombre Proveedor', Nacionalidad,RAZONSOCIAL as 'Razón Social', Naturaleza, DIRECCION,  IDProveedor AS ID from TbProveedor WHERE ESTADO = 1 and (IDENTIFICACION like '%" + txtConsultarProveedor.Text + "%' or NOMBRES like '%" + txtConsultarProveedor.Text + "%')";
                 //dgvDatosProveedor.Columns[1].HeaderText = "Desabilitar";
-                dgvDatosProveedor.Columns["ID"].Visible = false;
+                //dgvDatosProveedor.Columns["ID"].Visible = false;
+                consultas.boolLlenarDataGrid(dgvDatosProveedor, consulta, 15, 6, 2);
             }
             else if (rbtInactivosProveedor.Checked)
             {
-                consultas.boolLlenarDataGridView(dgvDatosProveedor, "Select IDProveedor AS ID, identificacion,NOMBRES AS 'NOMBRE PROVEEDOR', NACIONALIDAD,RAZONSOCIAL,GIRACHEQUEA as 'GIRA CHEQUE' from TbProveedor where ESTADO = 0 and IDENTIFICACION like '%" + txtConsultarProveedor.Text + "%' or NOMBRES like '%" + txtConsultarProveedor.Text + "%'");
+                string consulta = "Select Identificacion,NOMBRES AS 'Nombre Proveedor', Nacionalidad,RAZONSOCIAL as 'Razón Social', Naturaleza, DIRECCION,  IDProveedor AS ID from TbProveedor WHERE ESTADO = 0 and (IDENTIFICACION like '%" + txtConsultarProveedor.Text + "%' or NOMBRES like '%" + txtConsultarProveedor.Text + "%')";
                 //dgvDatosProveedor.Columns[1].HeaderText = "Habilitar";
-                dgvDatosProveedor.Columns["ID"].Visible = false;
+                //dgvDatosProveedor.Columns["ID"].Visible = false;
+                consultas.boolLlenarDataGrid(dgvDatosProveedor, consulta, 15, 6, 2);
             }
         }
 
         private void dgvDatosProveedor_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Proveedor ObjProvee = new Proveedor();
-            if (rbtActivosProveedor.Checked)
+            if (Convert.ToString(dgvDatosProveedor.CurrentRow.Cells[2].Value) != "")
             {
-                if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "DeshabilitarProveedor")
+                if (rbtActivosProveedor.Checked)
                 {
-                    ObjProvee.EstadoProveedor(dgvDatosProveedor.CurrentRow.Cells[3].Value.ToString(), 2);
-                    cargarDatos("1");
+                    if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "DeshabilitarProveedor")
+                    {
+                        ObjProvee.EstadoProveedor(dgvDatosProveedor.CurrentRow.Cells[2].Value.ToString(), 2);
+                        cargarDatos("1");
+                    }
                 }
-            }
-            else if (rbtInactivosProveedor.Checked)
-            {
-                if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "DeshabilitarProveedor")
+                else if (rbtInactivosProveedor.Checked)
                 {
-                    ObjProvee.EstadoProveedor(dgvDatosProveedor.CurrentRow.Cells[3].Value.ToString(), 1);
-                    cargarDatos("0");
-                }
-            }
-
-            if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "modificarProveedor")
-            {
-                identificacion = dgvDatosProveedor.CurrentRow.Cells[3].Value.ToString();
-                tcProveedor.SelectedIndex = 0;
-                bandera_Estado = true;
-                //Llenar el DataTable
-                DataTable dt = consultas.BoolDataTable("Select * from TbProveedor where IDENTIFICACION = '" + identificacion + "'");
-                //Arreglo de byte en donde se almacenara la foto en bytes
-                byte[] MyData = new byte[0];
-                //Verificar si tiene Datos
-                if (dt.Rows.Count > 0)
-                {
-                    DataRow myRow = dt.Rows[0];
-                    txtCodigo.Text = myRow["CODIGO"].ToString();
-                    txtNombreProveedor.Text = myRow["NOMBRES"].ToString();
-                    txtNumeroIdentificacionProveedor.Text = myRow["IDENTIFICACION"].ToString();
-                    txtDireccionProveedor.Text = myRow["DIRECCION"].ToString();
-                    txtRazonSocialProveedor.Text = myRow["RAZONSOCIAL"].ToString();
-                    txtCelularProveedor.Text = myRow["CELULAR"].ToString();
-                    txtTelefonoProveedor.Text = myRow["TELEFONO"].ToString();
-                    txtResponsableProveedor.Text = myRow["RESPONSABLE"].ToString();
-                    txtPlazo.Text = myRow["PLAZO"].ToString();
-                    txtEmailProveedor.Text = myRow["EMAIL"].ToString();
-                    txtGiraChequeProveedor.Text = myRow["GIRACHEQUEA"].ToString();
-                    txtFax.Text = myRow["FAX"].ToString();
-
-                    ckbEstado.Checked = Convert.ToBoolean(myRow["ESTADO"]);
-                    ckbRISEProveedor.Checked = Convert.ToBoolean(myRow["PROVEEDORRISE"]);
-
-
-                    cbIdentificacionProveedor.SelectedItem = myRow["TIPOIDENTIFICACION"].ToString();
-                    cbNacionalidadProveedor.SelectedItem = myRow["NACIONALIDAD"].ToString();
-                    cbNaturalezaProveedor.SelectedItem = myRow["NATURALEZA"].ToString();
-                    cbTipoGastoProveedor.SelectedItem = myRow["TIPOGASTO"].ToString();
-
-
-                    int idservicion = consultas.ObtenerID("IDSERVICIO", "TbTipoServicio", " where DESCRIPCION = '" + myRow["TIPOSERVICIO"].ToString() + "' ");
-
-                    cbTipoServicioProveedor.SelectedValue = idservicion;
-                    int indexservicio = cbTipoServicioProveedor.SelectedIndex;
-                    cbTipoServicioProveedor.SelectedIndex = indexservicio;
-
-                    cbCuentaContableProveedor.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
-                    int indexcuenta = cbCuentaContableProveedor.SelectedIndex;
-                    cbCuentaContableProveedor.SelectedIndex = indexcuenta;
-
-                    //cbCreditoProveedor.SelectedValue = Convert.ToInt32(myRow["CREDITO"]);
-                    //int indexcredito = cbCreditoProveedor.SelectedIndex;
-                    //cbCreditoProveedor.SelectedIndex = indexcredito;
-                    consultas.BoolLlenarComboBox(cbCreditoProveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["CREDITO"]));
-                    consultas.BoolLlenarComboBox(cbICEProveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["ICE"]));
-                    consultas.BoolLlenarComboBox(cbCodigo101Proveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["CODIGO_101"]));
-
-                    //cbICEProveedor.SelectedValue = Convert.ToInt32(myRow["ICE"]);
-                    //int indexcIce = cbICEProveedor.SelectedIndex;
-                    //cbICEProveedor.SelectedIndex = indexcIce;
-
-                    //cbCodigo101Proveedor.SelectedValue = Convert.ToInt32(myRow["CODIGO_101"]);
-                    //int indexCodigo101 = cbCodigo101Proveedor.SelectedIndex;
-                    //cbCodigo101Proveedor.SelectedIndex = indexCodigo101;
-
-                    consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisProveedor, ref cbProvinciaProveedor, ref cbCantonProveedor, ref cbParroquiaProveedor);
+                    if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "DeshabilitarProveedor")
+                    {
+                        ObjProvee.EstadoProveedor(dgvDatosProveedor.CurrentRow.Cells[2].Value.ToString(), 1);
+                        cargarDatos("0");
+                    }
                 }
 
-                btnLimpiarProveedor.Text = "&Cancelar";
-                btnGuardarProveedor.Text = "&Modificar";
+                if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "modificarProveedor")
+                {
+                    identificacion = dgvDatosProveedor.CurrentRow.Cells[2].Value.ToString();
+                    tcProveedor.SelectedIndex = 0;
+                    bandera_Estado = true;
+                    //Llenar el DataTable
+                    DataTable dt = consultas.BoolDataTable("Select * from TbProveedor where IDENTIFICACION = '" + identificacion + "'");
+                    //Arreglo de byte en donde se almacenara la foto en bytes
+                    byte[] MyData = new byte[0];
+                    //Verificar si tiene Datos
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataRow myRow = dt.Rows[0];
+                        txtCodigo.Text = myRow["CODIGO"].ToString();
+                        txtNombreProveedor.Text = myRow["NOMBRES"].ToString();
+                        txtNumeroIdentificacionProveedor.Text = myRow["IDENTIFICACION"].ToString();
+                        txtDireccionProveedor.Text = myRow["DIRECCION"].ToString();
+                        txtRazonSocialProveedor.Text = myRow["RAZONSOCIAL"].ToString();
+                        txtCelularProveedor.Text = myRow["CELULAR"].ToString();
+                        txtTelefonoProveedor.Text = myRow["TELEFONO"].ToString();
+                        txtResponsableProveedor.Text = myRow["RESPONSABLE"].ToString();
+                        txtPlazo.Text = myRow["PLAZO"].ToString();
+                        txtEmailProveedor.Text = myRow["EMAIL"].ToString();
+                        txtGiraChequeProveedor.Text = myRow["GIRACHEQUEA"].ToString();
+                        txtFax.Text = myRow["FAX"].ToString();
+
+                        ckbEstado.Checked = Convert.ToBoolean(myRow["ESTADO"]);
+                        ckbRISEProveedor.Checked = Convert.ToBoolean(myRow["PROVEEDORRISE"]);
+
+
+                        cbIdentificacionProveedor.SelectedItem = myRow["TIPOIDENTIFICACION"].ToString();
+                        cbNacionalidadProveedor.SelectedItem = myRow["NACIONALIDAD"].ToString();
+                        cbNaturalezaProveedor.SelectedItem = myRow["NATURALEZA"].ToString();
+                        cbTipoGastoProveedor.SelectedItem = myRow["TIPOGASTO"].ToString();
+
+
+                        int idservicion = consultas.ObtenerID("IDSERVICIO", "TbTipoServicio", " where DESCRIPCION = '" + myRow["TIPOSERVICIO"].ToString() + "' ");
+
+                        cbTipoServicioProveedor.SelectedValue = idservicion;
+                        int indexservicio = cbTipoServicioProveedor.SelectedIndex;
+                        cbTipoServicioProveedor.SelectedIndex = indexservicio;
+
+                        cbCuentaContableProveedor.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
+                        int indexcuenta = cbCuentaContableProveedor.SelectedIndex;
+                        cbCuentaContableProveedor.SelectedIndex = indexcuenta;
+
+                        //cbCreditoProveedor.SelectedValue = Convert.ToInt32(myRow["CREDITO"]);
+                        //int indexcredito = cbCreditoProveedor.SelectedIndex;
+                        //cbCreditoProveedor.SelectedIndex = indexcredito;
+                        consultas.BoolLlenarComboBox(cbCreditoProveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["CREDITO"]));
+                        consultas.BoolLlenarComboBox(cbICEProveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["ICE"]));
+                        consultas.BoolLlenarComboBox(cbCodigo101Proveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["CODIGO_101"]));
+
+                        //cbICEProveedor.SelectedValue = Convert.ToInt32(myRow["ICE"]);
+                        //int indexcIce = cbICEProveedor.SelectedIndex;
+                        //cbICEProveedor.SelectedIndex = indexcIce;
+
+                        //cbCodigo101Proveedor.SelectedValue = Convert.ToInt32(myRow["CODIGO_101"]);
+                        //int indexCodigo101 = cbCodigo101Proveedor.SelectedIndex;
+                        //cbCodigo101Proveedor.SelectedIndex = indexCodigo101;
+
+                        consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisProveedor, ref cbProvinciaProveedor, ref cbCantonProveedor, ref cbParroquiaProveedor);
+                    }
+
+                    btnLimpiarProveedor.Text = "&Cancelar";
+                    btnGuardarProveedor.Text = "&Modificar";
+                }
             }
         }
 
