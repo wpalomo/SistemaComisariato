@@ -72,6 +72,7 @@
     <Compile Include="Clases\EncabezadoNotaCredito.cs" />
     <Compile Include="Clases\EncabezadoOrdenGiro.cs" />
     <Compile Include="Clases\Funcion.cs" />
+    <Compile Include="Clases\InfoCompRetencion.cs" />
     <Compile Include="Clases\InfoFactura.cs" />
     <Compile Include="Clases\InfoTributaria.cs" />
     <Compile Include="Clases\ParametrosFactura.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Clases\Xml.cs" />
     <Compile Include="Clases\EncabezadoNotaDebito.cs" />
     <Compile Include="Clases\DetalleNotaDebito.cs" />
+    <Compile Include="Clases\XmlRetencion.cs" />
     <Compile Include="Formularios\FrmCambioClave.cs">
       <SubType>Form</SubType>
     </Compile>
