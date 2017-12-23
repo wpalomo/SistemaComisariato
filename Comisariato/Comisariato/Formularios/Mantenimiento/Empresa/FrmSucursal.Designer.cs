@@ -240,6 +240,7 @@
             this.txtTelefonoSucursal.Font = new System.Drawing.Font("Arial", 9.75F);
             this.txtTelefonoSucursal.Location = new System.Drawing.Point(373, 128);
             this.txtTelefonoSucursal.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtTelefonoSucursal.MaxLength = 10;
             this.txtTelefonoSucursal.Name = "txtTelefonoSucursal";
             this.txtTelefonoSucursal.Size = new System.Drawing.Size(132, 22);
             this.txtTelefonoSucursal.TabIndex = 5;
