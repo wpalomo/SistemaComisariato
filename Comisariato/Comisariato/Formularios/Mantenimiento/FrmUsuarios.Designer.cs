@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcUsuario = new System.Windows.Forms.TabControl();
             this.tpNuevoUsuario = new System.Windows.Forms.TabPage();
             this.btnLimpiarProveedor = new System.Windows.Forms.Button();
@@ -52,10 +54,15 @@
             this.rbtInactivos = new System.Windows.Forms.RadioButton();
             this.rbtActivos = new System.Windows.Forms.RadioButton();
             this.dgvDatosUsuario = new System.Windows.Forms.DataGridView();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txtConsultarUsuario = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contraseña = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.factura = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.empresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcUsuario.SuspendLayout();
             this.tpNuevoUsuario.SuspendLayout();
             this.gbDatosUsuario.SuspendLayout();
@@ -354,11 +361,9 @@
             this.dgvDatosUsuario.AllowUserToAddRows = false;
             this.dgvDatosUsuario.AllowUserToDeleteRows = false;
             this.dgvDatosUsuario.AllowUserToOrderColumns = true;
-            this.dgvDatosUsuario.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvDatosUsuario.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -367,27 +372,30 @@
             this.dgvDatosUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar,
-            this.Deshabilitar});
+            this.Deshabilitar,
+            this.usuario,
+            this.contraseña,
+            this.factura,
+            this.empresa,
+            this.id});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDatosUsuario.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDatosUsuario.Location = new System.Drawing.Point(18, 82);
             this.dgvDatosUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.dgvDatosUsuario.Name = "dgvDatosUsuario";
             this.dgvDatosUsuario.ReadOnly = true;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            this.dgvDatosUsuario.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDatosUsuario.Size = new System.Drawing.Size(586, 289);
             this.dgvDatosUsuario.TabIndex = 2;
             this.dgvDatosUsuario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosUsuario_CellClick);
             this.dgvDatosUsuario.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosUsuario_CellPainting);
-            // 
-            // Modificar
-            // 
-            this.Modificar.HeaderText = "";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.ReadOnly = true;
-            // 
-            // Deshabilitar
-            // 
-            this.Deshabilitar.HeaderText = "";
-            this.Deshabilitar.Name = "Deshabilitar";
-            this.Deshabilitar.ReadOnly = true;
             // 
             // txtConsultarUsuario
             // 
@@ -409,6 +417,55 @@
             this.label4.Size = new System.Drawing.Size(67, 16);
             this.label4.TabIndex = 0;
             this.label4.Text = "Consultar:";
+            // 
+            // Modificar
+            // 
+            this.Modificar.HeaderText = "";
+            this.Modificar.Name = "Modificar";
+            this.Modificar.ReadOnly = true;
+            this.Modificar.Width = 25;
+            // 
+            // Deshabilitar
+            // 
+            this.Deshabilitar.HeaderText = "";
+            this.Deshabilitar.Name = "Deshabilitar";
+            this.Deshabilitar.ReadOnly = true;
+            this.Deshabilitar.Width = 25;
+            // 
+            // usuario
+            // 
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
+            this.usuario.Width = 125;
+            // 
+            // contraseña
+            // 
+            this.contraseña.HeaderText = "Contraseña";
+            this.contraseña.Name = "contraseña";
+            this.contraseña.ReadOnly = true;
+            this.contraseña.Width = 125;
+            // 
+            // factura
+            // 
+            this.factura.HeaderText = "Factura";
+            this.factura.Name = "factura";
+            this.factura.ReadOnly = true;
+            this.factura.Width = 70;
+            // 
+            // empresa
+            // 
+            this.empresa.HeaderText = "Empresa";
+            this.empresa.Name = "empresa";
+            this.empresa.ReadOnly = true;
+            this.empresa.Width = 145;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
             // 
             // FrmUsuarios
             // 
@@ -468,5 +525,10 @@
         private System.Windows.Forms.RadioButton rbtActivos;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
         private System.Windows.Forms.DataGridViewButtonColumn Deshabilitar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contraseña;
+        private System.Windows.Forms.DataGridViewTextBoxColumn factura;
+        private System.Windows.Forms.DataGridViewTextBoxColumn empresa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
     }
 }
