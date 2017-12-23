@@ -284,10 +284,12 @@ namespace Comisariato.Clases
                     + " VALUES(" + MontoMinimoFactura + ",'" + iva + "','" + contribuyenteEspecial + "','" + obligadoContabilida + "',"+ idempresa +",'"+preimpresa+"','"+autorizadoParaImprimir+"')"))
                 {
                     idParametrosFactura = ObjConsulta.ObtenerID("IDPARAMETROSFACTURA", "TbParametrosFactura","");
-                    if (preimpresa)
-                    { InsertarPreimpresa(); }
-                    if (autorizadoParaImprimir)
-                    { InsertarAutorizadosImprimir(); }
+                    //if (preimpresa)
+                    //{ InsertarPreimpresa(); }
+                    InsertarPreimpresa();
+                    //if (autorizadoParaImprimir)
+                    //{ InsertarAutorizadosImprimir(); }
+                    InsertarAutorizadosImprimir();
                     return "Datos Guardados";
                 }
                 else { return "Error al Registrar"; }

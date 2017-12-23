@@ -51,6 +51,10 @@ namespace Comisariato.Formularios
         public static FrmCambioClave FrmCambioClave;
         public static FrmRegistrarIVA FrmRegistrarIVA;
 
+
+
+        public bool primerIngresoSistema;
+
         Bitacora  bitacora = new Bitacora();
         //public static void Panel
         public FrmPrincipal()
@@ -454,6 +458,11 @@ namespace Comisariato.Formularios
         }
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
+            if (primerIngresoSistema)
+            {
+                MessageBox.Show("Actualize los datos de la Empresa", "Bienvenido",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+
             menuMostrar = msPrincipal1;
             DataTable dt = objConsulta.BoolDataTable("Select FONDOPANTALLA from TbEmpresa where IDEMPRESA = 1");
             byte[] MyData = new byte[0];

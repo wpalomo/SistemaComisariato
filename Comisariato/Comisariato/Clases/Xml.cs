@@ -194,9 +194,9 @@ namespace Comisariato.Clases
             //nododirEstablecimiento.InnerText = dirEstablecimiento;
             //Nodoraiz.AppendChild(nododirEstablecimiento);
 
-            XmlElement nodocontribuyenteEspecial = doc.CreateElement("dirEstablecimiento");
-            nodocontribuyenteEspecial.InnerText = contribuyenteEspecial;
-            Nodoraiz.AppendChild(nodocontribuyenteEspecial);
+            XmlElement nododirEstablecimiento = doc.CreateElement("dirEstablecimiento");
+            nododirEstablecimiento.InnerText = dirEstablecimiento;
+            Nodoraiz.AppendChild(nododirEstablecimiento);
 
             XmlElement nodoobligadoContabilidad = doc.CreateElement("obligadoContabilidad");
             nodoobligadoContabilidad.InnerText = obligadoContabilidad;

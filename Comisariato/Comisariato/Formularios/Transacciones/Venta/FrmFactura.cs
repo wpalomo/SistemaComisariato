@@ -1263,7 +1263,6 @@ namespace Comisariato.Formularios.Transacciones
                         break;
                     }
                    
-                    
                    
                 }
             }
