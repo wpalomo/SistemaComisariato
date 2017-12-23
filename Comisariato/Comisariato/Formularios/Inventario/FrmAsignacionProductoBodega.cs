@@ -60,13 +60,21 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         public void llenardatos()
         {
-            String ID = cbEscogerBodega.SelectedValue.ToString();
-            objconsul = new Consultas();
-            DataTable dt = objconsul.BoolDataTable("Select UBICACION from TbBodega where IDBODEGA = " + ID + ";");
-            if (dt.Rows.Count > 0)
+            try
             {
-                DataRow row = dt.Rows[0];
-                txtUbicacionBodegaAsignacionProducto.Text = row["UBICACION"].ToString();
+
+                String ID = cbEscogerBodega.SelectedValue.ToString();
+                objconsul = new Consultas();
+                DataTable dt = objconsul.BoolDataTable("Select UBICACION from TbBodega where IDBODEGA = " + ID + ";");
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+                    txtUbicacionBodegaAsignacionProducto.Text = row["UBICACION"].ToString();
+                }
+            }
+            catch (Exception)
+            {
+
             }
         }
 

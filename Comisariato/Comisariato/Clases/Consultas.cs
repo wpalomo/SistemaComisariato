@@ -218,21 +218,29 @@ namespace Comisariato.Clases
 
         public DataTable BoolDataTable(String SQL)
         {
-            Objc.conectar();
-            SqlDataAdapter objDA;
-            DataTable objDS = new DataTable();
-            objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
-            //2. Llenar el DataSet
-            objDA.Fill(objDS);
-            Objc.Cerrar();
-            objDA.Dispose();
-            return objDS;
-            //3. DataBiding de los datos en el ComboBox    DataBiding el enlace de los datos
-            //cb.DataSource = objDS.Tables[0];
-            ////3b. Especificar el Datavalue y el DisplayMember
-            //cb.DisplayMember = "Texto";
-            //cb.ValueMember = "ID";
-            ////Liberar el DataApdater
+            try
+            {
+                Objc.conectar();
+                SqlDataAdapter objDA;
+                DataTable objDS = new DataTable();
+                objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
+                //2. Llenar el DataSet
+                objDA.Fill(objDS);
+                Objc.Cerrar();
+                objDA.Dispose();
+                return objDS;
+                //3. DataBiding de los datos en el ComboBox    DataBiding el enlace de los datos
+                //cb.DataSource = objDS.Tables[0];
+                ////3b. Especificar el Datavalue y el DisplayMember
+                //cb.DisplayMember = "Texto";
+                //cb.ValueMember = "ID";
+                ////Liberar el DataApdater
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
         public bool RegistrarCheque(DataGridView dg, int ultimafact)
         {
@@ -246,7 +254,7 @@ namespace Comisariato.Clases
                     if (Convert.ToString(dg.Rows[i].Cells[0].Value) != "")
                     {
                         precio = Funcion.reemplazarcaracter(dg.Rows[i].Cells[5].Value.ToString());
-                        Sentencia = new SqlCommand("INSERT INTO TbDatosCheque (NUMCHEQUE, NUMCUENTA, BANCO, FECHA, PROPIETARIO, MONTO, IDEMCABEZADOFACT) VALUES ( '" + dg.Rows[i].Cells[0].Value + "','" + dg.Rows[i].Cells[1].Value + "','" + Convert.ToString(dg.Rows[i].Cells[2].Value).ToUpper() + "','" + dg.Rows[i].Cells[3].Value + "','" + Convert.ToString(dg.Rows[i].Cells[4].Value).ToUpper() + "','" + precio + "','" + ultimafact + "')");
+                        Sentencia = new SqlCommand("INSERT INTO TbDatosCheque (NUMCHEQUE, NUMCUENTA, BANCO, FECHA, PROPIETARIO, MONTO, IDEMCABEZADOFACT) VALUES ( '" + dg.Rows[i].Cells[0].Value + "','" + dg.Rows[i].Cells[1].Value + "','" + Convert.ToString(dg.Rows[i].Cells[2].Value).ToUpper() + "','" + Funcion.reemplazarcaracterFecha(dg.Rows[i].Cells[3].Value.ToString()) + "','" + Convert.ToString(dg.Rows[i].Cells[4].Value).ToUpper() + "','" + precio + "','" + ultimafact + "')");
                         Sentencia.Connection = ConexionBD.connection;
                         Sentencia.ExecuteNonQuery();
                     }
@@ -279,7 +287,7 @@ namespace Comisariato.Clases
                     if (Convert.ToString(dg.Rows[i].Cells[0].Value) != "")
                     {
                         precio = Funcion.reemplazarcaracter(dg.Rows[i].Cells[2].Value.ToString());
-                        Sentencia = new SqlCommand("INSERT INTO TbDatosTarjeta (NUMCHEQUE, FECHA, MONTO, TIPOTARJETA, IDEMCABEZADOFACT) VALUES ( '" + dg.Rows[i].Cells[0].Value + "','" + dg.Rows[i].Cells[1].Value + "','" + dg.Rows[i].Cells[2].Value + "','" + Convert.ToString(dg.Rows[i].Cells[3].Value).ToUpper() + "','" + utl + "')");
+                        Sentencia = new SqlCommand("INSERT INTO TbDatosTarjeta (NUMCHEQUE, FECHA, MONTO, TIPOTARJETA, IDEMCABEZADOFACT) VALUES ( '" + dg.Rows[i].Cells[0].Value + "','" + Funcion.reemplazarcaracterFecha(dg.Rows[i].Cells[1].Value.ToString()) + "','" + dg.Rows[i].Cells[2].Value + "','" + Convert.ToString(dg.Rows[i].Cells[3].Value).ToUpper() + "','" + utl + "')");
                         Sentencia.Connection = ConexionBD.connection;
                         Sentencia.ExecuteNonQuery();
                     }
@@ -338,7 +346,7 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@sucursal", Convert.ToInt32(enca[0]));
                     cmd.Parameters.AddWithValue("@caja", Convert.ToInt32(enca[1]));
                     cmd.Parameters.AddWithValue("@numfact", Convert.ToInt32(enca[2]));
-                    cmd.Parameters.AddWithValue("@fecha", enca[3]);
+                    cmd.Parameters.AddWithValue("@fecha", Funcion.reemplazarcaracterFecha(enca[3]));
                     cmd.Parameters.AddWithValue("@hora", enca[4]);
                     cmd.Parameters.AddWithValue("@descuento", detalle[0]);
                     cmd.Parameters.AddWithValue("@cant", dg.Rows[i].Cells[2].Value);
@@ -937,7 +945,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@IMAGEN", ObjEmp.Foto);
                 cmd.Parameters.AddWithValue("@IDPARROQUIA", ObjEmp.IdParroquia);
                 cmd.Parameters.AddWithValue("@EMAIL", ObjEmp.Email);
-                cmd.Parameters.AddWithValue("@FECHANACIMIENTO", ObjEmp.FechaNacimiento.Date.ToShortDateString());
+                cmd.Parameters.AddWithValue("@FECHANACIMIENTO", Funcion.reemplazarcaracterFecha(ObjEmp.FechaNacimiento.Date.ToShortDateString()));
                 cmd.Parameters.AddWithValue("@TIPOLICENCIA", ObjEmp.Tipolicencia.ToUpper());
                 cmd.Parameters.AddWithValue("@TIPOSANGRE", ObjEmp.TipoSangre.ToUpper());
                 cmd.Parameters.AddWithValue("@LIBRETAMILITAR", ObjEmp.Libretamilitar);
@@ -1052,7 +1060,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@GERENTE", ObjEmpresa.Gerente.ToUpper());
                 cmd.Parameters.AddWithValue("@DIRECCION", ObjEmpresa.Direccion.ToUpper());
                 cmd.Parameters.AddWithValue("@EMAIL", ObjEmpresa.EmailEmpresa);
-                cmd.Parameters.AddWithValue("@FECHAINICIOCONTABLE", ObjEmpresa.FechaInicioContable.Date.ToShortDateString());
+                cmd.Parameters.AddWithValue("@FECHAINICIOCONTABLE", Funcion.reemplazarcaracterFecha(ObjEmpresa.FechaInicioContable.Date.ToShortDateString()));
                 cmd.Parameters.AddWithValue("@CELULAR1", ObjEmpresa.Celular1Empresa);
                 cmd.Parameters.AddWithValue("@CELULAR2", ObjEmpresa.Celular2Empresa);
                 cmd.Parameters.AddWithValue("@RUCCONTADOR", ObjEmpresa.RucContador);

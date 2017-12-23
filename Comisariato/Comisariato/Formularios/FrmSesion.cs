@@ -207,7 +207,7 @@ namespace Comisariato
                         {
                             // Program.Usuario = txtUsuario.Text;
                             //Program.IDUsuario=
-                            Program.FecaInicio = DateTime.Now.Date.ToShortDateString();
+                            Program.FecaInicio = Funcion.reemplazarcaracterFecha(DateTime.Now.Date.ToShortDateString());
                             Program.horainicio = DateTime.Now.TimeOfDay.ToString();
                             FrmPrincipal p = new FrmPrincipal();
                             Bitacora ObjBitacora = new Bitacora("00:00:00", "Inicio de Sessión");
