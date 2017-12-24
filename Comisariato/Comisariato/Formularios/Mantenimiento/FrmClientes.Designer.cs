@@ -30,7 +30,6 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcCliente = new System.Windows.Forms.TabControl();
             this.tpNuevoCliente = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -123,10 +122,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.tpConsultarModificarCliente = new System.Windows.Forms.TabPage();
             this.dgvDatosCliente = new System.Windows.Forms.DataGridView();
-            this.rbtInactivosCliente = new System.Windows.Forms.RadioButton();
-            this.rbtActivosCliente = new System.Windows.Forms.RadioButton();
-            this.txtConsultarCliente = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
             this.modificarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
             this.DeshabilitarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
             this.cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -137,6 +132,10 @@
             this.tipoCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.credito = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rbtInactivosCliente = new System.Windows.Forms.RadioButton();
+            this.rbtActivosCliente = new System.Windows.Forms.RadioButton();
+            this.txtConsultarCliente = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.tcCliente.SuspendLayout();
             this.tpNuevoCliente.SuspendLayout();
             this.gbDatosPersonalesClientes.SuspendLayout();
@@ -1313,7 +1312,7 @@
             this.dgvDatosCliente.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1334,72 +1333,16 @@
             this.dgvDatosCliente.Location = new System.Drawing.Point(16, 86);
             this.dgvDatosCliente.Name = "dgvDatosCliente";
             this.dgvDatosCliente.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9.75F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosCliente.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            this.dgvDatosCliente.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            this.dgvDatosCliente.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDatosCliente.Size = new System.Drawing.Size(1011, 460);
             this.dgvDatosCliente.TabIndex = 10;
             this.dgvDatosCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellClick);
             this.dgvDatosCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellContentClick);
+            this.dgvDatosCliente.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatosCliente_CellFormatting);
             this.dgvDatosCliente.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosCliente_CellPainting);
-            // 
-            // rbtInactivosCliente
-            // 
-            this.rbtInactivosCliente.AutoSize = true;
-            this.rbtInactivosCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtInactivosCliente.ForeColor = System.Drawing.Color.Teal;
-            this.rbtInactivosCliente.Location = new System.Drawing.Point(470, 59);
-            this.rbtInactivosCliente.Name = "rbtInactivosCliente";
-            this.rbtInactivosCliente.Size = new System.Drawing.Size(79, 20);
-            this.rbtInactivosCliente.TabIndex = 9;
-            this.rbtInactivosCliente.Text = "Inactivos";
-            this.rbtInactivosCliente.UseVisualStyleBackColor = true;
-            // 
-            // rbtActivosCliente
-            // 
-            this.rbtActivosCliente.AutoSize = true;
-            this.rbtActivosCliente.Checked = true;
-            this.rbtActivosCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtActivosCliente.ForeColor = System.Drawing.Color.Teal;
-            this.rbtActivosCliente.Location = new System.Drawing.Point(382, 59);
-            this.rbtActivosCliente.Name = "rbtActivosCliente";
-            this.rbtActivosCliente.Size = new System.Drawing.Size(70, 20);
-            this.rbtActivosCliente.TabIndex = 8;
-            this.rbtActivosCliente.TabStop = true;
-            this.rbtActivosCliente.Text = "Activos";
-            this.rbtActivosCliente.UseVisualStyleBackColor = true;
-            this.rbtActivosCliente.CheckedChanged += new System.EventHandler(this.rbtActivosCliente_CheckedChanged);
-            // 
-            // txtConsultarCliente
-            // 
-            this.txtConsultarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConsultarCliente.Location = new System.Drawing.Point(253, 22);
-            this.txtConsultarCliente.Margin = new System.Windows.Forms.Padding(2);
-            this.txtConsultarCliente.Name = "txtConsultarCliente";
-            this.txtConsultarCliente.Size = new System.Drawing.Size(490, 22);
-            this.txtConsultarCliente.TabIndex = 5;
-            this.txtConsultarCliente.TextChanged += new System.EventHandler(this.txtConsultarCliente_TextChanged);
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.ForeColor = System.Drawing.Color.Teal;
-            this.label25.Location = new System.Drawing.Point(155, 26);
-            this.label25.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(67, 16);
-            this.label25.TabIndex = 4;
-            this.label25.Text = "Consultar:";
             // 
             // modificarCliente
             // 
@@ -1472,6 +1415,55 @@
             this.id.Name = "id";
             this.id.ReadOnly = true;
             this.id.Visible = false;
+            // 
+            // rbtInactivosCliente
+            // 
+            this.rbtInactivosCliente.AutoSize = true;
+            this.rbtInactivosCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtInactivosCliente.ForeColor = System.Drawing.Color.Teal;
+            this.rbtInactivosCliente.Location = new System.Drawing.Point(470, 59);
+            this.rbtInactivosCliente.Name = "rbtInactivosCliente";
+            this.rbtInactivosCliente.Size = new System.Drawing.Size(79, 20);
+            this.rbtInactivosCliente.TabIndex = 9;
+            this.rbtInactivosCliente.Text = "Inactivos";
+            this.rbtInactivosCliente.UseVisualStyleBackColor = true;
+            // 
+            // rbtActivosCliente
+            // 
+            this.rbtActivosCliente.AutoSize = true;
+            this.rbtActivosCliente.Checked = true;
+            this.rbtActivosCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtActivosCliente.ForeColor = System.Drawing.Color.Teal;
+            this.rbtActivosCliente.Location = new System.Drawing.Point(382, 59);
+            this.rbtActivosCliente.Name = "rbtActivosCliente";
+            this.rbtActivosCliente.Size = new System.Drawing.Size(70, 20);
+            this.rbtActivosCliente.TabIndex = 8;
+            this.rbtActivosCliente.TabStop = true;
+            this.rbtActivosCliente.Text = "Activos";
+            this.rbtActivosCliente.UseVisualStyleBackColor = true;
+            this.rbtActivosCliente.CheckedChanged += new System.EventHandler(this.rbtActivosCliente_CheckedChanged);
+            // 
+            // txtConsultarCliente
+            // 
+            this.txtConsultarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConsultarCliente.Location = new System.Drawing.Point(253, 22);
+            this.txtConsultarCliente.Margin = new System.Windows.Forms.Padding(2);
+            this.txtConsultarCliente.Name = "txtConsultarCliente";
+            this.txtConsultarCliente.Size = new System.Drawing.Size(490, 22);
+            this.txtConsultarCliente.TabIndex = 5;
+            this.txtConsultarCliente.TextChanged += new System.EventHandler(this.txtConsultarCliente_TextChanged);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.Teal;
+            this.label25.Location = new System.Drawing.Point(155, 26);
+            this.label25.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(67, 16);
+            this.label25.TabIndex = 4;
+            this.label25.Text = "Consultar:";
             // 
             // FrmClientes
             // 

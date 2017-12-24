@@ -486,7 +486,13 @@ namespace Comisariato.Formularios.Mantenimiento
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celBoton = DgvDatosEmpleado.Rows[e.RowIndex].Cells["Modificar"] as DataGridViewButtonCell;
-                Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+                //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+
+                Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.modificarDgv);
+                IntPtr Hicon = bitmap.GetHicon();
+                Icon icoAtomico = Icon.FromHandle(Hicon);
+                //bitmap.SetResolution(72, 72);
+
                 e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 DgvDatosEmpleado.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                 DgvDatosEmpleado.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -501,7 +507,13 @@ namespace Comisariato.Formularios.Mantenimiento
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                     DataGridViewButtonCell celBoton = this.DgvDatosEmpleado.Rows[e.RowIndex].Cells["Deshabilitar"] as DataGridViewButtonCell;
-                    Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+                    //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+
+                    Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.Habilitar);
+                    IntPtr Hicon = bitmap.GetHicon();
+                    Icon icoAtomico = Icon.FromHandle(Hicon);
+                    //bitmap.SetResolution(72, 72);
+
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.DgvDatosEmpleado.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.DgvDatosEmpleado.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -515,7 +527,13 @@ namespace Comisariato.Formularios.Mantenimiento
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                     DataGridViewButtonCell celBoton = this.DgvDatosEmpleado.Rows[e.RowIndex].Cells["Deshabilitar"] as DataGridViewButtonCell;
-                    Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\EliminarDgv.ico");
+                    //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\EliminarDgv.ico");
+
+                    Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.EliminarDgv);
+                    IntPtr Hicon = bitmap.GetHicon();
+                    Icon icoAtomico = Icon.FromHandle(Hicon);
+                    //bitmap.SetResolution(72, 72);
+
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.DgvDatosEmpleado.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.DgvDatosEmpleado.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;

@@ -323,7 +323,13 @@ namespace Comisariato.Formularios
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celBoton = dgvDatosEmpresa.Rows[e.RowIndex].Cells["Modificar"] as DataGridViewButtonCell;
-                Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+                //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+
+                Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.modificarDgv);
+                IntPtr Hicon = bitmap.GetHicon();
+                Icon icoAtomico = Icon.FromHandle(Hicon);
+                //bitmap.SetResolution(72, 72);
+
                 e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 dgvDatosEmpresa.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                 dgvDatosEmpresa.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;

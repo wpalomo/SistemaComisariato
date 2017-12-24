@@ -32,16 +32,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcEmpresa = new System.Windows.Forms.TabControl();
             this.tpNuevaEmpresa = new System.Windows.Forms.TabPage();
-            this.btnLimpiarEmpresa = new System.Windows.Forms.Button();
-            this.btnGuardarEmpresa = new System.Windows.Forms.Button();
             this.gbFondoPantallaEmpresa = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnBuscarFondoEmpresa = new System.Windows.Forms.Button();
-            this.pbfondoPantallaEmpresa = new System.Windows.Forms.PictureBox();
             this.gbLogoEmpresa = new System.Windows.Forms.GroupBox();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnBuscarLogoEmpresa = new System.Windows.Forms.Button();
-            this.pbLogoEmpresa = new System.Windows.Forms.PictureBox();
             this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
             this.gbParametrosGeneralesEmpresa = new System.Windows.Forms.GroupBox();
             this.tcParametrosGeneralesEmpresa = new System.Windows.Forms.TabControl();
@@ -83,18 +77,24 @@
             this.label8 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.btnLimpiarEmpresa = new System.Windows.Forms.Button();
+            this.btnGuardarEmpresa = new System.Windows.Forms.Button();
+            this.btnBuscarFondoEmpresa = new System.Windows.Forms.Button();
+            this.pbfondoPantallaEmpresa = new System.Windows.Forms.PictureBox();
+            this.btnBuscarLogoEmpresa = new System.Windows.Forms.Button();
+            this.pbLogoEmpresa = new System.Windows.Forms.PictureBox();
             this.tcEmpresa.SuspendLayout();
             this.tpNuevaEmpresa.SuspendLayout();
             this.gbFondoPantallaEmpresa.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbfondoPantallaEmpresa)).BeginInit();
             this.gbLogoEmpresa.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogoEmpresa)).BeginInit();
             this.gbParametrosGeneralesEmpresa.SuspendLayout();
             this.tcParametrosGeneralesEmpresa.SuspendLayout();
             this.tpDatosEmpresa.SuspendLayout();
             this.tpDatosContadorEmpresa.SuspendLayout();
             this.tpConsultarModificarDeshabilitarEmpresa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatosEmpresa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbfondoPantallaEmpresa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogoEmpresa)).BeginInit();
             this.SuspendLayout();
             // 
             // tcEmpresa
@@ -128,34 +128,6 @@
             this.tpNuevaEmpresa.TabIndex = 0;
             this.tpNuevaEmpresa.Text = "Nueva Empresa";
             // 
-            // btnLimpiarEmpresa
-            // 
-            this.btnLimpiarEmpresa.Image = global::Comisariato.Properties.Resources.limpiar;
-            this.btnLimpiarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpiarEmpresa.Location = new System.Drawing.Point(743, 298);
-            this.btnLimpiarEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.btnLimpiarEmpresa.Name = "btnLimpiarEmpresa";
-            this.btnLimpiarEmpresa.Size = new System.Drawing.Size(140, 74);
-            this.btnLimpiarEmpresa.TabIndex = 19;
-            this.btnLimpiarEmpresa.Text = "&Limpiar";
-            this.btnLimpiarEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnLimpiarEmpresa.UseVisualStyleBackColor = true;
-            this.btnLimpiarEmpresa.Click += new System.EventHandler(this.btnLimpiarEmpresa_Click);
-            // 
-            // btnGuardarEmpresa
-            // 
-            this.btnGuardarEmpresa.Image = global::Comisariato.Properties.Resources.guardar11;
-            this.btnGuardarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardarEmpresa.Location = new System.Drawing.Point(589, 298);
-            this.btnGuardarEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGuardarEmpresa.Name = "btnGuardarEmpresa";
-            this.btnGuardarEmpresa.Size = new System.Drawing.Size(140, 74);
-            this.btnGuardarEmpresa.TabIndex = 18;
-            this.btnGuardarEmpresa.Text = "&Guardar";
-            this.btnGuardarEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGuardarEmpresa.UseVisualStyleBackColor = true;
-            this.btnGuardarEmpresa.Click += new System.EventHandler(this.btnGuardarEmpresa_Click);
-            // 
             // gbFondoPantallaEmpresa
             // 
             this.gbFondoPantallaEmpresa.Controls.Add(this.button1);
@@ -182,32 +154,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // btnBuscarFondoEmpresa
-            // 
-            this.btnBuscarFondoEmpresa.Image = global::Comisariato.Properties.Resources.buscar2;
-            this.btnBuscarFondoEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscarFondoEmpresa.Location = new System.Drawing.Point(13, 137);
-            this.btnBuscarFondoEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBuscarFondoEmpresa.Name = "btnBuscarFondoEmpresa";
-            this.btnBuscarFondoEmpresa.Size = new System.Drawing.Size(95, 45);
-            this.btnBuscarFondoEmpresa.TabIndex = 17;
-            this.btnBuscarFondoEmpresa.Text = "Imagen";
-            this.btnBuscarFondoEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnBuscarFondoEmpresa.UseVisualStyleBackColor = true;
-            this.btnBuscarFondoEmpresa.Click += new System.EventHandler(this.btnBuscarFondoEmpresa_Click);
-            // 
-            // pbfondoPantallaEmpresa
-            // 
-            this.pbfondoPantallaEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbfondoPantallaEmpresa.Image = global::Comisariato.Properties.Resources.contact;
-            this.pbfondoPantallaEmpresa.Location = new System.Drawing.Point(48, 25);
-            this.pbfondoPantallaEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.pbfondoPantallaEmpresa.Name = "pbfondoPantallaEmpresa";
-            this.pbfondoPantallaEmpresa.Size = new System.Drawing.Size(118, 107);
-            this.pbfondoPantallaEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbfondoPantallaEmpresa.TabIndex = 0;
-            this.pbfondoPantallaEmpresa.TabStop = false;
-            // 
             // gbLogoEmpresa
             // 
             this.gbLogoEmpresa.Controls.Add(this.btnCancelar);
@@ -233,32 +179,6 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnBuscarLogoEmpresa
-            // 
-            this.btnBuscarLogoEmpresa.Image = global::Comisariato.Properties.Resources.buscar2;
-            this.btnBuscarLogoEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscarLogoEmpresa.Location = new System.Drawing.Point(12, 138);
-            this.btnBuscarLogoEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBuscarLogoEmpresa.Name = "btnBuscarLogoEmpresa";
-            this.btnBuscarLogoEmpresa.Size = new System.Drawing.Size(87, 44);
-            this.btnBuscarLogoEmpresa.TabIndex = 16;
-            this.btnBuscarLogoEmpresa.Text = "Logo";
-            this.btnBuscarLogoEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnBuscarLogoEmpresa.UseVisualStyleBackColor = true;
-            this.btnBuscarLogoEmpresa.Click += new System.EventHandler(this.btnBuscarLogoEmpresa_Click);
-            // 
-            // pbLogoEmpresa
-            // 
-            this.pbLogoEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbLogoEmpresa.Image = global::Comisariato.Properties.Resources.contact;
-            this.pbLogoEmpresa.Location = new System.Drawing.Point(50, 22);
-            this.pbLogoEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.pbLogoEmpresa.Name = "pbLogoEmpresa";
-            this.pbLogoEmpresa.Size = new System.Drawing.Size(115, 107);
-            this.pbLogoEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbLogoEmpresa.TabIndex = 0;
-            this.pbLogoEmpresa.TabStop = false;
             // 
             // txtNombreEmpresa
             // 
@@ -711,6 +631,86 @@
             this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // btnLimpiarEmpresa
+            // 
+            this.btnLimpiarEmpresa.Image = global::Comisariato.Properties.Resources.limpiar;
+            this.btnLimpiarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLimpiarEmpresa.Location = new System.Drawing.Point(743, 298);
+            this.btnLimpiarEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLimpiarEmpresa.Name = "btnLimpiarEmpresa";
+            this.btnLimpiarEmpresa.Size = new System.Drawing.Size(140, 74);
+            this.btnLimpiarEmpresa.TabIndex = 19;
+            this.btnLimpiarEmpresa.Text = "&Limpiar";
+            this.btnLimpiarEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLimpiarEmpresa.UseVisualStyleBackColor = true;
+            this.btnLimpiarEmpresa.Click += new System.EventHandler(this.btnLimpiarEmpresa_Click);
+            // 
+            // btnGuardarEmpresa
+            // 
+            this.btnGuardarEmpresa.Image = global::Comisariato.Properties.Resources.guardar11;
+            this.btnGuardarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGuardarEmpresa.Location = new System.Drawing.Point(589, 298);
+            this.btnGuardarEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGuardarEmpresa.Name = "btnGuardarEmpresa";
+            this.btnGuardarEmpresa.Size = new System.Drawing.Size(140, 74);
+            this.btnGuardarEmpresa.TabIndex = 18;
+            this.btnGuardarEmpresa.Text = "&Guardar";
+            this.btnGuardarEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGuardarEmpresa.UseVisualStyleBackColor = true;
+            this.btnGuardarEmpresa.Click += new System.EventHandler(this.btnGuardarEmpresa_Click);
+            // 
+            // btnBuscarFondoEmpresa
+            // 
+            this.btnBuscarFondoEmpresa.Image = global::Comisariato.Properties.Resources.buscar2;
+            this.btnBuscarFondoEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuscarFondoEmpresa.Location = new System.Drawing.Point(13, 137);
+            this.btnBuscarFondoEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBuscarFondoEmpresa.Name = "btnBuscarFondoEmpresa";
+            this.btnBuscarFondoEmpresa.Size = new System.Drawing.Size(95, 45);
+            this.btnBuscarFondoEmpresa.TabIndex = 17;
+            this.btnBuscarFondoEmpresa.Text = "Imagen";
+            this.btnBuscarFondoEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBuscarFondoEmpresa.UseVisualStyleBackColor = true;
+            this.btnBuscarFondoEmpresa.Click += new System.EventHandler(this.btnBuscarFondoEmpresa_Click);
+            // 
+            // pbfondoPantallaEmpresa
+            // 
+            this.pbfondoPantallaEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbfondoPantallaEmpresa.Image = global::Comisariato.Properties.Resources.contact;
+            this.pbfondoPantallaEmpresa.Location = new System.Drawing.Point(48, 25);
+            this.pbfondoPantallaEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.pbfondoPantallaEmpresa.Name = "pbfondoPantallaEmpresa";
+            this.pbfondoPantallaEmpresa.Size = new System.Drawing.Size(118, 107);
+            this.pbfondoPantallaEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbfondoPantallaEmpresa.TabIndex = 0;
+            this.pbfondoPantallaEmpresa.TabStop = false;
+            // 
+            // btnBuscarLogoEmpresa
+            // 
+            this.btnBuscarLogoEmpresa.Image = global::Comisariato.Properties.Resources.buscar2;
+            this.btnBuscarLogoEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuscarLogoEmpresa.Location = new System.Drawing.Point(12, 138);
+            this.btnBuscarLogoEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBuscarLogoEmpresa.Name = "btnBuscarLogoEmpresa";
+            this.btnBuscarLogoEmpresa.Size = new System.Drawing.Size(87, 44);
+            this.btnBuscarLogoEmpresa.TabIndex = 16;
+            this.btnBuscarLogoEmpresa.Text = "Logo";
+            this.btnBuscarLogoEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBuscarLogoEmpresa.UseVisualStyleBackColor = true;
+            this.btnBuscarLogoEmpresa.Click += new System.EventHandler(this.btnBuscarLogoEmpresa_Click);
+            // 
+            // pbLogoEmpresa
+            // 
+            this.pbLogoEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbLogoEmpresa.Image = global::Comisariato.Properties.Resources.contact;
+            this.pbLogoEmpresa.Location = new System.Drawing.Point(50, 22);
+            this.pbLogoEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.pbLogoEmpresa.Name = "pbLogoEmpresa";
+            this.pbLogoEmpresa.Size = new System.Drawing.Size(115, 107);
+            this.pbLogoEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLogoEmpresa.TabIndex = 0;
+            this.pbLogoEmpresa.TabStop = false;
+            // 
             // FrmEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -732,9 +732,7 @@
             this.tpNuevaEmpresa.ResumeLayout(false);
             this.tpNuevaEmpresa.PerformLayout();
             this.gbFondoPantallaEmpresa.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbfondoPantallaEmpresa)).EndInit();
             this.gbLogoEmpresa.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogoEmpresa)).EndInit();
             this.gbParametrosGeneralesEmpresa.ResumeLayout(false);
             this.tcParametrosGeneralesEmpresa.ResumeLayout(false);
             this.tpDatosEmpresa.ResumeLayout(false);
@@ -744,6 +742,8 @@
             this.tpConsultarModificarDeshabilitarEmpresa.ResumeLayout(false);
             this.tpConsultarModificarDeshabilitarEmpresa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatosEmpresa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbfondoPantallaEmpresa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogoEmpresa)).EndInit();
             this.ResumeLayout(false);
 
         }

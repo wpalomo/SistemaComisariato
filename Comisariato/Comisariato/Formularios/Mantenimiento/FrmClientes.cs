@@ -18,10 +18,13 @@ namespace Comisariato.Formularios
         public FrmClientes()
         {
             InitializeComponent();
+            StatusImgs = new Image[] { Comisariato.Properties.Resources.Habilitar, Comisariato.Properties.Resources.EliminarDgv, Comisariato.Properties.Resources.modificarDgv };
         }
         Consultas consultas;
         bool bandera_Estado = false;
         String identificacion = "";
+        private Image[] StatusImgs;
+
 
         public void inicializarDatos()
         {
@@ -538,21 +541,26 @@ namespace Comisariato.Formularios
             txtCasillaCliente.SelectAll();
         }
 
+        //private Image[] StatusImgs;
         private void dgvDatosCliente_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
+            //StatusImgs = new Image[] { Comisariato.Properties.Resources.inicio, Comisariato.Properties.Resources.inicio };
             if (e.ColumnIndex >= 0 && dgvDatosCliente.Columns[e.ColumnIndex].Name == "modificarCliente" && e.RowIndex >= 0)
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celBoton = dgvDatosCliente.Rows[e.RowIndex].Cells["modificarCliente"] as DataGridViewButtonCell;
-                Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
 
-                PictureBox nuevopicture = new PictureBox();
-                nuevopicture.Image = global::Comisariato.Properties.Resources.Modificar;
+                Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.modificarDgv);
+                IntPtr Hicon = bitmap.GetHicon();
+                Icon icoAtomico = Icon.FromHandle(Hicon);
+                //bitmap.SetResolution(72, 72);
+
 
                 e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 dgvDatosCliente.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                 dgvDatosCliente.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
                 e.Handled = true;
+
             }
 
             if (rbtInactivosCliente.Checked)
@@ -563,7 +571,12 @@ namespace Comisariato.Formularios
 
                     DataGridViewButtonCell celBoton = this.dgvDatosCliente.Rows[e.RowIndex].Cells["DeshabilitarCliente"] as DataGridViewButtonCell;
                     //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
-                    Icon icoAtomico = new Icon(Comisariato.Properties.Resources.Modificar.ToString());
+
+                    Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.Habilitar);
+                    IntPtr Hicon = bitmap.GetHicon();
+                    Icon icoAtomico = Icon.FromHandle(Hicon);
+                    //bitmap.SetResolution(72, 72);
+
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.dgvDatosCliente.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.dgvDatosCliente.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -577,7 +590,13 @@ namespace Comisariato.Formularios
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                     DataGridViewButtonCell celBoton = this.dgvDatosCliente.Rows[e.RowIndex].Cells["DeshabilitarCliente"] as DataGridViewButtonCell;
-                    Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\EliminarDgv.ico");
+                    //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\EliminarDgv.ico");
+
+                    Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.EliminarDgv);
+                    IntPtr Hicon = bitmap.GetHicon();
+                    Icon icoAtomico = Icon.FromHandle(Hicon);
+                    //bitmap.SetResolution(72, 72);
+
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.dgvDatosCliente.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.dgvDatosCliente.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -729,6 +748,30 @@ namespace Comisariato.Formularios
         private void txtCasillaCliente_Click(object sender, EventArgs e)
         {
             txtCasillaCliente.SelectAll();
+        }
+
+        private void dgvDatosCliente_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+            //if (e.ColumnIndex >= 0 && dgvDatosCliente.Columns[e.ColumnIndex].Name == "modificarCliente" && e.RowIndex >= 0)
+            //{
+            //    dgvDatosCliente.Rows[e.RowIndex].Cells["DeshabilitarCliente"].Value = StatusImgs[0];
+            //}
+
+            //if (rbtInactivosCliente.Checked)
+            //{
+            //    if (e.ColumnIndex >= 1 && this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente" && e.RowIndex >= 0)
+            //    {
+            //        dgvDatosCliente.Rows[e.RowIndex].Cells["DeshabilitarCliente"].Value = StatusImgs[0];
+            //    }
+            //}
+            //else
+            //{
+            //    if (e.ColumnIndex >= 1 && this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente" && e.RowIndex >= 0)
+            //    {
+            //        dgvDatosCliente.Rows[e.RowIndex].Cells["DeshabilitarCliente"].Value = StatusImgs[1];
+            //    }
+            //}
         }
     }
 }
