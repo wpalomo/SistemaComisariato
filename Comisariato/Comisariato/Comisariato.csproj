@@ -639,6 +639,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icono_aircontrol.ico" />
+    <None Include="Resources\modificarDgv.ico" />
     <None Include="Resources\EliminarDgv1.ico" />
     <None Include="Resources\EliminarDgv.ico" />
     <None Include="Resources\Habilitar1.ico" />

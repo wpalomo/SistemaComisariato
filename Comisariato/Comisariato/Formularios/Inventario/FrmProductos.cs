@@ -677,7 +677,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 DataGridViewButtonCell celBoton = dgvDatosProducto.Rows[e.RowIndex].Cells["Modificar"] as DataGridViewButtonCell;
                 //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
 
-                Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.Modificar);
+                Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.modificarDgv);
                 IntPtr Hicon = bitmap.GetHicon();
                 Icon icoAtomico = Icon.FromHandle(Hicon);
                 //bitmap.SetResolution(72, 72);

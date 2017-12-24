@@ -908,7 +908,7 @@
             // PictureFoto
             // 
             this.PictureFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PictureFoto.Image = global::Comisariato.Properties.Resources.EliminarDgv1;
+            this.PictureFoto.Image = global::Comisariato.Properties.Resources.contact;
             this.PictureFoto.Location = new System.Drawing.Point(27, 21);
             this.PictureFoto.Name = "PictureFoto";
             this.PictureFoto.Size = new System.Drawing.Size(140, 147);
