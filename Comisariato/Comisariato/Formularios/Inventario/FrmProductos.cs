@@ -73,8 +73,13 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
         private void cargarDatos(string condicion)
         {
             Objconsul = new Consultas();
-            Objconsul.boolLlenarDataGridView(dgvDatosProducto, "Select * from View_VistaFinalProducto P" +
+            //Objconsul.boolLlenarDataGridView(dgvDatosProducto, "Select * from View_VistaFinalProducto P" +
+            //" WHERE P.ACTIVO = " + condicion + ";");
+
+
+            Objconsul.BoolCrearDateTableProductos(dgvDatosProducto, "Select * from View_VistaFinalProducto P" +
             " WHERE P.ACTIVO = " + condicion + ";");
+
             dgvDatosProducto.Columns["ID"].Visible = false;
             dgvDatosProducto.Columns["ACTIVO"].Visible = false;
             DataGridViewColumn col = dgvDatosProducto.Columns["P.V.P."];
