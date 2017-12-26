@@ -59,6 +59,7 @@ namespace Comisariato
                         c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
                     //BtnIniciar_Click(null, null);
                     PrimerIngresoSistemaLogin = true;
+
                     //}
 
                 }

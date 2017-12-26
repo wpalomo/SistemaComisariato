@@ -48,6 +48,8 @@ namespace Comisariato
         //otros
         public static int tamañoVentanaPrincipal;
 
+
+
         //-----------------------------------------
         [STAThread]
         static void Main()
