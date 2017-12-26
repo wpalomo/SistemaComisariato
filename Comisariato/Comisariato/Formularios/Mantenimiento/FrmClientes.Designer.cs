@@ -122,20 +122,12 @@
             this.label18 = new System.Windows.Forms.Label();
             this.tpConsultarModificarCliente = new System.Windows.Forms.TabPage();
             this.dgvDatosCliente = new System.Windows.Forms.DataGridView();
-            this.modificarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DeshabilitarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cedula = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombres = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.apellidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.celular = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.credito = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rbtInactivosCliente = new System.Windows.Forms.RadioButton();
             this.rbtActivosCliente = new System.Windows.Forms.RadioButton();
             this.txtConsultarCliente = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.modificarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DeshabilitarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tcCliente.SuspendLayout();
             this.tpNuevoCliente.SuspendLayout();
             this.gbDatosPersonalesClientes.SuspendLayout();
@@ -1321,15 +1313,7 @@
             this.dgvDatosCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosCliente.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.modificarCliente,
-            this.DeshabilitarCliente,
-            this.cedula,
-            this.nombres,
-            this.apellidos,
-            this.direccion,
-            this.celular,
-            this.tipoCliente,
-            this.credito,
-            this.id});
+            this.DeshabilitarCliente});
             this.dgvDatosCliente.Location = new System.Drawing.Point(16, 86);
             this.dgvDatosCliente.Name = "dgvDatosCliente";
             this.dgvDatosCliente.ReadOnly = true;
@@ -1344,78 +1328,6 @@
             this.dgvDatosCliente.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatosCliente_CellFormatting);
             this.dgvDatosCliente.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosCliente_CellPainting);
             // 
-            // modificarCliente
-            // 
-            this.modificarCliente.FillWeight = 105F;
-            this.modificarCliente.HeaderText = "";
-            this.modificarCliente.Name = "modificarCliente";
-            this.modificarCliente.ReadOnly = true;
-            this.modificarCliente.Text = "";
-            this.modificarCliente.Width = 35;
-            // 
-            // DeshabilitarCliente
-            // 
-            this.DeshabilitarCliente.FillWeight = 105F;
-            this.DeshabilitarCliente.HeaderText = "";
-            this.DeshabilitarCliente.Name = "DeshabilitarCliente";
-            this.DeshabilitarCliente.ReadOnly = true;
-            this.DeshabilitarCliente.Width = 35;
-            // 
-            // cedula
-            // 
-            this.cedula.HeaderText = "Cedula";
-            this.cedula.Name = "cedula";
-            this.cedula.ReadOnly = true;
-            // 
-            // nombres
-            // 
-            this.nombres.HeaderText = "Nombres";
-            this.nombres.Name = "nombres";
-            this.nombres.ReadOnly = true;
-            this.nombres.Width = 175;
-            // 
-            // apellidos
-            // 
-            this.apellidos.HeaderText = "Apellidos";
-            this.apellidos.Name = "apellidos";
-            this.apellidos.ReadOnly = true;
-            this.apellidos.Width = 175;
-            // 
-            // direccion
-            // 
-            this.direccion.HeaderText = "Direccion";
-            this.direccion.Name = "direccion";
-            this.direccion.ReadOnly = true;
-            this.direccion.Width = 130;
-            // 
-            // celular
-            // 
-            this.celular.HeaderText = "Celular";
-            this.celular.Name = "celular";
-            this.celular.ReadOnly = true;
-            this.celular.Width = 75;
-            // 
-            // tipoCliente
-            // 
-            this.tipoCliente.HeaderText = "Tipo";
-            this.tipoCliente.Name = "tipoCliente";
-            this.tipoCliente.ReadOnly = true;
-            this.tipoCliente.Width = 75;
-            // 
-            // credito
-            // 
-            this.credito.HeaderText = "Credito";
-            this.credito.Name = "credito";
-            this.credito.ReadOnly = true;
-            this.credito.Width = 150;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "IDCliente";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
             // rbtInactivosCliente
             // 
             this.rbtInactivosCliente.AutoSize = true;
@@ -1427,6 +1339,7 @@
             this.rbtInactivosCliente.TabIndex = 9;
             this.rbtInactivosCliente.Text = "Inactivos";
             this.rbtInactivosCliente.UseVisualStyleBackColor = true;
+            this.rbtInactivosCliente.CheckedChanged += new System.EventHandler(this.rbtInactivosCliente_CheckedChanged);
             // 
             // rbtActivosCliente
             // 
@@ -1446,24 +1359,42 @@
             // txtConsultarCliente
             // 
             this.txtConsultarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConsultarCliente.Location = new System.Drawing.Point(253, 22);
+            this.txtConsultarCliente.Location = new System.Drawing.Point(119, 22);
             this.txtConsultarCliente.Margin = new System.Windows.Forms.Padding(2);
             this.txtConsultarCliente.Name = "txtConsultarCliente";
-            this.txtConsultarCliente.Size = new System.Drawing.Size(490, 22);
+            this.txtConsultarCliente.Size = new System.Drawing.Size(320, 22);
             this.txtConsultarCliente.TabIndex = 5;
             this.txtConsultarCliente.TextChanged += new System.EventHandler(this.txtConsultarCliente_TextChanged);
+            this.txtConsultarCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConsultarCliente_KeyPress);
             // 
             // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.ForeColor = System.Drawing.Color.Teal;
-            this.label25.Location = new System.Drawing.Point(155, 26);
+            this.label25.Location = new System.Drawing.Point(21, 26);
             this.label25.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(67, 16);
             this.label25.TabIndex = 4;
             this.label25.Text = "Consultar:";
+            // 
+            // modificarCliente
+            // 
+            this.modificarCliente.FillWeight = 105F;
+            this.modificarCliente.HeaderText = "";
+            this.modificarCliente.Name = "modificarCliente";
+            this.modificarCliente.ReadOnly = true;
+            this.modificarCliente.Text = "";
+            this.modificarCliente.Width = 35;
+            // 
+            // DeshabilitarCliente
+            // 
+            this.DeshabilitarCliente.FillWeight = 105F;
+            this.DeshabilitarCliente.HeaderText = "";
+            this.DeshabilitarCliente.Name = "DeshabilitarCliente";
+            this.DeshabilitarCliente.ReadOnly = true;
+            this.DeshabilitarCliente.Width = 35;
             // 
             // FrmClientes
             // 
@@ -1471,7 +1402,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1089, 588);
+            this.ClientSize = new System.Drawing.Size(1089, 589);
             this.Controls.Add(this.tcCliente);
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -1607,13 +1538,5 @@
         private System.Windows.Forms.DataGridView dgvDatosCliente;
         private System.Windows.Forms.DataGridViewButtonColumn modificarCliente;
         private System.Windows.Forms.DataGridViewButtonColumn DeshabilitarCliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cedula;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombres;
-        private System.Windows.Forms.DataGridViewTextBoxColumn apellidos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn direccion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn celular;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tipoCliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn credito;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
     }
 }

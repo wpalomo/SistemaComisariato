@@ -52,7 +52,8 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             ckbActivoProducto.Checked = true;
 
             //iniciar combos
-            if (cbUnidadMedidaProducto.Items.Count>0 && cbTipoProducto.Items.Count>0) {
+            if (cbUnidadMedidaProducto.Items.Count > 0 && cbTipoProducto.Items.Count > 0)
+            {
                 cbUnidadMedidaProducto.SelectedIndex = 0;
                 cbTipoProducto.SelectedIndex = 0;
                 //cbPeso.SelectedIndex = 0;
@@ -64,7 +65,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             //cbPeso.DropDownHeight = cbTipoProducto.ItemHeight = 100;
 
             //// llenar datadrigview solo los activos
-            cargarDatos("1");
+            //cargarDatos("1");
 
             CkbIva.Checked = false;
             CkbLibreImpuesto.Checked = false;
@@ -80,8 +81,8 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             Objconsul.BoolCrearDateTableProductos(dgvDatosProducto, "Select * from View_VistaFinalProducto P" +
             " WHERE P.ACTIVO = " + condicion + ";");
 
-            dgvDatosProducto.Columns["ID"].Visible = false;
-            dgvDatosProducto.Columns["ACTIVO"].Visible = false;
+            //dgvDatosProducto.Columns["ID"].Visible = false;
+            //dgvDatosProducto.Columns["ACTIVO"].Visible = false;
             DataGridViewColumn col = dgvDatosProducto.Columns["P.V.P."];
             col.DefaultCellStyle.Format = "N2";
             DataGridViewColumn col1 = dgvDatosProducto.Columns["P. MAYOR."];
@@ -116,7 +117,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                     bitDataImagen = Funcion.imgToByteArray(img);
                 }
                 //Objconsul.BoolDataTable("SELECT [CANTIDAD]  FROM [dbo].[TbProducto] where IDPRODUCTO = ''")
-                Producto ObjProducto = new Producto(txtNombreProducto.Text, ckbActivoProducto.Checked, txtCodigoBarraProducto.Text, cbTipoProducto.Text, cbUnidadMedidaProducto.Text, txtPeso.Text, Convert.ToInt32(txtStockMaximoProducto.Text), Convert.ToInt32(txtStockMinimoProducto.Text), Convert.ToInt32(txtCajaProducto.Text), Convert.ToInt32(txtUnidadProducto.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaSinIVAProducto.Text)), bitDataImagen, CkbIva.Checked, txtObservacionesProducto.Text, Convert.ToInt32(cbTipoProducto.SelectedValue), 0,Convert.ToInt32(txtDisplay.Text),Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIce.Text)),Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIRBP.Text))/*Convert.ToInt32(txtUnidadProducto.Text)*/,CkbLibreImpuesto.Checked);
+                Producto ObjProducto = new Producto(txtNombreProducto.Text, ckbActivoProducto.Checked, txtCodigoBarraProducto.Text, cbTipoProducto.Text, cbUnidadMedidaProducto.Text, txtPeso.Text, Convert.ToInt32(txtStockMaximoProducto.Text), Convert.ToInt32(txtStockMinimoProducto.Text), Convert.ToInt32(txtCajaProducto.Text), Convert.ToInt32(txtUnidadProducto.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaSinIVAProducto.Text)), bitDataImagen, CkbIva.Checked, txtObservacionesProducto.Text, Convert.ToInt32(cbTipoProducto.SelectedValue), 0, Convert.ToInt32(txtDisplay.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIce.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIRBP.Text))/*Convert.ToInt32(txtUnidadProducto.Text)*/, CkbLibreImpuesto.Checked);
 
                 if (!bandera_Estado) // Para identificar si se va ingresar
                 {
@@ -262,7 +263,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 }
             }
 
-            
+
             if ((txtPVPSinIVAProducto.Text != "" && txtPrecioMayorSinIVAProducto.Text != "" && txtPrecioCajaSinIVAProducto.Text != "") && (Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPSinIVAProducto.Text)) != 0 && Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorSinIVAProducto.Text)) != 0 && Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaSinIVAProducto.Text)) != 0))
             {
                 if (CkbIva.Checked)
@@ -337,23 +338,25 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             {
                 if (this.dgvDatosProducto.Columns[e.ColumnIndex].Name == "Deshabilitar")
                 {
-                    ObjProducto.EstadoProducto(dgvDatosProducto.CurrentRow.Cells[3].Value.ToString(), 2);
-                    cargarDatos("1");
+                    ObjProducto.EstadoProducto(dgvDatosProducto.CurrentRow.Cells[2].Value.ToString(), 2);
+                    //cargarDatos("1");
+                    dgvDatosProducto.Rows.RemoveAt(e.RowIndex);
                 }
             }
             else if (rbtInactivos.Checked)
             {
                 if (this.dgvDatosProducto.Columns[e.ColumnIndex].Name == "Deshabilitar")
                 {
-                    ObjProducto.EstadoProducto(dgvDatosProducto.CurrentRow.Cells[3].Value.ToString(), 1);
-                    cargarDatos("0");
+                    ObjProducto.EstadoProducto(dgvDatosProducto.CurrentRow.Cells[2].Value.ToString(), 1);
+                    //cargarDatos("0");
+                    dgvDatosProducto.Rows.RemoveAt(e.RowIndex);
                 }
             }
 
             if (this.dgvDatosProducto.Columns[e.ColumnIndex].Name == "Modificar")
             {
                 //MessageBox.Show("modificar toca " + DgvDatosEmpleado.CurrentRow.Cells[3].Value.ToString());
-                GlobalCodigoBarra = dgvDatosProducto.CurrentRow.Cells[3].Value.ToString();
+                GlobalCodigoBarra = dgvDatosProducto.CurrentRow.Cells[2].Value.ToString();
                 tcProducto.SelectedIndex = 0;
                 bandera_Estado = true;
                 //Llenar el DataTable
@@ -394,7 +397,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                     txtUnidadProducto.Text = myRow["UNIDAD"].ToString();
                     TxtIce.Text = Funcion.reemplazarcaracter(myRow["ICE"].ToString());
                     TxtIRBP.Text = Funcion.reemplazarcaracter(myRow["IRBP"].ToString());
-                    
+
 
 
                     CkbIva.Checked = Convert.ToBoolean(myRow["IVAESTADO"]);
@@ -492,20 +495,20 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 SendKeys.Send("{TAB}");
             }
         }
-        
+
 
         private void rbtActivos_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtActivos.Checked)
-            {
-                cargarDatos("1");
-                //dgvDatosProducto.Columns[1].HeaderText = "Desabilitar";
-            }
-            else if (rbtInactivos.Checked)
-            {
-                cargarDatos("0");
-                //dgvDatosProducto.Columns[1].HeaderText = "Habilitar";
-            }
+            //if (rbtActivos.Checked)
+            //{
+            //    cargarDatos("1");
+            //    //dgvDatosProducto.Columns[1].HeaderText = "Desabilitar";
+            //}
+            //else if (rbtInactivos.Checked)
+            //{
+            //    cargarDatos("0");
+            //    //dgvDatosProducto.Columns[1].HeaderText = "Habilitar";
+            //}
         }
 
         private void btnLimpiarProducto_Click(object sender, EventArgs e)
@@ -522,21 +525,21 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void txtConsultarProducto_TextChanged(object sender, EventArgs e)
         {
-            if (rbtActivos.Checked)
-            {
-                Objconsul.boolLlenarDataGridView(dgvDatosProducto, "Select  * from View_VistaFinalProducto P where P.ACTIVO   = 1 and P.[CODIGO BARRA] like '%" + txtConsultarProducto.Text + "%' or P.PRODUCTO like '%" + txtConsultarProducto.Text + "%' or P.CATEGORIA like '%" + txtConsultarProducto.Text + "%' or P.PROVEEDOR like '%" + txtConsultarProducto.Text + "%' ; ");
-                dgvDatosProducto.Columns["ID"].Visible = false;
-                dgvDatosProducto.Columns["ACTIVO"].Visible = false;
-            }
-            else if (rbtInactivos.Checked)
-            {
-                Objconsul.boolLlenarDataGridView(dgvDatosProducto, "Select * from View_VistaFinalProducto P where P.ACTIVO = 0 and P.[CODIGO BARRA] like '%" + txtConsultarProducto.Text + "%' or P.PRODUCTO  like '%" + txtConsultarProducto.Text + "%' or P.CATEGORIA like '%" + txtConsultarProducto.Text + "%' or P.PROVEEDOR like '%" + txtConsultarProducto.Text + "%' ;");
-                dgvDatosProducto.Columns["ID"].Visible = false;
-                dgvDatosProducto.Columns["ACTIVO"].Visible = false;
-            }
+            //if (rbtActivos.Checked)
+            //{
+            //    Objconsul.BoolCrearDateTableProductos(dgvDatosProducto, "Select  * from View_VistaFinalProducto P where P.ACTIVO   = 1 and P.[CODIGO BARRA] like '%" + txtConsultarProducto.Text + "%' or P.PRODUCTO like '%" + txtConsultarProducto.Text + "%' or P.CATEGORIA like '%" + txtConsultarProducto.Text + "%' or P.PROVEEDOR like '%" + txtConsultarProducto.Text + "%' ; ");
+            //    //dgvDatosProducto.Columns["ID"].Visible = false;
+            //    //dgvDatosProducto.Columns["ACTIVO"].Visible = false;
+            //}
+            //else if (rbtInactivos.Checked)
+            //{
+            //    Objconsul.BoolCrearDateTableProductos(dgvDatosProducto, "Select * from View_VistaFinalProducto P where P.ACTIVO = 0 and P.[CODIGO BARRA] like '%" + txtConsultarProducto.Text + "%' or P.PRODUCTO  like '%" + txtConsultarProducto.Text + "%' or P.CATEGORIA like '%" + txtConsultarProducto.Text + "%' or P.PROVEEDOR like '%" + txtConsultarProducto.Text + "%' ;");
+            //    //dgvDatosProducto.Columns["ID"].Visible = false;
+            //    //dgvDatosProducto.Columns["ACTIVO"].Visible = false;
+            //}
         }
 
-       
+
 
         private void txtStockMaximoProducto_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -579,7 +582,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void txtPVPConIVAProducto_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
+
         }
 
         private void txtPVPConIVAProducto_Leave(object sender, EventArgs e)
@@ -618,7 +621,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void txtPVPConIVAProducto_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            Funcion.SoloValores(e,txtPVPConIVAProducto.Text);
+            Funcion.SoloValores(e, txtPVPConIVAProducto.Text);
             //txtPVPConIVAProducto.Select();
             if (e.KeyChar == (char)Keys.Return)
             {
@@ -663,7 +666,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             txtStockMinimoProducto.Focus();
         }
 
-       
+
 
         private void txtPVPConIVAProducto_Enter(object sender, EventArgs e)
         {
@@ -754,10 +757,10 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
             if (txtNombreProducto.Text.Length > 14)
             {
-                
+
                 //string parte2 = "";
                 int dimension = txtNombreProducto.Text.Length;
-                               
+
                 for (int i = 14; i < dimension; i++)
                 {
                     //parte2 = txtNombreProducto.Text.Substring(i, 1);
@@ -765,7 +768,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                     txtNombreProducto.SelectionColor = Color.Red;
                 }
             }
-            
+
         }
 
         private void txtPVPSinIVAProducto_Enter(object sender, EventArgs e)
@@ -889,7 +892,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             txtPeso.SelectAll();
         }
 
-      
+
         private void txtStockMinimoProducto_Leave(object sender, EventArgs e)
         {
             int stockMax = Convert.ToInt32(txtStockMaximoProducto.Text);
@@ -994,6 +997,26 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
         {
             txtStockMinimoProducto.SelectAll();
             txtStockMinimoProducto.Focus();
+        }
+
+        private void txtConsultarProducto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                if (rbtActivos.Checked)
+                {
+                    if (txtConsultarProducto.Text != "")
+                        Objconsul.BoolCrearDateTableProductos(dgvDatosProducto, "Select  * from View_VistaFinalProducto P where P.ACTIVO   = 1 and P.[CODIGO BARRA] like '%" + txtConsultarProducto.Text + "%' or P.PRODUCTO like '%" + txtConsultarProducto.Text + "%' or P.CATEGORIA like '%" + txtConsultarProducto.Text + "%' or P.PROVEEDOR like '%" + txtConsultarProducto.Text + "%' ; ");
+                    //dgvDatosProducto.Columns["ID"].Visible = false;
+                    //dgvDatosProducto.Columns["ACTIVO"].Visible = false;
+                }
+                else if (rbtInactivos.Checked)
+                {
+                    Objconsul.BoolCrearDateTableProductos(dgvDatosProducto, "Select * from View_VistaFinalProducto P where P.ACTIVO = 0 and (P.[CODIGO BARRA] like '%" + txtConsultarProducto.Text + "%' or P.PRODUCTO  like '%" + txtConsultarProducto.Text + "%' or P.CATEGORIA like '%" + txtConsultarProducto.Text + "%' or P.PROVEEDOR like '%" + txtConsultarProducto.Text + "%' );");
+                    //dgvDatosProducto.Columns["ID"].Visible = false;
+                    //dgvDatosProducto.Columns["ACTIVO"].Visible = false;
+                }
+            }
         }
     }
 }
