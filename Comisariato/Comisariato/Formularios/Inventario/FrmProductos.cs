@@ -393,8 +393,15 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
 
                     CkbIva.Checked = Convert.ToBoolean(myRow["IVAESTADO"]);
-                    txtCajaProducto.Text = myRow["CAJA"].ToString();
-                    txtDisplay.Text = myRow["DISPLAY"].ToString();
+
+                    if (myRow["CAJA"] != System.DBNull.Value)
+                    {
+                        txtCajaProducto.Text = myRow["CAJA"].ToString();
+                    }
+                    if (myRow["DISPLAY"] != System.DBNull.Value)
+                    {
+                        txtDisplay.Text = myRow["DISPLAY"].ToString();
+                    }
                     txtPVPConIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPUBLICO_IVA"].ToString());
                     txtPVPSinIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPUBLICO_SIN_IVA"].ToString());
                     txtPrecioMayorConIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOALMAYOR_IVA"].ToString());
@@ -416,8 +423,10 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                         CkbIRBP.Checked = false;
                         TxtIRBP.Text = "0.00";
                     }
-                    CkbLibreImpuesto.Checked = Convert.ToBoolean(myRow["LIBREIMPUESTO"]);
-
+                    if (myRow["LIBREIMPUESTO"] != System.DBNull.Value)
+                    {
+                        CkbLibreImpuesto.Checked = Convert.ToBoolean(myRow["LIBREIMPUESTO"]);
+                    }
                     //CkbICE.Checked = Convert.ToBoolean(myRow["ICEESTADO"]);
                     //CkbIRBP.Checked = Convert.ToBoolean(myRow["IRBPESTADO"]);
 
