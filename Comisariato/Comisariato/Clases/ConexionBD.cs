@@ -32,7 +32,7 @@ namespace Comisariato.Clases
 
                 //string[] datosArchivoConfig = Funcion.leerArchivo(@"\\Aircontrol\c\Program Files (x86)\AIRCONTROL\Conexion.shc");
                 //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
-                //connection = new SqlConnection("data source = " + servidorPuerto[0] + ", " + servidorPuerto[1] + "; initial catalog = " + datosArchivoConfig[1] + "; user id = " + datosArchivoConfig[2] + "; password = " + datosArchivoConfig[3] + ";");
+                //connection = new SqlConnection("data source = AIRCONTROL, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
                 System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
                 String con = connec[1].ToString();
                 connection = new SqlConnection(con);
@@ -51,7 +51,7 @@ namespace Comisariato.Clases
         {
             //string[] datosArchivoConfig = Funcion.leerArchivo(@"\\Aircontrol\c\Program Files (x86)\AIRCONTROL\Conexion.shc");
             //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
-            //connection = new SqlConnection("data source = " + servidorPuerto[0] + ", " + servidorPuerto[1] + "; initial catalog = " + datosArchivoConfig[1] + "; user id = " + datosArchivoConfig[2] + "; password = " + datosArchivoConfig[3] + ";");
+            //connection = new SqlConnection("data source = AIRCONTROL, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
             System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
             String con = connec[1].ToString();
             connection = new SqlConnection(con);

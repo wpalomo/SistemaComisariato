@@ -1,4 +1,5 @@
 ﻿using Comisariato.Clases;
+using Comisariato.Formularios.Transacciones.Venta;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -99,6 +100,7 @@ namespace Comisariato.Formularios.Transacciones
         {
             // this.dgvDetalleProductos.CellValidating += new DataGridViewCellValidatingEventHandler(dgv_validating);
             //propiedadesdgv();
+            
             Program.FormularioVentaAbierto = true;
             Consultas consultas = new Consultas();
             DataTable dt = consultas.BoolDataTable("Select LOGO from TbEmpresa where IDEMPRESA = 1");
@@ -1644,6 +1646,8 @@ namespace Comisariato.Formularios.Transacciones
                     nuevafact();
                     break;
                 case Keys.F10:
+                    FrmCierreCaja FrmCierreCaja = new FrmCierreCaja();
+                    FrmCierreCaja.ShowDialog();
                     break;
                 case Keys.F11:
                     break;

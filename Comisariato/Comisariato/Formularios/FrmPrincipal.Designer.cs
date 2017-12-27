@@ -84,25 +84,27 @@
             System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Informe Retención");
             System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Informe Nota de Crédito");
             System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Informe Nota de Débito");
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Informes", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Informe Caja");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Informes", new System.Windows.Forms.TreeNode[] {
             treeNode27,
             treeNode28,
             treeNode29,
             treeNode30,
             treeNode31,
-            treeNode32});
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("ATS");
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Declaración SRI");
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("SRI", new System.Windows.Forms.TreeNode[] {
-            treeNode34,
-            treeNode35});
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Enviados");
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Recibidos");
-            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Eliminados");
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Correo Electrónico", new System.Windows.Forms.TreeNode[] {
-            treeNode37,
+            treeNode32,
+            treeNode33});
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("ATS");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Declaración SRI");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("SRI", new System.Windows.Forms.TreeNode[] {
+            treeNode35,
+            treeNode36});
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Enviados");
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Recibidos");
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Eliminados");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Correo Electrónico", new System.Windows.Forms.TreeNode[] {
             treeNode38,
-            treeNode39});
+            treeNode39,
+            treeNode40});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.tvPrincipal = new System.Windows.Forms.TreeView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -206,31 +208,33 @@
             treeNode31.Text = "Informe Nota de Crédito";
             treeNode32.Name = "Nodo5";
             treeNode32.Text = "Informe Nota de Débito";
-            treeNode33.Name = "nodoInforme";
-            treeNode33.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode33.Text = "Informes";
-            treeNode34.Name = "Nodo8";
-            treeNode34.Text = "ATS";
-            treeNode35.Name = "Nodo0";
-            treeNode35.Text = "Declaración SRI";
-            treeNode36.Name = "nodoSRI";
-            treeNode36.Text = "SRI";
-            treeNode37.Name = "Nodo11";
-            treeNode37.Text = "Enviados";
-            treeNode38.Name = "Nodo12";
-            treeNode38.Text = "Recibidos";
-            treeNode39.Name = "Nodo13";
-            treeNode39.Text = "Eliminados";
-            treeNode40.Name = "nodoCorreoElectronico";
-            treeNode40.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode40.Text = "Correo Electrónico";
+            treeNode33.Name = "Nodo0";
+            treeNode33.Text = "Informe Caja";
+            treeNode34.Name = "nodoInforme";
+            treeNode34.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode34.Text = "Informes";
+            treeNode35.Name = "Nodo8";
+            treeNode35.Text = "ATS";
+            treeNode36.Name = "Nodo0";
+            treeNode36.Text = "Declaración SRI";
+            treeNode37.Name = "nodoSRI";
+            treeNode37.Text = "SRI";
+            treeNode38.Name = "Nodo11";
+            treeNode38.Text = "Enviados";
+            treeNode39.Name = "Nodo12";
+            treeNode39.Text = "Recibidos";
+            treeNode40.Name = "Nodo13";
+            treeNode40.Text = "Eliminados";
+            treeNode41.Name = "nodoCorreoElectronico";
+            treeNode41.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode41.Text = "Correo Electrónico";
             this.tvPrincipal.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode14,
             treeNode20,
             treeNode26,
-            treeNode33,
-            treeNode36,
-            treeNode40});
+            treeNode34,
+            treeNode37,
+            treeNode41});
             this.tvPrincipal.Size = new System.Drawing.Size(239, 592);
             this.tvPrincipal.TabIndex = 0;
             this.tvPrincipal.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvPrincipal_NodeMouseClick);
@@ -348,7 +352,7 @@
             // ventanaToolStripMenuItem
             // 
             this.ventanaToolStripMenuItem.Name = "ventanaToolStripMenuItem";
-            this.ventanaToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.ventanaToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.ventanaToolStripMenuItem.Text = "Ventana";
             // 
             // ayudaToolStripMenuItem1

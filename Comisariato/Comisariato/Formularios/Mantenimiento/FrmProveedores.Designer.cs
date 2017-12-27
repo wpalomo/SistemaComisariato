@@ -76,12 +76,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gbDatosAutorizacionProveedor = new System.Windows.Forms.GroupBox();
             this.dgvDatosAutorizacionProveedor = new System.Windows.Forms.DataGridView();
-            this.serie1Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serie2Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.autorizacionNumeroProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.validoHastaProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.facturaInicioProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.facturaFinProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbCodigoRetencionProveedor = new System.Windows.Forms.GroupBox();
             this.dgvCodigoRetencionProveedor = new System.Windows.Forms.DataGridView();
             this.IDCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -120,10 +114,16 @@
             this.rbtInactivosProveedor = new System.Windows.Forms.RadioButton();
             this.rbtActivosProveedor = new System.Windows.Forms.RadioButton();
             this.dgvDatosProveedor = new System.Windows.Forms.DataGridView();
-            this.txtConsultarProveedor = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.modificarProveedor = new System.Windows.Forms.DataGridViewButtonColumn();
             this.DeshabilitarProveedor = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.txtConsultarProveedor = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.serie1Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serie2Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.autorizacionNumeroProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.validoHastaProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.facturaInicioProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.facturaFinProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcProveedor.SuspendLayout();
             this.tpNuevoProveedor.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -642,9 +642,9 @@
             // 
             this.gbDatosAutorizacionProveedor.Controls.Add(this.dgvDatosAutorizacionProveedor);
             this.gbDatosAutorizacionProveedor.ForeColor = System.Drawing.Color.Teal;
-            this.gbDatosAutorizacionProveedor.Location = new System.Drawing.Point(182, 165);
+            this.gbDatosAutorizacionProveedor.Location = new System.Drawing.Point(27, 165);
             this.gbDatosAutorizacionProveedor.Name = "gbDatosAutorizacionProveedor";
-            this.gbDatosAutorizacionProveedor.Size = new System.Drawing.Size(632, 181);
+            this.gbDatosAutorizacionProveedor.Size = new System.Drawing.Size(944, 181);
             this.gbDatosAutorizacionProveedor.TabIndex = 10;
             this.gbDatosAutorizacionProveedor.TabStop = false;
             this.gbDatosAutorizacionProveedor.Text = "Datos Autorización";
@@ -669,43 +669,11 @@
             this.facturaFinProveedor});
             this.dgvDatosAutorizacionProveedor.Location = new System.Drawing.Point(12, 25);
             this.dgvDatosAutorizacionProveedor.Name = "dgvDatosAutorizacionProveedor";
-            this.dgvDatosAutorizacionProveedor.Size = new System.Drawing.Size(608, 140);
+            this.dgvDatosAutorizacionProveedor.ReadOnly = true;
+            this.dgvDatosAutorizacionProveedor.Size = new System.Drawing.Size(917, 140);
             this.dgvDatosAutorizacionProveedor.TabIndex = 29;
             this.dgvDatosAutorizacionProveedor.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvDatosAutorizacionProveedor_CellBeginEdit);
             this.dgvDatosAutorizacionProveedor.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosAutorizacionProveedor_CellEndEdit);
-            // 
-            // serie1Proveedor
-            // 
-            this.serie1Proveedor.HeaderText = "Serie 1";
-            this.serie1Proveedor.Name = "serie1Proveedor";
-            this.serie1Proveedor.Width = 75;
-            // 
-            // serie2Proveedor
-            // 
-            this.serie2Proveedor.HeaderText = "Serie 2";
-            this.serie2Proveedor.Name = "serie2Proveedor";
-            this.serie2Proveedor.Width = 75;
-            // 
-            // autorizacionNumeroProveedor
-            // 
-            this.autorizacionNumeroProveedor.HeaderText = "# Autorización";
-            this.autorizacionNumeroProveedor.Name = "autorizacionNumeroProveedor";
-            // 
-            // validoHastaProveedor
-            // 
-            this.validoHastaProveedor.HeaderText = "Val. Hasta";
-            this.validoHastaProveedor.Name = "validoHastaProveedor";
-            // 
-            // facturaInicioProveedor
-            // 
-            this.facturaInicioProveedor.HeaderText = "Fac. Inicio";
-            this.facturaInicioProveedor.Name = "facturaInicioProveedor";
-            // 
-            // facturaFinProveedor
-            // 
-            this.facturaFinProveedor.HeaderText = "Fac. Fin";
-            this.facturaFinProveedor.Name = "facturaFinProveedor";
-            this.facturaFinProveedor.Width = 95;
             // 
             // gbCodigoRetencionProveedor
             // 
@@ -1197,6 +1165,21 @@
             this.dgvDatosProveedor.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatosProveedor_CellFormatting);
             this.dgvDatosProveedor.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosProveedor_CellPainting);
             // 
+            // modificarProveedor
+            // 
+            this.modificarProveedor.FillWeight = 105F;
+            this.modificarProveedor.HeaderText = "";
+            this.modificarProveedor.Name = "modificarProveedor";
+            this.modificarProveedor.ReadOnly = true;
+            this.modificarProveedor.Text = "";
+            // 
+            // DeshabilitarProveedor
+            // 
+            this.DeshabilitarProveedor.FillWeight = 105F;
+            this.DeshabilitarProveedor.HeaderText = "";
+            this.DeshabilitarProveedor.Name = "DeshabilitarProveedor";
+            this.DeshabilitarProveedor.ReadOnly = true;
+            // 
             // txtConsultarProveedor
             // 
             this.txtConsultarProveedor.Location = new System.Drawing.Point(315, 16);
@@ -1215,20 +1198,44 @@
             this.label8.TabIndex = 3;
             this.label8.Text = "Consultar:";
             // 
-            // modificarProveedor
+            // serie1Proveedor
             // 
-            this.modificarProveedor.FillWeight = 105F;
-            this.modificarProveedor.HeaderText = "";
-            this.modificarProveedor.Name = "modificarProveedor";
-            this.modificarProveedor.ReadOnly = true;
-            this.modificarProveedor.Text = "";
+            this.serie1Proveedor.HeaderText = "Serie 1";
+            this.serie1Proveedor.Name = "serie1Proveedor";
+            this.serie1Proveedor.ReadOnly = true;
             // 
-            // DeshabilitarProveedor
+            // serie2Proveedor
             // 
-            this.DeshabilitarProveedor.FillWeight = 105F;
-            this.DeshabilitarProveedor.HeaderText = "";
-            this.DeshabilitarProveedor.Name = "DeshabilitarProveedor";
-            this.DeshabilitarProveedor.ReadOnly = true;
+            this.serie2Proveedor.HeaderText = "Serie 2";
+            this.serie2Proveedor.Name = "serie2Proveedor";
+            this.serie2Proveedor.ReadOnly = true;
+            // 
+            // autorizacionNumeroProveedor
+            // 
+            this.autorizacionNumeroProveedor.HeaderText = "# Autorización";
+            this.autorizacionNumeroProveedor.Name = "autorizacionNumeroProveedor";
+            this.autorizacionNumeroProveedor.ReadOnly = true;
+            this.autorizacionNumeroProveedor.Width = 300;
+            // 
+            // validoHastaProveedor
+            // 
+            this.validoHastaProveedor.HeaderText = "Val. Hasta";
+            this.validoHastaProveedor.Name = "validoHastaProveedor";
+            this.validoHastaProveedor.ReadOnly = true;
+            // 
+            // facturaInicioProveedor
+            // 
+            this.facturaInicioProveedor.HeaderText = "Fac. Inicio";
+            this.facturaInicioProveedor.Name = "facturaInicioProveedor";
+            this.facturaInicioProveedor.ReadOnly = true;
+            this.facturaInicioProveedor.Width = 125;
+            // 
+            // facturaFinProveedor
+            // 
+            this.facturaFinProveedor.HeaderText = "Fac. Fin";
+            this.facturaFinProveedor.Name = "facturaFinProveedor";
+            this.facturaFinProveedor.ReadOnly = true;
+            this.facturaFinProveedor.Width = 125;
             // 
             // FrmProveedores
             // 
@@ -1345,12 +1352,6 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.CheckBox ckbEstado;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn serie1Proveedor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn serie2Proveedor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn autorizacionNumeroProveedor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn validoHastaProveedor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn facturaInicioProveedor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn facturaFinProveedor;
         private System.Windows.Forms.ComboBox cbCuentaContableProveedor;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dgvCredito;
@@ -1367,5 +1368,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn validesProveedor;
         private System.Windows.Forms.DataGridViewButtonColumn modificarProveedor;
         private System.Windows.Forms.DataGridViewButtonColumn DeshabilitarProveedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn serie1Proveedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn serie2Proveedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn autorizacionNumeroProveedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn validoHastaProveedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn facturaInicioProveedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn facturaFinProveedor;
     }
 }

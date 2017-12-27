@@ -50,8 +50,7 @@ namespace Comisariato.Formularios
         public static FrmDeclaracionSRI FrmDeclaracionSRI;
         public static FrmCambioClave FrmCambioClave;
         public static FrmRegistrarIVA FrmRegistrarIVA;
-
-
+        public static FrmInformesCajas FrmInformesCajas;
 
         public bool primerIngresoSistema;
 
@@ -84,7 +83,7 @@ namespace Comisariato.Formularios
                     FrmCliente.BringToFront();
             }
             //---------------------Empleado --------------------------------------//
-            else if(nombre == "Administrar Empleados")
+            else if (nombre == "Administrar Empleados")
             {
                 if (FrmEmpleado == null || FrmEmpleado.IsDisposed)
                 {
@@ -94,7 +93,7 @@ namespace Comisariato.Formularios
                 }
                 else { FrmEmpleado.BringToFront(); }
             }
-            else if(nombre == "Administrar Menu")
+            else if (nombre == "Administrar Menu")
             {
                 if (FrmAsignarMenu == null || FrmAsignarMenu.IsDisposed)
                 {
@@ -106,7 +105,7 @@ namespace Comisariato.Formularios
                 else { FrmAsignarMenu.BringToFront(); }
             }
             //--------------------Empresa---------------------------------------//
-            else if(nombre == "Cajas/Talonarios")
+            else if (nombre == "Cajas/Talonarios")
             {
                 if (FrmCajasTalonario == null || FrmCajasTalonario.IsDisposed)
                 {
@@ -116,7 +115,7 @@ namespace Comisariato.Formularios
                 }
                 else { FrmCajasTalonario.BringToFront(); }
             }
-            else if(nombre == "Informe Ventas")
+            else if (nombre == "Informe Ventas")
             {
                 if (FrmInformeVentas == null || FrmInformeVentas.IsDisposed)
                 {
@@ -126,7 +125,7 @@ namespace Comisariato.Formularios
                 }
                 else { FrmInformeVentas.BringToFront(); }
             }
-            else if(nombre == "Informe Compras")
+            else if (nombre == "Informe Compras")
             {
                 //        FrmInformesCompras;
                 //public static FrmInformesOrdenGiro FrmInformesOrdenGiro;
@@ -188,7 +187,7 @@ namespace Comisariato.Formularios
                     FrmProveedor = new FrmProveedores();
                     FrmProveedor.MdiParent = this;
                     FrmProveedor.Show();
-                    
+
                     //FrmProveedor.BringToFront();
                 }
                 else { FrmProveedor.BringToFront(); }
@@ -422,6 +421,17 @@ namespace Comisariato.Formularios
                     FrmDeclaracionSRI.Show();
                 }
                 else { FrmDeclaracionSRI.BringToFront(); }
+            }
+            else if (nombre == "Informe Caja")
+            {
+                if (FrmInformesCajas == null || FrmInformesCajas.IsDisposed)
+                {
+                    FrmInformesCajas = new FrmInformesCajas();
+                    FrmInformesCajas.MdiParent = this;
+                    //FrmDevolucionVenta.BringToFront();
+                    FrmInformesCajas.Show();
+                }
+                else { FrmInformesCajas.BringToFront(); }
             }
         }
 
