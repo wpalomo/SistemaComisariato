@@ -19,7 +19,7 @@ namespace Comisariato.Clases
             this.rutaXml = ruta;
             doc = new XmlDocument();
 
-            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
 
             XmlNode root = doc.DocumentElement;
             doc.InsertBefore(xmlDeclaration, root);

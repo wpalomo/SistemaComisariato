@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Sql;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Comisariato.Formularios.Transacciones
 {
@@ -417,6 +418,24 @@ namespace Comisariato.Formularios.Transacciones
                     MessageBox.Show("Cliente Registrado Corsrectamente ", "Exito", MessageBoxButtons.OK);
                     ObjConsul.seriesDocumentoRetencion(txtNumeroRetencion, txtSerie1Retencion, txtSerie2Retencion, txtAutorizacionRetencion, "RET", bitacora.LocalIPAddress());
                     txtOrdenGiro.Text = (Convert.ToInt32(ObjConsul.ObtenerID("NUMEROORDENGIRO", "TbEncabezadoOrdenGiro", "")) + 1).ToString();
+
+                    XmlRetencion xmlRetencion = new XmlRetencion();
+                    var ruta = ConfigurationManager.AppSettings["XmlRetencion"];
+                    xmlRetencion._crearXml(ruta, "comprobanteRetencion");
+
+
+                    InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
+                    string serie = txtSerie1.Text + txtSerie2.Text;
+                    xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie);
+
+
+                    string fecha = DateTime.Now.Date.ToShortDateString();
+                    DataTable dt = ObjConsul.BoolDataTable("Select TIPOIDENTIFICACION,IDENTIFICACION,RAZONSOCIAL from TbProveedor where IDPROVEEDOR = " + CmbProveedor.SelectedValue + ";");
+                    DataRow myRow = dt.Rows[0];
+                    string periodoFiscal = dtpFechaContabilizacion.Value.Date.Month.ToString();
+                    periodoFiscal = periodoFiscal + "/" + dtpFechaContabilizacion.Value.Date.Year.ToString();
+                    InfoCompRetencion infoCompReten = new InfoCompRetencion(fecha, Program.direccionempresa, "", Program.obligadoContabilidad, myRow["TIPOIDENTIFICACION"].ToString(), myRow["RAZONSOCIAL"].ToString(), myRow["IDENTIFICACION"].ToString(), periodoFiscal);
+
                     inicializar();
                 }
                 else if (resultado == "Error al Registrar")
