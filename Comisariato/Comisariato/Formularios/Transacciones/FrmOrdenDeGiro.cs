@@ -438,14 +438,14 @@ namespace Comisariato.Formularios.Transacciones
                     ObjConsul.seriesDocumentoRetencion(txtNumeroRetencion, txtSerie1Retencion, txtSerie2Retencion, txtAutorizacionRetencion, "RET", bitacora.LocalIPAddress());
                     txtOrdenGiro.Text = (Convert.ToInt32(ObjConsul.ObtenerID("NUMEROORDENGIRO", "TbEncabezadoOrdenGiro", "")) + 1).ToString();
 
-                    XmlRetencion xmlRetencion = new XmlRetencion();
-                    var ruta = ConfigurationManager.AppSettings["XmlRetencion"];
-                    xmlRetencion._crearXml(ruta, "comprobanteRetencion");
+                    //XmlRetencion xmlRetencion = new XmlRetencion();
+                    //var ruta = ConfigurationManager.AppSettings["XmlRetencion"];
+                    //xmlRetencion._crearXml(ruta, "comprobanteRetencion");
 
 
-                    InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
-                    string serie = txtSerie1.Text + txtSerie2.Text;
-                    xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie);
+                    //InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
+                    //string serie = txtSerie1.Text + txtSerie2.Text;
+                    //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie);
 
 
                     string fecha = DateTime.Now.Date.ToShortDateString();
@@ -453,10 +453,10 @@ namespace Comisariato.Formularios.Transacciones
                     DataRow myRow = dt.Rows[0];
                     string periodoFiscal = dtpFechaContabilizacion.Value.Date.Month.ToString();
                     periodoFiscal = periodoFiscal + "/" + dtpFechaContabilizacion.Value.Date.Year.ToString();
-                    InfoCompRetencion infoCompReten = new InfoCompRetencion(fecha, Program.direccionempresa,parametrosFactu[1], Program.obligadoContabilidad, myRow["TIPOIDENTIFICACION"].ToString(), myRow["RAZONSOCIAL"].ToString(), myRow["IDENTIFICACION"].ToString(), periodoFiscal);
-                    xmlRetencion.infoCompRetencion(infoCompReten);
+                    //InfoCompRetencion infoCompReten = new InfoCompRetencion(fecha, Program.direccionempresa,parametrosFactu[1], Program.obligadoContabilidad, myRow["TIPOIDENTIFICACION"].ToString(), myRow["RAZONSOCIAL"].ToString(), myRow["IDENTIFICACION"].ToString(), periodoFiscal);
+                    //xmlRetencion.infoCompRetencion(infoCompReten);
 
-                    xmlRetencion.impuestos(dgvDatosRetencion,txtSerie1.Text+txtSerie2.Text+ txtNumero.Text);
+                    //xmlRetencion.impuestos(dgvDatosRetencion,txtSerie1.Text+txtSerie2.Text+ txtNumero.Text);
 
 
                     inicializar();
