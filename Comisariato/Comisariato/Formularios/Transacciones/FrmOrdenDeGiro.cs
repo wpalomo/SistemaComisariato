@@ -273,7 +273,7 @@ namespace Comisariato.Formularios.Transacciones
                 }
                 else
                 {
-                    txtSaldo.Text = Funcion.reemplazarcaracter(saldo.ToString("##.0000"));
+                    txtSaldo.Text = Funcion.reemplazarcaracter(saldo.ToString("0.0000"));
                 }
             }
             catch (Exception)
@@ -423,6 +423,7 @@ namespace Comisariato.Formularios.Transacciones
                                 DetalleOrdenGiro objDetalleOG = new DetalleOrdenGiro(idEncabezadoOrdenGiro, Convert.ToInt32(dgvDatosRetencion.Rows[i].Cells[7].Value), 
                                     Convert.ToSingle(Funcion.reemplazarcaracterViceversa(dgvDatosRetencion.Rows[i].Cells[4].Value.ToString())));
                                 objDetalleOG.InsertarDetalledoOrden(objDetalleOG);
+                                objEncabezadoOG.InsertarAutorizacionProveedor(txtSerie1.Text, txtSerie2.Text, txtNAutorizacion.Text, Convert.ToInt32(CmbProveedor.SelectedValue));
                                 if (Convert.ToString(dgvDatosRetencion.Rows[i+1].Cells[0].Value) == "")
                                 {
                                     break;
@@ -433,7 +434,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     string numeroRetencion = (Convert.ToInt32(txtNumeroRetencion.Text) + 1).ToString("D9");                    
                     ObjConsul.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET [DOCUMENTOACTUAL] = '"+ numeroRetencion +"' WHERE SERIE1 = '"+ txtSerie1Retencion.Text + "' and SERIE2 = '" + txtSerie2Retencion.Text + "' and IPESTACION = '" + bitacora.LocalIPAddress() + "' and TIPODOCUMENTO = 'RET'");
-                    MessageBox.Show("Cliente Registrado Corsrectamente ", "Exito", MessageBoxButtons.OK);
+                    MessageBox.Show("Registrado Corsrectamente ", "Exito", MessageBoxButtons.OK);
                     ObjConsul.seriesDocumentoRetencion(txtNumeroRetencion, txtSerie1Retencion, txtSerie2Retencion, txtAutorizacionRetencion, "RET", bitacora.LocalIPAddress());
                     txtOrdenGiro.Text = (Convert.ToInt32(ObjConsul.ObtenerID("NUMEROORDENGIRO", "TbEncabezadoOrdenGiro", "")) + 1).ToString();
 

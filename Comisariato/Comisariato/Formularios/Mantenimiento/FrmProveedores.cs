@@ -203,6 +203,10 @@ namespace Comisariato.Formularios
                     String Resultado = ObjProvee.ModificarProveedor(identificacion);
                     if (Resultado == "Correcto")
                     {
+                        consultas.EjecutarSQL("DELETE FROM [dbo].[TbAutorizacionProveedor] WHERE IDPROVEEDOR = " + Convert.ToInt32(txtCodigo.Text));
+                        ObjProvee.InsertarAutorizacionProveedor(dgvDatosAutorizacionProveedor, txtNumeroIdentificacionProveedor.Text);
+                        consultas.EjecutarSQL("DELETE FROM [dbo].[TbRetencionProveedor] WHERE IDPROVEEDOR = "+Convert.ToInt32(txtCodigo.Text));
+                        ObjProvee.InsertarRetencion(dgvCodigoRetencionProveedor, txtNumeroIdentificacionProveedor.Text);
                         MessageBox.Show("Proveedor Actualizado", "Exito");
                         cargarDatos("1");
                         rbtActivosProveedor.Checked = true;
@@ -425,6 +429,11 @@ namespace Comisariato.Formularios
                         //cbCodigo101Proveedor.SelectedValue = Convert.ToInt32(myRow["CODIGO_101"]);
                         //int indexCodigo101 = cbCodigo101Proveedor.SelectedIndex;
                         //cbCodigo101Proveedor.SelectedIndex = indexCodigo101;
+
+                        string sqlRetencion = "select c.IDCODIGOSRI,  c.DESCRIPCION, tc.CODIGO, c.RETENCION,' ' , c.FECHAVALIDODESDE +''+ c.FECHAVALIDOHASTA as VALIDEZ " +
+" from TbRetencionProveedor rp, TbProveedor p, TbCodigoSRI C, TbTipoCodigoSRI tc" +
+" where p.IDPROVEEDOR = rp.IDPROVEEDOR and c.IDCODIGOSRI = rp.IDRETENCION and tc.IDTIPOCODIGOSRI = c.IDTIPOCODIGOSRI and p.IDENTIFICACION = '" + Convert.ToString(dgvDatosProveedor.CurrentRow.Cells[2].Value) + "'";
+                        consultas.boolLlenarDataGrid(dgvCodigoRetencionProveedor, sqlRetencion, 5, 5, 0);
 
                         consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisProveedor, ref cbProvinciaProveedor, ref cbCantonProveedor, ref cbParroquiaProveedor);
 
