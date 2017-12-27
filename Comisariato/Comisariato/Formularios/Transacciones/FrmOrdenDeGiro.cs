@@ -456,7 +456,11 @@ namespace Comisariato.Formularios.Transacciones
                     //InfoCompRetencion infoCompReten = new InfoCompRetencion(fecha, Program.direccionempresa,parametrosFactu[1], Program.obligadoContabilidad, myRow["TIPOIDENTIFICACION"].ToString(), myRow["RAZONSOCIAL"].ToString(), myRow["IDENTIFICACION"].ToString(), periodoFiscal);
                     //xmlRetencion.infoCompRetencion(infoCompReten);
 
+<<<<<<< HEAD
                     //xmlRetencion.impuestos(dgvDatosRetencion,txtSerie1.Text+txtSerie2.Text+ txtNumero.Text);
+=======
+                    xmlRetencion.impuestos(dgvDatosRetencion,txtNumero.Text);
+>>>>>>> 63c0fc51f0f4034e4e1c387d414a7ffa9f7dbde9
 
 
                     inicializar();
