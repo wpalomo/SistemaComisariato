@@ -120,17 +120,10 @@
             this.rbtInactivosProveedor = new System.Windows.Forms.RadioButton();
             this.rbtActivosProveedor = new System.Windows.Forms.RadioButton();
             this.dgvDatosProveedor = new System.Windows.Forms.DataGridView();
-            this.modificarProveedor = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DeshabilitarProveedor = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ident = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nacionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.razonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.naturaleza = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtConsultarProveedor = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.modificarProveedor = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DeshabilitarProveedor = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tcProveedor.SuspendLayout();
             this.tpNuevoProveedor.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1174,6 +1167,7 @@
             this.dgvDatosProveedor.AllowUserToAddRows = false;
             this.dgvDatosProveedor.AllowUserToDeleteRows = false;
             this.dgvDatosProveedor.AllowUserToOrderColumns = true;
+            this.dgvDatosProveedor.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1185,96 +1179,23 @@
             this.dgvDatosProveedor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosProveedor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.modificarProveedor,
-            this.DeshabilitarProveedor,
-            this.ident,
-            this.nombre,
-            this.nacionalidad,
-            this.razonSocial,
-            this.naturaleza,
-            this.direccion,
-            this.ID});
+            this.DeshabilitarProveedor});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 10F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Teal;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvDatosProveedor.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvDatosProveedor.Location = new System.Drawing.Point(26, 83);
+            this.dgvDatosProveedor.Location = new System.Drawing.Point(26, 87);
             this.dgvDatosProveedor.Name = "dgvDatosProveedor";
             this.dgvDatosProveedor.ReadOnly = true;
-            this.dgvDatosProveedor.Size = new System.Drawing.Size(1013, 308);
+            this.dgvDatosProveedor.Size = new System.Drawing.Size(1013, 375);
             this.dgvDatosProveedor.TabIndex = 5;
             this.dgvDatosProveedor.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosProveedor_CellClick);
             this.dgvDatosProveedor.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatosProveedor_CellFormatting);
             this.dgvDatosProveedor.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosProveedor_CellPainting);
-            // 
-            // modificarProveedor
-            // 
-            this.modificarProveedor.FillWeight = 105F;
-            this.modificarProveedor.HeaderText = "";
-            this.modificarProveedor.Name = "modificarProveedor";
-            this.modificarProveedor.ReadOnly = true;
-            this.modificarProveedor.Text = "";
-            this.modificarProveedor.Width = 35;
-            // 
-            // DeshabilitarProveedor
-            // 
-            this.DeshabilitarProveedor.FillWeight = 105F;
-            this.DeshabilitarProveedor.HeaderText = "";
-            this.DeshabilitarProveedor.Name = "DeshabilitarProveedor";
-            this.DeshabilitarProveedor.ReadOnly = true;
-            this.DeshabilitarProveedor.Width = 35;
-            // 
-            // ident
-            // 
-            this.ident.HeaderText = "Identificación";
-            this.ident.Name = "ident";
-            this.ident.ReadOnly = true;
-            this.ident.Width = 125;
-            // 
-            // nombre
-            // 
-            this.nombre.HeaderText = "Nombres";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            this.nombre.Width = 200;
-            // 
-            // nacionalidad
-            // 
-            this.nacionalidad.HeaderText = "Nac.";
-            this.nacionalidad.Name = "nacionalidad";
-            this.nacionalidad.ReadOnly = true;
-            this.nacionalidad.Width = 55;
-            // 
-            // razonSocial
-            // 
-            this.razonSocial.HeaderText = "Razón Social";
-            this.razonSocial.Name = "razonSocial";
-            this.razonSocial.ReadOnly = true;
-            this.razonSocial.Width = 200;
-            // 
-            // naturaleza
-            // 
-            this.naturaleza.HeaderText = "Naturaleza";
-            this.naturaleza.Name = "naturaleza";
-            this.naturaleza.ReadOnly = true;
-            this.naturaleza.Width = 150;
-            // 
-            // direccion
-            // 
-            this.direccion.HeaderText = "Direccion";
-            this.direccion.Name = "direccion";
-            this.direccion.ReadOnly = true;
-            this.direccion.Width = 150;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
             // 
             // txtConsultarProveedor
             // 
@@ -1293,6 +1214,21 @@
             this.label8.Size = new System.Drawing.Size(67, 16);
             this.label8.TabIndex = 3;
             this.label8.Text = "Consultar:";
+            // 
+            // modificarProveedor
+            // 
+            this.modificarProveedor.FillWeight = 105F;
+            this.modificarProveedor.HeaderText = "";
+            this.modificarProveedor.Name = "modificarProveedor";
+            this.modificarProveedor.ReadOnly = true;
+            this.modificarProveedor.Text = "";
+            // 
+            // DeshabilitarProveedor
+            // 
+            this.DeshabilitarProveedor.FillWeight = 105F;
+            this.DeshabilitarProveedor.HeaderText = "";
+            this.DeshabilitarProveedor.Name = "DeshabilitarProveedor";
+            this.DeshabilitarProveedor.ReadOnly = true;
             // 
             // FrmProveedores
             // 
@@ -1431,12 +1367,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn validesProveedor;
         private System.Windows.Forms.DataGridViewButtonColumn modificarProveedor;
         private System.Windows.Forms.DataGridViewButtonColumn DeshabilitarProveedor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ident;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nacionalidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn razonSocial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn naturaleza;
-        private System.Windows.Forms.DataGridViewTextBoxColumn direccion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
     }
 }

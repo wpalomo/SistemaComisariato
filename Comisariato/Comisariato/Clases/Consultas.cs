@@ -1006,7 +1006,7 @@ namespace Comisariato.Clases
             dt.Columns.Add("CELULAR1", typeof(String));
             dt.Columns.Add("TIPO", typeof(String));
             dt.Columns.Add("CREDITO", typeof(String));
-            dt.Columns.Add("ID", typeof(String));
+            //dt.Columns.Add("ID", typeof(String));
 
             try
             {
@@ -1021,11 +1021,11 @@ namespace Comisariato.Clases
                     int activo = Convert.ToInt32(dato["ACTIVO"]);
                     if (activo == 1)
                     {
-                        dt.Rows.Add((String)dato["CEDULA/RUC"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], (String)dato["DIRECCION"], (String)dato["CELULAR1"], (String)dato["TIPO"], (String)dato["CREDITO"], (String)dato["ID"]);
+                        dt.Rows.Add((String)dato["CEDULA/RUC"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], (String)dato["DIRECCION"], (String)dato["CELULAR1"], (String)dato["TIPO"], (String)dato["CREDITO"]/*, (String)dato["ID"]*/);
                     }
                     else
                     {
-                        dt.Rows.Add((String)dato["CEDULA/RUC"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], (String)dato["DIRECCION"], (String)dato["CELULAR1"], (String)dato["TIPO"], (String)dato["CREDITO"], (String)dato["ID"]);
+                        dt.Rows.Add((String)dato["CEDULA/RUC"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], (String)dato["DIRECCION"], (String)dato["CELULAR1"], (String)dato["TIPO"], (String)dato["CREDITO"]/*, (String)dato["ID"]*/);
                     }
 
 
@@ -2040,6 +2040,41 @@ namespace Comisariato.Clases
             {
                 return false;
             }
+        }
+        public Boolean BoolCrearDateTableProveedoresAutorizacion(DataGridView Tb, String SQL)
+        {
+            try
+            {
+
+                Tb.Rows.Clear();
+                Objc.conectar();
+                SqlCommand Sentencia = new SqlCommand(SQL);
+                Sentencia.Connection = ConexionBD.connection;
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                while (dato.Read() == true)
+                {
+                    DateTime a = Convert.ToDateTime(dato["VALIDO_HASTA"].ToString());
+
+
+                        Tb.Rows.Add((String)dato["SERIE1"], (String)dato["SERIE2"], (String)dato["AUTORIZACION"], a, (String)dato["FAC_INICIO"], (String)dato["FAC_FIN"]);
+                }
+                //Tb.DataSource = dt;
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("" + ex.Message);
+                return false;
+
+            }
+
+
+            //return false;
+
+
         }
     }
 }
