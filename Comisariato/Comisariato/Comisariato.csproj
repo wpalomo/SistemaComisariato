@@ -91,6 +91,12 @@
     <Compile Include="Formularios\FrmCambioClave.Designer.cs">
       <DependentUpon>FrmCambioClave.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Informes\FrmInformesCajas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Informes\FrmInformesCajas.Designer.cs">
+      <DependentUpon>FrmInformesCajas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Informes\FrmInformesCompras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -247,6 +253,12 @@
     <Compile Include="Formularios\Transacciones\Venta\FrmAvanse.Designer.cs">
       <DependentUpon>FrmAvanse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Transacciones\Venta\FrmCierreCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Transacciones\Venta\FrmCierreCaja.Designer.cs">
+      <DependentUpon>FrmCierreCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Transacciones\Venta\FrmClaveSupervisor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -283,10 +295,10 @@
     <Compile Include="Formularios\Transacciones\Venta\FrmDatosClientes.Designer.cs">
       <DependentUpon>FrmDatosClientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Transacciones\Venta\FrmFactura.cs">
+    <Compile Include="Formularios\Transacciones\FrmFactura.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\Transacciones\Venta\FrmFactura.Designer.cs">
+    <Compile Include="Formularios\Transacciones\FrmFactura.Designer.cs">
       <DependentUpon>FrmFactura.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Transacciones\FrmOrdenDeGiro.cs">
@@ -305,6 +317,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formularios\FrmCambioClave.resx">
       <DependentUpon>FrmCambioClave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Informes\FrmInformesCajas.resx">
+      <DependentUpon>FrmInformesCajas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Informes\FrmInformesCompras.resx">
       <DependentUpon>FrmInformesCompras.cs</DependentUpon>
@@ -384,6 +399,9 @@
     <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmAvanse.resx">
       <DependentUpon>FrmAvanse.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmCierreCaja.resx">
+      <DependentUpon>FrmCierreCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmClaveSupervisor.resx">
       <DependentUpon>FrmClaveSupervisor.cs</DependentUpon>
     </EmbeddedResource>
@@ -402,7 +420,7 @@
     <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmDatosClientes.resx">
       <DependentUpon>FrmDatosClientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmFactura.resx">
+    <EmbeddedResource Include="Formularios\Transacciones\FrmFactura.resx">
       <DependentUpon>FrmFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\FrmOrdenDeGiro.resx">

@@ -19,7 +19,7 @@ namespace Comisariato.Clases
             this.rutaXml = ruta;
             doc = new XmlDocument();
 
-            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
 
             XmlNode root = doc.DocumentElement;
             doc.InsertBefore(xmlDeclaration, root);
@@ -129,7 +129,7 @@ namespace Comisariato.Clases
             for (int i = 0; i < dgv.RowCount; i++)
             {
                 XmlNode NodoDetalles = null;
-                NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2");
+                NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[8].Value), Convert.ToString(dgv.Rows[i].Cells[8].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2");
 
                 impuestos.AppendChild(NodoDetalles);
             }
@@ -217,9 +217,12 @@ namespace Comisariato.Clases
             nododirEstablecimiento.InnerText = dirEstablecimiento;
             Nodoraiz.AppendChild(nododirEstablecimiento);
 
-            XmlElement nodocontribuyenteEspecial = doc.CreateElement("contribuyenteEspecial");
-            nodocontribuyenteEspecial.InnerText = contribuyenteEspecial;
-            Nodoraiz.AppendChild(nodocontribuyenteEspecial);
+            if (contribuyenteEspecial != "No")
+            {
+                XmlElement nodocontribuyenteEspecial = doc.CreateElement("contribuyenteEspecial");
+                nodocontribuyenteEspecial.InnerText = contribuyenteEspecial;
+                Nodoraiz.AppendChild(nodocontribuyenteEspecial);
+            }
 
             XmlElement nodoobligadoContabilidad = doc.CreateElement("obligadoContabilidad");
             nodoobligadoContabilidad.InnerText = obligadoContabilidad;

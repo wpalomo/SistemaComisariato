@@ -28,6 +28,10 @@ namespace Comisariato.Formularios.Transacciones
             }
         }
 
+        private void FrmAvanse_Load(object sender, EventArgs e)
+        {
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             Consultas c = new Consultas();

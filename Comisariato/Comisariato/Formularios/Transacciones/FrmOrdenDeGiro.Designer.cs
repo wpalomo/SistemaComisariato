@@ -77,14 +77,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dgvDatosRetencion = new System.Windows.Forms.DataGridView();
-            this.retencionSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baseImponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.montoRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cuentaContable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaVigente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IdRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtAutorizacionRetencion = new System.Windows.Forms.TextBox();
             this.dtpFechaVenceDocumento = new System.Windows.Forms.DateTimePicker();
             this.txtSerie2Retencion = new System.Windows.Forms.TextBox();
@@ -149,6 +141,16 @@
             this.label45 = new System.Windows.Forms.Label();
             this.ImpresionOG = new System.Drawing.Printing.PrintDocument();
             this.ElegirImpresero = new System.Windows.Forms.PrintDialog();
+            this.retencionSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.baseImponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.montoRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cuentaContable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaVigente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CODIGOSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDTIPOCODIGOSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -725,69 +727,15 @@
             this.montoRetencion,
             this.cuentaContable,
             this.fechaVigente,
-            this.IdRetencion});
+            this.IdRetencion,
+            this.CODIGOSRI,
+            this.IDTIPOCODIGOSRI});
             this.dgvDatosRetencion.Location = new System.Drawing.Point(0, 104);
             this.dgvDatosRetencion.Name = "dgvDatosRetencion";
             this.dgvDatosRetencion.ReadOnly = true;
             this.dgvDatosRetencion.Size = new System.Drawing.Size(996, 221);
             this.dgvDatosRetencion.TabIndex = 20;
             this.dgvDatosRetencion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
-            // 
-            // retencionSRI
-            // 
-            this.retencionSRI.HeaderText = "Retención SRI";
-            this.retencionSRI.Name = "retencionSRI";
-            this.retencionSRI.ReadOnly = true;
-            this.retencionSRI.Width = 155;
-            // 
-            // tipo
-            // 
-            this.tipo.HeaderText = "Tipo";
-            this.tipo.Name = "tipo";
-            this.tipo.ReadOnly = true;
-            this.tipo.Width = 50;
-            // 
-            // porcentaje
-            // 
-            this.porcentaje.HeaderText = "%";
-            this.porcentaje.Name = "porcentaje";
-            this.porcentaje.ReadOnly = true;
-            this.porcentaje.Width = 35;
-            // 
-            // baseImponible
-            // 
-            this.baseImponible.HeaderText = "Base Imponible";
-            this.baseImponible.Name = "baseImponible";
-            this.baseImponible.ReadOnly = true;
-            this.baseImponible.Width = 145;
-            // 
-            // montoRetencion
-            // 
-            this.montoRetencion.HeaderText = "Monto Retención";
-            this.montoRetencion.Name = "montoRetencion";
-            this.montoRetencion.ReadOnly = true;
-            this.montoRetencion.Width = 150;
-            // 
-            // cuentaContable
-            // 
-            this.cuentaContable.HeaderText = "Cuenta Contable";
-            this.cuentaContable.Name = "cuentaContable";
-            this.cuentaContable.ReadOnly = true;
-            this.cuentaContable.Width = 250;
-            // 
-            // fechaVigente
-            // 
-            this.fechaVigente.HeaderText = "Fecha Vigente";
-            this.fechaVigente.Name = "fechaVigente";
-            this.fechaVigente.ReadOnly = true;
-            this.fechaVigente.Width = 150;
-            // 
-            // IdRetencion
-            // 
-            this.IdRetencion.HeaderText = "IDRETENCION";
-            this.IdRetencion.Name = "IdRetencion";
-            this.IdRetencion.ReadOnly = true;
-            this.IdRetencion.Visible = false;
             // 
             // txtAutorizacionRetencion
             // 
@@ -1447,13 +1395,83 @@
             // 
             this.ElegirImpresero.UseEXDialog = true;
             // 
+            // retencionSRI
+            // 
+            this.retencionSRI.HeaderText = "Retención SRI";
+            this.retencionSRI.Name = "retencionSRI";
+            this.retencionSRI.ReadOnly = true;
+            this.retencionSRI.Width = 155;
+            // 
+            // tipo
+            // 
+            this.tipo.HeaderText = "Tipo";
+            this.tipo.Name = "tipo";
+            this.tipo.ReadOnly = true;
+            this.tipo.Width = 50;
+            // 
+            // porcentaje
+            // 
+            this.porcentaje.HeaderText = "%";
+            this.porcentaje.Name = "porcentaje";
+            this.porcentaje.ReadOnly = true;
+            this.porcentaje.Width = 35;
+            // 
+            // baseImponible
+            // 
+            this.baseImponible.HeaderText = "Base Imponible";
+            this.baseImponible.Name = "baseImponible";
+            this.baseImponible.ReadOnly = true;
+            this.baseImponible.Width = 145;
+            // 
+            // montoRetencion
+            // 
+            this.montoRetencion.HeaderText = "Monto Retención";
+            this.montoRetencion.Name = "montoRetencion";
+            this.montoRetencion.ReadOnly = true;
+            this.montoRetencion.Width = 150;
+            // 
+            // cuentaContable
+            // 
+            this.cuentaContable.HeaderText = "Cuenta Contable";
+            this.cuentaContable.Name = "cuentaContable";
+            this.cuentaContable.ReadOnly = true;
+            this.cuentaContable.Width = 250;
+            // 
+            // fechaVigente
+            // 
+            this.fechaVigente.HeaderText = "Fecha Vigente";
+            this.fechaVigente.Name = "fechaVigente";
+            this.fechaVigente.ReadOnly = true;
+            this.fechaVigente.Width = 150;
+            // 
+            // IdRetencion
+            // 
+            this.IdRetencion.HeaderText = "IDRETENCION";
+            this.IdRetencion.Name = "IdRetencion";
+            this.IdRetencion.ReadOnly = true;
+            this.IdRetencion.Visible = false;
+            // 
+            // CODIGOSRI
+            // 
+            this.CODIGOSRI.HeaderText = "CODIGOSRI";
+            this.CODIGOSRI.Name = "CODIGOSRI";
+            this.CODIGOSRI.ReadOnly = true;
+            this.CODIGOSRI.Visible = false;
+            // 
+            // IDTIPOCODIGOSRI
+            // 
+            this.IDTIPOCODIGOSRI.HeaderText = "IDTIPOCODIGOSRI";
+            this.IDTIPOCODIGOSRI.Name = "IDTIPOCODIGOSRI";
+            this.IDTIPOCODIGOSRI.ReadOnly = true;
+            this.IDTIPOCODIGOSRI.Visible = false;
+            // 
             // FrmOrdenDeGiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1085, 636);
+            this.ClientSize = new System.Drawing.Size(1102, 637);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
@@ -1598,6 +1616,8 @@
         private System.Windows.Forms.ComboBox cbFormaPago;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnSalirCompra;
+        private System.Drawing.Printing.PrintDocument ImpresionOG;
+        private System.Windows.Forms.PrintDialog ElegirImpresero;
         private System.Windows.Forms.DataGridViewTextBoxColumn retencionSRI;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn porcentaje;
@@ -1606,7 +1626,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cuentaContable;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaVigente;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdRetencion;
-        private System.Drawing.Printing.PrintDocument ImpresionOG;
-        private System.Windows.Forms.PrintDialog ElegirImpresero;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CODIGOSRI;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDTIPOCODIGOSRI;
     }
 }
