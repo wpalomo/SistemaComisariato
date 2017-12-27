@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
@@ -1248,8 +1249,8 @@ namespace Comisariato.Formularios.Transacciones
 
             //String ruta = @"\\AIRCONTROL\BodegaPedido";
             //ticket.ImprimirTicket(ruta);
-
-            ticket.ImprimirTicket("Generic / Text Only");//Nombre de la impresora ticketera
+            var valor = ConfigurationManager.AppSettings["Local"];
+            ticket.ImprimirTicket(valor);//Nombre de la impresora ticketera
 
 
             //}
@@ -1333,8 +1334,10 @@ namespace Comisariato.Formularios.Transacciones
             //MessageBox.Show(""+ pd.PrinterSettings.PrinterName);
             //string r = pd.PrinterSettings.PrinterName;
             // MessageBox.Show(@"\\SCLIENTE-PC\PedidoBodega");
-           String ruta = @"\\AIRCONTROL\BodegaPedido";
-            ticket.ImprimirTicket(ruta);
+            //String ruta = @"\\AIRCONTROL\BodegaPedido";
+            //System.Configuration.impresoras connec = ConfigurationManager.ConnectionStrings;
+            var valor = ConfigurationManager.AppSettings["Bodega"];
+            ticket.ImprimirTicket(valor);
                // RawPrinterHelper.SendStringToPrinter(pd.PrinterSettings.PrinterName, "");
             //}
             pedidos.Clear();

@@ -741,6 +741,7 @@ namespace Comisariato.Formularios.Transacciones
         {
             FrmClaveUsuario u = new FrmClaveUsuario();
             u.verificarMetodo = 2;
+            u.numcajaAvance = txtCaja.Text;
             u.ShowDialog();
             txtCodigo.Focus();
 

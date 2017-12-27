@@ -280,7 +280,7 @@ namespace Comisariato.Clases
 
             if (!ObjConsulta.Existe("IVA", iva.ToString(), "TbParametrosFactura"))
             {
-                if (ObjConsulta.EjecutarSQL("INSERT INTO [BDComisariato].[dbo].[TbParametrosFactura]  ([MONTO_MINIMO_FACTURA]  ,[IVA] ,[CONTRIBUYENTEESPECIAL]  ,[OBLIGADOLLEVARCONTABILIDAD], [IDEMPRESA],[PREIMPRESA],[AUTORIZADOIMPRIMIR])"
+                if (ObjConsulta.EjecutarSQL("INSERT INTO [dbo].[TbParametrosFactura]  ([MONTO_MINIMO_FACTURA]  ,[IVA] ,[CONTRIBUYENTEESPECIAL]  ,[OBLIGADOLLEVARCONTABILIDAD], [IDEMPRESA],[PREIMPRESA],[AUTORIZADOIMPRIMIR])"
                     + " VALUES(" + MontoMinimoFactura + ",'" + iva + "','" + contribuyenteEspecial + "','" + obligadoContabilida + "',"+ idempresa +",'"+preimpresa+"','"+autorizadoParaImprimir+"')"))
                 {
                     idParametrosFactura = ObjConsulta.ObtenerID("IDPARAMETROSFACTURA", "TbParametrosFactura","");
@@ -302,7 +302,7 @@ namespace Comisariato.Clases
         {
             ObjConsulta = new Consultas();
 
-            if (ObjConsulta.EjecutarSQL("INSERT INTO [BDComisariato].[dbo].[TbPreimpresa] ([ANCHO] ,[LARGO] ,[NUMEROITEMS] ,[IDPARAMETROSFACTURA],[TAMANOENCABEZADOFACTURA],[TAMANOPIEFACTURA])"
+            if (ObjConsulta.EjecutarSQL("INSERT INTO [dbo].[TbPreimpresa] ([ANCHO] ,[LARGO] ,[NUMEROITEMS] ,[IDPARAMETROSFACTURA],[TAMANOENCABEZADOFACTURA],[TAMANOPIEFACTURA])"
                 + " VALUES(" + ancho + "," + largo+","+numeroItems+","+idParametrosFactura+","+TamanoEncabezadoFact+","+TamanoPieFact+")"))
             {
                 return "Datos Guardados";
@@ -314,7 +314,7 @@ namespace Comisariato.Clases
         {
             ObjConsulta = new Consultas();
 
-            if (ObjConsulta.EjecutarSQL("INSERT INTO [BDComisariato].[dbo].[TbAutorizadosImprimir] ([PIE1] ,[PIE2] ,[PIE3],[PIE4]  ,[IDPARAMETROSFACTURA])"
+            if (ObjConsulta.EjecutarSQL("INSERT INTO [dbo].[TbAutorizadosImprimir] ([PIE1] ,[PIE2] ,[PIE3],[PIE4]  ,[IDPARAMETROSFACTURA])"
                 + " VALUES('"+pie1+"','"+pie2+ "','"+pie3+ "','"+pie4+"',"+idParametrosFactura+")"))
             {
                 return "Datos Guardados";

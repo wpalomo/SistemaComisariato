@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using Comisariato.Formularios;
 using Comisariato.Clases;
 
+
 namespace Comisariato
 {
     public partial class FrmLogin : Form
@@ -140,6 +141,9 @@ namespace Comisariato
             //    lblError.Text = "Ingresa el usuario.";
             //    txtUsuario.Focus();
             // }
+            //string impresora = ConfigurationManager.AppSettings["Impresoras"].ToString();
+           // var valor = ConfigurationManager.AppSettings["Bodega"];
+            //ticket.ImprimirTicket(impresora);
             loguearse();
        }
 

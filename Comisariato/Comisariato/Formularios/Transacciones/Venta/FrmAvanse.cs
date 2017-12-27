@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -96,7 +97,8 @@ namespace Comisariato.Formularios.Transacciones
                     ticket.TextoIzquierda("");
                     ticket.TextoCentro("Firma");
                     ticket.CortaTicket();
-                    ticket.ImprimirTicket("Generic / Text Only");
+                    var valor = ConfigurationManager.AppSettings["Local"];
+                    ticket.ImprimirTicket(valor);
                 }
                 //Nombre de la impresora ticketera
             }

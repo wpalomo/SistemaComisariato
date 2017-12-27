@@ -18,6 +18,7 @@ namespace Comisariato.Formularios.Transacciones
         Consultas c;
         Funcion objFuncion = new Funcion();
             public int verificarMetodo;
+        public string numcajaAvance = "";
 
         public FrmClaveUsuario()
         {
@@ -161,7 +162,7 @@ namespace Comisariato.Formularios.Transacciones
                             FrmAvanse s = new FrmAvanse();
                             s.cajero = Program.NOMBRES + " " + Program.APELLIDOS;
                             s.fecha = Program.FecaInicio;
-                            s.caja = "" + Program.numfact;
+                            s.caja = "" + numcajaAvance;
                             s.ShowDialog();
                             this.Close();
                         }
