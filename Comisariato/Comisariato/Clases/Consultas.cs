@@ -481,10 +481,16 @@ namespace Comisariato.Clases
                     if (activo == 1)
                     {
                         producto.Nombreproducto = (String)dato["DETALLE"];
-
-                        //        //producto.Cant = Convert.ToInt32(dato["CANTIDAD"]);
                         producto.Cantidad = Convert.ToInt32(dato["CANTIDAD"]);
-                        producto.Caja = Convert.ToInt32(dato["CAJA"]);
+                        if (Convert.ToString(dato["CAJA"]) != "")
+                        {
+                            producto.Caja = Convert.ToInt32(dato["CAJA"]);
+                        }
+                        else
+                        {
+                            producto.Caja = 0;
+                        }
+                       
                         producto.Preciopublico_sin_iva = Convert.ToSingle(dato["PRECIOVENTAPUBLICO"]);
                         producto.Ivaestado = Convert.ToBoolean(dato["IVAESTADO"]);
                         producto.Iva = Convert.ToInt32(dato["IVA"]);
