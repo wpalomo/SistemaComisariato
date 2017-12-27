@@ -27,6 +27,7 @@ namespace Comisariato.Clases
         string pie3;
         string pie4;
 
+        string numeroResolucion;
 
 
         //relacion 
@@ -46,7 +47,7 @@ namespace Comisariato.Clases
         public ParametrosFactura()
         { }
 
-        public ParametrosFactura(string montoMinimoFactura, int iva, bool contribuyenteEspecial, bool obligadoContabilida, string ancho, string largo, int numeroItems, string pie1, string pie2, string pie3, string pie4, int idempresa, string TamanoEncabezadoFact, string TamanoPieFact,bool preimpresa, bool autorizadoParaImprimir)
+        public ParametrosFactura(string montoMinimoFactura, int iva, bool contribuyenteEspecial, bool obligadoContabilida, string ancho, string largo, int numeroItems, string pie1, string pie2, string pie3, string pie4, int idempresa, string TamanoEncabezadoFact, string TamanoPieFact,bool preimpresa, bool autorizadoParaImprimir,string numerodeResolucion)
         {
             MontoMinimoFactura = montoMinimoFactura;
             this.iva = iva;
@@ -64,6 +65,7 @@ namespace Comisariato.Clases
             this.TamanoPieFact = TamanoPieFact;
             this.preimpresa = preimpresa;
             this.autorizadoParaImprimir = autorizadoParaImprimir;
+            this.numeroResolucion = NumeroResolucion;
         }
 
         public string MontoMinimoFactura1
@@ -274,14 +276,27 @@ namespace Comisariato.Clases
             }
         }
 
+        public string NumeroResolucion
+        {
+            get
+            {
+                return numeroResolucion;
+            }
+
+            set
+            {
+                numeroResolucion = value;
+            }
+        }
+
         public string InsertarParametrosFactura()
         {
             ObjConsulta = new Consultas();
 
             if (!ObjConsulta.Existe("IVA", iva.ToString(), "TbParametrosFactura"))
             {
-                if (ObjConsulta.EjecutarSQL("INSERT INTO [dbo].[TbParametrosFactura]  ([MONTO_MINIMO_FACTURA]  ,[IVA] ,[CONTRIBUYENTEESPECIAL]  ,[OBLIGADOLLEVARCONTABILIDAD], [IDEMPRESA],[PREIMPRESA],[AUTORIZADOIMPRIMIR])"
-                    + " VALUES(" + MontoMinimoFactura + ",'" + iva + "','" + contribuyenteEspecial + "','" + obligadoContabilida + "',"+ idempresa +",'"+preimpresa+"','"+autorizadoParaImprimir+"')"))
+                if (ObjConsulta.EjecutarSQL("INSERT INTO [dbo].[TbParametrosFactura]  ([MONTO_MINIMO_FACTURA]  ,[IVA] ,[CONTRIBUYENTEESPECIAL]  ,[OBLIGADOLLEVARCONTABILIDAD], [IDEMPRESA],[PREIMPRESA],[AUTORIZADOIMPRIMIR],[NUMERORESOLUCION])"
+                    + " VALUES(" + MontoMinimoFactura + ",'" + iva + "','" + contribuyenteEspecial + "','" + obligadoContabilida + "',"+ idempresa +",'"+preimpresa+"','"+autorizadoParaImprimir+"','"+NumeroResolucion+"')"))
                 {
                     idParametrosFactura = ObjConsulta.ObtenerID("IDPARAMETROSFACTURA", "TbParametrosFactura","");
                     //if (preimpresa)
@@ -314,7 +329,7 @@ namespace Comisariato.Clases
         {
             ObjConsulta = new Consultas();
 
-            if (ObjConsulta.EjecutarSQL("INSERT INTO [dbo].[TbAutorizadosImprimir] ([PIE1] ,[PIE2] ,[PIE3],[PIE4]  ,[IDPARAMETROSFACTURA])"
+            if (ObjConsulta.EjecutarSQL("INSERT INTO [dbo].[TbAutorizadosImprimir] ([PIE1] ,[PIE2] ,[PIE3],[PIE4],[IDPARAMETROSFACTURA])"
                 + " VALUES('"+pie1+"','"+pie2+ "','"+pie3+ "','"+pie4+"',"+idParametrosFactura+")"))
             {
                 return "Datos Guardados";

@@ -894,7 +894,7 @@ namespace Comisariato.Formularios.Transacciones
                 objcit.RuC = Program.rucempresa;
                 objcit.CodDoC = "01";
                 objcit.EstaB = Program.em.Sucursal.ToString("D3");
-                objcit.PtoEmI = "001";
+                objcit.PtoEmI = caja.ToString("D3");
                 objcit.SecuenciaL = numfactbd.ToString("D9");
                 objcit.DirMatriz = Program.direccionempresa;
                 string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");

@@ -123,7 +123,7 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
             if (txtMontoMinimoFacturaEmpresa.Text!="" && cbIVA.SelectedIndex>=0 )
             {
                 
-                ParametrosFactura ObjParametrosFactura = new ParametrosFactura(txtMontoMinimoFacturaEmpresa.Text, Convert.ToInt32(cbIVA.Text), ckbContribuyenteEspecial.Checked, ckbObligadoContabilidad.Checked, TxtAncho.Text, TxtLargo.Text, Convert.ToInt32(TxtNumeroItemsFactura.Text), TxtPie1.Text, TxtPie2.Text, TxtPie3.Text, TxtPie4.Text, Convert.ToInt32(Program.IDEMPRESA),TxtTamañoEncabezadoFact.Text,TxtTamañoPieFact.Text,rbPreimpresa.Checked,rbAutorizadoImprimir.Checked);
+                ParametrosFactura ObjParametrosFactura = new ParametrosFactura(txtMontoMinimoFacturaEmpresa.Text, Convert.ToInt32(cbIVA.Text), ckbContribuyenteEspecial.Checked, ckbObligadoContabilidad.Checked, TxtAncho.Text, TxtLargo.Text, Convert.ToInt32(TxtNumeroItemsFactura.Text), TxtPie1.Text, TxtPie2.Text, TxtPie3.Text, TxtPie4.Text, Convert.ToInt32(Program.IDEMPRESA),TxtTamañoEncabezadoFact.Text,TxtTamañoPieFact.Text,rbPreimpresa.Checked,rbAutorizadoImprimir.Checked,txtNumeroResolucion.Text);
 
                 if (!Estado_Existe)
                 {
@@ -198,6 +198,18 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
         private void TxtTamañoPieFact_KeyPress(object sender, KeyPressEventArgs e)
         {
             Funcion.SoloValores(e, TxtTamañoPieFact.Text);
+        }
+
+        private void ckbContribuyenteEspecial_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbContribuyenteEspecial.Checked)
+            {
+                txtNumeroResolucion.Enabled = true;
+            }
+            else
+            {
+                txtNumeroResolucion.Enabled = false;
+            }
         }
     }
 }
