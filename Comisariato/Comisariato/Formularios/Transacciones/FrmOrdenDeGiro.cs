@@ -24,6 +24,7 @@ namespace Comisariato.Formularios.Transacciones
 
         Consultas ObjConsul = new Consultas();
         Bitacora bitacora = new Bitacora();
+        List<string> parametrosFactu =  new List<string>();
         public void inicializar()
         {
             Funcion.Limpiarobjetos(gbDatosFactura);
@@ -125,6 +126,8 @@ namespace Comisariato.Formularios.Transacciones
                 dgvDatosRetencion.Rows[i].Cells[4].Value = Funcion.reemplazarcaracter(((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(dgvDatosRetencion.Rows[i].Cells[3].Value.ToString())) * Convert.ToSingle(dgvDatosRetencion.Rows[i].Cells[2].Value)) / 100).ToString());
                 dgvDatosRetencion.Rows[i].Cells[6].Value = Convert.ToDateTime(myRow["FECHAVALIDODESDE"]).ToShortDateString() + " - " + Convert.ToDateTime(myRow["FECHAVALIDOHASTA"]).ToShortDateString();
                 dgvDatosRetencion.Rows[i].Cells[7].Value = Convert.ToInt32(myRow["IDCODIGOSRI"]);
+                dgvDatosRetencion.Rows[i].Cells[8].Value = Convert.ToInt32(myRow["CODIGOSRI"]);
+                dgvDatosRetencion.Rows[i].Cells[9].Value = Convert.ToInt32(myRow["IDTIPOCODIGOSRI"]);
             }
             float sumaRetencion = 0.0f;
             for (int i = 0; i < dgvDatosRetencion.RowCount - 1; i++)
@@ -175,6 +178,21 @@ namespace Comisariato.Formularios.Transacciones
                 cbSustentoTributario.Enabled = false;            
             }
            ObjConsul.seriesDocumentoRetencion(txtNumeroRetencion, txtSerie1Retencion, txtSerie2Retencion, txtAutorizacionRetencion, "RET", bitacora.LocalIPAddress());
+
+            DataTable dt = ObjConsul.BoolDataTable("Select CONTRIBUYENTEESPECIAL, NUMERORESOLUCION from TbParametrosFactura;");
+            //Verificar si tiene Datos
+            if (dt.Rows.Count > 0)
+            {
+                DataRow myRow = dt.Rows[0];
+                parametrosFactu.Add(myRow["CONTRIBUYENTEESPECIAL"].ToString());
+                parametrosFactu.Add(myRow["NUMERORESOLUCION"].ToString());
+            }
+            else
+            {
+                parametrosFactu.Add("No");
+                parametrosFactu.Add("No");
+            }
+
         }
 
         private void txtNumero_Leave(object sender, EventArgs e)
@@ -434,7 +452,11 @@ namespace Comisariato.Formularios.Transacciones
                     DataRow myRow = dt.Rows[0];
                     string periodoFiscal = dtpFechaContabilizacion.Value.Date.Month.ToString();
                     periodoFiscal = periodoFiscal + "/" + dtpFechaContabilizacion.Value.Date.Year.ToString();
-                    InfoCompRetencion infoCompReten = new InfoCompRetencion(fecha, Program.direccionempresa, "", Program.obligadoContabilidad, myRow["TIPOIDENTIFICACION"].ToString(), myRow["RAZONSOCIAL"].ToString(), myRow["IDENTIFICACION"].ToString(), periodoFiscal);
+                    InfoCompRetencion infoCompReten = new InfoCompRetencion(fecha, Program.direccionempresa,parametrosFactu[1], Program.obligadoContabilidad, myRow["TIPOIDENTIFICACION"].ToString(), myRow["RAZONSOCIAL"].ToString(), myRow["IDENTIFICACION"].ToString(), periodoFiscal);
+                    xmlRetencion.infoCompRetencion(infoCompReten);
+
+                    xmlRetencion.impuestos(dgvDatosRetencion);
+
 
                     inicializar();
                 }
