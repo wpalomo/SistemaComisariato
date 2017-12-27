@@ -70,6 +70,7 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
 
                 rbAutorizadoImprimir.Checked = Convert.ToBoolean(myRow["AUTORIZADOIMPRIMIR"]);
                 rbPreimpresa.Checked = Convert.ToBoolean(myRow["PREIMPRESA"]);
+                txtNumeroResolucion.Text = myRow["NUMERORESOLUCION"].ToString();
 
             }
             
