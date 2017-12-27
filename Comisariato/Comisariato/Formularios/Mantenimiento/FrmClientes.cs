@@ -35,13 +35,13 @@ namespace Comisariato.Formularios
             cbCategoriaCliente.SelectedIndex = 0;
             cbActividadEconomicaCliente.SelectedIndex = 0;
 
-            foreach (Control item in tpInformacionGeneralCliente.Controls)
-            {
-                if (item is TextBox)
-                    item.Text = "";
-                if (item is DataGridView)
-                    item.Controls.Clear();
-            }
+            //foreach (Control item in tpInformacionGeneralCliente.Controls)
+            //{
+            //    if (item is TextBox)
+            //        item.Text = "";
+            //    if (item is DataGridView)
+            //        item.Controls.Clear();
+            //}
 
             Funcion.Limpiarobjetos(gbDatosPersonalesClientes);
             Funcion.Limpiarobjetos(gbRepresentanteLegalCliente);
@@ -52,7 +52,7 @@ namespace Comisariato.Formularios
             txtCreditoAsignadoCliente.Text = "0";
             txtCupoCreditoCliente.Text = "0";
             txtDescuentoCliente.Text = "0";
-            cargarDatos("1");
+            //cargarDatos("1");
             cbProvinciaCliente.SelectedValue = 9;
             cbCantonCliente.SelectedValue = 80;
             cbParroquiaCliente.SelectedValue = 41;
@@ -81,7 +81,7 @@ namespace Comisariato.Formularios
             consultas.BoolLlenarComboBox(cbPaisCliente, "Select IDPAIS as ID, NOMBRE AS Texto from TbPais");
 
             // llenar datadrigview solo los activos
-            cargarDatos("1");
+            //cargarDatos("1");
 
 
 
@@ -339,7 +339,7 @@ namespace Comisariato.Formularios
                     identificacion = dgvDatosCliente.CurrentRow.Cells[2].Value.ToString();
 
                     //Llenar el DataTable
-                    DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDCLIENTE = " + dgvDatosCliente.CurrentRow.Cells[9].Value.ToString() + "");
+                    DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDENTIFICACION = " + dgvDatosCliente.Rows[e.RowIndex].Cells[2].Value.ToString() + "");
                     if (dt.Rows.Count > 0)
                     {
                         DataRow myRow = dt.Rows[0];
@@ -388,10 +388,11 @@ namespace Comisariato.Formularios
                         int indexcuenta = cbCuentaContable.SelectedIndex;
                         cbCuentaContable.SelectedIndex = indexcuenta;
 
+                        int IdCliente = Convert.ToInt32(myRow["IDCLIENTE"]);
 
 
                         //cargar lista OTRA INFORMACION Cliente
-                        DataTable DTOtrainformacion = consultas.BoolDataTable("Select * from TbOtraInformacionCliente where IDCLIENTE = " + dgvDatosCliente.CurrentRow.Cells[2].Value.ToString() + "");
+                        DataTable DTOtrainformacion = consultas.BoolDataTable("Select * from TbOtraInformacionCliente where IDCLIENTE = " + IdCliente.ToString() + "");
                         int contador = 0;
                         if (DTOtrainformacion.Rows.Count > 0)
                         {
@@ -435,41 +436,43 @@ namespace Comisariato.Formularios
         private void cargarDatos(string condicion)
         {
             consultas = new Consultas();
-            string consulta = "Select IDENTIFICACION AS 'CEDULA/RUC',NOMBRES, APELLIDOS, DIRECCION, CELULAR1, TIPOCLIENTE as 'TIPO', ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO', IDCLIENTE as ID from TbCliente WHERE ACTIVO=" + condicion + ";";
-            consultas.boolLlenarDataGrid(dgvDatosCliente, consulta, 15, 7, 2);
-            for (int i = 0; i < dgvDatosCliente.RowCount; i++)
-                if (Convert.ToString(dgvDatosCliente.Rows[i].Cells[2].Value) == "")
-                    dgvDatosCliente.Rows[i].ReadOnly = true;
+            string consulta = "Select IDENTIFICACION AS 'CEDULA/RUC',NOMBRES, APELLIDOS, DIRECCION, CELULAR1, TIPOCLIENTE as 'TIPO', ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO',ACTIVO from TbCliente WHERE ACTIVO=" + condicion + ";";
+            consultas.BoolCrearDateTableCliente(dgvDatosCliente, consulta);
+            //dgvDatosCliente.Columns["ID"].Visible = false;
+            //consultas.boolLlenarDataGrid(dgvDatosCliente, consulta, 15, 7, 2);
+            //for (int i = 0; i < dgvDatosCliente.RowCount; i++)
+            //    if (Convert.ToString(dgvDatosCliente.Rows[i].Cells[2].Value) == "")
+            //        dgvDatosCliente.Rows[i].ReadOnly = true;
         }
 
         private void rbtActivosCliente_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtActivosCliente.Checked)
-            {
-                cargarDatos("1");
-                //dgvDatosCliente.Columns[1].HeaderText = "Desabilitar";
-            }
-            else if (rbtInactivosCliente.Checked)
-            {
-                cargarDatos("0");
-                //dgvDatosCliente.Columns[1].HeaderText = "Habilitar";
-            }
+            //if (rbtActivosCliente.Checked)
+            //{
+            //    cargarDatos("1");
+            //    //dgvDatosCliente.Columns[1].HeaderText = "Desabilitar";
+            //}
+            //else if (rbtInactivosCliente.Checked)
+            //{
+            //    cargarDatos("0");
+            //    //dgvDatosCliente.Columns[1].HeaderText = "Habilitar";
+            //}
         }
 
         private void txtConsultarCliente_TextChanged(object sender, EventArgs e)
         {
-            if (rbtActivosCliente.Checked)
-            {
-                consultas.boolLlenarDataGridView(dgvDatosCliente, "Select IDCLIENTE as ID,  RAZONSOCIAL as 'RAZON SOCIAL', TIPOCLIENTE as 'TIPO' , ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO',DIRECCION, APELLIDOS,NOMBRES,IDENTIFICACION AS 'CEDULA/RUC' ,CELULAR1,CELULAR2 from TbCliente where ACTIVO = 1 and IDENTIFICACION like '%" + txtConsultarCliente.Text + "%' or NOMBRES like '%" + txtConsultarCliente.Text + "%' or APELLIDOS like '%" + txtConsultarCliente.Text + "%'");
-                //dgvDatosCliente.Columns[1].HeaderText = "Desabilitar";
-                dgvDatosCliente.Columns["ID"].Visible = false;
-            }
-            else if (rbtInactivosCliente.Checked)
-            {
-                consultas.boolLlenarDataGridView(dgvDatosCliente, "Select IDCLIENTE as ID,  RAZONSOCIAL as 'RAZON SOCIAL', TIPOCLIENTE as 'TIPO' , ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO',DIRECCION, APELLIDOS,NOMBRES,IDENTIFICACION AS 'CEDULA/RUC',CELULAR1,CELULAR2 from TbCliente where ACTIVO = 0 and IDENTIFICACION like '%" + txtConsultarCliente.Text + "%' or NOMBRES like '%" + txtConsultarCliente.Text + "%' or APELLIDOS like '%" + txtConsultarCliente.Text + "%'");
-                //dgvDatosCliente.Columns[1].HeaderText = "Habilitar";
-                dgvDatosCliente.Columns["ID"].Visible = false;
-            }
+            //if (rbtActivosCliente.Checked)
+            //{
+            //    consultas.boolLlenarDataGridView(dgvDatosCliente, "Select IDCLIENTE as ID,  RAZONSOCIAL as 'RAZON SOCIAL', TIPOCLIENTE as 'TIPO' , ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO',DIRECCION, APELLIDOS,NOMBRES,IDENTIFICACION AS 'CEDULA/RUC' ,CELULAR1,CELULAR2 from TbCliente where ACTIVO = 1 and IDENTIFICACION like '%" + txtConsultarCliente.Text + "%' or NOMBRES like '%" + txtConsultarCliente.Text + "%' or APELLIDOS like '%" + txtConsultarCliente.Text + "%'");
+            //    //dgvDatosCliente.Columns[1].HeaderText = "Desabilitar";
+            //    dgvDatosCliente.Columns["ID"].Visible = false;
+            //}
+            //else if (rbtInactivosCliente.Checked)
+            //{
+            //    consultas.boolLlenarDataGridView(dgvDatosCliente, "Select IDCLIENTE as ID,  RAZONSOCIAL as 'RAZON SOCIAL', TIPOCLIENTE as 'TIPO' , ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO',DIRECCION, APELLIDOS,NOMBRES,IDENTIFICACION AS 'CEDULA/RUC',CELULAR1,CELULAR2 from TbCliente where ACTIVO = 0 and IDENTIFICACION like '%" + txtConsultarCliente.Text + "%' or NOMBRES like '%" + txtConsultarCliente.Text + "%' or APELLIDOS like '%" + txtConsultarCliente.Text + "%'");
+            //    //dgvDatosCliente.Columns[1].HeaderText = "Habilitar";
+            //    dgvDatosCliente.Columns["ID"].Visible = false;
+            //}
         }
 
         private void cbPaisCliente_SelectedIndexChanged(object sender, EventArgs e)
@@ -772,6 +775,31 @@ namespace Comisariato.Formularios
             //        dgvDatosCliente.Rows[e.RowIndex].Cells["DeshabilitarCliente"].Value = StatusImgs[1];
             //    }
             //}
+        }
+
+        private void rbtInactivosCliente_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtConsultarCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                if (rbtActivosCliente.Checked)
+                {
+                    if (txtConsultarCliente.Text != "")
+                    {
+                        consultas.BoolCrearDateTableCliente(dgvDatosCliente, "Select IDENTIFICACION AS 'CEDULA/RUC',NOMBRES, APELLIDOS, DIRECCION, CELULAR1, TIPOCLIENTE as 'TIPO', ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO', ACTIVO from TbCliente WHERE ACTIVO = 1 and (IDENTIFICACION like '%" + txtConsultarCliente.Text + "%' or NOMBRES like '%" + txtConsultarCliente.Text + "%' or APELLIDOS like '%" + txtConsultarCliente.Text + "%')");
+                        //dgvDatosCliente.Columns["ID"].Visible = false;
+                    }
+                }
+                else if (rbtInactivosCliente.Checked)
+                {
+                    consultas.BoolCrearDateTableCliente(dgvDatosCliente, "Select IDENTIFICACION AS 'CEDULA/RUC',NOMBRES, APELLIDOS, DIRECCION, CELULAR1, TIPOCLIENTE as 'TIPO', ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO',ACTIVO from TbCliente WHERE ACTIVO = 0 and (IDENTIFICACION like '%" + txtConsultarCliente.Text + "%' or NOMBRES like '%" + txtConsultarCliente.Text + "%' or APELLIDOS like '%" + txtConsultarCliente.Text + "%')");
+                    //dgvDatosCliente.Columns["ID"].Visible = false;
+                }
+            }
         }
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcProducto = new System.Windows.Forms.TabControl();
             this.tpNuevoProducto = new System.Windows.Forms.TabPage();
             this.txtNombreProducto = new System.Windows.Forms.RichTextBox();
@@ -56,12 +56,12 @@
             this.CkbICE = new System.Windows.Forms.CheckBox();
             this.CkbIva = new System.Windows.Forms.CheckBox();
             this.gbPreciosProducto = new System.Windows.Forms.GroupBox();
+            this.txtPVPConIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioCajaSinIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioMayorSinIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPVPSinIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioCajaConIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioMayorConIVAProducto = new System.Windows.Forms.TextBox();
-            this.txtPVPConIVAProducto = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -84,10 +84,10 @@
             this.rbtInactivos = new System.Windows.Forms.RadioButton();
             this.rbtActivos = new System.Windows.Forms.RadioButton();
             this.dgvDatosProducto = new System.Windows.Forms.DataGridView();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txtConsultarProducto = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tcProducto.SuspendLayout();
             this.tpNuevoProducto.SuspendLayout();
             this.gbDescripcionProducto.SuspendLayout();
@@ -488,6 +488,21 @@
             this.gbPreciosProducto.TabStop = false;
             this.gbPreciosProducto.Text = "Precios";
             // 
+            // txtPVPConIVAProducto
+            // 
+            this.txtPVPConIVAProducto.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.txtPVPConIVAProducto.Location = new System.Drawing.Point(134, 34);
+            this.txtPVPConIVAProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtPVPConIVAProducto.Name = "txtPVPConIVAProducto";
+            this.txtPVPConIVAProducto.Size = new System.Drawing.Size(100, 22);
+            this.txtPVPConIVAProducto.TabIndex = 19;
+            this.txtPVPConIVAProducto.Text = "0.0";
+            this.txtPVPConIVAProducto.Click += new System.EventHandler(this.txtPVPConIVAProducto_Click);
+            this.txtPVPConIVAProducto.TextChanged += new System.EventHandler(this.txtPVPConIVAProducto_TextChanged_1);
+            this.txtPVPConIVAProducto.Enter += new System.EventHandler(this.txtPVPConIVAProducto_Enter);
+            this.txtPVPConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPVPConIVAProducto_KeyPress_1);
+            this.txtPVPConIVAProducto.Leave += new System.EventHandler(this.txtPVPConIVAProducto_Leave);
+            // 
             // txtPrecioCajaSinIVAProducto
             // 
             this.txtPrecioCajaSinIVAProducto.Font = new System.Drawing.Font("Arial", 9.75F);
@@ -560,21 +575,6 @@
             this.txtPrecioMayorConIVAProducto.Enter += new System.EventHandler(this.txtPrecioMayorConIVAProducto_Enter);
             this.txtPrecioMayorConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioMayorConIVAProducto_KeyPress);
             this.txtPrecioMayorConIVAProducto.Leave += new System.EventHandler(this.txtPVPConIVAProducto_Leave);
-            // 
-            // txtPVPConIVAProducto
-            // 
-            this.txtPVPConIVAProducto.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtPVPConIVAProducto.Location = new System.Drawing.Point(134, 34);
-            this.txtPVPConIVAProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtPVPConIVAProducto.Name = "txtPVPConIVAProducto";
-            this.txtPVPConIVAProducto.Size = new System.Drawing.Size(100, 22);
-            this.txtPVPConIVAProducto.TabIndex = 19;
-            this.txtPVPConIVAProducto.Text = "0.0";
-            this.txtPVPConIVAProducto.Click += new System.EventHandler(this.txtPVPConIVAProducto_Click);
-            this.txtPVPConIVAProducto.TextChanged += new System.EventHandler(this.txtPVPConIVAProducto_TextChanged_1);
-            this.txtPVPConIVAProducto.Enter += new System.EventHandler(this.txtPVPConIVAProducto_Enter);
-            this.txtPVPConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPVPConIVAProducto_KeyPress_1);
-            this.txtPVPConIVAProducto.Leave += new System.EventHandler(this.txtPVPConIVAProducto_Leave);
             // 
             // label17
             // 
@@ -838,19 +838,19 @@
             this.dgvDatosProducto.AllowUserToOrderColumns = true;
             this.dgvDatosProducto.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDatosProducto.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosProducto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDatosProducto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDatosProducto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosProducto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar,
             this.Deshabilitar});
-            this.dgvDatosProducto.Location = new System.Drawing.Point(21, 92);
+            this.dgvDatosProducto.Location = new System.Drawing.Point(21, 104);
             this.dgvDatosProducto.Name = "dgvDatosProducto";
             this.dgvDatosProducto.ReadOnly = true;
             this.dgvDatosProducto.Size = new System.Drawing.Size(985, 423);
@@ -858,41 +858,43 @@
             this.dgvDatosProducto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosProducto_CellClick);
             this.dgvDatosProducto.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosProducto_CellPainting);
             // 
-            // Modificar
-            // 
-            this.Modificar.HeaderText = "";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.ReadOnly = true;
-            this.Modificar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Modificar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Deshabilitar
-            // 
-            this.Deshabilitar.HeaderText = "";
-            this.Deshabilitar.Name = "Deshabilitar";
-            this.Deshabilitar.ReadOnly = true;
-            // 
             // txtConsultarProducto
             // 
             this.txtConsultarProducto.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtConsultarProducto.Location = new System.Drawing.Point(283, 30);
+            this.txtConsultarProducto.Location = new System.Drawing.Point(136, 30);
             this.txtConsultarProducto.Margin = new System.Windows.Forms.Padding(2);
             this.txtConsultarProducto.Name = "txtConsultarProducto";
-            this.txtConsultarProducto.Size = new System.Drawing.Size(571, 22);
+            this.txtConsultarProducto.Size = new System.Drawing.Size(341, 22);
             this.txtConsultarProducto.TabIndex = 8;
             this.txtConsultarProducto.TextChanged += new System.EventHandler(this.txtConsultarProducto_TextChanged);
+            this.txtConsultarProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConsultarProducto_KeyPress);
             // 
             // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Arial", 9.75F);
             this.label25.ForeColor = System.Drawing.Color.Teal;
-            this.label25.Location = new System.Drawing.Point(169, 33);
+            this.label25.Location = new System.Drawing.Point(22, 33);
             this.label25.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(67, 16);
             this.label25.TabIndex = 7;
             this.label25.Text = "Consultar:";
+            // 
+            // Modificar
+            // 
+            this.Modificar.FillWeight = 5.076141F;
+            this.Modificar.HeaderText = "";
+            this.Modificar.Name = "Modificar";
+            this.Modificar.ReadOnly = true;
+            this.Modificar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Deshabilitar
+            // 
+            this.Deshabilitar.FillWeight = 194.9239F;
+            this.Deshabilitar.HeaderText = "";
+            this.Deshabilitar.Name = "Deshabilitar";
+            this.Deshabilitar.ReadOnly = true;
             // 
             // FrmProductos
             // 
@@ -900,7 +902,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1052, 613);
+            this.ClientSize = new System.Drawing.Size(1052, 614);
             this.Controls.Add(this.tcProducto);
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -982,12 +984,12 @@
         private System.Windows.Forms.DataGridView dgvDatosProducto;
         private System.Windows.Forms.RadioButton rbtInactivos;
         private System.Windows.Forms.RadioButton rbtActivos;
-        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
-        private System.Windows.Forms.DataGridViewButtonColumn Deshabilitar;
         private System.Windows.Forms.RichTextBox txtNombreProducto;
         private System.Windows.Forms.TextBox txtPeso;
         private System.Windows.Forms.TextBox txtUnidadProducto;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox CkbLibreImpuesto;
+        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
+        private System.Windows.Forms.DataGridViewButtonColumn Deshabilitar;
     }
 }

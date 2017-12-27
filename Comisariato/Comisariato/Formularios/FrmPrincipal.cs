@@ -429,6 +429,9 @@ namespace Comisariato.Formularios
 
         private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+            String HoraSalida = DateTime.Now.TimeOfDay.ToString();
+            Bitacora ObjBitacora = new Bitacora(HoraSalida, "Sesión Finalizada");
+            ObjBitacora.insertarBitacora();
             Application.Exit();
         }
 

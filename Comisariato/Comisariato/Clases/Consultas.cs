@@ -931,7 +931,7 @@ namespace Comisariato.Clases
             dt.Columns.Add("PROVEEDOR", typeof(String));
             dt.Columns.Add("CATEGORIA", typeof(String));
             dt.Columns.Add("IVA", typeof(bool));
-            dt.Columns.Add("ACTIVO", typeof(String));
+            //dt.Columns.Add("ACTIVO", typeof(String));
 
             try
             {
@@ -949,40 +949,34 @@ namespace Comisariato.Clases
                     float costo = Convert.ToSingle(dato["COSTO"]);
                     bool ivaestado = Convert.ToBoolean(dato["IVA"]);
                     int activo = Convert.ToInt32(dato["ACTIVO"]);
+                    string formato = "", Proveedor = "";
+
+                    if (dato["PROVEEDOR"] != System.DBNull.Value)
+                    {
+                        Proveedor = dato["PROVEEDOR"].ToString();
+                    }
+                    else
+                        Proveedor = "No Tiene";
+
+                    if (dato["FORMATO"] != System.DBNull.Value)
+                    {
+                        formato = dato["FORMATO"].ToString();
+                    }
+                    else
+                        formato = "No Tiene";
                     if (activo == 1)
                     {
-                        string formato = "",Proveedor="";
+                       
 
-                        if (dato["PROVEEDOR"] != System.DBNull.Value)
-                        {
-                            Proveedor = dato["PROVEEDOR"].ToString();
-                        }
-                        else
-                            Proveedor = "No Tiene";
-
-                        if (dato["FORMATO"] != System.DBNull.Value)
-                        {
-                            formato = dato["FORMATO"].ToString();
-                        }
-                        else
-                            formato = "No Tiene";
-
-                        //if (ivaestado)
-                        //{
-                        dt.Rows.Add((String)dato["CODIGO BARRA"], (String)dato["PRODUCTO"], (int)dato["STOCK"], formato, costo.ToString("#####0.00"), pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), Proveedor, (String)dato["CATEGORIA"], Convert.ToBoolean(dato["IVA"]), Convert.ToBoolean(dato["ACTIVO"]));
-                        //}
-                        //else
-                        //{
-                            //dt.Rows.Add((String)dato["CODIGO BARRA"], (String)dato["PRODUCTO"], (int)dato["STOCK"], (String)dato["FORMATO"], costo.ToString("#####0.00"), pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), (String)dato["PROVEEDOR"], (String)dato["CATEGORIA"], Convert.ToBoolean(dato["IVA"]), Convert.ToBoolean(dato["ACTIVO"]));
-                        //}
-                        //dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, (int)dato["IVA"]);
-
+                        dt.Rows.Add((String)dato["CODIGO BARRA"], (String)dato["PRODUCTO"], (int)dato["STOCK"], formato, costo.ToString("#####0.00"), pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), Proveedor, (String)dato["CATEGORIA"], Convert.ToBoolean(dato["IVA"])/*, Convert.ToBoolean(dato["ACTIVO"])*/);
+                    }
+                    else {
+                        dt.Rows.Add((String)dato["CODIGO BARRA"], (String)dato["PRODUCTO"], (int)dato["STOCK"], formato, costo.ToString("#####0.00"), pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), Proveedor, (String)dato["CATEGORIA"], Convert.ToBoolean(dato["IVA"])/*, Convert.ToBoolean(dato["ACTIVO"])*/);
                     }
 
 
                 }
                 Tb.DataSource = dt;
-
                 return true;
 
 
@@ -1000,6 +994,59 @@ namespace Comisariato.Clases
 
         }
 
+
+        public Boolean BoolCrearDateTableCliente(DataGridView Tb, String SQL)
+        {
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("CEDULA/RUC", typeof(String));
+            dt.Columns.Add("NOMBRES", typeof(String));
+            dt.Columns.Add("APELLIDOS", typeof(String));
+            dt.Columns.Add("DIRECCION", typeof(String));
+            dt.Columns.Add("CELULAR1", typeof(String));
+            dt.Columns.Add("TIPO", typeof(String));
+            dt.Columns.Add("CREDITO", typeof(String));
+            //dt.Columns.Add("ID", typeof(String));
+
+            try
+            {
+                Objc.conectar();
+                SqlCommand Sentencia = new SqlCommand(SQL);
+                Sentencia.Connection = ConexionBD.connection;
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                while (dato.Read() == true)
+                {
+
+                    int activo = Convert.ToInt32(dato["ACTIVO"]);
+                    if (activo == 1)
+                    {
+                        dt.Rows.Add((String)dato["CEDULA/RUC"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], (String)dato["DIRECCION"], (String)dato["CELULAR1"], (String)dato["TIPO"], (String)dato["CREDITO"]/*, (String)dato["ID"]*/);
+                    }
+                    else
+                    {
+                        dt.Rows.Add((String)dato["CEDULA/RUC"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], (String)dato["DIRECCION"], (String)dato["CELULAR1"], (String)dato["TIPO"], (String)dato["CREDITO"]/*, (String)dato["ID"]*/);
+                    }
+
+
+                }
+                Tb.DataSource = dt;
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("" + ex.Message);
+                return false;
+
+            }
+
+
+            //return false;
+
+
+        }
 
         public void insertarTelefono(DataGridView data, int IDRelacion, string tipoEntidad)
         {
@@ -1993,6 +2040,41 @@ namespace Comisariato.Clases
             {
                 return false;
             }
+        }
+        public Boolean BoolCrearDateTableProveedoresAutorizacion(DataGridView Tb, String SQL)
+        {
+            try
+            {
+
+                Tb.Rows.Clear();
+                Objc.conectar();
+                SqlCommand Sentencia = new SqlCommand(SQL);
+                Sentencia.Connection = ConexionBD.connection;
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                while (dato.Read() == true)
+                {
+                    DateTime a = Convert.ToDateTime(dato["VALIDO_HASTA"].ToString());
+
+
+                        Tb.Rows.Add((String)dato["SERIE1"], (String)dato["SERIE2"], (String)dato["AUTORIZACION"], a, (String)dato["FAC_INICIO"], (String)dato["FAC_FIN"]);
+                }
+                //Tb.DataSource = dt;
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("" + ex.Message);
+                return false;
+
+            }
+
+
+            //return false;
+
+
         }
     }
 }
