@@ -42,13 +42,68 @@ namespace Comisariato.Clases
             string fecha = DateTime.Now.Date.ToShortDateString();
             //tipocomprobante de acuedo a la tabla 4
             //string claveacceso = objcinfotributaria.GenerarClaveAcceso(fecha, "1", serie);
-            //XmlNode NodoInfoTributarios = CrearInfoTributarios("" + objcinfotributaria.Ambiente, "" + objcinfotributaria.TipoEmision, objcinfotributaria.RazonSociaL, objcinfotributaria.NombreComerciaL, objcinfotributaria.RuC, claveacceso, objcinfotributaria.CodDoC, objcinfotributaria.EstaB, objcinfotributaria.PtoEmI, objcinfotributaria.SecuenciaL, objcinfotributaria.DirMatriz);
+            XmlNode NodoInfoTributarios = CrearInfoTributarios(objcinfotributaria, serie);
 
-            //XmlNode nodoRaiz = doc.DocumentElement;
+            XmlNode nodoRaiz = doc.DocumentElement;
 
-            //nodoRaiz.InsertAfter(NodoInfoTributarios, nodoRaiz.LastChild);
+            nodoRaiz.InsertAfter(NodoInfoTributarios, nodoRaiz.LastChild);
 
             doc.Save(rutaXml);
+        }
+
+        private XmlNode CrearInfoTributarios(InfoTributaria objc,string serie)
+        {
+            XmlNode SubNodototalConImpuestos = doc.CreateElement("infoTributaria");
+
+            XmlElement nodoambiente = doc.CreateElement("ambiente");
+            nodoambiente.InnerText =""+ objc.Ambiente;
+            SubNodototalConImpuestos.AppendChild(nodoambiente);
+
+            XmlElement nodotipoEmision = doc.CreateElement("tipoEmision");
+            nodotipoEmision.InnerText = ""+objc.TipoEmision;
+            SubNodototalConImpuestos.AppendChild(nodotipoEmision);
+
+            XmlElement nodorazonSocial = doc.CreateElement("razonSocial");
+            nodorazonSocial.InnerText = objc.RazonSociaL;
+            SubNodototalConImpuestos.AppendChild(nodorazonSocial);
+
+            XmlElement nodonombreComercial = doc.CreateElement("nombreComercial");
+            nodonombreComercial.InnerText = objc.NombreComerciaL;
+            SubNodototalConImpuestos.AppendChild(nodonombreComercial);
+
+            XmlElement nodoruc = doc.CreateElement("ruc");
+            nodoruc.InnerText = objc.RuC;
+            SubNodototalConImpuestos.AppendChild(nodoruc);
+
+            string fecha = DateTime.Now.Date.ToShortDateString();
+            string claveacceso = objc.GenerarClaveAcceso(fecha, "1", serie);
+            XmlElement nodoclaveacceso = doc.CreateElement("claveAcceso");
+            nodoclaveacceso.InnerText = claveacceso;
+            SubNodototalConImpuestos.AppendChild(nodoclaveacceso);
+
+            XmlElement nodocodDoc = doc.CreateElement("codDoc");
+            nodocodDoc.InnerText = objc.CodDoC;
+            SubNodototalConImpuestos.AppendChild(nodocodDoc);
+
+            XmlElement nodoestab = doc.CreateElement("estab");
+            nodoestab.InnerText = objc.EstaB;
+            SubNodototalConImpuestos.AppendChild(nodoestab);
+
+            XmlElement nodoptoEmi = doc.CreateElement("ptoEmi");
+            nodoptoEmi.InnerText = objc.PtoEmI;
+            SubNodototalConImpuestos.AppendChild(nodoptoEmi);
+
+            XmlElement nodosecuencial = doc.CreateElement("secuencial");
+            nodosecuencial.InnerText = objc.SecuenciaL;
+            SubNodototalConImpuestos.AppendChild(nodosecuencial);
+
+
+            XmlElement nododirMatriz = doc.CreateElement("dirMatriz");
+            nododirMatriz.InnerText = objc.DirMatriz;
+            SubNodototalConImpuestos.AppendChild(nododirMatriz);
+
+            return SubNodototalConImpuestos;
+
         }
 
         public void infoCompRetencion(InfoCompRetencion objciCompRetencion)
@@ -88,6 +143,23 @@ namespace Comisariato.Clases
 
             doc.Save(rutaXml);
         }
+
+        public void infoAdicional(string correo)
+        {
+            doc.Load(rutaXml);
+            XmlNode Subcampoadicinal = doc.CreateElement("infoAdicional");
+
+            XmlElement nodocodigo = doc.CreateElement("campoAdicional");
+            nodocodigo.InnerText = correo;
+            Subcampoadicinal.AppendChild(nodocodigo);
+
+            XmlNode nodoRaiz = doc.DocumentElement;
+
+            nodoRaiz.InsertAfter(Subcampoadicinal, nodoRaiz.LastChild);
+
+            doc.Save(rutaXml);
+        }
+
 
         private XmlNode nodototalConImpuestos(string codigo, string codigoRetencion,string baseImponible,string porcentajeRetener,string valorRetenido,string codDocSustento,string numDocSustento,string fechaEmisionDocSustento)
         {

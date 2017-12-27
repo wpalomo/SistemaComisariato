@@ -1378,7 +1378,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@IDEMPRESA", ObjParametrosFact.Idempresa);
                 cmd.Parameters.AddWithValue("@PREIMPRESA", ObjParametrosFact.Preimpresa);
                 cmd.Parameters.AddWithValue("@AUTORIZADOIMPRIMIR", ObjParametrosFact.AutorizadoParaImprimir);
-
+                cmd.Parameters.AddWithValue("@numresolucion", ObjParametrosFact.NumeroResolucion);
                 // TbPreimpresa
                 if (ObjParametrosFact.Preimpresa)
                 {
