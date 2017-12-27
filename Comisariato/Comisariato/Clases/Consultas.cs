@@ -952,7 +952,11 @@ namespace Comisariato.Clases
                     float pp = Convert.ToSingle(dato["P.V.P."]);
                     float pm = Convert.ToSingle(dato["P. MAYOR."]);
                     float pc = Convert.ToSingle(dato["P. CAJA"]);
-                    float costo = Convert.ToSingle(dato["COSTO"]);
+                    float costo = 0.0F;
+                    if (dato["COSTO"] != System.DBNull.Value)
+                    {
+                        costo = Convert.ToSingle(dato["COSTO"]);
+                    }
                     bool ivaestado = Convert.ToBoolean(dato["IVA"]);
                     int activo = Convert.ToInt32(dato["ACTIVO"]);
                     string formato = "", Proveedor = "";
