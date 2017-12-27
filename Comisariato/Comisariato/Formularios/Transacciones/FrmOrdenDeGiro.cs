@@ -734,7 +734,7 @@ namespace Comisariato.Formularios.Transacciones
 
                 //DGV Retencion
                 int y = 250;
-                dibujarRayas(ref y, 30, 2);
+                dibujarRayas(ref y, 32, 2);
                 e.Graphics.DrawLine(blackPen, puntoInicio, puntoFinal);
 
                 e.Graphics.DrawString("Año Fiscal", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 50, y + 2);
@@ -743,11 +743,64 @@ namespace Comisariato.Formularios.Transacciones
                 e.Graphics.DrawString("%", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 350, y + 2);
                 e.Graphics.DrawString("Base", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 450, y + 2);
                 e.Graphics.DrawString("Monto", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 650, y + 2);
-                //e.Graphics.DrawString("Cta. Contable", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 490, y + 2);
-                //e.Graphics.DrawString("Fecha Vigente", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 650, y + 2);
 
                 dibujarRayas(ref y, 20, 2);
                 e.Graphics.DrawLine(blackPen, puntoInicio, puntoFinal);
+
+                for (int i = 0; i < dgvDatosRetencion.RowCount - 1; i++)
+                {
+                    if (Convert.ToString(dgvDatosRetencion.Rows[i].Cells[1].Value) == "RETENCION")
+                        e.Graphics.DrawString("RTF", new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 260, y);
+                    else
+                        e.Graphics.DrawString("IVA", new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 260, y);
+                    e.Graphics.DrawString(Convert.ToString(dgvDatosRetencion.Rows[i].Cells[2].Value), new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 310, y);
+                    e.Graphics.DrawString(Convert.ToString(dgvDatosRetencion.Rows[i].Cells[4].Value), new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 410, y);
+                    e.Graphics.DrawString(Convert.ToString(dgvDatosRetencion.Rows[i].Cells[5].Value), new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 490, y);
+                    e.Graphics.DrawString(Convert.ToString(dgvDatosRetencion.Rows[i].Cells[6].Value), new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 625, y);
+                    string planCuenta = Convert.ToString(dgvDatosRetencion.Rows[i].Cells[0].Value);
+                    float lineasCuenta = Convert.ToSingle(planCuenta.Length) / 35;
+                    string plan = "";
+                    //cantidadCaracteres = Convert.ToInt32(planCuenta.Length);
+                    //posicion = 0;
+                    //bool banderaAumento = false;
+                    //if (lineasCuenta > 1)
+                    //    for (int j = 0; j < Math.Ceiling(lineasCuenta); j++)
+                    //    {
+                    //        if (cantidadCaracteres >= 35)
+                    //        {
+                    //            cantidadCaracteres = Math.Abs(cantidadCaracteres - 35);
+                    //            plan = planCuenta.Substring(posicion, 35);
+                    //            posicion = 35 * (j + 1);
+                    //        }
+                    //        else
+                    //        {
+                    //            plan = planCuenta.Substring(posicion, cantidadCaracteres);
+                    //            posicion = cantidadCaracteres;
+                    //        }
+                    //        e.Graphics.DrawString(plan, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 25, y);
+                    //        //dibujarRayas(ref y, 22, 1);
+                    //        //e.Graphics.DrawLine(blackPen, puntoInicio, puntoFinal);
+                    //        y = y + 22;
+                    //        banderaAumento = true;
+                    //    }
+                    //else
+                    //{
+                    //    e.Graphics.DrawString(planCuenta, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 25, y);
+                    //    dibujarRayas(ref y, 22, 1);
+                    //    e.Graphics.DrawLine(blackPen, puntoInicio, puntoFinal);
+                    //}
+
+                    //if (Convert.ToString(dgvDatosRetencion.Rows[i + 1].Cells[0].Value) == "")
+                    //    break;
+                    //if (!banderaAumento)
+                    //    y = y + 2;
+                    //else
+                    //{
+                    //    dibujarRayas(ref y, 2, 1);
+                    //    e.Graphics.DrawLine(blackPen, puntoInicio, puntoFinal);
+                    //}
+
+                }
 
             }
             catch (Exception)
