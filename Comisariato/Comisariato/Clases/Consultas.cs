@@ -82,6 +82,29 @@ namespace Comisariato.Clases
                     Program.IDTIPOUSUARIO = "" + (int)dato["IDTIPOUSUARIO"];
                     Program.IDEMPRESA = "" + (int)dato["IDEMPRESA"];
                     datosiniciosesion("" + (int)dato["IDEMPLEADO"]);
+
+
+                    //DataTable Dtparametros = c.BoolDataTable("Select PIE1,PIE2,PIE3,PIE4 from TbParametrosFactura INNER JOIN TbAutorizadosImprimir ON( TbParametrosFactura.IDPARAMETROSFACTURA=TbAutorizadosImprimir.IDPARAMETROSFACTURA AND TbParametrosFactura.IDEMPRESA= '" + Program.IDEMPRESA + "');");
+                    DataTable Dtparametros = BoolDataTable("Select* from View_ParametrosFactura where IDEMPRESA = " + Program.IDEMPRESA + ";");
+                    if (Dtparametros.Rows.Count > 0)
+                    {
+                        DataRow myRows = Dtparametros.Rows[0];
+                        Program.piefactura = myRows["PIE1"].ToString() + "\n" + myRows["PIE2"].ToString() + "\n" + myRows["PIE3"].ToString() + "\n" + myRows["PIE4"].ToString();
+                        Program.BoolPreimpresa = Convert.ToBoolean(myRows["PREIMPRESA"]);
+                        Program.BoolAutorizadoImprimir = Convert.ToBoolean(myRows["AUTORIZADOIMPRIMIR"]);
+                        //TAMANOENCABEZADOFACTURA-TAMANOPIEFACTURA-NUMEROITEMS
+                        Program.DatosPreimpresa = myRows["TAMANOENCABEZADOFACTURA"].ToString() + "-" + myRows["TAMANOPIEFACTURA"].ToString() + "-" + myRows["NUMEROITEMS"].ToString();
+                        Program.IVA = myRows["IVA"].ToString();
+                        if (Convert.ToBoolean(myRows["OBLIGADOLLEVARCONTABILIDAD"]))
+                            Program.obligadoContabilidad = "SI";
+                        else
+                            Program.obligadoContabilidad = "NO";
+
+                    }
+
+                    bool b = VerificarClave(Contraseña);
+
+
                     return true;
                 }
 
