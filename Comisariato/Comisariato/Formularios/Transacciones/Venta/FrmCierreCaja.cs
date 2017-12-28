@@ -55,5 +55,10 @@ namespace Comisariato.Formularios.Transacciones.Venta
                 calcularBilletes(txtBillestes1, 1);
             }
         }
+
+        private void txtBillestes1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
