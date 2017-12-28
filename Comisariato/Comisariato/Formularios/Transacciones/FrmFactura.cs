@@ -1727,7 +1727,7 @@ namespace Comisariato.Formularios.Transacciones
             txtNumFact.Text = numfactnuevo.ToString("D9");
             if (Objconsul.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET [DOCUMENTOACTUAL] = '" + txtNumFact.Text + "'  WHERE  SERIE2 = '" + txtCaja.Text + "' and SERIE1= '" + txtSucursal.Text + "';"))
             {
-                numfact = numfact + 1;
+                numfact = numfactnuevo;
             }
             rdbPublico.Checked = true;
             rdbConsumidorFinal.Checked = true;
