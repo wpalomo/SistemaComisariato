@@ -884,7 +884,8 @@ namespace Comisariato.Formularios.Transacciones
                 //C:\Users\Programacion\Desktop\ArchivosXml\Generados
                 //C:\Users\Byron\Desktop\ArchivosXml\Generados
                 //xml._crearXml(@"\\AIRCONTROL\c\Users\Administrador\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
-                xml._crearXml(@"C:\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
+                var ruta = ConfigurationManager.AppSettings["XmlFactura"];
+                xml._crearXml(ruta+@"\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
                 InfoTributaria objcit = new InfoTributaria();
 
                 objcit.Ambiente = 1;
