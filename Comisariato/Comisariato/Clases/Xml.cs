@@ -36,11 +36,11 @@ namespace Comisariato.Clases
 
         }
 
-        public void InfoTributaria(string nodoraiz, InfoTributaria objcinfotributaria, string serie)
+        public void InfoTributaria(string nodoraiz, InfoTributaria objcinfotributaria, string serie,string claveacceso)
         {
             doc.Load(rutaXml);
-            string fecha = DateTime.Now.Date.ToShortDateString();
-            string claveacceso = objcinfotributaria.GenerarClaveAcceso(fecha,"1",serie);
+            //string fecha = DateTime.Now.Date.ToShortDateString();
+            //string claveacceso = objcinfotributaria.GenerarClaveAcceso(fecha,"1",serie);
             XmlNode NodoInfoTributarios = CrearInfoTributarios(""+objcinfotributaria.Ambiente,""+objcinfotributaria.TipoEmision,objcinfotributaria.RazonSociaL,objcinfotributaria.NombreComerciaL,objcinfotributaria.RuC, claveacceso,objcinfotributaria.CodDoC,objcinfotributaria.EstaB,objcinfotributaria.PtoEmI,objcinfotributaria.SecuenciaL,objcinfotributaria.DirMatriz);
 
             XmlNode nodoRaiz = doc.DocumentElement;

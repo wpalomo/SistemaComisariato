@@ -36,13 +36,13 @@ namespace Comisariato.Clases
 
         }
 
-        public void InfoTributaria(string nodoraiz, InfoTributaria objcinfotributaria, string serie)
+        public void InfoTributaria(string nodoraiz, InfoTributaria objcinfotributaria, string serie,string claveacceso)
         {
             doc.Load(rutaXml);
             string fecha = DateTime.Now.Date.ToShortDateString();
             //tipocomprobante de acuedo a la tabla 4
             //string claveacceso = objcinfotributaria.GenerarClaveAcceso(fecha, "1", serie);
-            XmlNode NodoInfoTributarios = CrearInfoTributarios(objcinfotributaria, serie);
+            XmlNode NodoInfoTributarios = CrearInfoTributarios(objcinfotributaria, serie, claveacceso);
 
             XmlNode nodoRaiz = doc.DocumentElement;
 
@@ -51,7 +51,7 @@ namespace Comisariato.Clases
             doc.Save(rutaXml);
         }
 
-        private XmlNode CrearInfoTributarios(InfoTributaria objc,string serie)
+        private XmlNode CrearInfoTributarios(InfoTributaria objc,string serie, string claveacceso)
         {
             XmlNode SubNodototalConImpuestos = doc.CreateElement("infoTributaria");
 
@@ -75,8 +75,8 @@ namespace Comisariato.Clases
             nodoruc.InnerText = objc.RuC;
             SubNodototalConImpuestos.AppendChild(nodoruc);
 
-            string fecha = DateTime.Now.Date.ToShortDateString();
-            string claveacceso = objc.GenerarClaveAcceso(fecha, "1", serie);
+            //string fecha = DateTime.Now.Date.ToShortDateString();
+            //string claveacceso = objc.GenerarClaveAcceso(fecha, "1", serie);
             XmlElement nodoclaveacceso = doc.CreateElement("claveAcceso");
             nodoclaveacceso.InnerText = claveacceso;
             SubNodototalConImpuestos.AppendChild(nodoclaveacceso);
@@ -129,7 +129,7 @@ namespace Comisariato.Clases
             for (int i = 0; i < dgv.RowCount; i++)
             {
                 XmlNode NodoDetalles = null;
-                NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[8].Value), Convert.ToString(dgv.Rows[i].Cells[9].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[3].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value), "01", serie, fecha);
+                NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[8].Value), Convert.ToString(dgv.Rows[i].Cells[9].Value), Convert.ToString(dgv.Rows[i].Cells[3].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "01", serie, fecha);
 
                 impuestos.AppendChild(NodoDetalles);
             }

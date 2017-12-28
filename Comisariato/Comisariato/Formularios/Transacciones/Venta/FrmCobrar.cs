@@ -29,6 +29,8 @@ namespace Comisariato.Formularios.Transacciones
         public string subtotal, subtotalconiva, descuento, ivasuma, totalapagar, subtotalcero,direccionComprador;
         public List<string> DatosCliente;
         //private bool chequear;
+        string PathLocal = @"C:\Users\Public\Documents\ArchivosXml\Generados\";
+
         public FrmCobrar()
         {
             InitializeComponent();
@@ -856,7 +858,7 @@ namespace Comisariato.Formularios.Transacciones
                         }
 
                         inicioContador += (filasaxuiliar);
-                      /// FormarXml(sucursal, caja, numfactbd);
+                      FormarXml(sucursal, caja, numfactbd);
                     }
                 }
                 else
@@ -877,30 +879,39 @@ namespace Comisariato.Formularios.Transacciones
 
         private void FormarXml(int sucursal, int caja,int numfactbd)
         {
-            if (Program.BoolAutorizadoImprimir)
-            {
+            //if (Program.BoolAutorizadoImprimir)
+            //{
 
                 Xml xml = new Xml();
                 //C:\Users\Programacion\Desktop\ArchivosXml\Generados
                 //C:\Users\Byron\Desktop\ArchivosXml\Generados
                 //xml._crearXml(@"\\AIRCONTROL\c\Users\Administrador\Desktop\ArchivosXml\Generados\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
-                var ruta = ConfigurationManager.AppSettings["XmlFactura"];
-                xml._crearXml(ruta+@"\" + sucursal.ToString("D3") + "" + caja.ToString("D3") + "" + numfactbd.ToString("D9") + ".xml", "factura");
-                InfoTributaria objcit = new InfoTributaria();
+               // var ruta = ConfigurationManager.AppSettings["XmlFactura"];
+                if (!Directory.Exists(PathLocal))
+                {
+                    Directory.CreateDirectory(PathLocal);
+                }
+            InfoTributaria objcit = new InfoTributaria();
 
-                objcit.Ambiente = 1;
-                objcit.TipoEmision = 1;
-                objcit.RazonSociaL = Program.razonsocialempresa;
-                objcit.NombreComerciaL = Program.nombreempresa;
-                objcit.RuC = Program.rucempresa;
-                objcit.CodDoC = "01";
-                objcit.EstaB = Program.em.Sucursal.ToString("D3");
-                objcit.PtoEmI = caja.ToString("D3");
-                objcit.SecuenciaL = numfactbd.ToString("D9");
-                objcit.DirMatriz = Program.direccionempresa;
-                string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
+            objcit.Ambiente = 1;
+            objcit.TipoEmision = 1;
+            objcit.RazonSociaL = Program.razonsocialempresa;
+            objcit.NombreComerciaL = Program.nombreempresa;
+            objcit.RuC = Program.rucempresa;
+            objcit.CodDoC = "01";
+            objcit.EstaB = Program.em.Sucursal.ToString("D3");
+            objcit.PtoEmI = caja.ToString("D3");
+            objcit.SecuenciaL = numfactbd.ToString("D9");
+            objcit.DirMatriz = Program.direccionempresa;
+            string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
+            string fecha = DateTime.Now.Date.ToShortDateString();
+           string claveacceso = objcit.GenerarClaveAcceso(fecha,"1",serie);
 
-                xml.InfoTributaria("infoTributaria", objcit, serie);
+            xml._crearXml(PathLocal + @"\"+ claveacceso + ".xml", "factura");
+            string pathfinal = PathLocal + @"\" +claveacceso + ".xml";
+                
+
+                xml.InfoTributaria("infoTributaria", objcit, serie, claveacceso);
 
 
                 double totalSinImpuesto = 0;
@@ -970,7 +981,16 @@ namespace Comisariato.Formularios.Transacciones
                 xml.infoFactura("infoFactura", objcif,dgvCheque,dgvTarjeta,ckbEfectivo,txtEfectivo.Text,dg);
                 xml.detalleFactura("detalles", dg);
 
+            //System.IO.File.WriteAllBytes(@"C:\Users\Galito\Desktop\valida1.xml", bytes);
+            var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
+            if (Directory.Exists(PathServer+@"\Generados\"))
+            {
+                Directory.CreateDirectory(PathServer + @"\Generados\");
             }
+            
+            File.Copy(pathfinal, PathServer+ @"\Generados\" + @"\" + claveacceso + ".xml", true);
+
+            //}
         }
 
         private int obtenercantidadFactura(int cantidadDeFilas, int ItemsPermitidos)
