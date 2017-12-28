@@ -32,6 +32,8 @@
             this.rbAutorizadoImprimir = new System.Windows.Forms.RadioButton();
             this.rbPreimpresa = new System.Windows.Forms.RadioButton();
             this.gbSRIEmpresa = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtNumeroResolucion = new System.Windows.Forms.TextBox();
             this.cbIVA = new System.Windows.Forms.ComboBox();
             this.btnRegistrarIVA = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,8 +65,6 @@
             this.btnLimpiarEmpresa = new System.Windows.Forms.Button();
             this.btnGuardarEmpresa = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.txtNumeroResolucion = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.gbTipoFacturaEmpresa.SuspendLayout();
             this.gbSRIEmpresa.SuspendLayout();
             this.gbAutorizadoImprimir.SuspendLayout();
@@ -134,6 +134,25 @@
             this.gbSRIEmpresa.TabIndex = 11;
             this.gbSRIEmpresa.TabStop = false;
             this.gbSRIEmpresa.Text = "SRI";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.label4.Location = new System.Drawing.Point(10, 114);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(98, 16);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Nº. Resolucion:";
+            // 
+            // txtNumeroResolucion
+            // 
+            this.txtNumeroResolucion.Enabled = false;
+            this.txtNumeroResolucion.Location = new System.Drawing.Point(110, 111);
+            this.txtNumeroResolucion.Name = "txtNumeroResolucion";
+            this.txtNumeroResolucion.Size = new System.Drawing.Size(108, 22);
+            this.txtNumeroResolucion.TabIndex = 14;
+            this.txtNumeroResolucion.Text = "0";
             // 
             // cbIVA
             // 
@@ -481,24 +500,6 @@
             this.btnGuardarEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardarEmpresa.UseVisualStyleBackColor = true;
             this.btnGuardarEmpresa.Click += new System.EventHandler(this.btnGuardarEmpresa_Click);
-            // 
-            // txtNumeroResolucion
-            // 
-            this.txtNumeroResolucion.Enabled = false;
-            this.txtNumeroResolucion.Location = new System.Drawing.Point(110, 111);
-            this.txtNumeroResolucion.Name = "txtNumeroResolucion";
-            this.txtNumeroResolucion.Size = new System.Drawing.Size(108, 22);
-            this.txtNumeroResolucion.TabIndex = 14;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.label4.Location = new System.Drawing.Point(10, 114);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 16);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Nº. Resolucion:";
             // 
             // FrmParametrosFactura
             // 

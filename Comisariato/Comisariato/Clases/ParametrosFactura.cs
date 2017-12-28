@@ -65,7 +65,7 @@ namespace Comisariato.Clases
             this.TamanoPieFact = TamanoPieFact;
             this.preimpresa = preimpresa;
             this.autorizadoParaImprimir = autorizadoParaImprimir;
-            this.numeroResolucion = NumeroResolucion;
+            this.numeroResolucion = numerodeResolucion;
         }
 
         public string MontoMinimoFactura1
