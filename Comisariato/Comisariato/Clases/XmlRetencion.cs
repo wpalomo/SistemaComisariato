@@ -120,10 +120,10 @@ namespace Comisariato.Clases
             doc.Save(rutaXml);
         }
 
-        public void impuestos(DataGridView dgv,string serie)
+        public void impuestos(DataGridView dgv,string serie,string fecha)
         {
             doc.Load(rutaXml);
-            string fecha = DateTime.Now.Date.ToShortDateString();
+            //string fecha = DateTime.Now.Date.ToShortDateString();
             XmlNode impuestos = doc.CreateElement("impuestos");
 
             for (int i = 0; i < dgv.RowCount; i++)
