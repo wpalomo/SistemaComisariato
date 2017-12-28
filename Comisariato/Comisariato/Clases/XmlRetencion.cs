@@ -128,10 +128,15 @@ namespace Comisariato.Clases
 
             for (int i = 0; i < dgv.RowCount; i++)
             {
-                XmlNode NodoDetalles = null;
-                NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[8].Value), Convert.ToString(dgv.Rows[i].Cells[9].Value), Convert.ToString(dgv.Rows[i].Cells[3].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "01", serie, fecha);
+                if (dgv.Rows[i].Cells[0].Value != null)
+                {
+                    XmlNode NodoDetalles = null;
+                    NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[8].Value), Convert.ToString(dgv.Rows[i].Cells[9].Value), Convert.ToString(dgv.Rows[i].Cells[3].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "01", serie, fecha);
 
-                impuestos.AppendChild(NodoDetalles);
+                    impuestos.AppendChild(NodoDetalles);
+                }
+                else
+                    break;
             }
 
 
