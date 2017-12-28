@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbEfectivo = new System.Windows.Forms.GroupBox();
             this.txtTotalMonedas = new System.Windows.Forms.TextBox();
             this.txtTotalBillestes = new System.Windows.Forms.TextBox();
@@ -74,7 +74,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.btnSalirCompra = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbAvance = new System.Windows.Forms.GroupBox();
             this.txtCantidadAvances = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txtAvances = new System.Windows.Forms.TextBox();
@@ -83,7 +83,7 @@
             this.gbEfectivo.SuspendLayout();
             this.gbCheque.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheque)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.gbAvance.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbEfectivo
@@ -133,6 +133,7 @@
             this.txtTotalMonedas.ReadOnly = true;
             this.txtTotalMonedas.Size = new System.Drawing.Size(124, 29);
             this.txtTotalMonedas.TabIndex = 26;
+            this.txtTotalMonedas.Text = "0.00";
             // 
             // txtTotalBillestes
             // 
@@ -142,6 +143,7 @@
             this.txtTotalBillestes.ReadOnly = true;
             this.txtTotalBillestes.Size = new System.Drawing.Size(124, 29);
             this.txtTotalBillestes.TabIndex = 25;
+            this.txtTotalBillestes.Text = "0.00";
             // 
             // txtMonedas1Dolar
             // 
@@ -149,7 +151,8 @@
             this.txtMonedas1Dolar.Location = new System.Drawing.Point(355, 204);
             this.txtMonedas1Dolar.Name = "txtMonedas1Dolar";
             this.txtMonedas1Dolar.Size = new System.Drawing.Size(124, 22);
-            this.txtMonedas1Dolar.TabIndex = 19;
+            this.txtMonedas1Dolar.TabIndex = 12;
+            this.txtMonedas1Dolar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMonedas1Dolar_KeyDown);
             this.txtMonedas1Dolar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtMonedas50
@@ -158,7 +161,8 @@
             this.txtMonedas50.Location = new System.Drawing.Point(355, 168);
             this.txtMonedas50.Name = "txtMonedas50";
             this.txtMonedas50.Size = new System.Drawing.Size(124, 22);
-            this.txtMonedas50.TabIndex = 20;
+            this.txtMonedas50.TabIndex = 11;
+            this.txtMonedas50.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMonedas50_KeyDown);
             this.txtMonedas50.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtMonedas25
@@ -167,7 +171,8 @@
             this.txtMonedas25.Location = new System.Drawing.Point(355, 132);
             this.txtMonedas25.Name = "txtMonedas25";
             this.txtMonedas25.Size = new System.Drawing.Size(124, 22);
-            this.txtMonedas25.TabIndex = 21;
+            this.txtMonedas25.TabIndex = 10;
+            this.txtMonedas25.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMonedas25_KeyDown);
             this.txtMonedas25.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtMonedas10
@@ -176,7 +181,8 @@
             this.txtMonedas10.Location = new System.Drawing.Point(355, 96);
             this.txtMonedas10.Name = "txtMonedas10";
             this.txtMonedas10.Size = new System.Drawing.Size(124, 22);
-            this.txtMonedas10.TabIndex = 22;
+            this.txtMonedas10.TabIndex = 9;
+            this.txtMonedas10.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMonedas10_KeyDown);
             this.txtMonedas10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtMonedas5
@@ -185,7 +191,8 @@
             this.txtMonedas5.Location = new System.Drawing.Point(355, 60);
             this.txtMonedas5.Name = "txtMonedas5";
             this.txtMonedas5.Size = new System.Drawing.Size(124, 22);
-            this.txtMonedas5.TabIndex = 23;
+            this.txtMonedas5.TabIndex = 8;
+            this.txtMonedas5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMonedas5_KeyDown);
             this.txtMonedas5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtMonedas1
@@ -194,7 +201,8 @@
             this.txtMonedas1.Location = new System.Drawing.Point(355, 24);
             this.txtMonedas1.Name = "txtMonedas1";
             this.txtMonedas1.Size = new System.Drawing.Size(124, 22);
-            this.txtMonedas1.TabIndex = 24;
+            this.txtMonedas1.TabIndex = 7;
+            this.txtMonedas1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMonedas1_KeyDown);
             this.txtMonedas1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtBillestes100
@@ -203,7 +211,8 @@
             this.txtBillestes100.Location = new System.Drawing.Point(114, 204);
             this.txtBillestes100.Name = "txtBillestes100";
             this.txtBillestes100.Size = new System.Drawing.Size(124, 22);
-            this.txtBillestes100.TabIndex = 18;
+            this.txtBillestes100.TabIndex = 6;
+            this.txtBillestes100.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBillestes100_KeyDown);
             this.txtBillestes100.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtBillestes50
@@ -212,7 +221,8 @@
             this.txtBillestes50.Location = new System.Drawing.Point(114, 168);
             this.txtBillestes50.Name = "txtBillestes50";
             this.txtBillestes50.Size = new System.Drawing.Size(124, 22);
-            this.txtBillestes50.TabIndex = 18;
+            this.txtBillestes50.TabIndex = 5;
+            this.txtBillestes50.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBillestes50_KeyDown);
             this.txtBillestes50.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtBillestes20
@@ -221,7 +231,8 @@
             this.txtBillestes20.Location = new System.Drawing.Point(114, 132);
             this.txtBillestes20.Name = "txtBillestes20";
             this.txtBillestes20.Size = new System.Drawing.Size(124, 22);
-            this.txtBillestes20.TabIndex = 18;
+            this.txtBillestes20.TabIndex = 4;
+            this.txtBillestes20.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBillestes20_KeyDown);
             this.txtBillestes20.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtBillestes10
@@ -230,7 +241,8 @@
             this.txtBillestes10.Location = new System.Drawing.Point(114, 96);
             this.txtBillestes10.Name = "txtBillestes10";
             this.txtBillestes10.Size = new System.Drawing.Size(124, 22);
-            this.txtBillestes10.TabIndex = 18;
+            this.txtBillestes10.TabIndex = 3;
+            this.txtBillestes10.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBillestes10_KeyDown);
             this.txtBillestes10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtBillestes5
@@ -239,7 +251,8 @@
             this.txtBillestes5.Location = new System.Drawing.Point(114, 60);
             this.txtBillestes5.Name = "txtBillestes5";
             this.txtBillestes5.Size = new System.Drawing.Size(124, 22);
-            this.txtBillestes5.TabIndex = 18;
+            this.txtBillestes5.TabIndex = 2;
+            this.txtBillestes5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBillestes5_KeyDown);
             this.txtBillestes5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
             // txtBillestes1
@@ -248,8 +261,7 @@
             this.txtBillestes1.Location = new System.Drawing.Point(114, 24);
             this.txtBillestes1.Name = "txtBillestes1";
             this.txtBillestes1.Size = new System.Drawing.Size(124, 22);
-            this.txtBillestes1.TabIndex = 18;
-            this.txtBillestes1.TextChanged += new System.EventHandler(this.txtBillestes1_TextChanged);
+            this.txtBillestes1.TabIndex = 1;
             this.txtBillestes1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBillestes1_KeyDown);
             this.txtBillestes1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
             // 
@@ -398,7 +410,7 @@
             this.gbCheque.Controls.Add(this.txtTotalCheque);
             this.gbCheque.Controls.Add(this.label8);
             this.gbCheque.Controls.Add(this.dgvCheque);
-            this.gbCheque.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbCheque.Font = new System.Drawing.Font("Arial", 9F);
             this.gbCheque.ForeColor = System.Drawing.Color.Teal;
             this.gbCheque.Location = new System.Drawing.Point(12, 315);
             this.gbCheque.Name = "gbCheque";
@@ -415,6 +427,7 @@
             this.txtTotalCheque.ReadOnly = true;
             this.txtTotalCheque.Size = new System.Drawing.Size(124, 29);
             this.txtTotalCheque.TabIndex = 27;
+            this.txtTotalCheque.Text = "0.00";
             // 
             // label8
             // 
@@ -428,39 +441,41 @@
             // 
             // dgvCheque
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCheque.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 9F);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCheque.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvCheque.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCheque.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NCheque,
             this.BANCO,
             this.PROPIETARIO,
             this.MONTO});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCheque.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Arial", 9F);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCheque.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvCheque.Location = new System.Drawing.Point(6, 28);
             this.dgvCheque.Name = "dgvCheque";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCheque.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvCheque.ReadOnly = true;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial", 9F);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCheque.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvCheque.RowHeadersVisible = false;
+            this.dgvCheque.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCheque.Size = new System.Drawing.Size(522, 112);
             this.dgvCheque.TabIndex = 4;
             // 
@@ -468,23 +483,27 @@
             // 
             this.NCheque.HeaderText = "Nº. Cheque";
             this.NCheque.Name = "NCheque";
+            this.NCheque.ReadOnly = true;
             this.NCheque.Width = 150;
             // 
             // BANCO
             // 
             this.BANCO.HeaderText = "Banco";
             this.BANCO.Name = "BANCO";
+            this.BANCO.ReadOnly = true;
             this.BANCO.Width = 150;
             // 
             // PROPIETARIO
             // 
             this.PROPIETARIO.HeaderText = "Propietario";
             this.PROPIETARIO.Name = "PROPIETARIO";
+            this.PROPIETARIO.ReadOnly = true;
             // 
             // MONTO
             // 
             this.MONTO.HeaderText = "Monto";
             this.MONTO.Name = "MONTO";
+            this.MONTO.ReadOnly = true;
             // 
             // txtCantidadEntregada
             // 
@@ -493,6 +512,8 @@
             this.txtCantidadEntregada.Name = "txtCantidadEntregada";
             this.txtCantidadEntregada.Size = new System.Drawing.Size(153, 32);
             this.txtCantidadEntregada.TabIndex = 29;
+            this.txtCantidadEntregada.Text = "0.00";
+            this.txtCantidadEntregada.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadEntregada_KeyDown);
             this.txtCantidadEntregada.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox16_KeyPress);
             // 
             // label14
@@ -514,6 +535,7 @@
             this.txtTotalRecaudado.ReadOnly = true;
             this.txtTotalRecaudado.Size = new System.Drawing.Size(153, 32);
             this.txtTotalRecaudado.TabIndex = 31;
+            this.txtTotalRecaudado.Text = "0.00";
             // 
             // label15
             // 
@@ -550,21 +572,22 @@
             this.BtnGuardar.Text = "&Guardar";
             this.BtnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnGuardar.UseVisualStyleBackColor = true;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
-            // groupBox1
+            // gbAvance
             // 
-            this.groupBox1.Controls.Add(this.txtCantidadAvances);
-            this.groupBox1.Controls.Add(this.label19);
-            this.groupBox1.Controls.Add(this.txtAvances);
-            this.groupBox1.Controls.Add(this.label16);
-            this.groupBox1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.Teal;
-            this.groupBox1.Location = new System.Drawing.Point(606, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(272, 103);
-            this.groupBox1.TabIndex = 28;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Avances";
+            this.gbAvance.Controls.Add(this.txtCantidadAvances);
+            this.gbAvance.Controls.Add(this.label19);
+            this.gbAvance.Controls.Add(this.txtAvances);
+            this.gbAvance.Controls.Add(this.label16);
+            this.gbAvance.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbAvance.ForeColor = System.Drawing.Color.Teal;
+            this.gbAvance.Location = new System.Drawing.Point(606, 12);
+            this.gbAvance.Name = "gbAvance";
+            this.gbAvance.Size = new System.Drawing.Size(272, 103);
+            this.gbAvance.TabIndex = 28;
+            this.gbAvance.TabStop = false;
+            this.gbAvance.Text = "Avances";
             // 
             // txtCantidadAvances
             // 
@@ -593,6 +616,7 @@
             this.txtAvances.ReadOnly = true;
             this.txtAvances.Size = new System.Drawing.Size(124, 29);
             this.txtAvances.TabIndex = 27;
+            this.txtAvances.Text = "0.00";
             // 
             // label16
             // 
@@ -615,6 +639,7 @@
             this.BtnLimpiar.Text = "&Limpiar";
             this.BtnLimpiar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnLimpiar.UseVisualStyleBackColor = true;
+            this.BtnLimpiar.Click += new System.EventHandler(this.BtnLimpiar_Click);
             // 
             // FrmCierreCaja
             // 
@@ -623,7 +648,7 @@
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(907, 510);
             this.Controls.Add(this.BtnLimpiar);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbAvance);
             this.Controls.Add(this.btnSalirCompra);
             this.Controls.Add(this.BtnGuardar);
             this.Controls.Add(this.txtTotalRecaudado);
@@ -642,8 +667,8 @@
             this.gbCheque.ResumeLayout(false);
             this.gbCheque.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheque)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbAvance.ResumeLayout(false);
+            this.gbAvance.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -694,7 +719,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnSalirCompra;
         private System.Windows.Forms.Button BtnGuardar;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbAvance;
         private System.Windows.Forms.TextBox txtCantidadAvances;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtAvances;

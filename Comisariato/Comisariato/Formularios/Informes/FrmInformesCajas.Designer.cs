@@ -36,7 +36,7 @@
             this.dtpDesde = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.dgvInformeCompras = new System.Windows.Forms.DataGridView();
+            this.dgvInformeCajas = new System.Windows.Forms.DataGridView();
             this.Factura = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,7 +45,7 @@
             this.Irbp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeCompras)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeCajas)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -79,6 +79,7 @@
             this.dtpDesde.Name = "dtpDesde";
             this.dtpDesde.Size = new System.Drawing.Size(340, 23);
             this.dtpDesde.TabIndex = 19;
+            this.dtpDesde.ValueChanged += new System.EventHandler(this.dtpDesde_ValueChanged);
             // 
             // label14
             // 
@@ -100,7 +101,7 @@
             this.label16.TabIndex = 17;
             this.label16.Text = "Desde:";
             // 
-            // dgvInformeCompras
+            // dgvInformeCajas
             // 
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
@@ -109,9 +110,9 @@
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInformeCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvInformeCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvInformeCompras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvInformeCajas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvInformeCajas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInformeCajas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Factura,
             this.Fecha,
             this.Proveedor,
@@ -126,10 +127,10 @@
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvInformeCompras.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvInformeCompras.Location = new System.Drawing.Point(12, 129);
-            this.dgvInformeCompras.Name = "dgvInformeCompras";
-            this.dgvInformeCompras.ReadOnly = true;
+            this.dgvInformeCajas.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvInformeCajas.Location = new System.Drawing.Point(12, 129);
+            this.dgvInformeCajas.Name = "dgvInformeCajas";
+            this.dgvInformeCajas.ReadOnly = true;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -137,11 +138,11 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInformeCompras.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvInformeCompras.RowHeadersVisible = false;
-            this.dgvInformeCompras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvInformeCompras.Size = new System.Drawing.Size(953, 275);
-            this.dgvInformeCompras.TabIndex = 25;
+            this.dgvInformeCajas.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvInformeCajas.RowHeadersVisible = false;
+            this.dgvInformeCajas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvInformeCajas.Size = new System.Drawing.Size(953, 275);
+            this.dgvInformeCajas.TabIndex = 25;
             // 
             // Factura
             // 
@@ -201,14 +202,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(979, 427);
-            this.Controls.Add(this.dgvInformeCompras);
+            this.Controls.Add(this.dgvInformeCajas);
             this.Controls.Add(this.groupBox2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FrmInformesCajas";
             this.Text = "Informes Cajas";
+            this.Load += new System.EventHandler(this.FrmInformesCajas_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeCompras)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInformeCajas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -220,7 +222,7 @@
         private System.Windows.Forms.DateTimePicker dtpDesde;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.DataGridView dgvInformeCompras;
+        private System.Windows.Forms.DataGridView dgvInformeCajas;
         private System.Windows.Forms.DataGridViewTextBoxColumn Factura;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor;
