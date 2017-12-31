@@ -255,7 +255,7 @@ namespace Comisariato.Clases
             ObjConsulta = new Consultas();
 
             if (ObjConsulta.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET[TIPODOCUMENTO] = '" + tipoDocumento + "' ,[SERIE1] = '" + serie1 + "' ,[SERIE2] = '" + serie2 + "',[DOCUMENTOINICIAL] = '" + documentoInicial + "',[DOCUMENTOFINAL] = '" + documentoFinal + "'"
-                + ",[DOCUMENTOACTUAL] = '" + documentoActual + "',[AUTORIZACION] ='" + autorizacion + "' ,[FECHACADUCIDAD] = '" + fechaCaducidad + "' ,[ESTACION] = '" + Estacion + "' ,[IPESTACION] = '" + ipEstacion + "'  ,[IDSUCURSAL] = " + IDsucursal + ""
+                + ",[DOCUMENTOACTUAL] = '" + documentoActual + "',[AUTORIZACION] ='" + autorizacion + "' ,[FECHACADUCIDAD] = '" + Funcion.reemplazarcaracterFecha(fechaCaducidad) + "' ,[ESTACION] = '" + Estacion + "' ,[IPESTACION] = '" + ipEstacion + "'  ,[IDSUCURSAL] = " + IDsucursal + ""
                 + ",[IDBODEGA] = " + IDBodega + ",[ESTADO] = '" + estado + "' WHERE IDCAJATALONARIO = " + IDCajaTalonario + " ; "))
             {
                 return "Correcto";

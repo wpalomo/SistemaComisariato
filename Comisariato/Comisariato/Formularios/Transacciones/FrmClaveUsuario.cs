@@ -68,6 +68,7 @@ namespace Comisariato.Formularios.Transacciones
 
                             string numcaja = "", sucursal = "", documentoActual = "";
                             string IpMaquina = bitacora.LocalIPAddress();
+                            //IPESTACION = '" + IpMaquina + "' and
                             DataTable Dt = c.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
                             if (Dt.Rows.Count > 0)
                             {

@@ -142,6 +142,7 @@ namespace Comisariato.Clases
                 return false;
             }
         }
+
         public void BoolLlenarComboBox(ComboBox cb, String SQL)
         {
             try
@@ -164,6 +165,7 @@ namespace Comisariato.Clases
                 //throw;
             }
         }
+
         public void BoolLlenarComboBoxDgv(DataGridViewComboBoxColumn cb, String SQL)
         {
             try
@@ -346,7 +348,6 @@ namespace Comisariato.Clases
         }
 
 
-
         public bool GuardarFact(int nfilas, DataGridView dg, List<string> encabezado, List<string> detallepago, List<string> ivas, int inicioContador)
         {
             try
@@ -407,7 +408,7 @@ namespace Comisariato.Clases
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
                 return false;
             }
         }
@@ -513,13 +514,21 @@ namespace Comisariato.Clases
                         {
                             producto.Caja = 0;
                         }
-                       
+                        if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
+                        {
+                            producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
+                        }
+                        else
+                        {
+                            producto.LibreImpuesto = false;
+                        }
+
                         producto.Preciopublico_sin_iva = Convert.ToSingle(dato["PRECIOVENTAPUBLICO"]);
                         producto.Ivaestado = Convert.ToBoolean(dato["IVAESTADO"]);
                         producto.Iva = Convert.ToInt32(dato["IVA"]);
                         producto.Precioalmayor_sin_iva = Convert.ToSingle(dato["PRECIOVENTAMAYORISTA"]);
                         producto.Precioporcaja_sin_iva = Convert.ToSingle(dato["PRECIOVENTACAJA"]);
-                        producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
+                        //producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
                     }
                     else
                     {
@@ -856,6 +865,7 @@ namespace Comisariato.Clases
                 return false;
             }
         }
+
         public Boolean BoolCrearDateTable(DataGridView Tb, String SQL)
         {
 
@@ -901,7 +911,7 @@ namespace Comisariato.Clases
                             {
                                 libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
                             }
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, iva, caja, libreImpuesto);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString(), pm.ToString(), pc.ToString(), v, iva, caja, libreImpuesto);
                         }
                         else
                         {
@@ -917,7 +927,7 @@ namespace Comisariato.Clases
                                 libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
                             }
 
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, 0, caja, libreImpuesto);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString(), pm.ToString(), pc.ToString(), v, 0, caja, libreImpuesto);
                         }
                         //dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, (int)dato["IVA"]);
 
@@ -944,6 +954,61 @@ namespace Comisariato.Clases
 
         }
 
+
+        public Boolean BoolCrearDateTableConsultaCliente(DataGridView Tb, String SQL)
+        {
+            //Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL, tbCliente.RAZONSOCIAL, tbCliente.DIRECCION,tbCliente.IDCLIENTE from tbCliente
+            DataTable dt = new DataTable();
+            dt.Columns.Add("IDENTIFICACION", typeof(String));
+            dt.Columns.Add("NOMBRES", typeof(String));
+            dt.Columns.Add("APELLIDOS", typeof(String));
+            dt.Columns.Add("EMAIL", typeof(String));
+            dt.Columns.Add("RAZONSOCIAL", typeof(String));
+            dt.Columns.Add("DIRECCION", typeof(String));
+            dt.Columns.Add("IDCLIENTE", typeof(int));
+            
+            try
+            {
+                Objc.conectar();
+                SqlCommand Sentencia = new SqlCommand(SQL);
+                Sentencia.Connection = ConexionBD.connection;
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                while (dato.Read() == true)
+                {
+                    string email = " ", razonsocial=" ";
+                    if (dato["EMAIL"] != System.DBNull.Value)
+                    {
+                        email = (String)dato["EMAIL"];
+                    }
+
+                    if (dato["RAZONSOCIAL"] != System.DBNull.Value)
+                    {
+                        razonsocial = (String)dato["RAZONSOCIAL"];
+                    }
+                   
+                            dt.Rows.Add((String)dato["IDENTIFICACION"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], email, razonsocial, (String)dato["DIRECCION"], (int)dato["IDCLIENTE"]);
+   
+
+                }
+                Tb.DataSource = dt;
+
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("" + ex.Message);
+                return false;
+
+            }
+
+
+            //return false;
+
+
+        }
 
         public Boolean BoolCrearDateTableProductos(DataGridView Tb, String SQL)
         {

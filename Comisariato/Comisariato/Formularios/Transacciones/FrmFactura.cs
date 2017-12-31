@@ -28,7 +28,7 @@ namespace Comisariato.Formularios.Transacciones
         public int numfact=0,IDCLIENTEINICIO;
         internal static int numfactnuevo = 0;
 
-
+        private string PrecioTodoslosDecimales;
         List<String> listatipo = new List<String>();
         List<String> pedidos = new List<String>();
         List<String> Ivas = new List<String>();
@@ -229,17 +229,20 @@ namespace Comisariato.Formularios.Transacciones
                             Producto = new Producto();
                             if (rdbPublico.Checked)
                             {
-                                txtPrecio.Text = DatosCliente[3];
+                                txtPrecio.Text =Convert.ToDouble(DatosCliente[3]).ToString("#####0.00");
+                                PrecioTodoslosDecimales = DatosCliente[3];
                             }
                             else
                             {
                                 if (rdbMayorista.Checked)
                                 {
-                                    txtPrecio.Text = DatosCliente[4];
+                                    txtPrecio.Text = Convert.ToDouble(DatosCliente[4]).ToString("#####0.00");
+                                    PrecioTodoslosDecimales = DatosCliente[4];
                                 }
                                 else
                                 {
-                                    txtPrecio.Text = DatosCliente[5];
+                                    txtPrecio.Text = Convert.ToDouble(DatosCliente[4]).ToString("#####0.00");
+                                    PrecioTodoslosDecimales = DatosCliente[4];
                                 }
                             }
 
@@ -263,8 +266,9 @@ namespace Comisariato.Formularios.Transacciones
                             txtDetalle.Text = DatosCliente[1];
                             txtBodega.Text = DatosCliente[2];
                             Producto.LibreImpuesto = Convert.ToBoolean(Convert.ToInt32(DatosCliente[9]));
+                            txtCantidad.Text = "1";
                             txtCantidad.Focus();
-                           
+
                         }
                         else
                         {
@@ -400,7 +404,7 @@ namespace Comisariato.Formularios.Transacciones
                     else
                     {
                      
-                        total = (Convert.ToSingle(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text)) + iva;
+                        total = (Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(txtCantidad.Text)) + iva;
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
                         AgregarFila(codigos.Count - 1, total);
                         Calcular();
@@ -460,7 +464,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        total = Convert.ToInt32(txtCantidad.Text) * Convert.ToSingle(txtPrecio.Text);
+                        total = Convert.ToInt32(txtCantidad.Text) * Convert.ToSingle(PrecioTodoslosDecimales);
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
                         AgregarFila(codigos.Count - 1, total);
                        
@@ -482,11 +486,13 @@ namespace Comisariato.Formularios.Transacciones
         bool li;
         private void AgregarFila(int fila, float total)
         {
+           
             if (Producto.LibreImpuesto)
                 dgvDetalleProductos.Rows[fila].Cells[9].Value = 1;
             else
                 dgvDetalleProductos.Rows[fila].Cells[9].Value = 0;
 
+            //Double preciodosdecimas = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtPrecio.Text));
             dgvDetalleProductos.Rows[fila].Cells[0].Value = txtCodigo.Text;
             dgvDetalleProductos.Rows[fila].Cells[1].Value = txtDetalle.Text;
             dgvDetalleProductos.Rows[fila].Cells[2].Value = txtCantidad.Text;
@@ -629,7 +635,6 @@ namespace Comisariato.Formularios.Transacciones
             txtCodigo.Focus();
         }
 
-
         private void txtIdentidicacion_KeyPress(object sender, KeyPressEventArgs e)
         {
             Consultas objCns = new Consultas();
@@ -700,6 +705,8 @@ namespace Comisariato.Formularios.Transacciones
                                 f.VerifiMetodo = 2;
                                f.ShowDialog();
                                 rdbFacturaDatos.Checked = true;
+                                //posible error
+                                FrmFactura_Activated(null,null);
                                 txtCodigo.Focus();
                             }
                             else
@@ -810,6 +817,7 @@ namespace Comisariato.Formularios.Transacciones
                         Producto = objCns.Consultarproducto(txtCodigo.Text);
                         if (Producto != null)
                         {
+                           
                             cantcaja = Producto.Caja;
                             li = Producto.LibreImpuesto;
                             if (Producto.Cantidad == 0)
@@ -831,6 +839,8 @@ namespace Comisariato.Formularios.Transacciones
                                 if (tipoprecio == 0)
                                 {
                                     txtPrecio.Text = Producto.Preciopublico_sin_iva.ToString("#####0.00");
+                                    PrecioTodoslosDecimales = Producto.Preciopublico_sin_iva.ToString();
+
                                 }
                                 else
                                 {
@@ -838,12 +848,14 @@ namespace Comisariato.Formularios.Transacciones
                                     {
 
                                         txtPrecio.Text = Producto.Precioalmayor_sin_iva.ToString("#####0.00");
+                                        PrecioTodoslosDecimales = Producto.Precioalmayor_sin_iva.ToString();
                                     }
                                     else
                                     {
                                         if (tipoprecio == 2)
                                         {
                                             txtPrecio.Text = Producto.Precioporcaja_sin_iva.ToString("#####0.00");
+                                            PrecioTodoslosDecimales = Producto.Precioporcaja_sin_iva.ToString();
                                         }
 
                                     }
@@ -860,13 +872,16 @@ namespace Comisariato.Formularios.Transacciones
                                 else
                                 {
                                     float prueba = 0.0f;
-                                    txtIvaPrecio.Text = prueba.ToString("#####0.00");
+                                    txtIvaPrecio.Text = prueba.ToString();
                                 }
 
                                 escribiendo = false;
                                 pr = false;
+                                txtCantidad.Text = "1";
                                 txtCantidad.Focus();
+                                
                             }
+                            
                             
 
                         }
@@ -918,6 +933,42 @@ namespace Comisariato.Formularios.Transacciones
 
             }
         }
+
+        private bool VerificarPrecios(float precio)
+        {
+            bool Verifica = false;
+            if (rdbCaja.Checked)
+            {
+                if (precio>0)
+                {
+                    Verifica =true;
+                }
+                
+            }
+            else
+            {
+                if (rdbMayorista.Checked)
+                {
+                    if (precio>0)
+                    {
+                        Verifica= true;
+                    }
+                    
+                }
+                else
+                {
+                    if (rdbPublico.Checked)
+                    {
+                        if (precio>0)
+                        {
+                            Verifica = true;
+                        }
+                        
+                    }
+                }
+            }
+            return Verifica;
+        }
        
         private void txtCodigo_TextChanged(object sender, EventArgs e)
         {
@@ -940,157 +991,167 @@ namespace Comisariato.Formularios.Transacciones
             try
             {
                 if (e.KeyChar == (char)Keys.Return)
-                {
-                        cantactual = txtCantidad.Text;
-                        float iva = 0.0f;
+                {     
                     if (Convert.ToInt32(txtCantidad.Text)!=0)
                     {
-                        if (estadoiva)
+                        cantactual = txtCantidad.Text;
+                        float iva = 0.0f;
+                        if (VerificarPrecios(Convert.ToSingle(txtPrecio.Text)))
                         {
-                            if (rdbCaja.Checked)
+                            if (estadoiva)
                             {
-                                if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToInt32(txtCantidad.Text) * cantcaja))
+                                if (rdbCaja.Checked)
                                 {
-                                    iva = ((Convert.ToSingle(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text)) * ivaporcentaje) / 100;
-                                    txtIvaPrecio.Text = iva.ToString("#####0.00");
-                                    if (tipoprecio == 1)
+                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToInt32(txtCantidad.Text) * cantcaja))
                                     {
-                                        factproducto(iva, 1,false);
-                                    }
-                                    else
-                                    {
-                                        if (tipoprecio == 0)
-                                        {
-                                            factproducto(iva, 1,false);
-                                        }
-                                        else
-                                        {
-                                            if (tipoprecio == 2)
-                                            {
-                                                factproducto(iva, 1, false);
-                                            }
-
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
-                                    txtCantidad.Focus();
-                                    pr = false;
-                                }
-                            }
-                            else //////////// Iva O%
-                            {
-                                if (Convert.ToInt32(txtBodega.Text) >= Convert.ToInt32(txtCantidad.Text))
-                                {
-                                    iva = ((Convert.ToSingle(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text)) * ivaporcentaje) / 100;
-                                    txtIvaPrecio.Text = iva.ToString("#####0.00");
-                                    if (tipoprecio == 1)
-                                    {
-                                        factproducto(iva, 1,false);
-                                    }
-                                    else
-                                    {
-                                        if (tipoprecio == 0)
+                                        iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(txtCantidad.Text)) * ivaporcentaje) / 100;
+                                        txtIvaPrecio.Text = iva.ToString("#####0.00");
+                                        if (tipoprecio == 1)
                                         {
                                             factproducto(iva, 1, false);
                                         }
                                         else
                                         {
-                                            if (tipoprecio == 2)
+                                            if (tipoprecio == 0)
                                             {
                                                 factproducto(iva, 1, false);
                                             }
+                                            else
+                                            {
+                                                if (tipoprecio == 2)
+                                                {
+                                                    factproducto(iva, 1, false);
+                                                }
 
+                                            }
                                         }
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
-                                    txtCantidad.Focus();
-                                    pr = false;
-                                }
-                            }
-                            
-                           
-
-
-                        }
-                        else
-                        {
-                            Producto.Iva = 0;
-                            if (rdbCaja.Checked)
-                            {
-                                if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToInt32(txtCantidad.Text) * cantcaja))
-                                {
-                                    if (tipoprecio == 1)
-                                    {
-                                        factproducto(iva, 2,li);
                                     }
                                     else
                                     {
-                                        if (tipoprecio == 0)
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                                        txtCantidad.Focus();
+                                        pr = false;
+                                    }
+                                }
+                                else //////////// Iva O%
+                                {
+                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToInt32(txtCantidad.Text))
+                                    {
+                                        iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(txtCantidad.Text)) * ivaporcentaje) / 100;
+                                        txtIvaPrecio.Text = iva.ToString("#####0.00");
+                                        if (tipoprecio == 1)
                                         {
-                                            factproducto(iva, 2,li);
-                                            //txtCodigo.Focus();
+                                            factproducto(iva, 1, false);
                                         }
                                         else
                                         {
-                                            if (tipoprecio == 2)
+                                            if (tipoprecio == 0)
                                             {
-                                                factproducto(iva, 2,li);
-                                                //  txtCodigo.Focus();
+                                                factproducto(iva, 1, false);
                                             }
+                                            else
+                                            {
+                                                if (tipoprecio == 2)
+                                                {
+                                                    factproducto(iva, 1, false);
+                                                }
 
+                                            }
                                         }
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                                        txtCantidad.Focus();
+                                        pr = false;
+                                    }
                                 }
-                                else
-                                {
-                                    MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
-                                    txtCantidad.Focus();
-                                    pr = false;
-                                }
+
+
+
+
                             }
                             else
                             {
-                                if (Convert.ToInt32(txtBodega.Text) >= Convert.ToInt32(txtCantidad.Text))
+                                Producto.Iva = 0;
+                                if (rdbCaja.Checked)
                                 {
-                                    if (tipoprecio == 1)
+                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToInt32(txtCantidad.Text) * cantcaja))
                                     {
-                                        factproducto(iva, 2,li);
-                                    }
-                                    else
-                                    {
-                                        if (tipoprecio == 0)
+                                        if (tipoprecio == 1)
                                         {
                                             factproducto(iva, 2, li);
-                                            //txtCodigo.Focus();
                                         }
                                         else
                                         {
-                                            if (tipoprecio == 2)
+                                            if (tipoprecio == 0)
                                             {
-                                                factproducto(iva, 2,li);
-                                                //  txtCodigo.Focus();
+                                                factproducto(iva, 2, li);
+                                                //txtCodigo.Focus();
                                             }
+                                            else
+                                            {
+                                                if (tipoprecio == 2)
+                                                {
+                                                    factproducto(iva, 2, li);
+                                                    //  txtCodigo.Focus();
+                                                }
 
+                                            }
                                         }
                                     }
-                                    // Producto.Iva = 0;
+                                    else
+                                    {
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                                        txtCantidad.Focus();
+                                        pr = false;
+                                    }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("El Stock del Producto\n\rExistente es de " + txtBodega.Text + " unidades");
-                                    //SendKeys.Send("{up}");
-                                    txtCantidad.Focus();
-                                    pr = false;
-                                }
-                            }
-                               
+                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToInt32(txtCantidad.Text))
+                                    {
+                                        if (tipoprecio == 1)
+                                        {
+                                            factproducto(iva, 2, li);
+                                        }
+                                        else
+                                        {
+                                            if (tipoprecio == 0)
+                                            {
+                                                factproducto(iva, 2, li);
+                                                //txtCodigo.Focus();
+                                            }
+                                            else
+                                            {
+                                                if (tipoprecio == 2)
+                                                {
+                                                    factproducto(iva, 2, li);
+                                                    //  txtCodigo.Focus();
+                                                }
 
+                                            }
+                                        }
+                                        // Producto.Iva = 0;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + txtBodega.Text + " unidades");
+                                        //SendKeys.Send("{up}");
+                                        txtCantidad.Focus();
+                                        pr = false;
+                                    }
+                                }
+
+
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Este Producto no puede ser vendido el precio está en cero. ");
+                            //txtCantidad.Focus();
+                            LimpiarTexbox();
+                            pr = false;
                         }
 
                     }
@@ -1125,7 +1186,7 @@ namespace Comisariato.Formularios.Transacciones
 
                     if (estadoiva)
                     {
-                        float iva = ((Convert.ToSingle(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text)) * ivaporcentaje) / 100;
+                        float iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(txtCantidad.Text)) * ivaporcentaje) / 100;
                         txtIvaPrecio.Text = iva.ToString("#####0.00");
                     }
                 }
@@ -1625,6 +1686,7 @@ namespace Comisariato.Formularios.Transacciones
                    
                     if (DatosCliente.Count>0)
                     {
+                        txtCantidad.Text = "1";
                         txtCantidad.Focus();
                         FrmFactura_Activated(null, null);
                         if (DatosCliente.Count > 0)
@@ -1659,13 +1721,14 @@ namespace Comisariato.Formularios.Transacciones
 
         private void grabarfact()
         {
-            //if (Convert.ToSingle(lblTotalPagar.Text) >= 200 && txtIdentidicacion.Text == "9999999999999")
-            //{
-            //    MessageBox.Show("Factura obligatoria con datos.");
-            //    rdbFacturaDatos.Checked = true;
-            //}
-            //else
-            //{
+            Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(lblTotalPagar.Text));
+            if (tpagar >= 200 && txtIdentidicacion.Text == "9999999999999")
+            {
+                MessageBox.Show("Factura obligatoria con datos.");
+                rdbFacturaDatos.Checked = true;
+            }
+            else
+            {
             Program.em = new EmcabezadoFactura();
             Program.em.Sucursal = int.Parse(txtSucursal.Text);
             //Program.em.Descuento = Convert.ToSingle(txtDescuento.Text);
@@ -1705,7 +1768,7 @@ namespace Comisariato.Formularios.Transacciones
             FrmFactura_Activated(null, null);
 
             //nuevafact();
-            //}
+            }
 
         }
 

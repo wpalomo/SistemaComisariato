@@ -282,7 +282,7 @@ namespace Comisariato.Formularios
 
         private void TxtDireccion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Funcion.validar_Num_Letras(e);
+            //Funcion.validar_Num_Letras(e);
             if (e.KeyChar == (char)Keys.Return)
             {
                 SendKeys.Send("{TAB}");

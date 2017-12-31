@@ -72,7 +72,7 @@ namespace Comisariato.Formularios
 
         private void FrmClientes_Load(object sender, EventArgs e)
         {
-
+                
             cbTipoCliente.SelectedIndex = 0;
             cbIdentificacionCliente.SelectedIndex = 0;
             cbCategoriaCliente.SelectedIndex = 0;
@@ -211,7 +211,7 @@ namespace Comisariato.Formularios
 
         private void btnGuardarCliente_Click(object sender, EventArgs e)
         {
-            if (txtIdentificacionCliente.Text != "" && txtNombresCliente.Text != "" && txtApellidosCliente.Text != "" && txtRazonSocialCliente.Text != "")
+            if (txtIdentificacionCliente.Text != "" && txtNombresCliente.Text != "" && txtApellidosCliente.Text != "" && txtRazonSocialCliente.Text != "" && txtDireccion.Text!="")
             {
                 String categoriaChequeada = obtenerCategoriaChequeada();
                 Cliente Objcliente = new Cliente(cbTipoCliente.Text, cbIdentificacionCliente.Text, txtIdentificacionCliente.Text, ckClienteActivo.Checked, txtNombresCliente.Text, txtApellidosCliente.Text,
@@ -227,7 +227,7 @@ namespace Comisariato.Formularios
                         if (resultado == "Datos Guardados")
                         {
                             inicializarDatos();
-                            cargarDatos("1");
+                            //cargarDatos("1");
                             InsertarOtraInfCliente(idcliente);
                             MessageBox.Show("Cliente Registrado Correctamente ", "Exito", MessageBoxButtons.OK);
                             rbtActivosCliente.Checked = true;
@@ -248,9 +248,18 @@ namespace Comisariato.Formularios
                             {
                                 FrmFactura.DatosCliente.Clear();
                             }
+
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[0].Value.ToString()); //Identificacion
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[1].Value.ToString() + " " + dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString());//Nombre + Apellido
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[5].Value.ToString()); // Direccion
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[4].Value.ToString()); //RazonSocial
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString()); //IDcLIENTE
+
                             FrmFactura.verificadorfrm = 0;
                             FrmFactura.DatosCliente.Add(txtIdentificacionCliente.Text);
                             FrmFactura.DatosCliente.Add(txtNombresCliente.Text.ToUpper() + " " + txtApellidosCliente.Text.ToUpper());
+                            FrmFactura.DatosCliente.Add(txtDireccion.Text);
+                            FrmFactura.DatosCliente.Add(txtRazonSocialCliente.Text);
                             string condicion = " where IDENTIFICACION= '"+txtIdentificacionCliente.Text+"'";
                             Consultas c = new Consultas();
                             int numero = c.ObtenerID("IDCLIENTE", "TbCliente", condicion);
@@ -271,7 +280,7 @@ namespace Comisariato.Formularios
                     if (Resultado == "Correcto")
                     {
                         MessageBox.Show("Cliente Actualizado", "Exito");
-                        cargarDatos("1");
+                        //cargarDatos("1");
                         rbtActivosCliente.Checked = true;
                         identificacion = "";
                         inicializarDatos();
@@ -339,7 +348,7 @@ namespace Comisariato.Formularios
                     identificacion = dgvDatosCliente.CurrentRow.Cells[2].Value.ToString();
 
                     //Llenar el DataTable
-                    DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDENTIFICACION = " + dgvDatosCliente.Rows[e.RowIndex].Cells[2].Value.ToString() + "");
+                    DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDENTIFICACION = '" + dgvDatosCliente.Rows[e.RowIndex].Cells[2].Value.ToString() + "'");
                     if (dt.Rows.Count > 0)
                     {
                         DataRow myRow = dt.Rows[0];
@@ -375,13 +384,20 @@ namespace Comisariato.Formularios
                         else
                             rbAmbasCliente.Checked = true;
 
-                        txtCreditoAsignadoCliente.Text = myRow["CONDICIONES_COMERC_CREDITOASIGNADO"].ToString();
-                        txtCupoCreditoCliente.Text = myRow["CONDICIONES_COMERC_CUPOCREDITO"].ToString();
-                        txtDescuentoCliente.Text = myRow["CONDICIONES_COMERC_DESCUENTO"].ToString();
-                        txtCasillaCliente.Text = myRow["CASILLA"].ToString();
-                        txtFaxCliente.Text = myRow["FAX"].ToString();
-                        txtCelular1Cliente.Text = myRow["CELULAR1"].ToString();
-                        txtCelular2Cliente.Text = myRow["CELULAR2"].ToString();
+                        if (myRow["CONDICIONES_COMERC_CREDITOASIGNADO"] != System.DBNull.Value)
+                            txtCreditoAsignadoCliente.Text = myRow["CONDICIONES_COMERC_CREDITOASIGNADO"].ToString();
+                        if (myRow["CONDICIONES_COMERC_CUPOCREDITO"] != System.DBNull.Value)
+                            txtCupoCreditoCliente.Text = myRow["CONDICIONES_COMERC_CUPOCREDITO"].ToString();
+                        if (myRow["CONDICIONES_COMERC_DESCUENTO"] != System.DBNull.Value)
+                            txtDescuentoCliente.Text = myRow["CONDICIONES_COMERC_DESCUENTO"].ToString();
+                        if(myRow["CASILLA"] != System.DBNull.Value)
+                            txtCasillaCliente.Text = myRow["CASILLA"].ToString();
+                        if (myRow["FAX"] != System.DBNull.Value)
+                            txtFaxCliente.Text = myRow["FAX"].ToString();
+                        if (myRow["CELULAR1"] != System.DBNull.Value)
+                            txtCelular1Cliente.Text = myRow["CELULAR1"].ToString();
+                        if (myRow["CELULAR2"] != System.DBNull.Value)
+                            txtCelular2Cliente.Text = myRow["CELULAR2"].ToString();
                         txtObservacionCliente.Text = myRow["OBSERVACION"].ToString();
 
                         cbCuentaContable.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);

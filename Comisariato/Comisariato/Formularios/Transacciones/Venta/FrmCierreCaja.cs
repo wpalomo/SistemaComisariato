@@ -273,6 +273,7 @@ namespace Comisariato.Formularios.Transacciones.Venta
             {
                 totalCheque = totalCheque + Convert.ToSingle(dgvCheque.Rows[i].Cells[3].Value);
                 if (Convert.ToString(dgvCheque.Rows[i + 1].Cells[0].Value) == "")
+
                     break;
             }
             txtTotalCheque.Text = Funcion.reemplazarcaracter(totalCheque.ToString());
@@ -283,7 +284,14 @@ namespace Comisariato.Formularios.Transacciones.Venta
             {
                 DataRow row = dt.Rows[0];
                 txtCantidadAvances.Text = row[0].ToString();
-                txtAvances.Text = Funcion.reemplazarcaracter(row[1].ToString());
+                if (row[1].ToString() != "")
+                {
+                    txtAvances.Text = Funcion.reemplazarcaracter(row[1].ToString());
+                }
+                else
+                    txtAvances.Text = "0.00";
+
+
             }
         }
 

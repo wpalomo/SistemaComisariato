@@ -356,7 +356,7 @@ namespace Comisariato.Clases
            ",[CONDICIONES_COMERC_DESCUENTO],[IDCuentaContable])" +
                     " VALUES " +
                     "('" + tipocliente.ToUpper() + "','" + tipoidentificacion.ToUpper() + "','" + identificacion + "','" + activo + "','" + nombres.ToUpper() + "','" + apellidos.ToUpper() +
-                    "','" + fechaNacimiento.Date.ToShortDateString() + "','" + razonSocial.ToUpper() + "','" + email + "','" + direccion.ToUpper() + "','" + actividadEconimica.ToUpper() + "'," + IdParroquia +
+                    "','" +Funcion.reemplazarcaracterFecha(fechaNacimiento.Date.ToShortDateString()) + "','" + razonSocial.ToUpper() + "','" + email + "','" + direccion.ToUpper() + "','" + actividadEconimica.ToUpper() + "'," + IdParroquia +
                     "," + casilla + ",'" + fax + "','" + celular1 + "','" + celular2 + "','" + observacion + "','" + especificacionesCategoria.ToUpper() +
                     "','" + especificacionesTipoCredito.ToUpper() + "'," + condicionesComerCreditoAsignado + "," + condicionesComerCupoCredito +
                     "," + condicionesComerDescuento + ","+IDCuentaContable+");");
@@ -397,7 +397,7 @@ namespace Comisariato.Clases
             ObjConsulta = new Consultas();
             //int IDClinte = ObjConsulta.ObtenerID("IDCLIENTE", "TbCliente where [IDENTIFICACION] = '" + Identificacion + "'");
             bool ModificarCliente = ObjConsulta.EjecutarSQL("UPDATE [dbo].[TbCliente] SET[TIPOCLIENTE] = '" + tipocliente.ToUpper() + "',[TIPOIDENTIFICACION] = '" + tipoidentificacion + "' ,[IDENTIFICACION] = '" + identificacion + "' ,[ACTIVO] = '" + activo + "'" +
-                ",[NOMBRES] = '" + nombres.ToUpper() + "',[APELLIDOS] = '" + apellidos.ToUpper() + "' ,[FECHANACIMIENTO] = '" + fechaNacimiento.ToShortDateString() + "' ,[RAZONSOCIAL] = '" + razonSocial.ToUpper() + "' ,[EMAIL] = '" + email + "' ,[DIRECCION] = '" + direccion.ToUpper() + "' ,[ACTIVIDADECONOMICA] = '" + actividadEconimica + "'" +
+                ",[NOMBRES] = '" + nombres.ToUpper() + "',[APELLIDOS] = '" + apellidos.ToUpper() + "' ,[FECHANACIMIENTO] = '" + Funcion.reemplazarcaracterFecha(fechaNacimiento.ToShortDateString()) + "' ,[RAZONSOCIAL] = '" + razonSocial.ToUpper() + "' ,[EMAIL] = '" + email + "' ,[DIRECCION] = '" + direccion.ToUpper() + "' ,[ACTIVIDADECONOMICA] = '" + actividadEconimica + "'" +
                 ",[IDPARROQUIA] = " + idParroquia + ",[CASILLA] = " + casilla + ",[FAX] = '" + fax + "' ,[CELULAR1] = '" + celular1 + "' ,[CELULAR2] = '" + celular2 + "' ,[OBSERVACION] = '" + observacion + "' ,[ESPECIFICACIONES_CATEGORIA] ='" + especificacionesCategoria + "'" +
                 ",[ESPECIFICACIONES_TIPOCREDITO] = '"+especificacionesTipoCredito+"' ,[CONDICIONES_COMERC_CREDITOASIGNADO] = "+condicionesComerCreditoAsignado+ ",[CONDICIONES_COMERC_CUPOCREDITO] = "+condicionesComerCupoCredito+"" +
                 ",[CONDICIONES_COMERC_DESCUENTO] = "+condicionesComerDescuento+ ", [IDCuentaContable]= "+IDCuentaContable+"  WHERE IDENTIFICACION = '" + Identificacion + "';");
