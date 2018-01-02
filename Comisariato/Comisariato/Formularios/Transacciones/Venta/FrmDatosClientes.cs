@@ -38,8 +38,12 @@ namespace Comisariato.Formularios.Transacciones
                     lbltitulo.Text = "Consulta de Datos.";
                     //gbDatosCliente.Visible = false;
                     gbBuscar.Visible = true;
-                    ObjConsul.boolLlenarDataGridView(dgvDatosUsuario, "Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL, tbCliente.RAZONSOCIAL, tbCliente.DIRECCION,tbCliente.IDCLIENTE from tbCliente;");
-                    this.Size = new Size(804, 540);
+                   
+                    ObjConsul.BoolCrearDateTableConsultaCliente(dgvDatosUsuario, "Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL,TbCliente.RAZONSOCIAL,tbcliente.DIRECCION,tbCliente.IDCLIENTE from tbCliente;");
+                    dgvDatosUsuario.Columns[4].Visible = false;
+                    dgvDatosUsuario.Columns[5].Visible = false;
+                    dgvDatosUsuario.Columns[6].Visible = false;
+                    //this.Size = new Size(804, 540);
                     lbltitulo.Left = (this.Width - lbltitulo.Width) / 2;
                     TxtConsulta.Focus();
                     btnSalir.Enabled = true;
@@ -58,10 +62,10 @@ namespace Comisariato.Formularios.Transacciones
                     verificar = false;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+               
             }
             
         }
@@ -401,7 +405,12 @@ namespace Comisariato.Formularios.Transacciones
         {
             //List<string> ListaClientes = ObjConsul.DatosCliente(TxtConsulta.Text);
             ObjConsul = new Consultas();
-            ObjConsul.boolLlenarDataGridView(dgvDatosUsuario, "Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL, tbCliente.RAZONSOCIAL, tbCliente.DIRECCION,tbCliente.IDCLIENTE from tbCliente where IDENTIFICACION like '%" + TxtConsulta.Text + "%' or NOMBRES like '%" + TxtConsulta.Text + "%' or APELLIDOS like '%" + TxtConsulta.Text + "%';");
+            ObjConsul.BoolCrearDateTableConsultaCliente(dgvDatosUsuario, "Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL, tbCliente.RAZONSOCIAL, tbCliente.DIRECCION,tbCliente.IDCLIENTE from tbCliente where IDENTIFICACION like '%" + TxtConsulta.Text + "%' or NOMBRES like '%" + TxtConsulta.Text + "%' or APELLIDOS like '%" + TxtConsulta.Text + "%';");
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

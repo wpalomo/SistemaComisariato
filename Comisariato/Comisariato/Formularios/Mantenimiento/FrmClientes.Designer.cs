@@ -122,12 +122,12 @@
             this.label18 = new System.Windows.Forms.Label();
             this.tpConsultarModificarCliente = new System.Windows.Forms.TabPage();
             this.dgvDatosCliente = new System.Windows.Forms.DataGridView();
+            this.modificarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DeshabilitarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
             this.rbtInactivosCliente = new System.Windows.Forms.RadioButton();
             this.rbtActivosCliente = new System.Windows.Forms.RadioButton();
             this.txtConsultarCliente = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.modificarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DeshabilitarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tcCliente.SuspendLayout();
             this.tpNuevoCliente.SuspendLayout();
             this.gbDatosPersonalesClientes.SuspendLayout();
@@ -264,6 +264,7 @@
             // dtpFechaNacimientoCliente
             // 
             this.dtpFechaNacimientoCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaNacimientoCliente.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaNacimientoCliente.Location = new System.Drawing.Point(167, 84);
             this.dtpFechaNacimientoCliente.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFechaNacimientoCliente.Name = "dtpFechaNacimientoCliente";
@@ -485,6 +486,7 @@
             this.txtCelular2Cliente.Name = "txtCelular2Cliente";
             this.txtCelular2Cliente.Size = new System.Drawing.Size(160, 22);
             this.txtCelular2Cliente.TabIndex = 16;
+            this.txtCelular2Cliente.Text = "0";
             this.txtCelular2Cliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCelular1Cliente_KeyPress);
             // 
             // txtCelular1Cliente
@@ -495,6 +497,7 @@
             this.txtCelular1Cliente.Name = "txtCelular1Cliente";
             this.txtCelular1Cliente.Size = new System.Drawing.Size(160, 22);
             this.txtCelular1Cliente.TabIndex = 15;
+            this.txtCelular1Cliente.Text = "0";
             this.txtCelular1Cliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCelular1Cliente_KeyPress);
             // 
             // txtFaxCliente
@@ -505,6 +508,7 @@
             this.txtFaxCliente.Name = "txtFaxCliente";
             this.txtFaxCliente.Size = new System.Drawing.Size(160, 22);
             this.txtFaxCliente.TabIndex = 14;
+            this.txtFaxCliente.Text = "0";
             this.txtFaxCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFaxCliente_KeyPress);
             // 
             // label36
@@ -760,9 +764,9 @@
             this.label6.Location = new System.Drawing.Point(16, 43);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 16);
+            this.label6.Size = new System.Drawing.Size(76, 16);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Dirección:";
+            this.label6.Text = "Dirección: *";
             // 
             // tpInformacionFinancieraCliente
             // 
@@ -1302,6 +1306,7 @@
             this.dgvDatosCliente.AllowUserToAddRows = false;
             this.dgvDatosCliente.AllowUserToDeleteRows = false;
             this.dgvDatosCliente.AllowUserToOrderColumns = true;
+            this.dgvDatosCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1327,6 +1332,21 @@
             this.dgvDatosCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellContentClick);
             this.dgvDatosCliente.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatosCliente_CellFormatting);
             this.dgvDatosCliente.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosCliente_CellPainting);
+            // 
+            // modificarCliente
+            // 
+            this.modificarCliente.FillWeight = 105F;
+            this.modificarCliente.HeaderText = "";
+            this.modificarCliente.Name = "modificarCliente";
+            this.modificarCliente.ReadOnly = true;
+            this.modificarCliente.Text = "";
+            // 
+            // DeshabilitarCliente
+            // 
+            this.DeshabilitarCliente.FillWeight = 105F;
+            this.DeshabilitarCliente.HeaderText = "";
+            this.DeshabilitarCliente.Name = "DeshabilitarCliente";
+            this.DeshabilitarCliente.ReadOnly = true;
             // 
             // rbtInactivosCliente
             // 
@@ -1379,30 +1399,13 @@
             this.label25.TabIndex = 4;
             this.label25.Text = "Consultar:";
             // 
-            // modificarCliente
-            // 
-            this.modificarCliente.FillWeight = 105F;
-            this.modificarCliente.HeaderText = "";
-            this.modificarCliente.Name = "modificarCliente";
-            this.modificarCliente.ReadOnly = true;
-            this.modificarCliente.Text = "";
-            this.modificarCliente.Width = 35;
-            // 
-            // DeshabilitarCliente
-            // 
-            this.DeshabilitarCliente.FillWeight = 105F;
-            this.DeshabilitarCliente.HeaderText = "";
-            this.DeshabilitarCliente.Name = "DeshabilitarCliente";
-            this.DeshabilitarCliente.ReadOnly = true;
-            this.DeshabilitarCliente.Width = 35;
-            // 
             // FrmClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1089, 589);
+            this.ClientSize = new System.Drawing.Size(1089, 588);
             this.Controls.Add(this.tcCliente);
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

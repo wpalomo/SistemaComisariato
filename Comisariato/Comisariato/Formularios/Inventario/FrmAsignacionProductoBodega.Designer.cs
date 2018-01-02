@@ -327,6 +327,7 @@
             this.txtConsultarAsginacionProducto.Size = new System.Drawing.Size(471, 22);
             this.txtConsultarAsginacionProducto.TabIndex = 5;
             this.txtConsultarAsginacionProducto.TextChanged += new System.EventHandler(this.txtConsultarAsginacionProducto_TextChanged);
+            this.txtConsultarAsginacionProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConsultarAsginacionProducto_KeyPress);
             // 
             // label8
             // 

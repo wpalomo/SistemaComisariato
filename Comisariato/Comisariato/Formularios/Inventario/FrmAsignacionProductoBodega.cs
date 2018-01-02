@@ -53,9 +53,9 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             llenardatos();
             ListaAux.Clear();
 
-            objconsul.boolLlenarDataGridView(dgvDatosAsignacionProducto, "Select P.IDPRODUCTO, P.CODIGOBARRA as 'Código', P.NOMBREPRODUCTO as 'Nombre',P.CANTIDAD as 'Cantidad', C.DESCRIPCION as 'Categoria', B.NOMBRE as 'Bódega', B.UBICACION as 'Ubicación' from TbAsignacionProdcutoBodega Asig inner join TbProducto P on (Asig.IDPRODUCTO=P.IDPRODUCTO) inner join TbCategoria C on (C.IDCATEGORIA= P.IDCATEGORIA) inner join TbBodega B on (B.IDBODEGA=Asig.IDBODEGA)");
+            //objconsul.boolLlenarDataGridView(dgvDatosAsignacionProducto, "Select P.IDPRODUCTO, P.CODIGOBARRA as 'Código', P.NOMBREPRODUCTO as 'Nombre',P.CANTIDAD as 'Cantidad', C.DESCRIPCION as 'Categoria', B.NOMBRE as 'Bódega', B.UBICACION as 'Ubicación' from TbAsignacionProdcutoBodega Asig inner join TbProducto P on (Asig.IDPRODUCTO=P.IDPRODUCTO) inner join TbCategoria C on (C.IDCATEGORIA= P.IDCATEGORIA) inner join TbBodega B on (B.IDBODEGA=Asig.IDBODEGA)");
 
-            dgvDatosAsignacionProducto.Columns["IDPRODUCTO"].Visible = false;
+            //dgvDatosAsignacionProducto.Columns["IDPRODUCTO"].Visible = false;
         }
 
         public void llenardatos()
@@ -273,8 +273,21 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void txtConsultarAsginacionProducto_TextChanged(object sender, EventArgs e)
         {
-            objconsul.boolLlenarDataGridView(dgvDatosAsignacionProducto, "Select P.IDPRODUCTO, P.CODIGOBARRA as 'Código', P.NOMBREPRODUCTO as 'Nombre',P.CANTIDAD as 'Cantidad', C.DESCRIPCION as 'Categoria', B.NOMBRE as 'Bódega', B.UBICACION as 'Ubicación' from TbAsignacionProdcutoBodega Asig inner join TbProducto P on (Asig.IDPRODUCTO=P.IDPRODUCTO) inner join TbCategoria C on (C.IDCATEGORIA= P.IDCATEGORIA) inner join TbBodega B on (B.IDBODEGA=Asig.IDBODEGA) where  P.CODIGOBARRA like '%" + txtConsultarAsginacionProducto.Text + "%' or P.NOMBREPRODUCTO like '%" + txtConsultarAsginacionProducto.Text + "%' or C.DESCRIPCION like '%" + txtConsultarAsginacionProducto.Text + "%' or B.NOMBRE like '%" + txtConsultarAsginacionProducto.Text + "%' ");
-            dgvDatosAsignacionProducto.Columns["IDPRODUCTO"].Visible = false;
+            //objconsul.boolLlenarDataGridView(dgvDatosAsignacionProducto, "Select P.IDPRODUCTO, P.CODIGOBARRA as 'Código', P.NOMBREPRODUCTO as 'Nombre',P.CANTIDAD as 'Cantidad', C.DESCRIPCION as 'Categoria', B.NOMBRE as 'Bódega', B.UBICACION as 'Ubicación' from TbAsignacionProdcutoBodega Asig inner join TbProducto P on (Asig.IDPRODUCTO=P.IDPRODUCTO) inner join TbCategoria C on (C.IDCATEGORIA= P.IDCATEGORIA) inner join TbBodega B on (B.IDBODEGA=Asig.IDBODEGA) where  P.CODIGOBARRA like '%" + txtConsultarAsginacionProducto.Text + "%' or P.NOMBREPRODUCTO like '%" + txtConsultarAsginacionProducto.Text + "%' or C.DESCRIPCION like '%" + txtConsultarAsginacionProducto.Text + "%' or B.NOMBRE like '%" + txtConsultarAsginacionProducto.Text + "%' ");
+            //dgvDatosAsignacionProducto.Columns["IDPRODUCTO"].Visible = false;
+        }
+
+        private void txtConsultarAsginacionProducto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Consultas Objconsul = new Consultas();
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                if (txtConsultarAsginacionProducto.Text != "")
+                {
+                    if (Objconsul.boolLlenarDataGridView(dgvDatosAsignacionProducto, "Select P.IDPRODUCTO, P.CODIGOBARRA as 'Código', P.NOMBREPRODUCTO as 'Nombre',P.CANTIDAD as Cantidad, C.DESCRIPCION as 'Categoria',B.NOMBRE as 'Bodega' from TbProducto P inner join TbAsignacionProdcutoBodega Asig on (Asig.IDPRODUCTO = P.IDPRODUCTO) inner join TbBodega B on ( Asig.IDBODEGA = B.IDBODEGA) inner join TbCategoria C on (P.IDCATEGORIA = C.IDCATEGORIA) where Asig.IDBODEGA = 0 and Asig.ESTADO = 1 and (P.CODIGOBARRA like '%" + txtConsultarAsginacionProducto.Text + "%' or P.NOMBREPRODUCTO like '%" + txtConsultarAsginacionProducto.Text + "%' or B.NOMBRE like '%" + txtConsultarAsginacionProducto.Text + "%');"))
+                        dgvDatosAsignacionProducto.Columns["IDPRODUCTO"].Visible = false;
+                }
+            }
         }
     }
 }

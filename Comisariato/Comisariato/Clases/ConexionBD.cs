@@ -36,7 +36,7 @@ namespace Comisariato.Clases
                 System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
                 String con = connec[1].ToString();
                 connection = new SqlConnection(con);
-                
+
                 //connection = new SqlConnection("data source = SERVER, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
                 connection.Open();
                

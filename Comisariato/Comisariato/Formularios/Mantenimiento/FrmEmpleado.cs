@@ -281,7 +281,10 @@ namespace Comisariato.Formularios.Mantenimiento
                             MemoryStream stream = new MemoryStream(MyData);
                             //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
                             //el cual contiene el arreglo de bytes
-                            PictureFoto.Image = Image.FromStream(stream);
+                            int sds = MyData.Length;
+                            //if ()
+                            if (sds > 0)
+                                PictureFoto.Image = Image.FromStream(stream);
                         }
                         //Cargar los demas Datos
                         cmbTipoDocumento.SelectedItem = myRow["TIPOIDENTIFICACION"].ToString();
@@ -305,13 +308,25 @@ namespace Comisariato.Formularios.Mantenimiento
                             CkbDiscapacidad.Checked = Convert.ToBoolean(myRow["DISCAPACIDAD"]);
                         if (myRow["PORCENTAJEDISCAPACIDAD"] != System.DBNull.Value)
                             NupDiscapacidad.Value = Convert.ToInt32(myRow["PORCENTAJEDISCAPACIDAD"]);
-                        TxtMovimientoQuincenal.Text = myRow["MOVIMIENTOQUINCENAL"].ToString();
                         CmbGenero.SelectedItem = myRow["GENERO"].ToString();
+
+                        TxtMovimientoQuincenal.Text = "0";
+                        TxtSueldoMensual.Text = "0";
+                        TxtSueldoExtra.Text = "0";
+                        TxtCelular1.Text = "0";
+                        TxtCelular2.Text = "0";
+
                         CmbEstadoCivil.SelectedItem = myRow["ESTADOCIVIL"].ToString();
-                        TxtSueldoMensual.Text = myRow["SUELDOMENSUAL"].ToString();
-                        TxtSueldoExtra.Text = myRow["SUELDOEXTRA"].ToString();
-                        TxtCelular1.Text = myRow["CELULAR1"].ToString();
-                        TxtCelular2.Text = myRow["CELULAR2"].ToString();
+                        if (myRow["MOVIMIENTOQUINCENAL"] != System.DBNull.Value)
+                            TxtMovimientoQuincenal.Text = myRow["MOVIMIENTOQUINCENAL"].ToString();
+                        if (myRow["SUELDOMENSUAL"] != System.DBNull.Value)
+                            TxtSueldoMensual.Text = myRow["SUELDOMENSUAL"].ToString();
+                        if (myRow["SUELDOEXTRA"] != System.DBNull.Value)
+                            TxtSueldoExtra.Text = myRow["SUELDOEXTRA"].ToString();
+                        if (myRow["CELULAR1"] != System.DBNull.Value)
+                            TxtCelular1.Text = myRow["CELULAR1"].ToString();
+                        if (myRow["CELULAR2"] != System.DBNull.Value)
+                            TxtCelular2.Text = myRow["CELULAR2"].ToString();
                     }
                     btnLimpiar.Text = "&Cancelar";
                     btnGuardar.Text = "&Modificar";
@@ -472,7 +487,7 @@ namespace Comisariato.Formularios.Mantenimiento
                     }
                 }
 
-                if (consultas.Existe("IDENTIFICACION", TxtIdentidad.Text, "TbEmpleado"))
+                if (consultas.Existe("IDENTIFICACION", TxtIdentidad.Text, "TbEmpleado") && !bandera_Estado)
                 {
                     MessageBox.Show("Ya Existe el Empleado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); TxtIdentidad.Focus();
                     TxtIdentidad.Select(0, TxtIdentidad.Text.Length);
