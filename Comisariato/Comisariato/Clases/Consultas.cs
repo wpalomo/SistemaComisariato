@@ -39,7 +39,7 @@ namespace Comisariato.Clases
             try
             {
                 Objc.conectar();
-                SqlCommand Sentencia = new SqlCommand("SELECT TbUsuario.CONTRASEÑA, TbUsuario.USUARIO, TbTipousuario.TIPO, TbUsuario.IDTIPOUSUARIO, TbEmpresa.NOMBRECOMERCIAL, TbEmpresa.RUC, TbEmpresa.DIRECCION,TbEmpresa.RAZONSOCIAL from TbUsuario  INNER JOIN TbTipousuario ON(TbUsuario.FACTURA='1') and TbUsuario.USUARIO = '" + Program.Usuario + "' and TbUsuario.CONTRASEÑA= '" + Contraseña + "' INNER JOIN TbEmpresa ON (TbEmpresa.IDEMPRESA='" + Program.IDEMPRESA + "')  where TbTipousuario.IDTIPOUSUARIO = TbUsuario.IDTIPOUSUARIO;");
+                SqlCommand Sentencia = new SqlCommand("SELECT TbUsuario.CONTRASEÑA, TbUsuario.USUARIO, TbTipousuario.TIPO, TbUsuario.IDTIPOUSUARIO, TbEmpresa.NOMBRECOMERCIAL, TbEmpresa.RUC, TbEmpresa.DIRECCION,TbEmpresa.RAZONSOCIAL,TbEmpresa.CLAVESUPERVISOR from TbUsuario  INNER JOIN TbTipousuario ON(TbUsuario.FACTURA='1') and TbUsuario.USUARIO = '" + Program.Usuario + "' and TbUsuario.CONTRASEÑA= '" + Contraseña + "' INNER JOIN TbEmpresa ON (TbEmpresa.IDEMPRESA='" + Program.IDEMPRESA + "')  where TbTipousuario.IDTIPOUSUARIO = TbUsuario.IDTIPOUSUARIO;");
                 Sentencia.Connection = ConexionBD.connection;
                 SqlDataReader dato = Sentencia.ExecuteReader();
                 Objc.Cerrar();
@@ -49,6 +49,7 @@ namespace Comisariato.Clases
                     Program.rucempresa = (String)dato["RUC"];
                     Program.direccionempresa = Convert.ToString( dato["DIRECCION"]);
                     Program.razonsocialempresa = (String)dato["RAZONSOCIAL"];
+                    Program.clavesupervisor = (String)dato["CLAVESUPERVISOR"];
                     return true;
                 }
                 else { return false; }
@@ -1320,6 +1321,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@EMAILCONTADOR", ObjEmpresa.EmailContador);
                 cmd.Parameters.AddWithValue("@CELULAR1CONTADOR", ObjEmpresa.Celular1Contador);
                 cmd.Parameters.AddWithValue("@CELULAR2CONTADOR", ObjEmpresa.Celular2Contador);
+                cmd.Parameters.AddWithValue("@CLAVESUPERVISOR", ObjEmpresa.ClaveSupervisor);
                 if (ObjEmpresa.LogoEmpresa != null)
                 { cmd.Parameters.AddWithValue("@LOGO", ObjEmpresa.LogoEmpresa); }
                 else

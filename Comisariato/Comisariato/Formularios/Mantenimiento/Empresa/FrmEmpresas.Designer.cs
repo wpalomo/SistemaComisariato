@@ -29,13 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcEmpresa = new System.Windows.Forms.TabControl();
             this.tpNuevaEmpresa = new System.Windows.Forms.TabPage();
+            this.btnLimpiarEmpresa = new System.Windows.Forms.Button();
+            this.btnGuardarEmpresa = new System.Windows.Forms.Button();
             this.gbFondoPantallaEmpresa = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnBuscarFondoEmpresa = new System.Windows.Forms.Button();
+            this.pbfondoPantallaEmpresa = new System.Windows.Forms.PictureBox();
             this.gbLogoEmpresa = new System.Windows.Forms.GroupBox();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnBuscarLogoEmpresa = new System.Windows.Forms.Button();
+            this.pbLogoEmpresa = new System.Windows.Forms.PictureBox();
             this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
             this.gbParametrosGeneralesEmpresa = new System.Windows.Forms.GroupBox();
             this.tcParametrosGeneralesEmpresa = new System.Windows.Forms.TabControl();
@@ -77,24 +83,20 @@
             this.label8 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.btnLimpiarEmpresa = new System.Windows.Forms.Button();
-            this.btnGuardarEmpresa = new System.Windows.Forms.Button();
-            this.btnBuscarFondoEmpresa = new System.Windows.Forms.Button();
-            this.pbfondoPantallaEmpresa = new System.Windows.Forms.PictureBox();
-            this.btnBuscarLogoEmpresa = new System.Windows.Forms.Button();
-            this.pbLogoEmpresa = new System.Windows.Forms.PictureBox();
+            this.txtClaveUsuario = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.tcEmpresa.SuspendLayout();
             this.tpNuevaEmpresa.SuspendLayout();
             this.gbFondoPantallaEmpresa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbfondoPantallaEmpresa)).BeginInit();
             this.gbLogoEmpresa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogoEmpresa)).BeginInit();
             this.gbParametrosGeneralesEmpresa.SuspendLayout();
             this.tcParametrosGeneralesEmpresa.SuspendLayout();
             this.tpDatosEmpresa.SuspendLayout();
             this.tpDatosContadorEmpresa.SuspendLayout();
             this.tpConsultarModificarDeshabilitarEmpresa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatosEmpresa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbfondoPantallaEmpresa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogoEmpresa)).BeginInit();
             this.SuspendLayout();
             // 
             // tcEmpresa
@@ -106,7 +108,7 @@
             this.tcEmpresa.Margin = new System.Windows.Forms.Padding(2);
             this.tcEmpresa.Name = "tcEmpresa";
             this.tcEmpresa.SelectedIndex = 0;
-            this.tcEmpresa.Size = new System.Drawing.Size(938, 504);
+            this.tcEmpresa.Size = new System.Drawing.Size(938, 517);
             this.tcEmpresa.TabIndex = 3;
             // 
             // tpNuevaEmpresa
@@ -124,9 +126,37 @@
             this.tpNuevaEmpresa.Margin = new System.Windows.Forms.Padding(2);
             this.tpNuevaEmpresa.Name = "tpNuevaEmpresa";
             this.tpNuevaEmpresa.Padding = new System.Windows.Forms.Padding(2);
-            this.tpNuevaEmpresa.Size = new System.Drawing.Size(930, 475);
+            this.tpNuevaEmpresa.Size = new System.Drawing.Size(930, 488);
             this.tpNuevaEmpresa.TabIndex = 0;
             this.tpNuevaEmpresa.Text = "Nueva Empresa";
+            // 
+            // btnLimpiarEmpresa
+            // 
+            this.btnLimpiarEmpresa.Image = global::Comisariato.Properties.Resources.limpiar;
+            this.btnLimpiarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLimpiarEmpresa.Location = new System.Drawing.Point(743, 313);
+            this.btnLimpiarEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLimpiarEmpresa.Name = "btnLimpiarEmpresa";
+            this.btnLimpiarEmpresa.Size = new System.Drawing.Size(140, 74);
+            this.btnLimpiarEmpresa.TabIndex = 19;
+            this.btnLimpiarEmpresa.Text = "&Limpiar";
+            this.btnLimpiarEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLimpiarEmpresa.UseVisualStyleBackColor = true;
+            this.btnLimpiarEmpresa.Click += new System.EventHandler(this.btnLimpiarEmpresa_Click);
+            // 
+            // btnGuardarEmpresa
+            // 
+            this.btnGuardarEmpresa.Image = global::Comisariato.Properties.Resources.guardar11;
+            this.btnGuardarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGuardarEmpresa.Location = new System.Drawing.Point(589, 313);
+            this.btnGuardarEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGuardarEmpresa.Name = "btnGuardarEmpresa";
+            this.btnGuardarEmpresa.Size = new System.Drawing.Size(140, 74);
+            this.btnGuardarEmpresa.TabIndex = 18;
+            this.btnGuardarEmpresa.Text = "&Guardar";
+            this.btnGuardarEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGuardarEmpresa.UseVisualStyleBackColor = true;
+            this.btnGuardarEmpresa.Click += new System.EventHandler(this.btnGuardarEmpresa_Click);
             // 
             // gbFondoPantallaEmpresa
             // 
@@ -134,7 +164,7 @@
             this.gbFondoPantallaEmpresa.Controls.Add(this.btnBuscarFondoEmpresa);
             this.gbFondoPantallaEmpresa.Controls.Add(this.pbfondoPantallaEmpresa);
             this.gbFondoPantallaEmpresa.ForeColor = System.Drawing.Color.Teal;
-            this.gbFondoPantallaEmpresa.Location = new System.Drawing.Point(269, 273);
+            this.gbFondoPantallaEmpresa.Location = new System.Drawing.Point(269, 288);
             this.gbFondoPantallaEmpresa.Margin = new System.Windows.Forms.Padding(2);
             this.gbFondoPantallaEmpresa.Name = "gbFondoPantallaEmpresa";
             this.gbFondoPantallaEmpresa.Padding = new System.Windows.Forms.Padding(2);
@@ -154,13 +184,39 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnBuscarFondoEmpresa
+            // 
+            this.btnBuscarFondoEmpresa.Image = global::Comisariato.Properties.Resources.buscar2;
+            this.btnBuscarFondoEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuscarFondoEmpresa.Location = new System.Drawing.Point(13, 137);
+            this.btnBuscarFondoEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBuscarFondoEmpresa.Name = "btnBuscarFondoEmpresa";
+            this.btnBuscarFondoEmpresa.Size = new System.Drawing.Size(95, 45);
+            this.btnBuscarFondoEmpresa.TabIndex = 17;
+            this.btnBuscarFondoEmpresa.Text = "Imagen";
+            this.btnBuscarFondoEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBuscarFondoEmpresa.UseVisualStyleBackColor = true;
+            this.btnBuscarFondoEmpresa.Click += new System.EventHandler(this.btnBuscarFondoEmpresa_Click);
+            // 
+            // pbfondoPantallaEmpresa
+            // 
+            this.pbfondoPantallaEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbfondoPantallaEmpresa.Image = global::Comisariato.Properties.Resources.contact;
+            this.pbfondoPantallaEmpresa.Location = new System.Drawing.Point(48, 25);
+            this.pbfondoPantallaEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.pbfondoPantallaEmpresa.Name = "pbfondoPantallaEmpresa";
+            this.pbfondoPantallaEmpresa.Size = new System.Drawing.Size(118, 107);
+            this.pbfondoPantallaEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbfondoPantallaEmpresa.TabIndex = 0;
+            this.pbfondoPantallaEmpresa.TabStop = false;
+            // 
             // gbLogoEmpresa
             // 
             this.gbLogoEmpresa.Controls.Add(this.btnCancelar);
             this.gbLogoEmpresa.Controls.Add(this.btnBuscarLogoEmpresa);
             this.gbLogoEmpresa.Controls.Add(this.pbLogoEmpresa);
             this.gbLogoEmpresa.ForeColor = System.Drawing.Color.Teal;
-            this.gbLogoEmpresa.Location = new System.Drawing.Point(20, 273);
+            this.gbLogoEmpresa.Location = new System.Drawing.Point(20, 288);
             this.gbLogoEmpresa.Margin = new System.Windows.Forms.Padding(2);
             this.gbLogoEmpresa.Name = "gbLogoEmpresa";
             this.gbLogoEmpresa.Padding = new System.Windows.Forms.Padding(2);
@@ -179,6 +235,32 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnBuscarLogoEmpresa
+            // 
+            this.btnBuscarLogoEmpresa.Image = global::Comisariato.Properties.Resources.buscar2;
+            this.btnBuscarLogoEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuscarLogoEmpresa.Location = new System.Drawing.Point(12, 138);
+            this.btnBuscarLogoEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBuscarLogoEmpresa.Name = "btnBuscarLogoEmpresa";
+            this.btnBuscarLogoEmpresa.Size = new System.Drawing.Size(87, 44);
+            this.btnBuscarLogoEmpresa.TabIndex = 16;
+            this.btnBuscarLogoEmpresa.Text = "Logo";
+            this.btnBuscarLogoEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBuscarLogoEmpresa.UseVisualStyleBackColor = true;
+            this.btnBuscarLogoEmpresa.Click += new System.EventHandler(this.btnBuscarLogoEmpresa_Click);
+            // 
+            // pbLogoEmpresa
+            // 
+            this.pbLogoEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbLogoEmpresa.Image = global::Comisariato.Properties.Resources.contact;
+            this.pbLogoEmpresa.Location = new System.Drawing.Point(50, 22);
+            this.pbLogoEmpresa.Margin = new System.Windows.Forms.Padding(2);
+            this.pbLogoEmpresa.Name = "pbLogoEmpresa";
+            this.pbLogoEmpresa.Size = new System.Drawing.Size(115, 107);
+            this.pbLogoEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbLogoEmpresa.TabIndex = 0;
+            this.pbLogoEmpresa.TabStop = false;
             // 
             // txtNombreEmpresa
             // 
@@ -199,7 +281,7 @@
             this.gbParametrosGeneralesEmpresa.Margin = new System.Windows.Forms.Padding(2);
             this.gbParametrosGeneralesEmpresa.Name = "gbParametrosGeneralesEmpresa";
             this.gbParametrosGeneralesEmpresa.Padding = new System.Windows.Forms.Padding(2);
-            this.gbParametrosGeneralesEmpresa.Size = new System.Drawing.Size(890, 226);
+            this.gbParametrosGeneralesEmpresa.Size = new System.Drawing.Size(890, 241);
             this.gbParametrosGeneralesEmpresa.TabIndex = 1;
             this.gbParametrosGeneralesEmpresa.TabStop = false;
             this.gbParametrosGeneralesEmpresa.Text = "Parametros Generales";
@@ -212,12 +294,14 @@
             this.tcParametrosGeneralesEmpresa.Margin = new System.Windows.Forms.Padding(2);
             this.tcParametrosGeneralesEmpresa.Name = "tcParametrosGeneralesEmpresa";
             this.tcParametrosGeneralesEmpresa.SelectedIndex = 0;
-            this.tcParametrosGeneralesEmpresa.Size = new System.Drawing.Size(836, 190);
+            this.tcParametrosGeneralesEmpresa.Size = new System.Drawing.Size(836, 207);
             this.tcParametrosGeneralesEmpresa.TabIndex = 13;
             // 
             // tpDatosEmpresa
             // 
             this.tpDatosEmpresa.BackColor = System.Drawing.Color.Bisque;
+            this.tpDatosEmpresa.Controls.Add(this.txtClaveUsuario);
+            this.tpDatosEmpresa.Controls.Add(this.label17);
             this.tpDatosEmpresa.Controls.Add(this.txtEmailEmpresa);
             this.tpDatosEmpresa.Controls.Add(this.label14);
             this.tpDatosEmpresa.Controls.Add(this.txtCelular2Empresa);
@@ -241,7 +325,7 @@
             this.tpDatosEmpresa.Margin = new System.Windows.Forms.Padding(2);
             this.tpDatosEmpresa.Name = "tpDatosEmpresa";
             this.tpDatosEmpresa.Padding = new System.Windows.Forms.Padding(2);
-            this.tpDatosEmpresa.Size = new System.Drawing.Size(828, 161);
+            this.tpDatosEmpresa.Size = new System.Drawing.Size(828, 178);
             this.tpDatosEmpresa.TabIndex = 0;
             this.tpDatosEmpresa.Text = "Datos Empresa";
             // 
@@ -571,14 +655,14 @@
             this.dgvDatosEmpresa.AllowUserToOrderColumns = true;
             this.dgvDatosEmpresa.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDatosEmpresa.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosEmpresa.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDatosEmpresa.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDatosEmpresa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosEmpresa.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar});
@@ -631,85 +715,23 @@
             this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // btnLimpiarEmpresa
+            // txtClaveUsuario
             // 
-            this.btnLimpiarEmpresa.Image = global::Comisariato.Properties.Resources.limpiar;
-            this.btnLimpiarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpiarEmpresa.Location = new System.Drawing.Point(743, 298);
-            this.btnLimpiarEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.btnLimpiarEmpresa.Name = "btnLimpiarEmpresa";
-            this.btnLimpiarEmpresa.Size = new System.Drawing.Size(140, 74);
-            this.btnLimpiarEmpresa.TabIndex = 19;
-            this.btnLimpiarEmpresa.Text = "&Limpiar";
-            this.btnLimpiarEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnLimpiarEmpresa.UseVisualStyleBackColor = true;
-            this.btnLimpiarEmpresa.Click += new System.EventHandler(this.btnLimpiarEmpresa_Click);
+            this.txtClaveUsuario.Location = new System.Drawing.Point(128, 152);
+            this.txtClaveUsuario.Margin = new System.Windows.Forms.Padding(2);
+            this.txtClaveUsuario.Name = "txtClaveUsuario";
+            this.txtClaveUsuario.Size = new System.Drawing.Size(198, 22);
+            this.txtClaveUsuario.TabIndex = 17;
             // 
-            // btnGuardarEmpresa
+            // label17
             // 
-            this.btnGuardarEmpresa.Image = global::Comisariato.Properties.Resources.guardar11;
-            this.btnGuardarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardarEmpresa.Location = new System.Drawing.Point(589, 298);
-            this.btnGuardarEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGuardarEmpresa.Name = "btnGuardarEmpresa";
-            this.btnGuardarEmpresa.Size = new System.Drawing.Size(140, 74);
-            this.btnGuardarEmpresa.TabIndex = 18;
-            this.btnGuardarEmpresa.Text = "&Guardar";
-            this.btnGuardarEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGuardarEmpresa.UseVisualStyleBackColor = true;
-            this.btnGuardarEmpresa.Click += new System.EventHandler(this.btnGuardarEmpresa_Click);
-            // 
-            // btnBuscarFondoEmpresa
-            // 
-            this.btnBuscarFondoEmpresa.Image = global::Comisariato.Properties.Resources.buscar2;
-            this.btnBuscarFondoEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscarFondoEmpresa.Location = new System.Drawing.Point(13, 137);
-            this.btnBuscarFondoEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBuscarFondoEmpresa.Name = "btnBuscarFondoEmpresa";
-            this.btnBuscarFondoEmpresa.Size = new System.Drawing.Size(95, 45);
-            this.btnBuscarFondoEmpresa.TabIndex = 17;
-            this.btnBuscarFondoEmpresa.Text = "Imagen";
-            this.btnBuscarFondoEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnBuscarFondoEmpresa.UseVisualStyleBackColor = true;
-            this.btnBuscarFondoEmpresa.Click += new System.EventHandler(this.btnBuscarFondoEmpresa_Click);
-            // 
-            // pbfondoPantallaEmpresa
-            // 
-            this.pbfondoPantallaEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbfondoPantallaEmpresa.Image = global::Comisariato.Properties.Resources.contact;
-            this.pbfondoPantallaEmpresa.Location = new System.Drawing.Point(48, 25);
-            this.pbfondoPantallaEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.pbfondoPantallaEmpresa.Name = "pbfondoPantallaEmpresa";
-            this.pbfondoPantallaEmpresa.Size = new System.Drawing.Size(118, 107);
-            this.pbfondoPantallaEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbfondoPantallaEmpresa.TabIndex = 0;
-            this.pbfondoPantallaEmpresa.TabStop = false;
-            // 
-            // btnBuscarLogoEmpresa
-            // 
-            this.btnBuscarLogoEmpresa.Image = global::Comisariato.Properties.Resources.buscar2;
-            this.btnBuscarLogoEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscarLogoEmpresa.Location = new System.Drawing.Point(12, 138);
-            this.btnBuscarLogoEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBuscarLogoEmpresa.Name = "btnBuscarLogoEmpresa";
-            this.btnBuscarLogoEmpresa.Size = new System.Drawing.Size(87, 44);
-            this.btnBuscarLogoEmpresa.TabIndex = 16;
-            this.btnBuscarLogoEmpresa.Text = "Logo";
-            this.btnBuscarLogoEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnBuscarLogoEmpresa.UseVisualStyleBackColor = true;
-            this.btnBuscarLogoEmpresa.Click += new System.EventHandler(this.btnBuscarLogoEmpresa_Click);
-            // 
-            // pbLogoEmpresa
-            // 
-            this.pbLogoEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbLogoEmpresa.Image = global::Comisariato.Properties.Resources.contact;
-            this.pbLogoEmpresa.Location = new System.Drawing.Point(50, 22);
-            this.pbLogoEmpresa.Margin = new System.Windows.Forms.Padding(2);
-            this.pbLogoEmpresa.Name = "pbLogoEmpresa";
-            this.pbLogoEmpresa.Size = new System.Drawing.Size(115, 107);
-            this.pbLogoEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbLogoEmpresa.TabIndex = 0;
-            this.pbLogoEmpresa.TabStop = false;
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(10, 155);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(107, 16);
+            this.label17.TabIndex = 18;
+            this.label17.Text = "Clave Supervisor:";
             // 
             // FrmEmpresa
             // 
@@ -732,7 +754,9 @@
             this.tpNuevaEmpresa.ResumeLayout(false);
             this.tpNuevaEmpresa.PerformLayout();
             this.gbFondoPantallaEmpresa.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbfondoPantallaEmpresa)).EndInit();
             this.gbLogoEmpresa.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogoEmpresa)).EndInit();
             this.gbParametrosGeneralesEmpresa.ResumeLayout(false);
             this.tcParametrosGeneralesEmpresa.ResumeLayout(false);
             this.tpDatosEmpresa.ResumeLayout(false);
@@ -742,8 +766,6 @@
             this.tpConsultarModificarDeshabilitarEmpresa.ResumeLayout(false);
             this.tpConsultarModificarDeshabilitarEmpresa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatosEmpresa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbfondoPantallaEmpresa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogoEmpresa)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -802,5 +824,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
+        private System.Windows.Forms.TextBox txtClaveUsuario;
+        private System.Windows.Forms.Label label17;
     }
 }

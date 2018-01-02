@@ -47,6 +47,7 @@ namespace Comisariato.Formularios
             txtEmailContadorEmpresa.Text = "";
             txtCelular1ContadorEmpresa.Text = "";
             txtCelular2ContadorEmpresa.Text = "";
+            txtClaveUsuario.Text = "";
 
             //// llenar datadrigview solo los activos
             cargarDatos();
@@ -100,7 +101,7 @@ namespace Comisariato.Formularios
             byte[] bitDataFondo = null;
 
 
-            if (txtNombreEmpresa.Text != "" && txtRUCEmpresa.Text != "" && txtNombreComercialEmpresa.Text != "" && txtRazonSocialEmpresa.Text != "" && txtGerenteEmpresa.Text != "" && txtEmailEmpresa.Text != "" && txtCeluar1Empresa.Text != "")
+            if (txtNombreEmpresa.Text != "" && txtRUCEmpresa.Text != "" && txtNombreComercialEmpresa.Text != "" && txtRazonSocialEmpresa.Text != "" && txtGerenteEmpresa.Text != "" && txtEmailEmpresa.Text != "" && txtCeluar1Empresa.Text != "" && txtClaveUsuario.Text!="")
             {
 
                 if (nameLogo != "")
@@ -121,7 +122,7 @@ namespace Comisariato.Formularios
                 //{
                 //    bitDataFondo = Funcion.ConvertImg_Bytes(nameFondo);
                 //}
-                Empresa ObjEmpresa = new Empresa(txtNombreEmpresa.Text, txtRUCEmpresa.Text, txtNombreComercialEmpresa.Text, txtRazonSocialEmpresa.Text, txtGerenteEmpresa.Text, txtDireccionEmpresa.Text, txtEmailEmpresa.Text, dtpFechaInicioContableEmpresa.Value, txtCeluar1Empresa.Text, txtCelular2Empresa.Text, txtRUCContadorEmpresa.Text, txtNombreContadorempresa.Text, txtEmailContadorEmpresa.Text, txtCelular1ContadorEmpresa.Text, txtCelular2ContadorEmpresa.Text, bitDataLogo, bitDataFondo);
+                Empresa ObjEmpresa = new Empresa(txtNombreEmpresa.Text, txtRUCEmpresa.Text, txtNombreComercialEmpresa.Text, txtRazonSocialEmpresa.Text, txtGerenteEmpresa.Text, txtDireccionEmpresa.Text, txtEmailEmpresa.Text, dtpFechaInicioContableEmpresa.Value, txtCeluar1Empresa.Text, txtCelular2Empresa.Text, txtRUCContadorEmpresa.Text, txtNombreContadorempresa.Text, txtEmailContadorEmpresa.Text, txtCelular1ContadorEmpresa.Text, txtCelular2ContadorEmpresa.Text, bitDataLogo, bitDataFondo,txtClaveUsuario.Text);
 
                 if (!bandera_Estado) // Para identificar si se va ingresar
                 {
@@ -233,7 +234,10 @@ namespace Comisariato.Formularios
                         stream.Dispose();
                     }
 
-
+                    if (myRow["CLAVESUPERVISOR"] != System.DBNull.Value)
+                    {
+                        txtClaveUsuario.Text = myRow["CLAVESUPERVISOR"].ToString();
+                    }
 
                     //Cargar los demas Datos
                     txtNombreEmpresa.Text = myRow["NOMBRE"].ToString();

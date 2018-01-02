@@ -25,7 +25,7 @@ namespace Comisariato.Formularios.Transacciones
             //c = new Consultas();  
             if (txtClave.Text!="")
             {
-                if (txtClave.Text=="supervisorsuper2")
+                if (txtClave.Text == Program.clavesupervisor)
                 {
                     FrmFactura.correcta = 1;
                     FrmFactura.verificadorfrm = 1;

@@ -45,6 +45,7 @@ namespace Comisariato
         public static string rucempresa;
         public static string direccionempresa;
         public static string razonsocialempresa;
+        public static string clavesupervisor;
 
         //otros
         public static int tamañoVentanaPrincipal;

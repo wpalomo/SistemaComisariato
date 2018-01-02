@@ -43,7 +43,7 @@
             this.dgvProductos.Name = "dgvProductos";
             this.dgvProductos.ReadOnly = true;
             this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductos.Size = new System.Drawing.Size(725, 123);
+            this.dgvProductos.Size = new System.Drawing.Size(928, 323);
             this.dgvProductos.TabIndex = 1;
             this.dgvProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellDoubleClick);
             // 
@@ -69,9 +69,9 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(360, 236);
+            this.btnCancelar.Location = new System.Drawing.Point(785, 418);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(105, 41);
+            this.btnCancelar.Size = new System.Drawing.Size(190, 54);
             this.btnCancelar.TabIndex = 2;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -83,7 +83,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(826, 300);
+            this.ClientSize = new System.Drawing.Size(1020, 498);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.txtconsultar);
             this.Controls.Add(this.label1);
