@@ -51,6 +51,7 @@ namespace Comisariato.Formularios
         public static FrmCambioClave FrmCambioClave;
         public static FrmRegistrarIVA FrmRegistrarIVA;
         public static FrmInformesCajas FrmInformesCajas;
+        public static FrmComprobantesSri FrmComprobantesSri;
 
         public bool primerIngresoSistema;
 
@@ -422,6 +423,17 @@ namespace Comisariato.Formularios
                     FrmDeclaracionSRI.Show();
                 }
                 else { FrmDeclaracionSRI.BringToFront(); }
+            }
+            else if (nombre == "Comprobantes")
+            {
+                if (FrmComprobantesSri == null || FrmComprobantesSri.IsDisposed)
+                {
+                    FrmComprobantesSri = new FrmComprobantesSri();
+                    FrmComprobantesSri.MdiParent = this;
+                    //FrmDevolucionVenta.BringToFront();
+                    FrmComprobantesSri.Show();
+                }
+                else { FrmComprobantesSri.BringToFront(); }
             }
             else if (nombre == "Informe Caja")
             {

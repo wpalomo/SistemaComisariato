@@ -778,3 +778,4 @@ C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariat
 >>>>>>> d817d8458287dde32d24834e54a98c96a678b01c
 C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesCajas.resources
 C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.Venta.FrmCierreCaja.resources
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.SRI.FrmComprobantesSri.resources
