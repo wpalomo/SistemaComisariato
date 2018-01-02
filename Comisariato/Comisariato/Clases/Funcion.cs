@@ -11,8 +11,8 @@ using Comisariato.Formularios;
 
 namespace Comisariato.Clases
 {
-     public class Funcion
-    {         
+    public class Funcion
+    {
         public void AddFormInPanel(Form formHijo /*, Panel panelPrincipal*/)
         {
             //Form fh = formHijo as Form;
@@ -142,12 +142,12 @@ namespace Comisariato.Clases
                 int ocurrenciasPuntos = texto.Split('.').Length;
                 if (e.KeyChar == '.' && ocurrenciasPuntos <= 3)
                 {
-                    
+
                     e.Handled = false;
                 }
                 else
                 {
-                            e.Handled = true;
+                    e.Handled = true;
                 }
             }
             else if (Char.IsControl(e.KeyChar))
@@ -242,7 +242,7 @@ namespace Comisariato.Clases
                 {
                     //if (textBox1.Contains(".") || textBox1 == "")
                     //{
-                        e.Handled = false;
+                    e.Handled = false;
                     //}
                 }
                 //else
@@ -327,6 +327,15 @@ namespace Comisariato.Clases
             }
         }
 
+        public static String reemplazarcaracterFecha(String cadena)
+        {
+                string[] fecha = cadena.Split('/');
+
+                string FinalFecha = fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+
+                return FinalFecha;
+        }
+
 
         public static String reemplazarcaracterViceversa(String cadena)
         {
@@ -356,7 +365,7 @@ namespace Comisariato.Clases
                 if ((provincia > 0 && provincia <= numeroProvincias) && digitoTres < tercerDigito)
                 {
                     var digitoVerificadorRecibido = Convert.ToInt32(cedula[9] + string.Empty);
-                    for (var k = 0; k < coeficientes.Length; k ++)
+                    for (var k = 0; k < coeficientes.Length; k++)
                     {
                         var valor = Convert.ToInt32(coeficientes[k] + string.Empty) * Convert.ToInt32(cedula[k] + string.Empty);
                         total = valor >= 10 ? total + (valor - 9) : total + valor;
@@ -431,6 +440,37 @@ namespace Comisariato.Clases
                 //datosProductoCompra.BeginEdit(true);
                 SendKeys.Send("{LEFT}");
                 banderaFocoCelda = true;
+            }
+        }
+
+        public static string[] leerArchivo(string ruta)
+        {
+            try
+            {
+                string line;
+                string lineDatos = "";
+                string[] VectorDatos;
+                System.IO.StreamReader file =
+                    new System.IO.StreamReader(ruta);
+                while ((line = file.ReadLine()) != null)
+                {
+                    lineDatos += line + ";";
+
+                }
+
+                file.Close();
+                if (lineDatos != "")
+                {
+                    VectorDatos = lineDatos.Split(';');
+                    return VectorDatos;
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
         }
 

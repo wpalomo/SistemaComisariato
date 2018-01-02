@@ -258,7 +258,13 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celBoton = DgvDatosSucursal.Rows[e.RowIndex].Cells["Modificar"] as DataGridViewButtonCell;
-                Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+                //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+
+                Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.modificarDgv);
+                IntPtr Hicon = bitmap.GetHicon();
+                Icon icoAtomico = Icon.FromHandle(Hicon);
+                //bitmap.SetResolution(72, 72);
+
                 e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 DgvDatosSucursal.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                 DgvDatosSucursal.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -272,7 +278,13 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                     DataGridViewButtonCell celBoton = this.DgvDatosSucursal.Rows[e.RowIndex].Cells["Deshabilitar"] as DataGridViewButtonCell;
-                    Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+                    //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+
+                    Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.Habilitar);
+                    IntPtr Hicon = bitmap.GetHicon();
+                    Icon icoAtomico = Icon.FromHandle(Hicon);
+                    //bitmap.SetResolution(72, 72);
+
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.DgvDatosSucursal.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.DgvDatosSucursal.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -286,7 +298,13 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                     DataGridViewButtonCell celBoton = this.DgvDatosSucursal.Rows[e.RowIndex].Cells["Deshabilitar"] as DataGridViewButtonCell;
-                    Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\EliminarDgv.ico");
+                    //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\EliminarDgv.ico");
+
+                    Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.EliminarDgv);
+                    IntPtr Hicon = bitmap.GetHicon();
+                    Icon icoAtomico = Icon.FromHandle(Hicon);
+                    //bitmap.SetResolution(72, 72);
+
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.DgvDatosSucursal.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.DgvDatosSucursal.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -297,19 +315,14 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
 
         private void txtRUCSucursal_Leave(object sender, EventArgs e)
         {
-            if (txtRUCSucursal.Text.Length == 13)
+            if (txtRUCSucursal.Text != "")
             {
-                if (txtRUCSucursal.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtRUCSucursal.Text.Substring(0, 10)) == false)
+                if (txtRUCSucursal.Text.Length != 13 || txtRUCSucursal.Text.Substring(10, 3) != "001")
                 {
                     MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     txtRUCSucursal.Focus();
                     txtRUCSucursal.Select(0, txtRUCSucursal.Text.Length);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtRUCSucursal.Focus();
-                txtRUCSucursal.Select(0, txtRUCSucursal.Text.Length);
             }
         }
 

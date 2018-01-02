@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcCajaTalonario = new System.Windows.Forms.TabControl();
             this.tpNuevaCajaTalonario = new System.Windows.Forms.TabPage();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -215,9 +214,10 @@
             // dtpFechaCaducidadCaja
             // 
             this.dtpFechaCaducidadCaja.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.dtpFechaCaducidadCaja.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaCaducidadCaja.Location = new System.Drawing.Point(179, 104);
             this.dtpFechaCaducidadCaja.Name = "dtpFechaCaducidadCaja";
-            this.dtpFechaCaducidadCaja.Size = new System.Drawing.Size(306, 22);
+            this.dtpFechaCaducidadCaja.Size = new System.Drawing.Size(190, 22);
             this.dtpFechaCaducidadCaja.TabIndex = 15;
             // 
             // txtAutorizacionCaja
@@ -497,14 +497,6 @@
             this.dgvDatosCaja.Location = new System.Drawing.Point(19, 77);
             this.dgvDatosCaja.Name = "dgvDatosCaja";
             this.dgvDatosCaja.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9.75F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosCaja.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDatosCaja.Size = new System.Drawing.Size(699, 274);
             this.dgvDatosCaja.TabIndex = 15;
             this.dgvDatosCaja.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCaja_CellClick);

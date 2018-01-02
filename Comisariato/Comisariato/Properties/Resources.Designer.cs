@@ -253,6 +253,16 @@ namespace Comisariato.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BuscarArchivo {
+            get {
+                object obj = ResourceManager.GetObject("BuscarArchivo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap calculadora_1 {
             get {
                 object obj = ResourceManager.GetObject("calculadora-1", resourceCulture);
@@ -443,6 +453,16 @@ namespace Comisariato.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EliminarDgv {
+            get {
+                object obj = ResourceManager.GetObject("EliminarDgv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap email {
             get {
                 object obj = ResourceManager.GetObject("email", resourceCulture);
@@ -496,6 +516,16 @@ namespace Comisariato.Properties {
         internal static System.Drawing.Bitmap GUARDAR32X32 {
             get {
                 object obj = ResourceManager.GetObject("GUARDAR32X32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Habilitar {
+            get {
+                object obj = ResourceManager.GetObject("Habilitar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -636,6 +666,26 @@ namespace Comisariato.Properties {
         internal static System.Drawing.Bitmap Modificar {
             get {
                 object obj = ResourceManager.GetObject("Modificar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap modificarDgv {
+            get {
+                object obj = ResourceManager.GetObject("modificarDgv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap no_logo {
+            get {
+                object obj = ResourceManager.GetObject("no-logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

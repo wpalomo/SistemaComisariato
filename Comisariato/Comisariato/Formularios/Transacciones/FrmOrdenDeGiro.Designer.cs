@@ -85,6 +85,8 @@
             this.cuentaContable = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaVigente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IdRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CODIGOSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDTIPOCODIGOSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtAutorizacionRetencion = new System.Windows.Forms.TextBox();
             this.dtpFechaVenceDocumento = new System.Windows.Forms.DateTimePicker();
             this.txtSerie2Retencion = new System.Windows.Forms.TextBox();
@@ -345,6 +347,7 @@
             this.tabPage3.Size = new System.Drawing.Size(1008, 348);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Datos Generales";
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // btnContabilizar
             // 
@@ -725,7 +728,9 @@
             this.montoRetencion,
             this.cuentaContable,
             this.fechaVigente,
-            this.IdRetencion});
+            this.IdRetencion,
+            this.CODIGOSRI,
+            this.IDTIPOCODIGOSRI});
             this.dgvDatosRetencion.Location = new System.Drawing.Point(0, 104);
             this.dgvDatosRetencion.Name = "dgvDatosRetencion";
             this.dgvDatosRetencion.ReadOnly = true;
@@ -788,6 +793,20 @@
             this.IdRetencion.Name = "IdRetencion";
             this.IdRetencion.ReadOnly = true;
             this.IdRetencion.Visible = false;
+            // 
+            // CODIGOSRI
+            // 
+            this.CODIGOSRI.HeaderText = "CODIGOSRI";
+            this.CODIGOSRI.Name = "CODIGOSRI";
+            this.CODIGOSRI.ReadOnly = true;
+            this.CODIGOSRI.Visible = false;
+            // 
+            // IDTIPOCODIGOSRI
+            // 
+            this.IDTIPOCODIGOSRI.HeaderText = "IDTIPOCODIGOSRI";
+            this.IDTIPOCODIGOSRI.Name = "IDTIPOCODIGOSRI";
+            this.IDTIPOCODIGOSRI.ReadOnly = true;
+            this.IDTIPOCODIGOSRI.Visible = false;
             // 
             // txtAutorizacionRetencion
             // 
@@ -1598,6 +1617,8 @@
         private System.Windows.Forms.ComboBox cbFormaPago;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnSalirCompra;
+        private System.Drawing.Printing.PrintDocument ImpresionOG;
+        private System.Windows.Forms.PrintDialog ElegirImpresero;
         private System.Windows.Forms.DataGridViewTextBoxColumn retencionSRI;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn porcentaje;
@@ -1606,7 +1627,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cuentaContable;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaVigente;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdRetencion;
-        private System.Drawing.Printing.PrintDocument ImpresionOG;
-        private System.Windows.Forms.PrintDialog ElegirImpresero;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CODIGOSRI;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDTIPOCODIGOSRI;
     }
 }

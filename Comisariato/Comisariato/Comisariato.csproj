@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,12 +33,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icono_aircontrol.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="InputKey">
       <HintPath>..\..\..\Downloads\InputKey\InputKey.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -69,6 +74,7 @@
     <Compile Include="Clases\EncabezadoNotaCredito.cs" />
     <Compile Include="Clases\EncabezadoOrdenGiro.cs" />
     <Compile Include="Clases\Funcion.cs" />
+    <Compile Include="Clases\InfoCompRetencion.cs" />
     <Compile Include="Clases\InfoFactura.cs" />
     <Compile Include="Clases\InfoTributaria.cs" />
     <Compile Include="Clases\ParametrosFactura.cs" />
@@ -79,11 +85,18 @@
     <Compile Include="Clases\Xml.cs" />
     <Compile Include="Clases\EncabezadoNotaDebito.cs" />
     <Compile Include="Clases\DetalleNotaDebito.cs" />
+    <Compile Include="Clases\XmlRetencion.cs" />
     <Compile Include="Formularios\FrmCambioClave.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmCambioClave.Designer.cs">
       <DependentUpon>FrmCambioClave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Informes\FrmInformesCajas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Informes\FrmInformesCajas.Designer.cs">
+      <DependentUpon>FrmInformesCajas.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Informes\FrmInformesCompras.cs">
       <SubType>Form</SubType>
@@ -217,6 +230,12 @@
     <Compile Include="Formularios\Inventario\FrmProductos.Designer.cs">
       <DependentUpon>FrmProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\SRI\FrmComprobantesSri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\SRI\FrmComprobantesSri.Designer.cs">
+      <DependentUpon>FrmComprobantesSri.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\SRI\FrmDeclaracionSRI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -240,6 +259,12 @@
     </Compile>
     <Compile Include="Formularios\Transacciones\Venta\FrmAvanse.Designer.cs">
       <DependentUpon>FrmAvanse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Transacciones\Venta\FrmCierreCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Transacciones\Venta\FrmCierreCaja.Designer.cs">
+      <DependentUpon>FrmCierreCaja.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Transacciones\Venta\FrmClaveSupervisor.cs">
       <SubType>Form</SubType>
@@ -277,10 +302,10 @@
     <Compile Include="Formularios\Transacciones\Venta\FrmDatosClientes.Designer.cs">
       <DependentUpon>FrmDatosClientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Transacciones\Venta\FrmFactura.cs">
+    <Compile Include="Formularios\Transacciones\FrmFactura.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\Transacciones\Venta\FrmFactura.Designer.cs">
+    <Compile Include="Formularios\Transacciones\FrmFactura.Designer.cs">
       <DependentUpon>FrmFactura.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Transacciones\FrmOrdenDeGiro.cs">
@@ -299,6 +324,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formularios\FrmCambioClave.resx">
       <DependentUpon>FrmCambioClave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Informes\FrmInformesCajas.resx">
+      <DependentUpon>FrmInformesCajas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Informes\FrmInformesCompras.resx">
       <DependentUpon>FrmInformesCompras.cs</DependentUpon>
@@ -366,6 +394,9 @@
     <EmbeddedResource Include="Formularios\Inventario\FrmProductos.resx">
       <DependentUpon>FrmProductos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\SRI\FrmComprobantesSri.resx">
+      <DependentUpon>FrmComprobantesSri.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\SRI\FrmDeclaracionSRI.resx">
       <DependentUpon>FrmDeclaracionSRI.cs</DependentUpon>
     </EmbeddedResource>
@@ -377,6 +408,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmAvanse.resx">
       <DependentUpon>FrmAvanse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmCierreCaja.resx">
+      <DependentUpon>FrmCierreCaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmClaveSupervisor.resx">
       <DependentUpon>FrmClaveSupervisor.cs</DependentUpon>
@@ -396,7 +430,7 @@
     <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmDatosClientes.resx">
       <DependentUpon>FrmDatosClientes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmFactura.resx">
+    <EmbeddedResource Include="Formularios\Transacciones\FrmFactura.resx">
       <DependentUpon>FrmFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\FrmOrdenDeGiro.resx">
@@ -407,18 +441,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -426,7 +460,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Splashaircontrol.jpg" />
@@ -628,6 +664,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\calculadora-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icono_aircontrol.ico" />
+    <None Include="Resources\BuscarArchivo.png" />
+    <None Include="Resources\modificarDgv.ico" />
+    <None Include="Resources\EliminarDgv1.ico" />
+    <None Include="Resources\EliminarDgv.ico" />
+    <None Include="Resources\Habilitar1.ico" />
+    <None Include="Resources\Habilitar.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

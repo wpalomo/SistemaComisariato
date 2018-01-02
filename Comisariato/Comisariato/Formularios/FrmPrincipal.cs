@@ -49,6 +49,11 @@ namespace Comisariato.Formularios
         public static FrmDevolucionCompra FrmDevolucionCompra;
         public static FrmDeclaracionSRI FrmDeclaracionSRI;
         public static FrmCambioClave FrmCambioClave;
+        public static FrmRegistrarIVA FrmRegistrarIVA;
+        public static FrmInformesCajas FrmInformesCajas;
+        public static FrmComprobantesSri FrmComprobantesSri;
+
+        public bool primerIngresoSistema;
 
         Bitacora  bitacora = new Bitacora();
         //public static void Panel
@@ -79,7 +84,7 @@ namespace Comisariato.Formularios
                     FrmCliente.BringToFront();
             }
             //---------------------Empleado --------------------------------------//
-            else if(nombre == "Administrar Empleados")
+            else if (nombre == "Administrar Empleados")
             {
                 if (FrmEmpleado == null || FrmEmpleado.IsDisposed)
                 {
@@ -89,7 +94,7 @@ namespace Comisariato.Formularios
                 }
                 else { FrmEmpleado.BringToFront(); }
             }
-            else if(nombre == "Administrar Menu")
+            else if (nombre == "Administrar Menu")
             {
                 if (FrmAsignarMenu == null || FrmAsignarMenu.IsDisposed)
                 {
@@ -101,7 +106,7 @@ namespace Comisariato.Formularios
                 else { FrmAsignarMenu.BringToFront(); }
             }
             //--------------------Empresa---------------------------------------//
-            else if(nombre == "Cajas/Talonarios")
+            else if (nombre == "Cajas/Talonarios")
             {
                 if (FrmCajasTalonario == null || FrmCajasTalonario.IsDisposed)
                 {
@@ -111,7 +116,7 @@ namespace Comisariato.Formularios
                 }
                 else { FrmCajasTalonario.BringToFront(); }
             }
-            else if(nombre == "Informe Ventas")
+            else if (nombre == "Informe Ventas")
             {
                 if (FrmInformeVentas == null || FrmInformeVentas.IsDisposed)
                 {
@@ -121,7 +126,7 @@ namespace Comisariato.Formularios
                 }
                 else { FrmInformeVentas.BringToFront(); }
             }
-            else if(nombre == "Informe Compras")
+            else if (nombre == "Informe Compras")
             {
                 //        FrmInformesCompras;
                 //public static FrmInformesOrdenGiro FrmInformesOrdenGiro;
@@ -183,7 +188,7 @@ namespace Comisariato.Formularios
                     FrmProveedor = new FrmProveedores();
                     FrmProveedor.MdiParent = this;
                     FrmProveedor.Show();
-                    
+
                     //FrmProveedor.BringToFront();
                 }
                 else { FrmProveedor.BringToFront(); }
@@ -365,6 +370,7 @@ namespace Comisariato.Formularios
             else if (nombre == "Devolución en Venta")
             {
                 string IpMaquina = bitacora.LocalIPAddress();
+                //IPESTACION = '" + IpMaquina + "' and
                 DataTable Dt = objConsulta.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
                 bool banderaCaja = false;
                 if (Dt.Rows.Count > 0)
@@ -418,12 +424,37 @@ namespace Comisariato.Formularios
                 }
                 else { FrmDeclaracionSRI.BringToFront(); }
             }
+            else if (nombre == "Comprobantes")
+            {
+                if (FrmComprobantesSri == null || FrmComprobantesSri.IsDisposed)
+                {
+                    FrmComprobantesSri = new FrmComprobantesSri();
+                    FrmComprobantesSri.MdiParent = this;
+                    //FrmDevolucionVenta.BringToFront();
+                    FrmComprobantesSri.Show();
+                }
+                else { FrmComprobantesSri.BringToFront(); }
+            }
+            else if (nombre == "Informe Caja")
+            {
+                if (FrmInformesCajas == null || FrmInformesCajas.IsDisposed)
+                {
+                    FrmInformesCajas = new FrmInformesCajas();
+                    FrmInformesCajas.MdiParent = this;
+                    //FrmDevolucionVenta.BringToFront();
+                    FrmInformesCajas.Show();
+                }
+                else { FrmInformesCajas.BringToFront(); }
+            }
         }
 
 
 
         private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+            String HoraSalida = DateTime.Now.TimeOfDay.ToString();
+            Bitacora ObjBitacora = new Bitacora(HoraSalida, "Sesión Finalizada");
+            ObjBitacora.insertarBitacora();
             Application.Exit();
         }
 
@@ -453,23 +484,31 @@ namespace Comisariato.Formularios
         }
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
+            if (primerIngresoSistema)
+            {
+                MessageBox.Show("Actualize los datos de la Empresa", "Bienvenido",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+
             menuMostrar = msPrincipal1;
             DataTable dt = objConsulta.BoolDataTable("Select FONDOPANTALLA from TbEmpresa where IDEMPRESA = 1");
             byte[] MyData = new byte[0];
             if (dt.Rows.Count > 0)
             {
                 DataRow myRow = dt.Rows[0];
+                string valor = myRow["FONDOPANTALLA"].ToString();
 
-                MyData = (byte[])myRow["FONDOPANTALLA"];
-                MemoryStream stream = new MemoryStream(MyData);
-                //this.panelPrincipal.BackgroundImage = Image.FromStream(stream);
-                this.BackgroundImage = Image.FromStream(stream);
-                this.BackgroundImageLayout = ImageLayout.Stretch;
-
+                if (myRow["FONDOPANTALLA"].ToString() != "")
+                {
+                    MyData = (byte[])myRow["FONDOPANTALLA"];
+                    MemoryStream stream = new MemoryStream(MyData);
+                    //this.panelPrincipal.BackgroundImage = Image.FromStream(stream);
+                    this.BackgroundImage = Image.FromStream(stream);
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
+                }
             }
             try
             {
-                if (Program.Usuario !="ADMIN")
+                if (Program.IDTIPOUSUARIO != "1")
                 {
                     llenarTreeViewPrincipal();
                 }

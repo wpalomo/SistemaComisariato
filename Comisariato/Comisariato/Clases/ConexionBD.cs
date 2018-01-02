@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using Comisariato.Properties;
 
 namespace Comisariato.Clases
 {
@@ -19,11 +21,23 @@ namespace Comisariato.Clases
         //------------------------------Conexion Byron ----------------------------------------//
         //Data Source = DESKTOP-SI5M9C5; Initial Catalog = BDComisariato; Integrated Security = True
 
+
+
+
+
         public void conectar()
         {
             try
             {
-                connection = new SqlConnection("Data Source=DESKTOP-FUFA7EG\\ANDRES;Initial Catalog=BDComisariato;Integrated Security=True");
+
+                //string[] datosArchivoConfig = Funcion.leerArchivo(@"\\Aircontrol\c\Program Files (x86)\AIRCONTROL\Conexion.shc");
+                //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
+                //connection = new SqlConnection("data source = AIRCONTROL, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
+                System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
+                String con = connec[1].ToString();
+                connection = new SqlConnection(con);
+
+                //connection = new SqlConnection("data source = SERVER, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
                 connection.Open();
                
             }
@@ -35,7 +49,12 @@ namespace Comisariato.Clases
         }
         public void Cerrar()
         {
-            connection = new SqlConnection("Data Source=DESKTOP-FUFA7EG\\ANDRES;Initial Catalog=BDComisariato;Integrated Security=True");
+            //string[] datosArchivoConfig = Funcion.leerArchivo(@"\\Aircontrol\c\Program Files (x86)\AIRCONTROL\Conexion.shc");
+            //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
+            //connection = new SqlConnection("data source = AIRCONTROL, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
+            System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
+            String con = connec[1].ToString();
+            connection = new SqlConnection(con);
             connection.Close();
         }
     }

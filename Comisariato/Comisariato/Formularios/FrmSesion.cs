@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using Comisariato.Formularios;
 using Comisariato.Clases;
 
+
 namespace Comisariato
 {
     public partial class FrmLogin : Form
@@ -38,11 +39,36 @@ namespace Comisariato
             ReleaseCapture();
             SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
+        // Consultas objConsulta = new Consultas();
+
+
+        bool PrimerIngresoSistemaLogin = false;
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
+            Consultas c = new Consultas();
+            if (!c.ConsultarPrimerRegisto("TbUsuario", ""))
+            {
+
+                String[] datosArchivoConfigPersona = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosAdmin.shc");
+                String[] datosArchivoConfigEmpresa = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosEmpresa.shc");
+                if (datosArchivoConfigPersona != null && datosArchivoConfigEmpresa != null)
+                {
+                    //if (datosArchivoConfigPersona[2] == txtUsuario.Text && datosArchivoConfigPersona[3] == txtContraseña.Text)
+                    //{
+                        c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
+                        c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
+                    //BtnIniciar_Click(null, null);
+                    PrimerIngresoSistemaLogin = true;
+
+                    //}
+
+                }
+            }
+            c.BoolLlenarComboBox(cbEmpresa, "select IDEMPRESA as ID, NOMBRE as Texto from TbEmpresa");
             PanelSesion.BackColor = Color.FromArgb(100, 0xFF, 0xFF, 0XFF);
             BtnIniciar.BackColor = Color.FromArgb(224, 224, 224);
+            
         }
 
         private void PboxSalir_Click(object sender, EventArgs e)
@@ -52,8 +78,133 @@ namespace Comisariato
 
         private void BtnIniciar_Click(object sender, EventArgs e)
         {
-            //float total = 1;
-           // MessageBox.Show("$ 0.00");
+            //Program.EmpresaUsuario = Convert.ToInt32(cbEmpresa.SelectedValue);
+            //Consultas c = new Consultas();
+            //if (txtUsuario.Text != "")
+            //{
+            //    if (txtContraseña.Text != "")
+            //    {
+            //        bool b = c.AutenticacionUsuario(txtUsuario.Text, txtContraseña.Text);
+            //        if (b)
+            //        {
+            //            if (Program.estado)
+            //            {
+            //                // Program.Usuario = txtUsuario.Text;
+            //                //Program.IDUsuario=
+            //                Program.FecaInicio = DateTime.Now.Date.ToShortDateString();
+            //                Program.horainicio = DateTime.Now.TimeOfDay.ToString();
+            //                FrmPrincipal p = new FrmPrincipal();
+            //                Bitacora ObjBitacora = new Bitacora("00:00:00", "Inicio de Sessión");
+            //                ObjBitacora.insertarBitacora();
+            //                p.Show();
+            //                this.Visible = false;
+            //            }
+            //            else
+            //            {
+            //                lblError.Text = "Su usuario por el momento se encuentra desabilitado.\nContactate con el administrador del sistema.";
+            //            }
+
+            //        }
+            //        else
+            //        {
+            //            //if (c.ConsultarPrimerRegisto("TbUsuario", ""))
+            //            //{
+            //                lblError.Text = "Credenciales incorrectas.";
+            //            //}
+            //            //else
+            //            //{
+            //                //String[] datosArchivoConfigPersona = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosAdmin.shc");
+            //                //String[] datosArchivoConfigEmpresa = Funcion.leerArchivo(@"C:\Program Files (x86)\Aircontrol\DatosEmpresa.shc");
+            //                //if (datosArchivoConfigPersona != null && datosArchivoConfigEmpresa != null)
+            //                //{
+            //                    //if (datosArchivoConfigPersona[2] == txtUsuario.Text && datosArchivoConfigPersona[3] == txtContraseña.Text)
+            //                    //{
+            //                        //c.InsertarDatosPrincipalesConfiguracionEmpresa(datosArchivoConfigEmpresa);
+            //                        //c.InsertarDatosPrincipalesConfiguracionUser(datosArchivoConfigPersona[0], datosArchivoConfigPersona[1], datosArchivoConfigPersona[2], datosArchivoConfigPersona[3]);
+            //                        //BtnIniciar_Click(null, null);
+            //                    //}
+
+            //                //}
+            //            //}
+            //        }
+
+            //    }
+            //    else
+            //    {
+            //        lblError.Text = "Ingresa la contraseña.";
+            //        txtContraseña.Focus();
+            //    }
+
+            //}
+            //else
+            //{
+            //    lblError.Text = "Ingresa el usuario.";
+            //    txtUsuario.Focus();
+            // }
+            //string impresora = ConfigurationManager.AppSettings["Impresoras"].ToString();
+           // var valor = ConfigurationManager.AppSettings["Bodega"];
+            //ticket.ImprimirTicket(impresora);
+            loguearse();
+       }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txtUsuario.Text != "")
+            {
+                if (e.KeyChar == (char)Keys.Return)
+                {
+                    SendKeys.Send("{TAB}");
+                }
+            }
+        }
+
+        private void txtContraseña_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                loguearse();
+                //Consultas c = new Consultas();
+                //if (txtUsuario.Text != "")
+                //{
+                //    if (txtContraseña.Text != "")
+                //    {
+                //        bool b = c.AutenticacionUsuario(txtUsuario.Text, txtContraseña.Text);
+                //        if (b)
+                //        {
+                //            FrmPrincipal p = new FrmPrincipal();
+                //            p.Show();
+                //            this.Visible = false;
+                //        }
+                //        else
+                //        {
+                //            lblError.Text = "Credenciales incorrectas.";
+                //        }
+
+                //    }
+                //    else
+                //    {
+                //        lblError.Text = "Ingresa la contraseña.";
+                //        txtContraseña.Focus();
+                //    }
+
+                //}
+                //else
+                //{
+                //    lblError.Text = "Ingresa el usuario.";
+                //    txtUsuario.Focus();
+                //}
+
+            }
+        }
+
+        private void loguearse()
+        {
+            Program.EmpresaUsuario = Convert.ToInt32(cbEmpresa.SelectedValue);
             Consultas c = new Consultas();
             if (txtUsuario.Text != "")
             {
@@ -66,9 +217,10 @@ namespace Comisariato
                         {
                             // Program.Usuario = txtUsuario.Text;
                             //Program.IDUsuario=
-                            Program.FecaInicio = DateTime.Now.Date.ToShortDateString();
+                            Program.FecaInicio = Funcion.reemplazarcaracterFecha(DateTime.Now.Date.ToShortDateString());
                             Program.horainicio = DateTime.Now.TimeOfDay.ToString();
                             FrmPrincipal p = new FrmPrincipal();
+                            p.primerIngresoSistema = this.PrimerIngresoSistemaLogin;
                             Bitacora ObjBitacora = new Bitacora("00:00:00", "Inicio de Sessión");
                             ObjBitacora.insertarBitacora();
                             p.Show();
@@ -97,66 +249,15 @@ namespace Comisariato
             {
                 lblError.Text = "Ingresa el usuario.";
                 txtUsuario.Focus();
-             }
-       }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (txtUsuario.Text != "")
-            {
-                if (e.KeyChar == (char)Keys.Return)
-                {
-                    SendKeys.Send("{TAB}");
-                }
             }
         }
 
-        private void txtContraseña_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Return)
-            {
-                Consultas c = new Consultas();
-                if (txtUsuario.Text != "")
-                {
-                    if (txtContraseña.Text != "")
-                    {
-                        bool b = c.AutenticacionUsuario(txtUsuario.Text, txtContraseña.Text);
-                        if (b)
-                        {
-                            FrmPrincipal p = new FrmPrincipal();
-                            p.Show();
-                            this.Visible = false;
-                        }
-                        else
-                        {
-                            lblError.Text = "Credenciales incorrectas.";
-                        }
-
-                    }
-                    else
-                    {
-                        lblError.Text = "Ingresa la contraseña.";
-                        txtContraseña.Focus();
-                    }
-
-                }
-                else
-                {
-                    lblError.Text = "Ingresa el usuario.";
-                    txtUsuario.Focus();
-                }
-
-            }
-        }
 
         private void txtUsuario_TextChanged(object sender, EventArgs e)
         {
             lblError.Text = "";
         }
+
+
     }
 }

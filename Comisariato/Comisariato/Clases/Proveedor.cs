@@ -429,7 +429,7 @@ namespace Comisariato.Clases
             if (!ObjConsulta.Existe("SERIE1", serie1 + "' and SERIE2 = '"+ serie2 , "TbAutorizacionProveedor"))
             {
                 if (ObjConsulta.EjecutarSQL("INSERT INTO [dbo].[TbAutorizacionProveedor] ([SERIE1] ,[SERIE2] ,[AUTORIZACION] ,[VALIDO_HASTA] ,[FAC_INICIO] ,[FAC_FIN] ,[IDPROVEEDOR])"
-                +" VALUES('"+serie1+"','"+serie2+ "','"+AUTORIZACION+ "','"+VALIDO_HASTA+ "','"+FAC_INICIO+ "','"+FAC_FIN+"',"+IDPROVEEDOR+")"))
+                +" VALUES('"+serie1+"','"+serie2+ "','"+AUTORIZACION+ "','"+Funcion.reemplazarcaracterFecha(VALIDO_HASTA)+ "','"+FAC_INICIO+ "','"+FAC_FIN+"',"+IDPROVEEDOR+")"))
                 {
                     return "Datos Guardados";
                 }

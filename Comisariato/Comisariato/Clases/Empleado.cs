@@ -370,7 +370,10 @@ namespace Comisariato.Clases
 
 
 
-     
+
+
+
+
 
         //No eh trabajado desde aqui en adelante ANDRES
         public string ModificarEmpleado(string Identificacion, byte[] foto)
@@ -378,7 +381,7 @@ namespace Comisariato.Clases
             ObjConsulta = new Consultas();
 
             if (ObjConsulta.EjecutarSQL("UPDATE [dbo].[TbEmpleado] SET[TIPOIDENTIFICACION] = '"+tipoidentificacion.ToUpper() + "' ,[IDENTIFICACION] = '"+identificacion+ "'  ,[NOMBRES] = '"+nombres.ToUpper() + "',[APELLIDOS] = '"+apellidos.ToUpper() + "'"
-                + " ,[ACTIVO] = '"+activo+ "',[DIRECCION] = '"+direccion.ToUpper() + "',[IDPARROQUIA] ="+IdParroquia+ ",[EMAIL] ='"+email+ "' ,[FECHANACIMIENTO] ='"+fechaNacimiento.ToShortDateString()+ "',[TIPOLICENCIA] = '"+tipolicencia.ToUpper() + "'"
+                + " ,[ACTIVO] = '"+activo+ "',[DIRECCION] = '"+direccion.ToUpper() + "',[IDPARROQUIA] ="+IdParroquia+ ",[EMAIL] ='"+email+ "' ,[FECHANACIMIENTO] ='"+Funcion.reemplazarcaracterFecha(fechaNacimiento.ToShortDateString())+ "',[TIPOLICENCIA] = '"+tipolicencia.ToUpper() + "'"
                 + ",[TIPOSANGRE] = '"+tipoSangre.ToUpper() + "',[LIBRETAMILITAR] = '"+libretamilitar+ "',[DISCAPACIDAD] ='"+discapacidad+ "',[PORCENTAJEDISCAPACIDAD] = "+porcentajediscapacidad+ " ,[MOVIMIENTOQUINCENAL] = "+movimientoQuincenal+" "
                 + ",[GENERO] = '"+genero.ToUpper() + "' ,[ESTADOCIVIL] = '"+estadocivil.ToUpper() + "' ,[SUELDOMENSUAL] = "+Sueldomensual+ " ,[SUELDOEXTRA] = "+sueldoextra+ ",[CELULAR1] = '"+celular1+ "',[CELULAR2] = '"+celular2+"' "
                 +" WHERE IDENTIFICACION = '" + Identificacion + "';")  && ObjConsulta.EditarFoto(foto, Identificacion,"TbEmpleado", "[IMAGEN]","[IDENTIFICACION]"))

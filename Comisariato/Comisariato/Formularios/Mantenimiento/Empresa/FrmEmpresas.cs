@@ -47,6 +47,7 @@ namespace Comisariato.Formularios
             txtEmailContadorEmpresa.Text = "";
             txtCelular1ContadorEmpresa.Text = "";
             txtCelular2ContadorEmpresa.Text = "";
+            txtClaveUsuario.Text = "";
 
             //// llenar datadrigview solo los activos
             cargarDatos();
@@ -100,7 +101,7 @@ namespace Comisariato.Formularios
             byte[] bitDataFondo = null;
 
 
-            if (txtNombreEmpresa.Text != "" && txtRUCEmpresa.Text != "" && txtNombreComercialEmpresa.Text != "" && txtRazonSocialEmpresa.Text != "" && txtGerenteEmpresa.Text != "" && txtEmailEmpresa.Text != "" && txtCeluar1Empresa.Text != "")
+            if (txtNombreEmpresa.Text != "" && txtRUCEmpresa.Text != "" && txtNombreComercialEmpresa.Text != "" && txtRazonSocialEmpresa.Text != "" && txtGerenteEmpresa.Text != "" && txtEmailEmpresa.Text != "" && txtCeluar1Empresa.Text != "" && txtClaveUsuario.Text!="")
             {
 
                 if (nameLogo != "")
@@ -121,7 +122,7 @@ namespace Comisariato.Formularios
                 //{
                 //    bitDataFondo = Funcion.ConvertImg_Bytes(nameFondo);
                 //}
-                Empresa ObjEmpresa = new Empresa(txtNombreEmpresa.Text, txtRUCEmpresa.Text, txtNombreComercialEmpresa.Text, txtRazonSocialEmpresa.Text, txtGerenteEmpresa.Text, txtDireccionEmpresa.Text, txtEmailEmpresa.Text, dtpFechaInicioContableEmpresa.Value, txtCeluar1Empresa.Text, txtCelular2Empresa.Text, txtRUCContadorEmpresa.Text, txtNombreContadorempresa.Text, txtEmailContadorEmpresa.Text, txtCelular1ContadorEmpresa.Text, txtCelular2ContadorEmpresa.Text, bitDataLogo, bitDataFondo);
+                Empresa ObjEmpresa = new Empresa(txtNombreEmpresa.Text, txtRUCEmpresa.Text, txtNombreComercialEmpresa.Text, txtRazonSocialEmpresa.Text, txtGerenteEmpresa.Text, txtDireccionEmpresa.Text, txtEmailEmpresa.Text, dtpFechaInicioContableEmpresa.Value, txtCeluar1Empresa.Text, txtCelular2Empresa.Text, txtRUCContadorEmpresa.Text, txtNombreContadorempresa.Text, txtEmailContadorEmpresa.Text, txtCelular1ContadorEmpresa.Text, txtCelular2ContadorEmpresa.Text, bitDataLogo, bitDataFondo,txtClaveUsuario.Text);
 
                 if (!bandera_Estado) // Para identificar si se va ingresar
                 {
@@ -233,7 +234,10 @@ namespace Comisariato.Formularios
                         stream.Dispose();
                     }
 
-
+                    if (myRow["CLAVESUPERVISOR"] != System.DBNull.Value)
+                    {
+                        txtClaveUsuario.Text = myRow["CLAVESUPERVISOR"].ToString();
+                    }
 
                     //Cargar los demas Datos
                     txtNombreEmpresa.Text = myRow["NOMBRE"].ToString();
@@ -243,7 +247,8 @@ namespace Comisariato.Formularios
                     txtGerenteEmpresa.Text = myRow["GERENTE"].ToString();
                     txtDireccionEmpresa.Text = myRow["DIRECCION"].ToString();
                     txtEmailEmpresa.Text = myRow["EMAIL"].ToString();
-                    dtpFechaInicioContableEmpresa.Value = Convert.ToDateTime(myRow["FECHAINICIOCONTABLE"]);
+                    if (myRow["FECHAINICIOCONTABLE"].ToString() != "")
+                        dtpFechaInicioContableEmpresa.Value = Convert.ToDateTime(myRow["FECHAINICIOCONTABLE"]);
                     txtCeluar1Empresa.Text = myRow["CELULAR1"].ToString();
                     txtCelular2Empresa.Text = myRow["CELULAR2"].ToString();
                     txtRUCContadorEmpresa.Text = myRow["RUCCONTADOR"].ToString();
@@ -322,7 +327,13 @@ namespace Comisariato.Formularios
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celBoton = dgvDatosEmpresa.Rows[e.RowIndex].Cells["Modificar"] as DataGridViewButtonCell;
-                Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+                //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+
+                Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.modificarDgv);
+                IntPtr Hicon = bitmap.GetHicon();
+                Icon icoAtomico = Icon.FromHandle(Hicon);
+                //bitmap.SetResolution(72, 72);
+
                 e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 dgvDatosEmpresa.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                 dgvDatosEmpresa.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;

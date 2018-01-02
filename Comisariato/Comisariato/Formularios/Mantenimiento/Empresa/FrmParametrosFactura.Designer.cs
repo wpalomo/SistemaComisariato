@@ -32,6 +32,8 @@
             this.rbAutorizadoImprimir = new System.Windows.Forms.RadioButton();
             this.rbPreimpresa = new System.Windows.Forms.RadioButton();
             this.gbSRIEmpresa = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtNumeroResolucion = new System.Windows.Forms.TextBox();
             this.cbIVA = new System.Windows.Forms.ComboBox();
             this.btnRegistrarIVA = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -76,7 +78,7 @@
             this.gbTipoFacturaEmpresa.Controls.Add(this.rbPreimpresa);
             this.gbTipoFacturaEmpresa.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbTipoFacturaEmpresa.ForeColor = System.Drawing.Color.Teal;
-            this.gbTipoFacturaEmpresa.Location = new System.Drawing.Point(60, 13);
+            this.gbTipoFacturaEmpresa.Location = new System.Drawing.Point(60, 21);
             this.gbTipoFacturaEmpresa.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbTipoFacturaEmpresa.Name = "gbTipoFacturaEmpresa";
             this.gbTipoFacturaEmpresa.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -113,6 +115,8 @@
             // 
             // gbSRIEmpresa
             // 
+            this.gbSRIEmpresa.Controls.Add(this.label4);
+            this.gbSRIEmpresa.Controls.Add(this.txtNumeroResolucion);
             this.gbSRIEmpresa.Controls.Add(this.cbIVA);
             this.gbSRIEmpresa.Controls.Add(this.btnRegistrarIVA);
             this.gbSRIEmpresa.Controls.Add(this.label1);
@@ -122,14 +126,33 @@
             this.gbSRIEmpresa.Controls.Add(this.label13);
             this.gbSRIEmpresa.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbSRIEmpresa.ForeColor = System.Drawing.Color.Teal;
-            this.gbSRIEmpresa.Location = new System.Drawing.Point(448, 13);
+            this.gbSRIEmpresa.Location = new System.Drawing.Point(448, 21);
             this.gbSRIEmpresa.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbSRIEmpresa.Name = "gbSRIEmpresa";
             this.gbSRIEmpresa.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbSRIEmpresa.Size = new System.Drawing.Size(405, 120);
+            this.gbSRIEmpresa.Size = new System.Drawing.Size(405, 139);
             this.gbSRIEmpresa.TabIndex = 11;
             this.gbSRIEmpresa.TabStop = false;
             this.gbSRIEmpresa.Text = "SRI";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.label4.Location = new System.Drawing.Point(10, 114);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(98, 16);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Nº. Resolucion:";
+            // 
+            // txtNumeroResolucion
+            // 
+            this.txtNumeroResolucion.Enabled = false;
+            this.txtNumeroResolucion.Location = new System.Drawing.Point(110, 111);
+            this.txtNumeroResolucion.Name = "txtNumeroResolucion";
+            this.txtNumeroResolucion.Size = new System.Drawing.Size(108, 22);
+            this.txtNumeroResolucion.TabIndex = 14;
+            this.txtNumeroResolucion.Text = "0";
             // 
             // cbIVA
             // 
@@ -155,7 +178,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.label1.Location = new System.Drawing.Point(154, 55);
+            this.label1.Location = new System.Drawing.Point(161, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 16);
             this.label1.TabIndex = 10;
@@ -176,12 +199,13 @@
             // 
             this.ckbContribuyenteEspecial.AutoSize = true;
             this.ckbContribuyenteEspecial.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckbContribuyenteEspecial.Location = new System.Drawing.Point(14, 83);
+            this.ckbContribuyenteEspecial.Location = new System.Drawing.Point(10, 83);
             this.ckbContribuyenteEspecial.Name = "ckbContribuyenteEspecial";
             this.ckbContribuyenteEspecial.Size = new System.Drawing.Size(161, 20);
             this.ckbContribuyenteEspecial.TabIndex = 8;
             this.ckbContribuyenteEspecial.Text = "Contribuyente Especial";
             this.ckbContribuyenteEspecial.UseVisualStyleBackColor = true;
+            this.ckbContribuyenteEspecial.CheckedChanged += new System.EventHandler(this.ckbContribuyenteEspecial_CheckedChanged);
             // 
             // txtMontoMinimoFacturaEmpresa
             // 
@@ -216,7 +240,7 @@
             this.gbAutorizadoImprimir.Controls.Add(this.TxtPie1);
             this.gbAutorizadoImprimir.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbAutorizadoImprimir.ForeColor = System.Drawing.Color.Teal;
-            this.gbAutorizadoImprimir.Location = new System.Drawing.Point(60, 92);
+            this.gbAutorizadoImprimir.Location = new System.Drawing.Point(60, 107);
             this.gbAutorizadoImprimir.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbAutorizadoImprimir.Name = "gbAutorizadoImprimir";
             this.gbAutorizadoImprimir.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -308,7 +332,7 @@
             this.gbPreimpresa.Controls.Add(this.groupBox8);
             this.gbPreimpresa.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbPreimpresa.ForeColor = System.Drawing.Color.Teal;
-            this.gbPreimpresa.Location = new System.Drawing.Point(24, 100);
+            this.gbPreimpresa.Location = new System.Drawing.Point(24, 115);
             this.gbPreimpresa.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbPreimpresa.Name = "gbPreimpresa";
             this.gbPreimpresa.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -452,7 +476,7 @@
             this.btnLimpiarEmpresa.Font = new System.Drawing.Font("Arial", 10F);
             this.btnLimpiarEmpresa.Image = global::Comisariato.Properties.Resources.limpiar;
             this.btnLimpiarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpiarEmpresa.Location = new System.Drawing.Point(676, 156);
+            this.btnLimpiarEmpresa.Location = new System.Drawing.Point(676, 171);
             this.btnLimpiarEmpresa.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLimpiarEmpresa.Name = "btnLimpiarEmpresa";
             this.btnLimpiarEmpresa.Size = new System.Drawing.Size(128, 75);
@@ -467,7 +491,7 @@
             this.btnGuardarEmpresa.Font = new System.Drawing.Font("Arial", 10F);
             this.btnGuardarEmpresa.Image = global::Comisariato.Properties.Resources.guardar11;
             this.btnGuardarEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardarEmpresa.Location = new System.Drawing.Point(499, 153);
+            this.btnGuardarEmpresa.Location = new System.Drawing.Point(499, 168);
             this.btnGuardarEmpresa.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnGuardarEmpresa.Name = "btnGuardarEmpresa";
             this.btnGuardarEmpresa.Size = new System.Drawing.Size(135, 78);
@@ -482,7 +506,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(873, 257);
+            this.ClientSize = new System.Drawing.Size(873, 278);
             this.Controls.Add(this.gbPreimpresa);
             this.Controls.Add(this.gbAutorizadoImprimir);
             this.Controls.Add(this.btnLimpiarEmpresa);
@@ -548,5 +572,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TxtTamañoEncabezadoFact;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtNumeroResolucion;
     }
 }

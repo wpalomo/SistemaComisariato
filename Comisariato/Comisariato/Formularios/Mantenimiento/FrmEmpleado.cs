@@ -41,7 +41,7 @@ namespace Comisariato.Formularios.Mantenimiento
         private void cargarDatos(string condicion)
         {
             consultas = new Consultas();
-            consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select IDEMPLEADO as ID, IDENTIFICACION as 'CEDULA/RUC', NOMBRES, APELLIDOS,DIRECCION,CELULAR1,CELULAR2,EMAIL from TbEmpleado WHERE ACTIVO =" + condicion + " AND  NOMBRES != 'ADMINISTRADOR';");
+            consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select * from View_VistaClientes WHERE ACTIVO =" + condicion + ";");
             DgvDatosEmpleado.Columns["ID"].Visible = false;
         }
 
@@ -271,15 +271,21 @@ namespace Comisariato.Formularios.Mantenimiento
                     {
                         DataRow myRow = dt.Rows[0];
 
-                        //Se almacena el campo foto de la tabla en el arreglo de bytes
-                        MyData = (byte[])myRow["IMAGEN"];
-                        MyDataImagen = MyData;
-                        //Se inicializa un flujo en memoria del arreglo de bytes
-                        MemoryStream stream = new MemoryStream(MyData);
-                        //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
-                        //el cual contiene el arreglo de bytes
-                        PictureFoto.Image = Image.FromStream(stream);
+                        if (myRow["IMAGEN"] != System.DBNull.Value)
+                        {
+                            //Se almacena el campo foto de la tabla en el arreglo de bytes
+                            MyData = (byte[])myRow["IMAGEN"];
+                            MyDataImagen = MyData;
 
+                            //Se inicializa un flujo en memoria del arreglo de bytes
+                            MemoryStream stream = new MemoryStream(MyData);
+                            //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
+                            //el cual contiene el arreglo de bytes
+                            int sds = MyData.Length;
+                            //if ()
+                            if (sds > 0)
+                                PictureFoto.Image = Image.FromStream(stream);
+                        }
                         //Cargar los demas Datos
                         cmbTipoDocumento.SelectedItem = myRow["TIPOIDENTIFICACION"].ToString();
                         TxtIdentidad.Text = myRow["IDENTIFICACION"].ToString();
@@ -289,22 +295,38 @@ namespace Comisariato.Formularios.Mantenimiento
                         TxtDireccion.Text = myRow["DIRECCION"].ToString();
                         //CmbParroquia
 
-                        consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref CmbPais, ref CmbProvincia, ref CmbCanton, ref CmbParroquia);
+                        if(myRow["IDPARROQUIA"] != System.DBNull.Value)
+                            consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref CmbPais, ref CmbProvincia, ref CmbCanton, ref CmbParroquia);
 
                         TxtEmail.Text = myRow["EMAIL"].ToString();
-                        DtpFechaNacimiento.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
+                        if (myRow["FECHANACIMIENTO"] != System.DBNull.Value)
+                            DtpFechaNacimiento.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
                         CmbTipoLicencia.SelectedItem = myRow["TIPOLICENCIA"].ToString();
                         CmbTipoSangre.SelectedItem = myRow["TIPOSANGRE"].ToString();
                         TxtLibretaMilitar.Text = myRow["LIBRETAMILITAR"].ToString();
-                        CkbDiscapacidad.Checked = Convert.ToBoolean(myRow["DISCAPACIDAD"]);
-                        NupDiscapacidad.Value = Convert.ToInt32(myRow["PORCENTAJEDISCAPACIDAD"]);
-                        TxtMovimientoQuincenal.Text = myRow["MOVIMIENTOQUINCENAL"].ToString();
+                        if (myRow["DISCAPACIDAD"] != System.DBNull.Value)
+                            CkbDiscapacidad.Checked = Convert.ToBoolean(myRow["DISCAPACIDAD"]);
+                        if (myRow["PORCENTAJEDISCAPACIDAD"] != System.DBNull.Value)
+                            NupDiscapacidad.Value = Convert.ToInt32(myRow["PORCENTAJEDISCAPACIDAD"]);
                         CmbGenero.SelectedItem = myRow["GENERO"].ToString();
+
+                        TxtMovimientoQuincenal.Text = "0";
+                        TxtSueldoMensual.Text = "0";
+                        TxtSueldoExtra.Text = "0";
+                        TxtCelular1.Text = "0";
+                        TxtCelular2.Text = "0";
+
                         CmbEstadoCivil.SelectedItem = myRow["ESTADOCIVIL"].ToString();
-                        TxtSueldoMensual.Text = myRow["SUELDOMENSUAL"].ToString();
-                        TxtSueldoExtra.Text = myRow["SUELDOEXTRA"].ToString();
-                        TxtCelular1.Text = myRow["CELULAR1"].ToString();
-                        TxtCelular2.Text = myRow["CELULAR2"].ToString();
+                        if (myRow["MOVIMIENTOQUINCENAL"] != System.DBNull.Value)
+                            TxtMovimientoQuincenal.Text = myRow["MOVIMIENTOQUINCENAL"].ToString();
+                        if (myRow["SUELDOMENSUAL"] != System.DBNull.Value)
+                            TxtSueldoMensual.Text = myRow["SUELDOMENSUAL"].ToString();
+                        if (myRow["SUELDOEXTRA"] != System.DBNull.Value)
+                            TxtSueldoExtra.Text = myRow["SUELDOEXTRA"].ToString();
+                        if (myRow["CELULAR1"] != System.DBNull.Value)
+                            TxtCelular1.Text = myRow["CELULAR1"].ToString();
+                        if (myRow["CELULAR2"] != System.DBNull.Value)
+                            TxtCelular2.Text = myRow["CELULAR2"].ToString();
                     }
                     btnLimpiar.Text = "&Cancelar";
                     btnGuardar.Text = "&Modificar";
@@ -316,14 +338,14 @@ namespace Comisariato.Formularios.Mantenimiento
         {
             if (rbtActivosEmpleado.Checked)
             {
-                consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select IDEMPLEADO as ID, IDENTIFICACION as 'CEDULA/RUC', NOMBRES, APELLIDOS,DIRECCION,CELULAR1,CELULAR2,EMAIL from TbEmpleado where ACTIVO = 1 and IDENTIFICACION like '%" + TxtBuscar.Text + "%' or NOMBRES like '%" + TxtBuscar.Text + "%' or APELLIDOS like '%" + TxtBuscar.Text + "%' AND  NOMBRES != 'ADMINISTRADOR';");
-                DgvDatosEmpleado.Columns[1].HeaderText = "Desabilitar";
+                consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select * from View_VistaClientes where ACTIVO = 1 AND [CEDULA/RUC] like '%" + TxtBuscar.Text + "%' or NOMBRES like '%" + TxtBuscar.Text + "%' or APELLIDOS like '%" + TxtBuscar.Text + "%' AND  NOMBRES != 'ADMINISTRADOR';");
+                //DgvDatosEmpleado.Columns[1].HeaderText = "Desabilitar";
                 DgvDatosEmpleado.Columns["ID"].Visible = false;
             }
             else if (rbtInactivosEmpleado.Checked)
             {
-                consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select IDEMPLEADO as ID, IDENTIFICACION as 'CEDULA/RUC', NOMBRES, APELLIDOS,DIRECCION,CELULAR1,CELULAR2,EMAIL from TbEmpleado where ACTIVO = 0 and IDENTIFICACION like '%" + TxtBuscar + "%' or NOMBRES like '%" + TxtBuscar.Text + "%' or APELLIDOS like '%" + TxtBuscar.Text + "%' AND  NOMBRES != 'ADMINISTRADOR';");
-                DgvDatosEmpleado.Columns[1].HeaderText = "Habilitar";
+                consultas.boolLlenarDataGridView(DgvDatosEmpleado, "Select * from View_VistaClientes where  ACTIVO = 0 AND [CEDULA/RUC] like '%" + TxtBuscar + "%' or NOMBRES like '%" + TxtBuscar.Text + "%' or APELLIDOS like '%" + TxtBuscar.Text + "%' AND  NOMBRES != 'ADMINISTRADOR';");
+                //DgvDatosEmpleado.Columns[1].HeaderText = "Habilitar";
                 DgvDatosEmpleado.Columns["ID"].Visible = false;
             }
         }
@@ -465,7 +487,7 @@ namespace Comisariato.Formularios.Mantenimiento
                     }
                 }
 
-                if (consultas.Existe("IDENTIFICACION", TxtIdentidad.Text, "TbEmpleado"))
+                if (consultas.Existe("IDENTIFICACION", TxtIdentidad.Text, "TbEmpleado") && !bandera_Estado)
                 {
                     MessageBox.Show("Ya Existe el Empleado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); TxtIdentidad.Focus();
                     TxtIdentidad.Select(0, TxtIdentidad.Text.Length);
@@ -479,7 +501,13 @@ namespace Comisariato.Formularios.Mantenimiento
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 DataGridViewButtonCell celBoton = DgvDatosEmpleado.Rows[e.RowIndex].Cells["Modificar"] as DataGridViewButtonCell;
-                Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+                //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\modificarDgv.ico");
+
+                Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.modificarDgv);
+                IntPtr Hicon = bitmap.GetHicon();
+                Icon icoAtomico = Icon.FromHandle(Hicon);
+                //bitmap.SetResolution(72, 72);
+
                 e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                 DgvDatosEmpleado.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                 DgvDatosEmpleado.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -494,7 +522,13 @@ namespace Comisariato.Formularios.Mantenimiento
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                     DataGridViewButtonCell celBoton = this.DgvDatosEmpleado.Rows[e.RowIndex].Cells["Deshabilitar"] as DataGridViewButtonCell;
-                    Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+                    //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\Habilitar.ico");
+
+                    Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.Habilitar);
+                    IntPtr Hicon = bitmap.GetHicon();
+                    Icon icoAtomico = Icon.FromHandle(Hicon);
+                    //bitmap.SetResolution(72, 72);
+
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.DgvDatosEmpleado.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.DgvDatosEmpleado.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -508,7 +542,13 @@ namespace Comisariato.Formularios.Mantenimiento
                     e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
                     DataGridViewButtonCell celBoton = this.DgvDatosEmpleado.Rows[e.RowIndex].Cells["Deshabilitar"] as DataGridViewButtonCell;
-                    Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\EliminarDgv.ico");
+                    //Icon icoAtomico = new Icon(Environment.CurrentDirectory + "\\EliminarDgv.ico");
+
+                    Bitmap bitmap = new Bitmap(Comisariato.Properties.Resources.EliminarDgv);
+                    IntPtr Hicon = bitmap.GetHicon();
+                    Icon icoAtomico = Icon.FromHandle(Hicon);
+                    //bitmap.SetResolution(72, 72);
+
                     e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
                     this.DgvDatosEmpleado.Rows[e.RowIndex].Height = icoAtomico.Height + 10;
                     this.DgvDatosEmpleado.Columns[e.ColumnIndex].Width = icoAtomico.Width + 10;
@@ -574,6 +614,21 @@ namespace Comisariato.Formularios.Mantenimiento
         private void FrmEmpleado_FormClosing(object sender, FormClosingEventArgs e)
         {
             TxtIdentidad.Text = "";
+        }
+
+        private void TxtMovimientoQuincenal_Click(object sender, EventArgs e)
+        {
+            TxtMovimientoQuincenal.SelectAll();
+        }
+
+        private void TxtSueldoMensual_Click(object sender, EventArgs e)
+        {
+            TxtSueldoMensual.SelectAll();
+        }
+
+        private void TxtSueldoExtra_Click(object sender, EventArgs e)
+        {
+            TxtSueldoExtra.SelectAll();
         }
     }
 }

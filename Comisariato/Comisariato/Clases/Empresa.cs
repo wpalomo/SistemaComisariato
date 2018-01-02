@@ -23,6 +23,7 @@ namespace Comisariato.Clases
         string emailContador;
         string celular1Contador;
         string celular2Contador;
+        string claveSupervisor;
         byte[] logoEmpresa;
         byte[] fondoPantallaEmpresa;
 
@@ -233,7 +234,20 @@ namespace Comisariato.Clases
             }
         }
 
-        public Empresa(string nombreEmpresa, string rucEmpresa, string nombreComercial, string razonSocial, string gerente, string direccion, string email, DateTime fechaInicioContable, string celular1Empresa, string celular2Empresa, string rucContador, string nombreContador, string emailContador, string celular1Contador, string celular2Contador, byte [] logoEmpresa, byte [] fondoPantallaEmpresa)
+        public string ClaveSupervisor
+        {
+            get
+            {
+                return claveSupervisor;
+            }
+
+            set
+            {
+                claveSupervisor = value;
+            }
+        }
+
+        public Empresa(string nombreEmpresa, string rucEmpresa, string nombreComercial, string razonSocial, string gerente, string direccion, string email, DateTime fechaInicioContable, string celular1Empresa, string celular2Empresa, string rucContador, string nombreContador, string emailContador, string celular1Contador, string celular2Contador, byte [] logoEmpresa, byte [] fondoPantallaEmpresa, string claveSupervisor)
         {
             this.NombreEmpresa = nombreEmpresa;
             this.RucEmpresa = rucEmpresa;
@@ -252,6 +266,7 @@ namespace Comisariato.Clases
             this.Celular2Contador = celular2Contador;
             this.LogoEmpresa = logoEmpresa;
             this.FondoPantallaEmpresa = fondoPantallaEmpresa;
+            this.claveSupervisor = claveSupervisor;
         }
         public Empresa() { }
 
@@ -275,8 +290,8 @@ namespace Comisariato.Clases
             ObjConsulta = new Consultas();
 
             if (ObjConsulta.EjecutarSQL("UPDATE [dbo].[TbEmpresa] SET[NOMBRE] = '"+nombreEmpresa.ToUpper() + "' ,[RUC] = '"+rucEmpresa+ "',[NOMBRECOMERCIAL] = '"+nombreComercial.ToUpper() + "',[RAZONSOCIAL] = '"+razonSocial.ToUpper() + "',[GERENTE] = '"+gerente.ToUpper() + "'"
-                + ",[DIRECCION] = '"+direccion.ToUpper() + "' ,[EMAIL] = '"+emailEmpresa+ "',[FECHAINICIOCONTABLE] = '"+fechaInicioContable.ToShortDateString()+ "',[CELULAR1] = '"+celular1Empresa+ "',[CELULAR2] = '"+Celular2Empresa+ "',[RUCCONTADOR] = '"+rucContador+ "',[NOMBRECONTADOR] = '"+nombreContador.ToUpper() + "'"
-                + ",[EMAILCONTADOR] = '"+emailContador+ "' ,[CELULAR1CONTADOR] = '"+celular1Contador+ "',[CELULAR2CONTADOR] = '"+celular2Contador+ "'"
+                + ",[DIRECCION] = '"+direccion.ToUpper() + "' ,[EMAIL] = '"+emailEmpresa+ "',[FECHAINICIOCONTABLE] = '"+Funcion.reemplazarcaracterFecha(fechaInicioContable.ToShortDateString())+ "',[CELULAR1] = '"+celular1Empresa+ "',[CELULAR2] = '"+Celular2Empresa+ "',[RUCCONTADOR] = '"+rucContador+ "',[NOMBRECONTADOR] = '"+nombreContador.ToUpper() + "'"
+                + ",[EMAILCONTADOR] = '"+emailContador+ "' ,[CELULAR1CONTADOR] = '"+celular1Contador+ "',[CELULAR2CONTADOR] = '"+celular2Contador+ "',[CLAVESUPERVISOR] = '"+claveSupervisor+"'"
                 + " WHERE  RUC = '" + RUC + "'"))
             {
                 ObjConsulta.EditarFoto(logoEmpresa, RUC, "[TbEmpresa]", "LOGO", "RUC");

@@ -768,3 +768,14 @@ C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\D
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.FrmCambioClave.resources
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesCompras.resources
 C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesRentenciones.resources
+C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.Venta.FrmCierreCaja.resources
+C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesCajas.resources
+C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesCajas.resources
+C:\Users\Galito\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.Venta.FrmCierreCaja.resources
+>>>>>>> 22aed8d8d4952e2dc0d91d4fdaf5348715e58a18
+C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesCajas.resources
+C:\Users\Programacion\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.Venta.FrmCierreCaja.resources
+>>>>>>> d817d8458287dde32d24834e54a98c96a678b01c
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Informes.FrmInformesCajas.resources
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.Transacciones.Venta.FrmCierreCaja.resources
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\obj\Debug\Comisariato.Formularios.SRI.FrmComprobantesSri.resources

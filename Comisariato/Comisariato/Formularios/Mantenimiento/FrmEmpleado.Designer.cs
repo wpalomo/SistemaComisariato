@@ -31,8 +31,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcEmpleado = new System.Windows.Forms.TabControl();
             this.tpNuevoEmpleado = new System.Windows.Forms.TabPage();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label22 = new System.Windows.Forms.Label();
@@ -74,8 +72,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.BtnBuscar = new System.Windows.Forms.Button();
-            this.PictureFoto = new System.Windows.Forms.PictureBox();
             this.ckbActivo = new System.Windows.Forms.CheckBox();
             this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
             this.TxtApellidos = new System.Windows.Forms.TextBox();
@@ -95,6 +91,10 @@
             this.DgvDatosEmpleado = new System.Windows.Forms.DataGridView();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.BtnBuscar = new System.Windows.Forms.Button();
+            this.PictureFoto = new System.Windows.Forms.PictureBox();
             this.tcEmpleado.SuspendLayout();
             this.tpNuevoEmpleado.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -103,9 +103,9 @@
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureFoto)).BeginInit();
             this.tpConsultarModificarEmpleado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvDatosEmpleado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureFoto)).BeginInit();
             this.SuspendLayout();
             // 
             // tcEmpleado
@@ -134,32 +134,6 @@
             this.tpNuevoEmpleado.Size = new System.Drawing.Size(1057, 540);
             this.tpNuevoEmpleado.TabIndex = 0;
             this.tpNuevoEmpleado.Text = "Nuevo Empleado";
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Image = global::Comisariato.Properties.Resources.LIMPIAR32X32;
-            this.btnLimpiar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpiar.Location = new System.Drawing.Point(564, 478);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(110, 47);
-            this.btnLimpiar.TabIndex = 28;
-            this.btnLimpiar.Text = "&Limpiar";
-            this.btnLimpiar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Image = global::Comisariato.Properties.Resources.GUARDAR32X32;
-            this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardar.Location = new System.Drawing.Point(424, 478);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(110, 47);
-            this.btnGuardar.TabIndex = 27;
-            this.btnGuardar.Text = "&Guardar";
-            this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // tabControl1
             // 
@@ -292,6 +266,7 @@
             this.TxtSueldoExtra.Size = new System.Drawing.Size(166, 22);
             this.TxtSueldoExtra.TabIndex = 16;
             this.TxtSueldoExtra.Text = "0";
+            this.TxtSueldoExtra.Click += new System.EventHandler(this.TxtSueldoExtra_Click);
             this.TxtSueldoExtra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSueldoExtra_KeyPress);
             // 
             // TxtSueldoMensual
@@ -302,6 +277,7 @@
             this.TxtSueldoMensual.Size = new System.Drawing.Size(166, 22);
             this.TxtSueldoMensual.TabIndex = 14;
             this.TxtSueldoMensual.Text = "0";
+            this.TxtSueldoMensual.Click += new System.EventHandler(this.TxtSueldoMensual_Click);
             this.TxtSueldoMensual.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSueldoMensual_KeyPress);
             // 
             // TxtMovimientoQuincenal
@@ -312,6 +288,7 @@
             this.TxtMovimientoQuincenal.Size = new System.Drawing.Size(206, 22);
             this.TxtMovimientoQuincenal.TabIndex = 19;
             this.TxtMovimientoQuincenal.Text = "0";
+            this.TxtMovimientoQuincenal.Click += new System.EventHandler(this.TxtMovimientoQuincenal_Click);
             this.TxtMovimientoQuincenal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMovimientoQuincenal_KeyPress);
             // 
             // TxtLibretaMilitar
@@ -663,32 +640,6 @@
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             this.btnCancelar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnCancelar_KeyPress);
             // 
-            // BtnBuscar
-            // 
-            this.BtnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnBuscar.Image = global::Comisariato.Properties.Resources.buscar2;
-            this.BtnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnBuscar.Location = new System.Drawing.Point(194, 37);
-            this.BtnBuscar.Name = "BtnBuscar";
-            this.BtnBuscar.Size = new System.Drawing.Size(107, 48);
-            this.BtnBuscar.TabIndex = 7;
-            this.BtnBuscar.Text = "Buscar";
-            this.BtnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnBuscar.UseVisualStyleBackColor = true;
-            this.BtnBuscar.Click += new System.EventHandler(this.BtnBuscar_Click);
-            this.BtnBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BtnBuscar_KeyPress);
-            // 
-            // PictureFoto
-            // 
-            this.PictureFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PictureFoto.Image = global::Comisariato.Properties.Resources.contact;
-            this.PictureFoto.Location = new System.Drawing.Point(27, 21);
-            this.PictureFoto.Name = "PictureFoto";
-            this.PictureFoto.Size = new System.Drawing.Size(140, 147);
-            this.PictureFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PictureFoto.TabIndex = 0;
-            this.PictureFoto.TabStop = false;
-            // 
             // ckbActivo
             // 
             this.ckbActivo.AutoSize = true;
@@ -913,6 +864,58 @@
             this.Deshabilitar.Name = "Deshabilitar";
             this.Deshabilitar.ReadOnly = true;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Image = global::Comisariato.Properties.Resources.LIMPIAR32X32;
+            this.btnLimpiar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLimpiar.Location = new System.Drawing.Point(564, 478);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(110, 47);
+            this.btnLimpiar.TabIndex = 28;
+            this.btnLimpiar.Text = "&Limpiar";
+            this.btnLimpiar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Image = global::Comisariato.Properties.Resources.GUARDAR32X32;
+            this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGuardar.Location = new System.Drawing.Point(424, 478);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(110, 47);
+            this.btnGuardar.TabIndex = 27;
+            this.btnGuardar.Text = "&Guardar";
+            this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // BtnBuscar
+            // 
+            this.BtnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnBuscar.Image = global::Comisariato.Properties.Resources.buscar2;
+            this.BtnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnBuscar.Location = new System.Drawing.Point(194, 37);
+            this.BtnBuscar.Name = "BtnBuscar";
+            this.BtnBuscar.Size = new System.Drawing.Size(107, 48);
+            this.BtnBuscar.TabIndex = 7;
+            this.BtnBuscar.Text = "Buscar";
+            this.BtnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnBuscar.UseVisualStyleBackColor = true;
+            this.BtnBuscar.Click += new System.EventHandler(this.BtnBuscar_Click);
+            this.BtnBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BtnBuscar_KeyPress);
+            // 
+            // PictureFoto
+            // 
+            this.PictureFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PictureFoto.Image = global::Comisariato.Properties.Resources.contact;
+            this.PictureFoto.Location = new System.Drawing.Point(27, 21);
+            this.PictureFoto.Name = "PictureFoto";
+            this.PictureFoto.Size = new System.Drawing.Size(140, 147);
+            this.PictureFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PictureFoto.TabIndex = 0;
+            this.PictureFoto.TabStop = false;
+            // 
             // FrmEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -941,10 +944,10 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureFoto)).EndInit();
             this.tpConsultarModificarEmpleado.ResumeLayout(false);
             this.tpConsultarModificarEmpleado.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvDatosEmpleado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureFoto)).EndInit();
             this.ResumeLayout(false);
 
         }

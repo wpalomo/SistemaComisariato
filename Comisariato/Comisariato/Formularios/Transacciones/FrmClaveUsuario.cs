@@ -18,6 +18,7 @@ namespace Comisariato.Formularios.Transacciones
         Consultas c;
         Funcion objFuncion = new Funcion();
             public int verificarMetodo;
+        public string numcajaAvance = "";
 
         public FrmClaveUsuario()
         {
@@ -50,6 +51,7 @@ namespace Comisariato.Formularios.Transacciones
         {
             try
             {
+
                 if (txtClave.Text != "")
                 {
                     c = new Consultas();
@@ -66,6 +68,7 @@ namespace Comisariato.Formularios.Transacciones
 
                             string numcaja = "", sucursal = "", documentoActual = "";
                             string IpMaquina = bitacora.LocalIPAddress();
+                            //IPESTACION = '" + IpMaquina + "' and
                             DataTable Dt = c.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
                             if (Dt.Rows.Count > 0)
                             {
@@ -80,6 +83,7 @@ namespace Comisariato.Formularios.Transacciones
                                         numcaja = myRows["SERIE2"].ToString();
                                         documentoActual = myRows["DOCUMENTOACTUAL"].ToString();
                                         banderaCaja = false;
+                                        Program.NumeroCaja = Convert.ToInt32(numcaja);
                                         break;
                                         //FrmPrincipal.menuMostrar.Visible = false;
                                     }                                    
@@ -94,23 +98,23 @@ namespace Comisariato.Formularios.Transacciones
                                 MessageBox.Show("Caja no registrada");
                             }
 
-                            //DataTable Dtparametros = c.BoolDataTable("Select PIE1,PIE2,PIE3,PIE4 from TbParametrosFactura INNER JOIN TbAutorizadosImprimir ON( TbParametrosFactura.IDPARAMETROSFACTURA=TbAutorizadosImprimir.IDPARAMETROSFACTURA AND TbParametrosFactura.IDEMPRESA= '" + Program.IDEMPRESA + "');");
-                            DataTable Dtparametros = c.BoolDataTable("Select* from View_ParametrosFactura where IDEMPRESA = " + Program.IDEMPRESA + ";");
-                            if (Dtparametros.Rows.Count > 0)
-                            {
-                                DataRow myRows = Dtparametros.Rows[0];
-                                Program.piefactura = myRows["PIE1"].ToString() + "\n" + myRows["PIE2"].ToString() + "\n" + myRows["PIE3"].ToString() + "\n" + myRows["PIE4"].ToString();
-                                Program.BoolPreimpresa = Convert.ToBoolean(myRows["PREIMPRESA"]);
-                                Program.BoolAutorizadoImprimir = Convert.ToBoolean(myRows["AUTORIZADOIMPRIMIR"]);
-                                //TAMANOENCABEZADOFACTURA-TAMANOPIEFACTURA-NUMEROITEMS
-                                Program.DatosPreimpresa = myRows["TAMANOENCABEZADOFACTURA"].ToString() + "-" + myRows["TAMANOPIEFACTURA"].ToString() + "-" + myRows["NUMEROITEMS"].ToString();
-                                Program.IVA = myRows["IVA"].ToString();
-                                if (Convert.ToBoolean(myRows["OBLIGADOLLEVARCONTABILIDAD"]))
-                                    Program.obligadoContabilidad = "SI";
-                                else
-                                    Program.obligadoContabilidad = "NO";
+                            ////DataTable Dtparametros = c.BoolDataTable("Select PIE1,PIE2,PIE3,PIE4 from TbParametrosFactura INNER JOIN TbAutorizadosImprimir ON( TbParametrosFactura.IDPARAMETROSFACTURA=TbAutorizadosImprimir.IDPARAMETROSFACTURA AND TbParametrosFactura.IDEMPRESA= '" + Program.IDEMPRESA + "');");
+                            //DataTable Dtparametros = c.BoolDataTable("Select* from View_ParametrosFactura where IDEMPRESA = " + Program.IDEMPRESA + ";");
+                            //if (Dtparametros.Rows.Count > 0)
+                            //{
+                            //    DataRow myRows = Dtparametros.Rows[0];
+                            //    Program.piefactura = myRows["PIE1"].ToString() + "\n" + myRows["PIE2"].ToString() + "\n" + myRows["PIE3"].ToString() + "\n" + myRows["PIE4"].ToString();
+                            //    Program.BoolPreimpresa = Convert.ToBoolean(myRows["PREIMPRESA"]);
+                            //    Program.BoolAutorizadoImprimir = Convert.ToBoolean(myRows["AUTORIZADOIMPRIMIR"]);
+                            //    //TAMANOENCABEZADOFACTURA-TAMANOPIEFACTURA-NUMEROITEMS
+                            //    Program.DatosPreimpresa = myRows["TAMANOENCABEZADOFACTURA"].ToString() + "-" + myRows["TAMANOPIEFACTURA"].ToString() + "-" + myRows["NUMEROITEMS"].ToString();
+                            //    Program.IVA = myRows["IVA"].ToString();
+                            //    if (Convert.ToBoolean(myRows["OBLIGADOLLEVARCONTABILIDAD"]))
+                            //        Program.obligadoContabilidad = "SI";
+                            //    else
+                            //        Program.obligadoContabilidad = "NO";
 
-                            }
+                            //}
 
                             string condicion = " where CAJA = '" + numcaja + "' and SUCURSAL= '" + sucursal + "';";
                             int numero = c.ObtenerID("DOCUMENTOACTUAL", "TbCajasTalonario", condicion);
@@ -125,26 +129,41 @@ namespace Comisariato.Formularios.Transacciones
                             //{
                             //f.ShowDialog();
                             //f = new FrmFactura();
-                            if (f == null || f.IsDisposed)
+                            //                      SELECT[IDCIERRECAJA]
+                            //,[TOTALBILLETES]
+                            //,[TOTALMONEDAS]
+                            //,[TOTALCHEQUES]
+                            //,[TOTALAVANCES]
+                            //,[TOTALRECAUDADO]
+                            //,[TOTALENTREGADO]
+                            //,[FECHA]
+                            //,[IDUSUARIO]
+                            //,[CAJA]
+                            if (!c.Existe("CAJA = " + Program.NumeroCaja + " AND IDUSUARIO = " + Program.IDUsuarioMenu + " AND FECHA", Funcion.reemplazarcaracterFecha(DateTime.Now.Date.ToShortDateString()), "TbCierreCaja"))
                             {
-                                f = new FrmFactura();
-                                f.IDCLIENTEINICIO = c.ObtenerID("IDCLIENTE", "TbCliente", condicion);
+                                if (f == null || f.IsDisposed)
+                                {
+                                    f = new FrmFactura();
+                                    f.IDCLIENTEINICIO = c.ObtenerID("IDCLIENTE", "TbCliente", condicion);
 
-                                f.numfact = Convert.ToInt32(documentoActual);
-                                f.sucursal = sucursal;
-                                f.numcaja = numcaja;
+                                    f.numfact = Convert.ToInt32(documentoActual);
+                                    f.sucursal = sucursal;
+                                    f.numcaja = numcaja;
 
-                                f.MdiParent = Program.panelPrincipalVariable;
-                                f.BringToFront();
-                                f.Show();
+                                    f.MdiParent = Program.panelPrincipalVariable;
+                                    f.BringToFront();
+                                    f.Show();
 
+                                }
+                                else { f.BringToFront(); }
+                                //f.verificarMetodo = 1;
+                                //objFuncion.AddFormInPanel(f, Program.panelPrincipalVariable);
+                                f.Dock = DockStyle.Top;
+                                //FrmPrincipal.menuMostrar.Visible = false; 
+                                //}
                             }
-                            else { f.BringToFront(); }
-                            //f.verificarMetodo = 1;
-                            //objFuncion.AddFormInPanel(f, Program.panelPrincipalVariable);
-                            f.Dock = DockStyle.Top;
-                            //FrmPrincipal.menuMostrar.Visible = false; 
-                            //}
+                            else
+                                MessageBox.Show("Este usuario ya cerro esta caja");
                         }
                         else
                         {
@@ -160,7 +179,7 @@ namespace Comisariato.Formularios.Transacciones
                             FrmAvanse s = new FrmAvanse();
                             s.cajero = Program.NOMBRES + " " + Program.APELLIDOS;
                             s.fecha = Program.FecaInicio;
-                            s.caja = "" + Program.numfact;
+                            s.caja = "" + numcajaAvance;
                             s.ShowDialog();
                             this.Close();
                         }

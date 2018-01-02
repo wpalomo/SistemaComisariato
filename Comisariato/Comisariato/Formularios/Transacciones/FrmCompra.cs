@@ -639,7 +639,9 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             }
         }
         Consultas objConsulta = new Consultas();
-        string cadenaGeneral = "select * from Vista_InformeCompras", cadeCondicion = "", condicionEntre = "", añoDesde = "",
+        string cadenaGeneral = "select SERIE1 +''+ SERIE2 +''+ NUMERO AS SERIES , FECHAORDENCOMPRA, NOMBRES, TOTALIVA,"+
+" TOTALICE, TOTALIRBP, SUBTOTAL0, SUBTOTALIVA, IMPUESTO, TOTAL"+
+" from Vista_InformeCompras", cadeCondicion = "", condicionEntre = "", añoDesde = "",
             fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "",
             cadenaConsultar = "";
 
@@ -694,38 +696,8 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 and = " and ";
             }
             cadenaConsultar = cadenaGeneral + where + cadeCondicion + and + condicionEntre;
-            DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
-            if (dt.Rows.Count > 0)
-            {//Select EF.SUCURSAL, EF.CAJA, EF.NFACTURA, EF.FECHA, U.USUARIO,	C.NOMBRES + ' ' + C.APELLIDOS AS NOMBRECLIENTE" +
-                dgvInformeCompras.Rows.Clear();
-                for (int i = 0; i < 20; i++)
-                    dgvInformeCompras.Rows.Add();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    DataRow row = dt.Rows[i];
-                    if (i == dgvInformeCompras.RowCount - 1)
-                        dgvInformeCompras.Rows.Add();
-                    string numeros = Convert.ToInt32(row["SERIE1"]).ToString("D3") + Convert.ToInt32(row["SERIE2"]).ToString("D3") + Convert.ToInt32(row["NUMERO"]).ToString("D9"); ;
-                    dgvInformeCompras.Rows[i].Cells[0].Value = numeros;
-                    dgvInformeCompras.Rows[i].Cells[1].Value = row["FECHAORDENCOMPRA"];
-                    dgvInformeCompras.Rows[i].Cells[2].Value = row["NOMBRES"];
-                    dgvInformeCompras.Rows[i].Cells[3].Value = row["TOTALIVA"];
-                    dgvInformeCompras.Rows[i].Cells[4].Value = row["TOTALICE"];
-                    dgvInformeCompras.Rows[i].Cells[5].Value = row["TOTALIRBP"];
-                    dgvInformeCompras.Rows[i].Cells[6].Value = row["SUBTOTAL0"];
-                    dgvInformeCompras.Rows[i].Cells[7].Value = row["SUBTOTALIVA"];
-                    dgvInformeCompras.Rows[i].Cells[8].Value = row["IMPUESTO"];
-                    dgvInformeCompras.Rows[i].Cells[9].Value = row["TOTAL"];
-
-                }
-            }
-            else
-            {
-                dgvInformeCompras.Rows.Clear();
-                for (int i = 0; i < 20; i++)
-                    dgvInformeCompras.Rows.Add();
-            }
-
+            //DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
+            objConsulta.boolLlenarDataGrid(dgvInformeCompras, cadenaConsultar, 20, 9, 0);
         }
 
         private void txtSerie2_KeyPress(object sender, KeyPressEventArgs e)

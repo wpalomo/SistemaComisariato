@@ -39,7 +39,7 @@ namespace Comisariato.Clases
             try
             {
                 Objc.conectar();
-                SqlCommand Sentencia = new SqlCommand("SELECT TbUsuario.CONTRASEÑA, TbUsuario.USUARIO, TbTipousuario.TIPO, TbUsuario.IDTIPOUSUARIO, TbEmpresa.NOMBRECOMERCIAL, TbEmpresa.RUC, TbEmpresa.DIRECCION,TbEmpresa.RAZONSOCIAL from TbUsuario  INNER JOIN TbTipousuario ON(TbUsuario.FACTURA='1') and TbUsuario.USUARIO = '" + Program.Usuario + "' and TbUsuario.CONTRASEÑA= '" + Contraseña + "' INNER JOIN TbEmpresa ON (TbEmpresa.IDEMPRESA='" + Program.IDEMPRESA + "' );");
+                SqlCommand Sentencia = new SqlCommand("SELECT TbUsuario.CONTRASEÑA, TbUsuario.USUARIO, TbTipousuario.TIPO, TbUsuario.IDTIPOUSUARIO, TbEmpresa.NOMBRECOMERCIAL, TbEmpresa.RUC, TbEmpresa.DIRECCION,TbEmpresa.RAZONSOCIAL,TbEmpresa.CLAVESUPERVISOR from TbUsuario  INNER JOIN TbTipousuario ON(TbUsuario.FACTURA='1') and TbUsuario.USUARIO = '" + Program.Usuario + "' and TbUsuario.CONTRASEÑA= '" + Contraseña + "' INNER JOIN TbEmpresa ON (TbEmpresa.IDEMPRESA='" + Program.IDEMPRESA + "')  where TbTipousuario.IDTIPOUSUARIO = TbUsuario.IDTIPOUSUARIO;");
                 Sentencia.Connection = ConexionBD.connection;
                 SqlDataReader dato = Sentencia.ExecuteReader();
                 Objc.Cerrar();
@@ -47,8 +47,9 @@ namespace Comisariato.Clases
                 {
                     Program.nombreempresa = (String)dato["NOMBRECOMERCIAL"];
                     Program.rucempresa = (String)dato["RUC"];
-                    Program.direccionempresa = (String)dato["DIRECCION"];
+                    Program.direccionempresa = Convert.ToString( dato["DIRECCION"]);
                     Program.razonsocialempresa = (String)dato["RAZONSOCIAL"];
+                    Program.clavesupervisor = (String)dato["CLAVESUPERVISOR"];
                     return true;
                 }
                 else { return false; }
@@ -66,7 +67,7 @@ namespace Comisariato.Clases
             try
             {
                 Objc.conectar();
-                string sql = "select U.IDUSUARIO ,U.IDEMPLEADO, U.USUARIO, U.CONTRASEÑA, U.IDTIPOUSUARIO, U.IDEMPRESA, U.ACTIVO from TbUsuario U where U.USUARIO='" + Usuario + "' and  U.CONTRASEÑA='" + Contraseña + "'";
+                string sql = "select U.IDUSUARIO ,U.IDEMPLEADO, U.USUARIO, U.CONTRASEÑA, U.IDTIPOUSUARIO, U.IDEMPRESA, U.ACTIVO from TbUsuario U where U.USUARIO='" + Usuario + "' and  U.CONTRASEÑA='" + Contraseña + "' AND U.IDEMPRESA = "+ Program.EmpresaUsuario;
                 //string sql = "select U.IDUSUARIO, U.IDEMPLEADO, U.USUARIO, U.CONTRASEÑA, U.IDTIPOUSUARIO, U.IDEMPRESA, U.ACTIVO from TbUsuario U where U.USUARIO='" + Usuario + "' and  U.CONTRASEÑA='" + Contraseña + "'";
                 SqlCommand Sentencia = new SqlCommand(sql);
                 Sentencia.Connection = ConexionBD.connection;
@@ -82,6 +83,29 @@ namespace Comisariato.Clases
                     Program.IDTIPOUSUARIO = "" + (int)dato["IDTIPOUSUARIO"];
                     Program.IDEMPRESA = "" + (int)dato["IDEMPRESA"];
                     datosiniciosesion("" + (int)dato["IDEMPLEADO"]);
+
+
+                    //DataTable Dtparametros = c.BoolDataTable("Select PIE1,PIE2,PIE3,PIE4 from TbParametrosFactura INNER JOIN TbAutorizadosImprimir ON( TbParametrosFactura.IDPARAMETROSFACTURA=TbAutorizadosImprimir.IDPARAMETROSFACTURA AND TbParametrosFactura.IDEMPRESA= '" + Program.IDEMPRESA + "');");
+                    DataTable Dtparametros = BoolDataTable("Select* from View_ParametrosFactura where IDEMPRESA = " + Program.IDEMPRESA + ";");
+                    if (Dtparametros.Rows.Count > 0)
+                    {
+                        DataRow myRows = Dtparametros.Rows[0];
+                        Program.piefactura = myRows["PIE1"].ToString() + "\n" + myRows["PIE2"].ToString() + "\n" + myRows["PIE3"].ToString() + "\n" + myRows["PIE4"].ToString();
+                        Program.BoolPreimpresa = Convert.ToBoolean(myRows["PREIMPRESA"]);
+                        Program.BoolAutorizadoImprimir = Convert.ToBoolean(myRows["AUTORIZADOIMPRIMIR"]);
+                        //TAMANOENCABEZADOFACTURA-TAMANOPIEFACTURA-NUMEROITEMS
+                        Program.DatosPreimpresa = myRows["TAMANOENCABEZADOFACTURA"].ToString() + "-" + myRows["TAMANOPIEFACTURA"].ToString() + "-" + myRows["NUMEROITEMS"].ToString();
+                        Program.IVA = myRows["IVA"].ToString();
+                        if (Convert.ToBoolean(myRows["OBLIGADOLLEVARCONTABILIDAD"]))
+                            Program.obligadoContabilidad = "SI";
+                        else
+                            Program.obligadoContabilidad = "NO";
+
+                    }
+
+                    bool b = VerificarClave(Contraseña);
+
+
                     return true;
                 }
 
@@ -93,6 +117,33 @@ namespace Comisariato.Clases
                 return false;
             }
         }
+
+        public bool ConsultarPrimerRegisto(String tabla, String condicion)
+        {
+            try
+            {
+                Objc.conectar();
+                string sql = "SELECT TOP 1 * from "+ tabla + "  "+condicion+"";
+                //string sql = "select U.IDUSUARIO, U.IDEMPLEADO, U.USUARIO, U.CONTRASEÑA, U.IDTIPOUSUARIO, U.IDEMPRESA, U.ACTIVO from TbUsuario U where U.USUARIO='" + Usuario + "' and  U.CONTRASEÑA='" + Contraseña + "'";
+                SqlCommand Sentencia = new SqlCommand(sql);
+                Sentencia.Connection = ConexionBD.connection;
+                //int valor = Convert.ToInt32(Sentencia.ExecuteScalar());
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                if (dato.Read() == true)
+                {
+                    return true;
+                }
+
+                else { return false; }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al conectar la base de Datos " + ex.Message, "Comprobar usuario", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                return false;
+            }
+        }
+
         public void BoolLlenarComboBox(ComboBox cb, String SQL)
         {
             try
@@ -115,6 +166,7 @@ namespace Comisariato.Clases
                 //throw;
             }
         }
+
         public void BoolLlenarComboBoxDgv(DataGridViewComboBoxColumn cb, String SQL)
         {
             try
@@ -192,21 +244,29 @@ namespace Comisariato.Clases
 
         public DataTable BoolDataTable(String SQL)
         {
-            Objc.conectar();
-            SqlDataAdapter objDA;
-            DataTable objDS = new DataTable();
-            objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
-            //2. Llenar el DataSet
-            objDA.Fill(objDS);
-            Objc.Cerrar();
-            objDA.Dispose();
-            return objDS;
-            //3. DataBiding de los datos en el ComboBox    DataBiding el enlace de los datos
-            //cb.DataSource = objDS.Tables[0];
-            ////3b. Especificar el Datavalue y el DisplayMember
-            //cb.DisplayMember = "Texto";
-            //cb.ValueMember = "ID";
-            ////Liberar el DataApdater
+            try
+            {
+                Objc.conectar();
+                SqlDataAdapter objDA;
+                DataTable objDS = new DataTable();
+                objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
+                //2. Llenar el DataSet
+                objDA.Fill(objDS);
+                Objc.Cerrar();
+                objDA.Dispose();
+                return objDS;
+                //3. DataBiding de los datos en el ComboBox    DataBiding el enlace de los datos
+                //cb.DataSource = objDS.Tables[0];
+                ////3b. Especificar el Datavalue y el DisplayMember
+                //cb.DisplayMember = "Texto";
+                //cb.ValueMember = "ID";
+                ////Liberar el DataApdater
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
         public bool RegistrarCheque(DataGridView dg, int ultimafact)
         {
@@ -220,7 +280,7 @@ namespace Comisariato.Clases
                     if (Convert.ToString(dg.Rows[i].Cells[0].Value) != "")
                     {
                         precio = Funcion.reemplazarcaracter(dg.Rows[i].Cells[5].Value.ToString());
-                        Sentencia = new SqlCommand("INSERT INTO TbDatosCheque (NUMCHEQUE, NUMCUENTA, BANCO, FECHA, PROPIETARIO, MONTO, IDEMCABEZADOFACT) VALUES ( '" + dg.Rows[i].Cells[0].Value + "','" + dg.Rows[i].Cells[1].Value + "','" + Convert.ToString(dg.Rows[i].Cells[2].Value).ToUpper() + "','" + dg.Rows[i].Cells[3].Value + "','" + Convert.ToString(dg.Rows[i].Cells[4].Value).ToUpper() + "','" + precio + "','" + ultimafact + "')");
+                        Sentencia = new SqlCommand("INSERT INTO TbDatosCheque (NUMCHEQUE, NUMCUENTA, BANCO, FECHA, PROPIETARIO, MONTO, IDEMCABEZADOFACT) VALUES ( '" + dg.Rows[i].Cells[0].Value + "','" + dg.Rows[i].Cells[1].Value + "','" + Convert.ToString(dg.Rows[i].Cells[2].Value).ToUpper() + "','" + Funcion.reemplazarcaracterFecha(dg.Rows[i].Cells[3].Value.ToString()) + "','" + Convert.ToString(dg.Rows[i].Cells[4].Value).ToUpper() + "','" + precio + "','" + ultimafact + "')");
                         Sentencia.Connection = ConexionBD.connection;
                         Sentencia.ExecuteNonQuery();
                     }
@@ -253,7 +313,7 @@ namespace Comisariato.Clases
                     if (Convert.ToString(dg.Rows[i].Cells[0].Value) != "")
                     {
                         precio = Funcion.reemplazarcaracter(dg.Rows[i].Cells[2].Value.ToString());
-                        Sentencia = new SqlCommand("INSERT INTO TbDatosTarjeta (NUMCHEQUE, FECHA, MONTO, TIPOTARJETA, IDEMCABEZADOFACT) VALUES ( '" + dg.Rows[i].Cells[0].Value + "','" + dg.Rows[i].Cells[1].Value + "','" + dg.Rows[i].Cells[2].Value + "','" + Convert.ToString(dg.Rows[i].Cells[3].Value).ToUpper() + "','" + utl + "')");
+                        Sentencia = new SqlCommand("INSERT INTO TbDatosTarjeta (NUMCHEQUE, FECHA, MONTO, TIPOTARJETA, IDEMCABEZADOFACT) VALUES ( '" + dg.Rows[i].Cells[0].Value + "','" + Funcion.reemplazarcaracterFecha(dg.Rows[i].Cells[1].Value.ToString()) + "','" + dg.Rows[i].Cells[2].Value + "','" + Convert.ToString(dg.Rows[i].Cells[3].Value).ToUpper() + "','" + utl + "')");
                         Sentencia.Connection = ConexionBD.connection;
                         Sentencia.ExecuteNonQuery();
                     }
@@ -289,7 +349,6 @@ namespace Comisariato.Clases
         }
 
 
-
         public bool GuardarFact(int nfilas, DataGridView dg, List<string> encabezado, List<string> detallepago, List<string> ivas, int inicioContador)
         {
             try
@@ -312,7 +371,7 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@sucursal", Convert.ToInt32(enca[0]));
                     cmd.Parameters.AddWithValue("@caja", Convert.ToInt32(enca[1]));
                     cmd.Parameters.AddWithValue("@numfact", Convert.ToInt32(enca[2]));
-                    cmd.Parameters.AddWithValue("@fecha", enca[3]);
+                    cmd.Parameters.AddWithValue("@fecha", Funcion.reemplazarcaracterFecha(enca[3]));
                     cmd.Parameters.AddWithValue("@hora", enca[4]);
                     cmd.Parameters.AddWithValue("@descuento", detalle[0]);
                     cmd.Parameters.AddWithValue("@cant", dg.Rows[i].Cells[2].Value);
@@ -350,7 +409,7 @@ namespace Comisariato.Clases
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
                 return false;
             }
         }
@@ -447,16 +506,30 @@ namespace Comisariato.Clases
                     if (activo == 1)
                     {
                         producto.Nombreproducto = (String)dato["DETALLE"];
-
-                        //        //producto.Cant = Convert.ToInt32(dato["CANTIDAD"]);
                         producto.Cantidad = Convert.ToInt32(dato["CANTIDAD"]);
-                        producto.Caja = Convert.ToInt32(dato["CAJA"]);
+                        if (Convert.ToString(dato["CAJA"]) != "")
+                        {
+                            producto.Caja = Convert.ToInt32(dato["CAJA"]);
+                        }
+                        else
+                        {
+                            producto.Caja = 0;
+                        }
+                        if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
+                        {
+                            producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
+                        }
+                        else
+                        {
+                            producto.LibreImpuesto = false;
+                        }
+
                         producto.Preciopublico_sin_iva = Convert.ToSingle(dato["PRECIOVENTAPUBLICO"]);
                         producto.Ivaestado = Convert.ToBoolean(dato["IVAESTADO"]);
                         producto.Iva = Convert.ToInt32(dato["IVA"]);
                         producto.Precioalmayor_sin_iva = Convert.ToSingle(dato["PRECIOVENTAMAYORISTA"]);
                         producto.Precioporcaja_sin_iva = Convert.ToSingle(dato["PRECIOVENTACAJA"]);
-                        producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
+                        //producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
                     }
                     else
                     {
@@ -793,6 +866,7 @@ namespace Comisariato.Clases
                 return false;
             }
         }
+
         public Boolean BoolCrearDateTable(DataGridView Tb, String SQL)
         {
 
@@ -828,13 +902,33 @@ namespace Comisariato.Clases
                         if (ivaestado)
                         {
                             v = 1;
+                            int caja = 0, libreImpuesto = 0;
                             int iva = int.Parse(dato["IVA"].ToString());
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, iva, (int)dato["CAJA"], Convert.ToInt32(dato["LIBREIMPUESTO"]));
+                            if (dato["CAJA"] != System.DBNull.Value)
+                            {
+                                caja = (int)dato["CAJA"];
+                            }
+                            if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
+                            {
+                                libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
+                            }
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString(), pm.ToString(), pc.ToString(), v, iva, caja, libreImpuesto);
                         }
                         else
                         {
                             v = 0;
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, 0, (int)dato["CAJA"], Convert.ToInt32(dato["LIBREIMPUESTO"]));
+                            int caja = 0, libreImpuesto = 0;
+                            int iva = int.Parse(dato["IVA"].ToString());
+                            if (dato["CAJA"] != System.DBNull.Value)
+                            {
+                                caja = (int)dato["CAJA"];
+                            }
+                            if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
+                            {
+                                libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
+                            }
+
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString(), pm.ToString(), pc.ToString(), v, 0, caja, libreImpuesto);
                         }
                         //dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, (int)dato["IVA"]);
 
@@ -860,6 +954,199 @@ namespace Comisariato.Clases
 
 
         }
+
+
+        public Boolean BoolCrearDateTableConsultaCliente(DataGridView Tb, String SQL)
+        {
+            //Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL, tbCliente.RAZONSOCIAL, tbCliente.DIRECCION,tbCliente.IDCLIENTE from tbCliente
+            DataTable dt = new DataTable();
+            dt.Columns.Add("IDENTIFICACION", typeof(String));
+            dt.Columns.Add("NOMBRES", typeof(String));
+            dt.Columns.Add("APELLIDOS", typeof(String));
+            dt.Columns.Add("EMAIL", typeof(String));
+            dt.Columns.Add("RAZONSOCIAL", typeof(String));
+            dt.Columns.Add("DIRECCION", typeof(String));
+            dt.Columns.Add("IDCLIENTE", typeof(int));
+            
+            try
+            {
+                Objc.conectar();
+                SqlCommand Sentencia = new SqlCommand(SQL);
+                Sentencia.Connection = ConexionBD.connection;
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                while (dato.Read() == true)
+                {
+                    string email = " ", razonsocial=" ";
+                    if (dato["EMAIL"] != System.DBNull.Value)
+                    {
+                        email = (String)dato["EMAIL"];
+                    }
+
+                    if (dato["RAZONSOCIAL"] != System.DBNull.Value)
+                    {
+                        razonsocial = (String)dato["RAZONSOCIAL"];
+                    }
+                   
+                            dt.Rows.Add((String)dato["IDENTIFICACION"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], email, razonsocial, (String)dato["DIRECCION"], (int)dato["IDCLIENTE"]);
+   
+
+                }
+                Tb.DataSource = dt;
+
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("" + ex.Message);
+                return false;
+
+            }
+
+
+            //return false;
+
+
+        }
+
+        public Boolean BoolCrearDateTableProductos(DataGridView Tb, String SQL)
+        {
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("CODIGO BARRA", typeof(String));
+            dt.Columns.Add("PRODUCTO", typeof(String));
+            dt.Columns.Add("STOCK", typeof(int));
+            dt.Columns.Add("FORMATO", typeof(String));
+            dt.Columns.Add("COSTO", typeof(String));
+            dt.Columns.Add("P.V.P.", typeof(String));
+            dt.Columns.Add("P. MAYOR.", typeof(String));
+            dt.Columns.Add("P. CAJA", typeof(String));
+            dt.Columns.Add("PROVEEDOR", typeof(String));
+            dt.Columns.Add("CATEGORIA", typeof(String));
+            dt.Columns.Add("IVA", typeof(bool));
+            //dt.Columns.Add("ACTIVO", typeof(String));
+
+            try
+            {
+                Objc.conectar();
+                SqlCommand Sentencia = new SqlCommand(SQL);
+                Sentencia.Connection = ConexionBD.connection;
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                while (dato.Read() == true)
+                {
+
+                    float pp = Convert.ToSingle(dato["P.V.P."]);
+                    float pm = Convert.ToSingle(dato["P. MAYOR."]);
+                    float pc = Convert.ToSingle(dato["P. CAJA"]);
+                    float costo = 0.0F;
+                    if (dato["COSTO"] != System.DBNull.Value)
+                    {
+                        costo = Convert.ToSingle(dato["COSTO"]);
+                    }
+                    bool ivaestado = Convert.ToBoolean(dato["IVA"]);
+                    int activo = Convert.ToInt32(dato["ACTIVO"]);
+                    string formato = "", Proveedor = "";
+
+                    if (dato["PROVEEDOR"] != System.DBNull.Value)
+                    {
+                        Proveedor = dato["PROVEEDOR"].ToString();
+                    }
+                    else
+                        Proveedor = "No Tiene";
+
+                    if (dato["FORMATO"] != System.DBNull.Value)
+                    {
+                        formato = dato["FORMATO"].ToString();
+                    }
+                    else
+                        formato = "No Tiene";
+                    if (activo == 1)
+                    {
+                       
+
+                        dt.Rows.Add((String)dato["CODIGO BARRA"], (String)dato["PRODUCTO"], (int)dato["STOCK"], formato, costo.ToString("#####0.00"), pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), Proveedor, (String)dato["CATEGORIA"], Convert.ToBoolean(dato["IVA"])/*, Convert.ToBoolean(dato["ACTIVO"])*/);
+                    }
+                    else {
+                        dt.Rows.Add((String)dato["CODIGO BARRA"], (String)dato["PRODUCTO"], (int)dato["STOCK"], formato, costo.ToString("#####0.00"), pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), Proveedor, (String)dato["CATEGORIA"], Convert.ToBoolean(dato["IVA"])/*, Convert.ToBoolean(dato["ACTIVO"])*/);
+                    }
+
+
+                }
+                Tb.DataSource = dt;
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("" + ex.Message);
+                return false;
+
+            }
+
+
+            //return false;
+
+
+        }
+
+
+        public Boolean BoolCrearDateTableCliente(DataGridView Tb, String SQL)
+        {
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("CEDULA/RUC", typeof(String));
+            dt.Columns.Add("NOMBRES", typeof(String));
+            dt.Columns.Add("APELLIDOS", typeof(String));
+            dt.Columns.Add("DIRECCION", typeof(String));
+            dt.Columns.Add("CELULAR1", typeof(String));
+            dt.Columns.Add("TIPO", typeof(String));
+            dt.Columns.Add("CREDITO", typeof(String));
+            //dt.Columns.Add("ID", typeof(String));
+
+            try
+            {
+                Objc.conectar();
+                SqlCommand Sentencia = new SqlCommand(SQL);
+                Sentencia.Connection = ConexionBD.connection;
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                while (dato.Read() == true)
+                {
+
+                    int activo = Convert.ToInt32(dato["ACTIVO"]);
+                    if (activo == 1)
+                    {
+                        dt.Rows.Add((String)dato["CEDULA/RUC"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], (String)dato["DIRECCION"], (String)dato["CELULAR1"], (String)dato["TIPO"], (String)dato["CREDITO"]/*, (String)dato["ID"]*/);
+                    }
+                    else
+                    {
+                        dt.Rows.Add((String)dato["CEDULA/RUC"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], (String)dato["DIRECCION"], (String)dato["CELULAR1"], (String)dato["TIPO"], (String)dato["CREDITO"]/*, (String)dato["ID"]*/);
+                    }
+
+
+                }
+                Tb.DataSource = dt;
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("" + ex.Message);
+                return false;
+
+            }
+
+
+            //return false;
+
+
+        }
+
         public void insertarTelefono(DataGridView data, int IDRelacion, string tipoEntidad)
         {
             if (data.RowCount > 1)
@@ -911,7 +1198,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@IMAGEN", ObjEmp.Foto);
                 cmd.Parameters.AddWithValue("@IDPARROQUIA", ObjEmp.IdParroquia);
                 cmd.Parameters.AddWithValue("@EMAIL", ObjEmp.Email);
-                cmd.Parameters.AddWithValue("@FECHANACIMIENTO", ObjEmp.FechaNacimiento.Date.ToShortDateString());
+                cmd.Parameters.AddWithValue("@FECHANACIMIENTO", Funcion.reemplazarcaracterFecha(ObjEmp.FechaNacimiento.Date.ToShortDateString()));
                 cmd.Parameters.AddWithValue("@TIPOLICENCIA", ObjEmp.Tipolicencia.ToUpper());
                 cmd.Parameters.AddWithValue("@TIPOSANGRE", ObjEmp.TipoSangre.ToUpper());
                 cmd.Parameters.AddWithValue("@LIBRETAMILITAR", ObjEmp.Libretamilitar);
@@ -1026,7 +1313,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@GERENTE", ObjEmpresa.Gerente.ToUpper());
                 cmd.Parameters.AddWithValue("@DIRECCION", ObjEmpresa.Direccion.ToUpper());
                 cmd.Parameters.AddWithValue("@EMAIL", ObjEmpresa.EmailEmpresa);
-                cmd.Parameters.AddWithValue("@FECHAINICIOCONTABLE", ObjEmpresa.FechaInicioContable.Date.ToShortDateString());
+                cmd.Parameters.AddWithValue("@FECHAINICIOCONTABLE", Funcion.reemplazarcaracterFecha(ObjEmpresa.FechaInicioContable.Date.ToShortDateString()));
                 cmd.Parameters.AddWithValue("@CELULAR1", ObjEmpresa.Celular1Empresa);
                 cmd.Parameters.AddWithValue("@CELULAR2", ObjEmpresa.Celular2Empresa);
                 cmd.Parameters.AddWithValue("@RUCCONTADOR", ObjEmpresa.RucContador);
@@ -1034,6 +1321,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@EMAILCONTADOR", ObjEmpresa.EmailContador);
                 cmd.Parameters.AddWithValue("@CELULAR1CONTADOR", ObjEmpresa.Celular1Contador);
                 cmd.Parameters.AddWithValue("@CELULAR2CONTADOR", ObjEmpresa.Celular2Contador);
+                cmd.Parameters.AddWithValue("@CLAVESUPERVISOR", ObjEmpresa.ClaveSupervisor);
                 if (ObjEmpresa.LogoEmpresa != null)
                 { cmd.Parameters.AddWithValue("@LOGO", ObjEmpresa.LogoEmpresa); }
                 else
@@ -1190,7 +1478,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@IDEMPRESA", ObjParametrosFact.Idempresa);
                 cmd.Parameters.AddWithValue("@PREIMPRESA", ObjParametrosFact.Preimpresa);
                 cmd.Parameters.AddWithValue("@AUTORIZADOIMPRIMIR", ObjParametrosFact.AutorizadoParaImprimir);
-
+                cmd.Parameters.AddWithValue("@numresolucion", ObjParametrosFact.NumeroResolucion);
                 // TbPreimpresa
                 if (ObjParametrosFact.Preimpresa)
                 {
@@ -1790,6 +2078,103 @@ namespace Comisariato.Clases
             {
                 return false;
             }
+        }
+
+        public string InsertarDatosPrincipalesConfiguracionUser(string cedula, string NombresApellidos, string usuario, string contraseña)
+        {
+            if (EjecutarSQL("INSERT INTO [dbo].[TbEmpleado] ([TIPOIDENTIFICACION] ,[IDENTIFICACION] ,[NOMBRES] ,[APELLIDOS] ,[ACTIVO])  VALUES " +
+                " ( '1','" + cedula + "', '" + NombresApellidos + "' ,' ' , '1')"))
+            {
+                EjecutarSQL("INSERT INTO [dbo].[TbUsuario]([IDEMPLEADO],[USUARIO],[CONTRASEÑA],[IDTIPOUSUARIO],[IDEMPRESA],[ACTIVO]) VALUES " +
+                "(1,'" + usuario + "', '" + contraseña + "',1,1 ,'1')");
+                return "Datos Guardados";
+            }
+            else { return "Error"; }
+        }
+
+        public string InsertarDatosPrincipalesConfiguracionEmpresa(string [] datosArchivoConfigEmpresa)
+        {
+            if (EjecutarSQL("INSERT INTO [dbo].[TbEmpresa]([NOMBRE],[RUC],[NOMBRECOMERCIAL] ,[RAZONSOCIAL] ,[GERENTE])"+
+                "VALUES ('"+ datosArchivoConfigEmpresa[1]+ "','"+ datosArchivoConfigEmpresa[0] + "','"+ datosArchivoConfigEmpresa[1] + "','"+ datosArchivoConfigEmpresa[2] + "','"+ datosArchivoConfigEmpresa[3] + "')"))
+            {
+                return "Datos Guardados";
+            }
+            else { return "Error"; }
+        }
+
+        public bool boolLlenarDataGrid(DataGridView data, String SQL, int tamañoDataGrid, int cantidadCamposConsulta, int columnaInicial)
+        {
+            try
+            {
+                DataTable dt = BoolDataTable(SQL);
+                if (dt.Rows.Count > 0)
+                {
+                    data.Rows.Clear();
+                    for (int i = 0; i < tamañoDataGrid; i++)
+                        data.Rows.Add();
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        int cantidadInicio = columnaInicial;
+                        DataRow row = dt.Rows[i];
+                        if (i == data.RowCount - 1)
+                            data.Rows.Add();
+                        for (int j = 0; j < cantidadCamposConsulta +1; j++)
+                        {
+                            if (Convert.ToString(row[j]) != "")
+                            {
+                                data.Rows[i].Cells[cantidadInicio].Value = row[j];
+                            }
+                            cantidadInicio++;
+                        }
+                    }
+                }
+                else
+                {
+                    data.Rows.Clear();
+                    for (int i = 0; i < tamañoDataGrid; i++)
+                        data.Rows.Add();
+                }
+                return true;
+            }
+            catch (Exception ex )
+            {
+                return false;
+            }
+        }
+        public Boolean BoolCrearDateTableProveedoresAutorizacion(DataGridView Tb, String SQL)
+        {
+            try
+            {
+
+                Tb.Rows.Clear();
+                Objc.conectar();
+                SqlCommand Sentencia = new SqlCommand(SQL);
+                Sentencia.Connection = ConexionBD.connection;
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                while (dato.Read() == true)
+                {
+                    DateTime a = Convert.ToDateTime(dato["VALIDO_HASTA"].ToString());
+
+
+                        Tb.Rows.Add((String)dato["SERIE1"], (String)dato["SERIE2"], (String)dato["AUTORIZACION"], a, (String)dato["FAC_INICIO"], (String)dato["FAC_FIN"]);
+                }
+                //Tb.DataSource = dt;
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("" + ex.Message);
+                return false;
+
+            }
+
+
+            //return false;
+
+
         }
     }
 }

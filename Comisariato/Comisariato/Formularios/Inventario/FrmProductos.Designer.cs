@@ -56,12 +56,12 @@
             this.CkbICE = new System.Windows.Forms.CheckBox();
             this.CkbIva = new System.Windows.Forms.CheckBox();
             this.gbPreciosProducto = new System.Windows.Forms.GroupBox();
+            this.txtPVPConIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioCajaSinIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioMayorSinIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPVPSinIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioCajaConIVAProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioMayorConIVAProducto = new System.Windows.Forms.TextBox();
-            this.txtPVPConIVAProducto = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -84,10 +84,10 @@
             this.rbtInactivos = new System.Windows.Forms.RadioButton();
             this.rbtActivos = new System.Windows.Forms.RadioButton();
             this.dgvDatosProducto = new System.Windows.Forms.DataGridView();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txtConsultarProducto = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tcProducto.SuspendLayout();
             this.tpNuevoProducto.SuspendLayout();
             this.gbDescripcionProducto.SuspendLayout();
@@ -241,6 +241,7 @@
             this.txtPeso.Size = new System.Drawing.Size(43, 22);
             this.txtPeso.TabIndex = 10;
             this.txtPeso.Text = "0";
+            this.txtPeso.Click += new System.EventHandler(this.txtPeso_Click);
             this.txtPeso.Enter += new System.EventHandler(this.txtPeso_Enter);
             this.txtPeso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
@@ -253,6 +254,7 @@
             this.txtUnidadProducto.Size = new System.Drawing.Size(53, 22);
             this.txtUnidadProducto.TabIndex = 9;
             this.txtUnidadProducto.Text = "0";
+            this.txtUnidadProducto.Click += new System.EventHandler(this.txtUnidadProducto_Click);
             this.txtUnidadProducto.Enter += new System.EventHandler(this.txtUnidadProducto_Enter);
             this.txtUnidadProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
@@ -403,6 +405,7 @@
             this.TxtIRBP.Size = new System.Drawing.Size(118, 22);
             this.TxtIRBP.TabIndex = 21;
             this.TxtIRBP.Text = "0.0";
+            this.TxtIRBP.Click += new System.EventHandler(this.TxtIRBP_Click);
             this.TxtIRBP.Enter += new System.EventHandler(this.TxtIRBP_Enter);
             this.TxtIRBP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtIRBP_KeyPress);
             // 
@@ -416,6 +419,7 @@
             this.TxtIce.Size = new System.Drawing.Size(118, 22);
             this.TxtIce.TabIndex = 20;
             this.TxtIce.Text = "0.0";
+            this.TxtIce.Click += new System.EventHandler(this.TxtIce_Click);
             this.TxtIce.Enter += new System.EventHandler(this.TxtIce_Enter);
             this.TxtIce.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtIce_KeyPress);
             // 
@@ -463,12 +467,12 @@
             // 
             // gbPreciosProducto
             // 
+            this.gbPreciosProducto.Controls.Add(this.txtPVPConIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPrecioCajaSinIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPrecioMayorSinIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPVPSinIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPrecioCajaConIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.txtPrecioMayorConIVAProducto);
-            this.gbPreciosProducto.Controls.Add(this.txtPVPConIVAProducto);
             this.gbPreciosProducto.Controls.Add(this.label17);
             this.gbPreciosProducto.Controls.Add(this.label13);
             this.gbPreciosProducto.Controls.Add(this.label9);
@@ -484,6 +488,21 @@
             this.gbPreciosProducto.TabStop = false;
             this.gbPreciosProducto.Text = "Precios";
             // 
+            // txtPVPConIVAProducto
+            // 
+            this.txtPVPConIVAProducto.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.txtPVPConIVAProducto.Location = new System.Drawing.Point(134, 34);
+            this.txtPVPConIVAProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtPVPConIVAProducto.Name = "txtPVPConIVAProducto";
+            this.txtPVPConIVAProducto.Size = new System.Drawing.Size(100, 22);
+            this.txtPVPConIVAProducto.TabIndex = 19;
+            this.txtPVPConIVAProducto.Text = "0.0";
+            this.txtPVPConIVAProducto.Click += new System.EventHandler(this.txtPVPConIVAProducto_Click);
+            this.txtPVPConIVAProducto.TextChanged += new System.EventHandler(this.txtPVPConIVAProducto_TextChanged_1);
+            this.txtPVPConIVAProducto.Enter += new System.EventHandler(this.txtPVPConIVAProducto_Enter);
+            this.txtPVPConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPVPConIVAProducto_KeyPress_1);
+            this.txtPVPConIVAProducto.Leave += new System.EventHandler(this.txtPVPConIVAProducto_Leave);
+            // 
             // txtPrecioCajaSinIVAProducto
             // 
             this.txtPrecioCajaSinIVAProducto.Font = new System.Drawing.Font("Arial", 9.75F);
@@ -493,6 +512,7 @@
             this.txtPrecioCajaSinIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPrecioCajaSinIVAProducto.TabIndex = 18;
             this.txtPrecioCajaSinIVAProducto.Text = "0.0";
+            this.txtPrecioCajaSinIVAProducto.Click += new System.EventHandler(this.txtPrecioCajaSinIVAProducto_Click);
             this.txtPrecioCajaSinIVAProducto.Enter += new System.EventHandler(this.txtPrecioCajaSinIVAProducto_Enter);
             this.txtPrecioCajaSinIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCajaSinIVAProducto_KeyPress);
             this.txtPrecioCajaSinIVAProducto.Leave += new System.EventHandler(this.txtPVPSinIVAProducto_Leave);
@@ -506,6 +526,7 @@
             this.txtPrecioMayorSinIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPrecioMayorSinIVAProducto.TabIndex = 17;
             this.txtPrecioMayorSinIVAProducto.Text = "0.0";
+            this.txtPrecioMayorSinIVAProducto.Click += new System.EventHandler(this.txtPrecioMayorSinIVAProducto_Click);
             this.txtPrecioMayorSinIVAProducto.Enter += new System.EventHandler(this.txtPrecioMayorSinIVAProducto_Enter);
             this.txtPrecioMayorSinIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioMayorSinIVAProducto_KeyPress);
             this.txtPrecioMayorSinIVAProducto.Leave += new System.EventHandler(this.txtPVPSinIVAProducto_Leave);
@@ -519,6 +540,7 @@
             this.txtPVPSinIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPVPSinIVAProducto.TabIndex = 16;
             this.txtPVPSinIVAProducto.Text = "0.0";
+            this.txtPVPSinIVAProducto.Click += new System.EventHandler(this.txtPVPSinIVAProducto_Click);
             this.txtPVPSinIVAProducto.TextChanged += new System.EventHandler(this.txtPVPSinIVAProducto_TextChanged);
             this.txtPVPSinIVAProducto.Enter += new System.EventHandler(this.txtPVPSinIVAProducto_Enter);
             this.txtPVPSinIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPVPSinIVAProducto_KeyPress);
@@ -533,6 +555,7 @@
             this.txtPrecioCajaConIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPrecioCajaConIVAProducto.TabIndex = 21;
             this.txtPrecioCajaConIVAProducto.Text = "0.0";
+            this.txtPrecioCajaConIVAProducto.Click += new System.EventHandler(this.txtPrecioCajaConIVAProducto_Click);
             this.txtPrecioCajaConIVAProducto.TextChanged += new System.EventHandler(this.txtPVPConIVAProducto_TextChanged_1);
             this.txtPrecioCajaConIVAProducto.Enter += new System.EventHandler(this.txtPrecioCajaConIVAProducto_Enter);
             this.txtPrecioCajaConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCajaConIVAProducto_KeyPress);
@@ -547,24 +570,11 @@
             this.txtPrecioMayorConIVAProducto.Size = new System.Drawing.Size(100, 22);
             this.txtPrecioMayorConIVAProducto.TabIndex = 20;
             this.txtPrecioMayorConIVAProducto.Text = "0.0";
+            this.txtPrecioMayorConIVAProducto.Click += new System.EventHandler(this.txtPrecioMayorConIVAProducto_Click);
             this.txtPrecioMayorConIVAProducto.TextChanged += new System.EventHandler(this.txtPVPConIVAProducto_TextChanged_1);
             this.txtPrecioMayorConIVAProducto.Enter += new System.EventHandler(this.txtPrecioMayorConIVAProducto_Enter);
             this.txtPrecioMayorConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioMayorConIVAProducto_KeyPress);
             this.txtPrecioMayorConIVAProducto.Leave += new System.EventHandler(this.txtPVPConIVAProducto_Leave);
-            // 
-            // txtPVPConIVAProducto
-            // 
-            this.txtPVPConIVAProducto.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtPVPConIVAProducto.Location = new System.Drawing.Point(134, 34);
-            this.txtPVPConIVAProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtPVPConIVAProducto.Name = "txtPVPConIVAProducto";
-            this.txtPVPConIVAProducto.Size = new System.Drawing.Size(100, 22);
-            this.txtPVPConIVAProducto.TabIndex = 19;
-            this.txtPVPConIVAProducto.Text = "0.0";
-            this.txtPVPConIVAProducto.TextChanged += new System.EventHandler(this.txtPVPConIVAProducto_TextChanged_1);
-            this.txtPVPConIVAProducto.Enter += new System.EventHandler(this.txtPVPConIVAProducto_Enter);
-            this.txtPVPConIVAProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPVPConIVAProducto_KeyPress_1);
-            this.txtPVPConIVAProducto.Leave += new System.EventHandler(this.txtPVPConIVAProducto_Leave);
             // 
             // label17
             // 
@@ -655,6 +665,7 @@
             this.txtStockMinimoProducto.Size = new System.Drawing.Size(143, 22);
             this.txtStockMinimoProducto.TabIndex = 12;
             this.txtStockMinimoProducto.Text = "0";
+            this.txtStockMinimoProducto.Click += new System.EventHandler(this.txtStockMinimoProducto_Click);
             this.txtStockMinimoProducto.Enter += new System.EventHandler(this.txtStockMinimoProducto_Enter);
             this.txtStockMinimoProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             this.txtStockMinimoProducto.Leave += new System.EventHandler(this.txtStockMinimoProducto_Leave);
@@ -668,6 +679,7 @@
             this.txtStockMaximoProducto.Size = new System.Drawing.Size(143, 22);
             this.txtStockMaximoProducto.TabIndex = 11;
             this.txtStockMaximoProducto.Text = "0";
+            this.txtStockMaximoProducto.Click += new System.EventHandler(this.txtStockMaximoProducto_Click);
             this.txtStockMaximoProducto.Enter += new System.EventHandler(this.txtStockMaximoProducto_Enter);
             this.txtStockMaximoProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
@@ -680,6 +692,7 @@
             this.txtDisplay.Size = new System.Drawing.Size(53, 22);
             this.txtDisplay.TabIndex = 8;
             this.txtDisplay.Text = "0";
+            this.txtDisplay.Click += new System.EventHandler(this.txtDisplay_Click);
             this.txtDisplay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
             // label11
@@ -711,6 +724,7 @@
             this.txtCajaProducto.Size = new System.Drawing.Size(54, 22);
             this.txtCajaProducto.TabIndex = 7;
             this.txtCajaProducto.Text = "0";
+            this.txtCajaProducto.Click += new System.EventHandler(this.txtCajaProducto_Click);
             this.txtCajaProducto.Enter += new System.EventHandler(this.txtCajaProducto_Enter);
             this.txtCajaProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximoProducto_KeyPress);
             // 
@@ -836,7 +850,7 @@
             this.dgvDatosProducto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar,
             this.Deshabilitar});
-            this.dgvDatosProducto.Location = new System.Drawing.Point(21, 92);
+            this.dgvDatosProducto.Location = new System.Drawing.Point(21, 104);
             this.dgvDatosProducto.Name = "dgvDatosProducto";
             this.dgvDatosProducto.ReadOnly = true;
             this.dgvDatosProducto.Size = new System.Drawing.Size(985, 423);
@@ -844,41 +858,43 @@
             this.dgvDatosProducto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosProducto_CellClick);
             this.dgvDatosProducto.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosProducto_CellPainting);
             // 
-            // Modificar
-            // 
-            this.Modificar.HeaderText = "";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.ReadOnly = true;
-            this.Modificar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Modificar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Deshabilitar
-            // 
-            this.Deshabilitar.HeaderText = "";
-            this.Deshabilitar.Name = "Deshabilitar";
-            this.Deshabilitar.ReadOnly = true;
-            // 
             // txtConsultarProducto
             // 
             this.txtConsultarProducto.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtConsultarProducto.Location = new System.Drawing.Point(283, 30);
+            this.txtConsultarProducto.Location = new System.Drawing.Point(136, 30);
             this.txtConsultarProducto.Margin = new System.Windows.Forms.Padding(2);
             this.txtConsultarProducto.Name = "txtConsultarProducto";
-            this.txtConsultarProducto.Size = new System.Drawing.Size(571, 22);
+            this.txtConsultarProducto.Size = new System.Drawing.Size(341, 22);
             this.txtConsultarProducto.TabIndex = 8;
             this.txtConsultarProducto.TextChanged += new System.EventHandler(this.txtConsultarProducto_TextChanged);
+            this.txtConsultarProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConsultarProducto_KeyPress);
             // 
             // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Arial", 9.75F);
             this.label25.ForeColor = System.Drawing.Color.Teal;
-            this.label25.Location = new System.Drawing.Point(169, 33);
+            this.label25.Location = new System.Drawing.Point(22, 33);
             this.label25.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(67, 16);
             this.label25.TabIndex = 7;
             this.label25.Text = "Consultar:";
+            // 
+            // Modificar
+            // 
+            this.Modificar.FillWeight = 5.076141F;
+            this.Modificar.HeaderText = "";
+            this.Modificar.Name = "Modificar";
+            this.Modificar.ReadOnly = true;
+            this.Modificar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Deshabilitar
+            // 
+            this.Deshabilitar.FillWeight = 194.9239F;
+            this.Deshabilitar.HeaderText = "";
+            this.Deshabilitar.Name = "Deshabilitar";
+            this.Deshabilitar.ReadOnly = true;
             // 
             // FrmProductos
             // 
@@ -886,7 +902,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1052, 613);
+            this.ClientSize = new System.Drawing.Size(1052, 614);
             this.Controls.Add(this.tcProducto);
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -968,12 +984,12 @@
         private System.Windows.Forms.DataGridView dgvDatosProducto;
         private System.Windows.Forms.RadioButton rbtInactivos;
         private System.Windows.Forms.RadioButton rbtActivos;
-        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
-        private System.Windows.Forms.DataGridViewButtonColumn Deshabilitar;
         private System.Windows.Forms.RichTextBox txtNombreProducto;
         private System.Windows.Forms.TextBox txtPeso;
         private System.Windows.Forms.TextBox txtUnidadProducto;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox CkbLibreImpuesto;
+        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
+        private System.Windows.Forms.DataGridViewButtonColumn Deshabilitar;
     }
 }

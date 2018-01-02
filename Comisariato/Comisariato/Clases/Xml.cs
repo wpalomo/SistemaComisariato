@@ -19,7 +19,7 @@ namespace Comisariato.Clases
             this.rutaXml = ruta;
             doc = new XmlDocument();
 
-            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
 
             XmlNode root = doc.DocumentElement;
             doc.InsertBefore(xmlDeclaration, root);
@@ -36,11 +36,11 @@ namespace Comisariato.Clases
 
         }
 
-        public void InfoTributaria(string nodoraiz, InfoTributaria objcinfotributaria, string serie)
+        public void InfoTributaria(string nodoraiz, InfoTributaria objcinfotributaria, string serie,string claveacceso)
         {
             doc.Load(rutaXml);
-            string fecha = DateTime.Now.Date.ToShortDateString();
-            string claveacceso = objcinfotributaria.GenerarClaveAcceso(fecha,"1",serie);
+            //string fecha = DateTime.Now.Date.ToShortDateString();
+            //string claveacceso = objcinfotributaria.GenerarClaveAcceso(fecha,"1",serie);
             XmlNode NodoInfoTributarios = CrearInfoTributarios(""+objcinfotributaria.Ambiente,""+objcinfotributaria.TipoEmision,objcinfotributaria.RazonSociaL,objcinfotributaria.NombreComerciaL,objcinfotributaria.RuC, claveacceso,objcinfotributaria.CodDoC,objcinfotributaria.EstaB,objcinfotributaria.PtoEmI,objcinfotributaria.SecuenciaL,objcinfotributaria.DirMatriz);
 
             XmlNode nodoRaiz = doc.DocumentElement;
@@ -194,9 +194,9 @@ namespace Comisariato.Clases
             //nododirEstablecimiento.InnerText = dirEstablecimiento;
             //Nodoraiz.AppendChild(nododirEstablecimiento);
 
-            XmlElement nodocontribuyenteEspecial = doc.CreateElement("contribuyenteEspecial");
-            nodocontribuyenteEspecial.InnerText = contribuyenteEspecial;
-            Nodoraiz.AppendChild(nodocontribuyenteEspecial);
+            XmlElement nododirEstablecimiento = doc.CreateElement("dirEstablecimiento");
+            nododirEstablecimiento.InnerText = dirEstablecimiento;
+            Nodoraiz.AppendChild(nododirEstablecimiento);
 
             XmlElement nodoobligadoContabilidad = doc.CreateElement("obligadoContabilidad");
             nodoobligadoContabilidad.InnerText = obligadoContabilidad;
@@ -233,9 +233,9 @@ namespace Comisariato.Clases
 
             
             ////subnodo del nodo raiz totalConImpuestos
-            XmlNode SubNodototalConImpuestos = doc.CreateElement("totalConImpuestos");
-            SubNodototalConImpuestos.AppendChild(nodototalConImpuestos(dgvDetalle));
-            Nodoraiz.AppendChild(SubNodototalConImpuestos);
+            //XmlNode SubNodototalConImpuestos = doc.CreateElement("totalConImpuestos");
+            //SubNodototalConImpuestos.AppendChild(nodototalConImpuestos(dgvDetalle));
+            Nodoraiz.AppendChild(nodototalConImpuestos(dgvDetalle));
 
             ////subnodo del nodo totalConImpuestos
             //XmlNode SubNodototalImpuesto = doc.CreateElement("totalImpuesto");

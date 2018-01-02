@@ -449,7 +449,20 @@ namespace Comisariato.Clases
             }
             else { return "Existe"; }
         }
+        public string InsertarAutorizacionProveedor(string serie1, string serie2, string autorizacion, int idProveedor)
+        {
+            ObjConsulta = new Consultas();
 
+            if (!ObjConsulta.Existe("IDPROVEEDOR = " + idProveedor + " AND SERIE1 = " + serie1 + " AND SERIE2 = " + serie2 + " AND AUTORIZACION", autorizacion.ToString(), "TbAutorizacionProveedor"))
+            {
+                if (ObjConsulta.EjecutarSQL("INSERT INTO[dbo].[TbAutorizacionProveedor]([SERIE1],[SERIE2],[AUTORIZACION],[VALIDO_HASTA],[FAC_INICIO],[FAC_FIN],[IDPROVEEDOR])VALUES('"+ serie1 + "','" + serie2 + "','" + autorizacion + "','" + Funcion.reemplazarcaracterFecha(Convert.ToString(DateTime.Now.Date.ToShortDateString())) +"','000000001','999999999',"+ idProveedor +")"))
+                {
+                    return "Datos Guardados";
+                }
+                else { return "Error al Registrar"; }
+            }
+            else { return "Existe"; }
+        }
 
     }
 }
