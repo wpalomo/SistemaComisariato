@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcProducto = new System.Windows.Forms.TabControl();
             this.tpNuevoProducto = new System.Windows.Forms.TabPage();
             this.txtNombreProducto = new System.Windows.Forms.RichTextBox();
@@ -84,10 +84,12 @@
             this.rbtInactivos = new System.Windows.Forms.RadioButton();
             this.rbtActivos = new System.Windows.Forms.RadioButton();
             this.dgvDatosProducto = new System.Windows.Forms.DataGridView();
-            this.txtConsultarProducto = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.txtConsultarProducto = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.TxtStockActual = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tcProducto.SuspendLayout();
             this.tpNuevoProducto.SuspendLayout();
             this.gbDescripcionProducto.SuspendLayout();
@@ -199,6 +201,8 @@
             // 
             // gbDescripcionProducto
             // 
+            this.gbDescripcionProducto.Controls.Add(this.TxtStockActual);
+            this.gbDescripcionProducto.Controls.Add(this.label6);
             this.gbDescripcionProducto.Controls.Add(this.txtPeso);
             this.gbDescripcionProducto.Controls.Add(this.txtUnidadProducto);
             this.gbDescripcionProducto.Controls.Add(this.label5);
@@ -659,10 +663,10 @@
             // txtStockMinimoProducto
             // 
             this.txtStockMinimoProducto.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtStockMinimoProducto.Location = new System.Drawing.Point(439, 139);
+            this.txtStockMinimoProducto.Location = new System.Drawing.Point(319, 139);
             this.txtStockMinimoProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtStockMinimoProducto.Name = "txtStockMinimoProducto";
-            this.txtStockMinimoProducto.Size = new System.Drawing.Size(143, 22);
+            this.txtStockMinimoProducto.Size = new System.Drawing.Size(84, 22);
             this.txtStockMinimoProducto.TabIndex = 12;
             this.txtStockMinimoProducto.Text = "0";
             this.txtStockMinimoProducto.Click += new System.EventHandler(this.txtStockMinimoProducto_Click);
@@ -673,10 +677,10 @@
             // txtStockMaximoProducto
             // 
             this.txtStockMaximoProducto.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtStockMaximoProducto.Location = new System.Drawing.Point(154, 139);
+            this.txtStockMaximoProducto.Location = new System.Drawing.Point(125, 139);
             this.txtStockMaximoProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtStockMaximoProducto.Name = "txtStockMaximoProducto";
-            this.txtStockMaximoProducto.Size = new System.Drawing.Size(143, 22);
+            this.txtStockMaximoProducto.Size = new System.Drawing.Size(82, 22);
             this.txtStockMaximoProducto.TabIndex = 11;
             this.txtStockMaximoProducto.Text = "0";
             this.txtStockMaximoProducto.Click += new System.EventHandler(this.txtStockMaximoProducto_Click);
@@ -742,7 +746,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.label15.Location = new System.Drawing.Point(320, 142);
+            this.label15.Location = new System.Drawing.Point(221, 142);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(92, 16);
             this.label15.TabIndex = 34;
@@ -838,14 +842,14 @@
             this.dgvDatosProducto.AllowUserToOrderColumns = true;
             this.dgvDatosProducto.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDatosProducto.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosProducto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDatosProducto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDatosProducto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosProducto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar,
@@ -857,6 +861,21 @@
             this.dgvDatosProducto.TabIndex = 9;
             this.dgvDatosProducto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosProducto_CellClick);
             this.dgvDatosProducto.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosProducto_CellPainting);
+            // 
+            // Modificar
+            // 
+            this.Modificar.FillWeight = 5.076141F;
+            this.Modificar.HeaderText = "";
+            this.Modificar.Name = "Modificar";
+            this.Modificar.ReadOnly = true;
+            this.Modificar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Deshabilitar
+            // 
+            this.Deshabilitar.FillWeight = 194.9239F;
+            this.Deshabilitar.HeaderText = "";
+            this.Deshabilitar.Name = "Deshabilitar";
+            this.Deshabilitar.ReadOnly = true;
             // 
             // txtConsultarProducto
             // 
@@ -881,20 +900,26 @@
             this.label25.TabIndex = 7;
             this.label25.Text = "Consultar:";
             // 
-            // Modificar
+            // TxtStockActual
             // 
-            this.Modificar.FillWeight = 5.076141F;
-            this.Modificar.HeaderText = "";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.ReadOnly = true;
-            this.Modificar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TxtStockActual.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.TxtStockActual.Location = new System.Drawing.Point(516, 139);
+            this.TxtStockActual.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.TxtStockActual.Name = "TxtStockActual";
+            this.TxtStockActual.Size = new System.Drawing.Size(84, 22);
+            this.TxtStockActual.TabIndex = 50;
+            this.TxtStockActual.Text = "0";
+            this.TxtStockActual.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtStockActual_KeyPress);
             // 
-            // Deshabilitar
+            // label6
             // 
-            this.Deshabilitar.FillWeight = 194.9239F;
-            this.Deshabilitar.HeaderText = "";
-            this.Deshabilitar.Name = "Deshabilitar";
-            this.Deshabilitar.ReadOnly = true;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.label6.Location = new System.Drawing.Point(414, 142);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(86, 16);
+            this.label6.TabIndex = 51;
+            this.label6.Text = "Stock Actual:";
             // 
             // FrmProductos
             // 
@@ -902,7 +927,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1052, 614);
+            this.ClientSize = new System.Drawing.Size(1052, 613);
             this.Controls.Add(this.tcProducto);
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -991,5 +1016,7 @@
         private System.Windows.Forms.CheckBox CkbLibreImpuesto;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
         private System.Windows.Forms.DataGridViewButtonColumn Deshabilitar;
+        private System.Windows.Forms.TextBox TxtStockActual;
+        private System.Windows.Forms.Label label6;
     }
 }

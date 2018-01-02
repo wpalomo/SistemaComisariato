@@ -1381,6 +1381,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@ICE", ObjProducto.Ice);
                 cmd.Parameters.AddWithValue("@IRBP", ObjProducto.Irbp);
                 cmd.Parameters.AddWithValue("@LIBREIMPUESTO", ObjProducto.LibreImpuesto);
+                cmd.Parameters.AddWithValue("@CANTIDAD", ObjProducto.LibreImpuesto);
 
                 if (ObjProducto.Imagenproducto != null)
                 { cmd.Parameters.AddWithValue("@IMAGENPRODUCTO", ObjProducto.Imagenproducto); }
