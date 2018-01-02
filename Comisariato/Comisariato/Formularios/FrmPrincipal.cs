@@ -369,6 +369,7 @@ namespace Comisariato.Formularios
             else if (nombre == "Devolución en Venta")
             {
                 string IpMaquina = bitacora.LocalIPAddress();
+                //IPESTACION = '" + IpMaquina + "' and
                 DataTable Dt = objConsulta.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
                 bool banderaCaja = false;
                 if (Dt.Rows.Count > 0)
