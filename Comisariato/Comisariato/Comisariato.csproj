@@ -230,6 +230,12 @@
     <Compile Include="Formularios\Inventario\FrmProductos.Designer.cs">
       <DependentUpon>FrmProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\SRI\FrmComprobantesSri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\SRI\FrmComprobantesSri.Designer.cs">
+      <DependentUpon>FrmComprobantesSri.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\SRI\FrmDeclaracionSRI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -387,6 +393,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Inventario\FrmProductos.resx">
       <DependentUpon>FrmProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\SRI\FrmComprobantesSri.resx">
+      <DependentUpon>FrmComprobantesSri.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\SRI\FrmDeclaracionSRI.resx">
       <DependentUpon>FrmDeclaracionSRI.cs</DependentUpon>
@@ -661,6 +670,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icono_aircontrol.ico" />
+    <None Include="Resources\BuscarArchivo.png" />
     <None Include="Resources\modificarDgv.ico" />
     <None Include="Resources\EliminarDgv1.ico" />
     <None Include="Resources\EliminarDgv.ico" />

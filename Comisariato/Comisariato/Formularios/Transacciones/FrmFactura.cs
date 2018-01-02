@@ -100,7 +100,6 @@ namespace Comisariato.Formularios.Transacciones
         {
             // this.dgvDetalleProductos.CellValidating += new DataGridViewCellValidatingEventHandler(dgv_validating);
             //propiedadesdgv();
-            
             Program.FormularioVentaAbierto = true;
             Consultas consultas = new Consultas();
             DataTable dt = consultas.BoolDataTable("Select LOGO from TbEmpresa where IDEMPRESA = 1");
