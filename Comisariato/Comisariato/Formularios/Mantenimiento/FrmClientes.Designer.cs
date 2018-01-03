@@ -128,6 +128,7 @@
             this.rbtActivosCliente = new System.Windows.Forms.RadioButton();
             this.txtConsultarCliente = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.tcCliente.SuspendLayout();
             this.tpNuevoCliente.SuspendLayout();
             this.gbDatosPersonalesClientes.SuspendLayout();
@@ -321,6 +322,7 @@
             this.txtIdentificacionCliente.Name = "txtIdentificacionCliente";
             this.txtIdentificacionCliente.Size = new System.Drawing.Size(169, 22);
             this.txtIdentificacionCliente.TabIndex = 3;
+            this.txtIdentificacionCliente.Enter += new System.EventHandler(this.txtIdentificacionCliente_Enter);
             this.txtIdentificacionCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdentificacionCliente_KeyPress);
             this.txtIdentificacionCliente.Leave += new System.EventHandler(this.txtIdentificacionCliente_Leave);
             // 
@@ -1287,6 +1289,7 @@
             // tpConsultarModificarCliente
             // 
             this.tpConsultarModificarCliente.BackColor = System.Drawing.Color.Bisque;
+            this.tpConsultarModificarCliente.Controls.Add(this.BtnExportarExcel);
             this.tpConsultarModificarCliente.Controls.Add(this.dgvDatosCliente);
             this.tpConsultarModificarCliente.Controls.Add(this.rbtInactivosCliente);
             this.tpConsultarModificarCliente.Controls.Add(this.rbtActivosCliente);
@@ -1399,6 +1402,17 @@
             this.label25.TabIndex = 4;
             this.label25.Text = "Consultar:";
             // 
+            // BtnExportarExcel
+            // 
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(991, 19);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 25;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click);
+            // 
             // FrmClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1415,6 +1429,7 @@
             this.Name = "FrmClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Administrar Clientes";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmClientes_FormClosing);
             this.Load += new System.EventHandler(this.FrmClientes_Load);
             this.tcCliente.ResumeLayout(false);
             this.tpNuevoCliente.ResumeLayout(false);
@@ -1541,5 +1556,6 @@
         private System.Windows.Forms.DataGridView dgvDatosCliente;
         private System.Windows.Forms.DataGridViewButtonColumn modificarCliente;
         private System.Windows.Forms.DataGridViewButtonColumn DeshabilitarCliente;
+        private System.Windows.Forms.Button BtnExportarExcel;
     }
 }

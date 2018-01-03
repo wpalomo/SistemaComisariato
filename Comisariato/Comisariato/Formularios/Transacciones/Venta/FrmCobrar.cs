@@ -1398,7 +1398,7 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     imsubtotal += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
                 }
-                totaapagar += total + iva;
+                totaapagar += subtotaliva+imsubtotal;
             }
 
             imsubtotal = Math.Round(imsubtotal, 2);

@@ -120,7 +120,7 @@ namespace Comisariato.Clases
             doc.Save(rutaXml);
         }
 
-        public void impuestos(DataGridView dgv,string serie,string fecha)
+        public void impuestos(DataGridView dgv,string serie,string fecha,int tipoDocumento)
         {
             doc.Load(rutaXml);
             //string fecha = DateTime.Now.Date.ToShortDateString();
@@ -131,7 +131,7 @@ namespace Comisariato.Clases
                 if (dgv.Rows[i].Cells[0].Value != null)
                 {
                     XmlNode NodoDetalles = null;
-                    NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[8].Value), Convert.ToString(dgv.Rows[i].Cells[9].Value), Convert.ToString(dgv.Rows[i].Cells[3].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "01", serie, fecha);
+                    NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[8].Value), Convert.ToString(dgv.Rows[i].Cells[9].Value), Convert.ToString(dgv.Rows[i].Cells[3].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0"+ tipoDocumento, serie, fecha);
 
                     impuestos.AppendChild(NodoDetalles);
                 }

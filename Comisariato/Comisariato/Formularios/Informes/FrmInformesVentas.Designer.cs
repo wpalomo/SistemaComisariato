@@ -49,6 +49,7 @@
             this.Subtotal0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInformeVentas)).BeginInit();
             this.SuspendLayout();
@@ -112,7 +113,7 @@
             this.txtConsultar.Font = new System.Drawing.Font("Arial", 10F);
             this.txtConsultar.Location = new System.Drawing.Point(568, 50);
             this.txtConsultar.Name = "txtConsultar";
-            this.txtConsultar.Size = new System.Drawing.Size(482, 23);
+            this.txtConsultar.Size = new System.Drawing.Size(425, 23);
             this.txtConsultar.TabIndex = 22;
             this.txtConsultar.TextChanged += new System.EventHandler(this.txtConsultar_TextChanged);
             // 
@@ -151,7 +152,7 @@
             this.Total});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 8F);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -252,12 +253,24 @@
             this.Total.ReadOnly = true;
             this.Total.Width = 85;
             // 
+            // BtnExportarExcel
+            // 
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(999, 50);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 23;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click_1);
+            // 
             // FrmInformeVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(1065, 580);
+            this.Controls.Add(this.BtnExportarExcel);
             this.Controls.Add(this.dgvInformeVentas);
             this.Controls.Add(this.txtConsultar);
             this.Controls.Add(this.label8);
@@ -265,6 +278,7 @@
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "FrmInformeVentas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Informes de Ventas";
             this.Load += new System.EventHandler(this.FrmVentas_Load);
             this.groupBox2.ResumeLayout(false);
@@ -295,5 +309,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal0;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.Button BtnExportarExcel;
     }
 }

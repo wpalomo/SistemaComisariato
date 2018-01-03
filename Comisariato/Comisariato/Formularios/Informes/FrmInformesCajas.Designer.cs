@@ -44,6 +44,7 @@
             this.Ice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Irbp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInformeCajas)).BeginInit();
             this.SuspendLayout();
@@ -197,16 +198,29 @@
             this.Subtotal0.ReadOnly = true;
             this.Subtotal0.Width = 150;
             // 
+            // BtnExportarExcel
+            // 
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(743, 47);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 26;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click);
+            // 
             // FrmInformesCajas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(979, 427);
+            this.Controls.Add(this.BtnExportarExcel);
             this.Controls.Add(this.dgvInformeCajas);
             this.Controls.Add(this.groupBox2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FrmInformesCajas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Informes Cajas";
             this.Load += new System.EventHandler(this.FrmInformesCajas_Load);
             this.groupBox2.ResumeLayout(false);
@@ -231,5 +245,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Ice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Irbp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal0;
+        private System.Windows.Forms.Button BtnExportarExcel;
     }
 }

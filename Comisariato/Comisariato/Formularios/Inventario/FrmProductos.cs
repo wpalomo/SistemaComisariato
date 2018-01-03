@@ -49,6 +49,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             txtObservacionesProducto.Text = "";
             txtPeso.Text = "0";
             txtUnidadProducto.Text = "0";
+            TxtStockActual.Text = "0";
             ckbActivoProducto.Checked = true;
 
             //iniciar combos
@@ -117,7 +118,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                     bitDataImagen = Funcion.imgToByteArray(img);
                 }
                 //Objconsul.BoolDataTable("SELECT [CANTIDAD]  FROM [dbo].[TbProducto] where IDPRODUCTO = ''")
-                Producto ObjProducto = new Producto(txtNombreProducto.Text, ckbActivoProducto.Checked, txtCodigoBarraProducto.Text, cbTipoProducto.Text, cbUnidadMedidaProducto.Text, txtPeso.Text, Convert.ToInt32(txtStockMaximoProducto.Text), Convert.ToInt32(txtStockMinimoProducto.Text), Convert.ToInt32(txtCajaProducto.Text), Convert.ToInt32(txtUnidadProducto.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaSinIVAProducto.Text)), bitDataImagen, CkbIva.Checked, txtObservacionesProducto.Text, Convert.ToInt32(cbTipoProducto.SelectedValue), 0, Convert.ToInt32(txtDisplay.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIce.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIRBP.Text))/*Convert.ToInt32(txtUnidadProducto.Text)*/, CkbLibreImpuesto.Checked,TxtStockActual.Text);
+                Producto ObjProducto = new Producto(txtNombreProducto.Text, ckbActivoProducto.Checked, txtCodigoBarraProducto.Text, cbTipoProducto.Text, cbUnidadMedidaProducto.Text, txtPeso.Text, Convert.ToInt32(txtStockMaximoProducto.Text), Convert.ToInt32(txtStockMinimoProducto.Text), Convert.ToInt32(txtCajaProducto.Text), Convert.ToInt32(txtUnidadProducto.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaSinIVAProducto.Text)), bitDataImagen, CkbIva.Checked, txtObservacionesProducto.Text, Convert.ToInt32(cbTipoProducto.SelectedValue), Convert.ToInt32(TxtStockActual.Text), Convert.ToInt32(txtDisplay.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIce.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIRBP.Text))/*Convert.ToInt32(txtUnidadProducto.Text)*/, CkbLibreImpuesto.Checked);
 
                 if (!bandera_Estado) // Para identificar si se va ingresar
                 {
@@ -794,7 +795,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void txtNombreProducto_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            Funcion.validar_Num_Letras(e);
+            //Funcion.validar_Num_Letras(e);
             if (e.KeyChar == (char)Keys.Return)
             {
                 SendKeys.Send("{TAB}");
@@ -1028,6 +1029,28 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
         private void TxtStockActual_KeyPress(object sender, KeyPressEventArgs e)
         {
             Funcion.Validar_Numeros(e);
+        }
+
+        private void BtnExportarExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvDatosProducto.Rows.Count > 0)
+            {
+                if (Funcion.ExportarDataGridViewExcel(dgvDatosProducto,2))
+                {
+                    MessageBox.Show("Reporte creado con exito.");
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al crear el reporte.");
+                }
+
+            }
+        }
+
+        private void TxtStockActual_Enter(object sender, EventArgs e)
+        {
+            TxtStockActual.SelectAll();
+            TxtStockActual.Focus();
         }
     }
 }

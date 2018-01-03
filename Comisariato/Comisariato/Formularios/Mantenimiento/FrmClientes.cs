@@ -127,7 +127,7 @@ namespace Comisariato.Formularios
 
         private void txtDireccion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Funcion.validar_Num_Letras(e);
+            //Funcion.validar_Num_Letras(e);
             if (e.KeyChar == (char)Keys.Return)
             {
                 SendKeys.Send("{TAB}");
@@ -526,32 +526,35 @@ namespace Comisariato.Formularios
         {
             if (txtIdentificacionCliente.Text != "")
             {
-                if (cbIdentificacionCliente.SelectedIndex == 0)
-                {
-                    if (!Funcion.VerificarCedula(txtIdentificacionCliente.Text))
+                //if (cbIdentificacionCliente.Focus())
+                //{
+                    if (cbIdentificacionCliente.SelectedIndex == 0)
                     {
-                        MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        txtIdentificacionCliente.Focus();
-                        txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
-                    }
-                }
-                if (cbIdentificacionCliente.SelectedIndex == 1)
-                {
-                    if (txtIdentificacionCliente.Text.Length == 13)
-                    {
-                        if (txtIdentificacionCliente.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtIdentificacionCliente.Text.Substring(0, 10)) == false)
+                        if (!Funcion.VerificarCedula(txtIdentificacionCliente.Text))
                         {
-                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                             txtIdentificacionCliente.Focus();
                             txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
                         }
                     }
-                    else
+                    if (cbIdentificacionCliente.SelectedIndex == 1)
                     {
-                        MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtIdentificacionCliente.Focus();
-                        txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
+                        if (txtIdentificacionCliente.Text.Length == 13)
+                        {
+                            if (txtIdentificacionCliente.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtIdentificacionCliente.Text.Substring(0, 10)) == false)
+                            {
+                                MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                txtIdentificacionCliente.Focus();
+                                txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtIdentificacionCliente.Focus();
+                            txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
+                        }
                     }
-                }
+                //}
             }
         }
 
@@ -815,6 +818,32 @@ namespace Comisariato.Formularios
                     consultas.BoolCrearDateTableCliente(dgvDatosCliente, "Select IDENTIFICACION AS 'CEDULA/RUC',NOMBRES, APELLIDOS, DIRECCION, CELULAR1, TIPOCLIENTE as 'TIPO', ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO',ACTIVO from TbCliente WHERE ACTIVO = 0 and (IDENTIFICACION like '%" + txtConsultarCliente.Text + "%' or NOMBRES like '%" + txtConsultarCliente.Text + "%' or APELLIDOS like '%" + txtConsultarCliente.Text + "%')");
                     //dgvDatosCliente.Columns["ID"].Visible = false;
                 }
+            }
+        }
+
+        private void FrmClientes_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            inicializarDatos();
+        }
+
+        private void txtIdentificacionCliente_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnExportarExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvDatosCliente.Rows.Count > 0)
+            {
+                if (Funcion.ExportarDataGridViewExcel(dgvDatosCliente,2))
+                {
+                    MessageBox.Show("Reporte creado con exito.");
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al crear el reporte.");
+                }
+
             }
         }
     }

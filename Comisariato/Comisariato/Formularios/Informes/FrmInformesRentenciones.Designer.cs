@@ -46,6 +46,7 @@
             this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BaseImponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInformeRetenciones)).BeginInit();
             this.SuspendLayout();
@@ -109,7 +110,7 @@
             this.txtConsultar.Font = new System.Drawing.Font("Arial", 10F);
             this.txtConsultar.Location = new System.Drawing.Point(568, 50);
             this.txtConsultar.Name = "txtConsultar";
-            this.txtConsultar.Size = new System.Drawing.Size(482, 23);
+            this.txtConsultar.Size = new System.Drawing.Size(425, 23);
             this.txtConsultar.TabIndex = 22;
             this.txtConsultar.TextChanged += new System.EventHandler(this.txtConsultar_TextChanged);
             // 
@@ -145,7 +146,7 @@
             this.Monto});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 8F);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -223,12 +224,24 @@
             this.Monto.ReadOnly = true;
             this.Monto.Width = 85;
             // 
+            // BtnExportarExcel
+            // 
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(1017, 47);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 25;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click);
+            // 
             // FrmInformesRentenciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(1065, 580);
+            this.Controls.Add(this.BtnExportarExcel);
             this.Controls.Add(this.dgvInformeRetenciones);
             this.Controls.Add(this.txtConsultar);
             this.Controls.Add(this.label8);
@@ -236,6 +249,7 @@
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "FrmInformesRentenciones";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Informes de Retenciones";
             this.Load += new System.EventHandler(this.FrmVentas_Load);
             this.groupBox2.ResumeLayout(false);
@@ -263,5 +277,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn porcentaje;
         private System.Windows.Forms.DataGridViewTextBoxColumn BaseImponible;
         private System.Windows.Forms.DataGridViewTextBoxColumn Monto;
+        private System.Windows.Forms.Button BtnExportarExcel;
     }
 }

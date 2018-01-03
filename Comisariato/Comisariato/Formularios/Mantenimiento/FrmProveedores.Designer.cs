@@ -76,6 +76,12 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gbDatosAutorizacionProveedor = new System.Windows.Forms.GroupBox();
             this.dgvDatosAutorizacionProveedor = new System.Windows.Forms.DataGridView();
+            this.serie1Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serie2Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.autorizacionNumeroProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.validoHastaProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.facturaInicioProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.facturaFinProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbCodigoRetencionProveedor = new System.Windows.Forms.GroupBox();
             this.dgvCodigoRetencionProveedor = new System.Windows.Forms.DataGridView();
             this.IDCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -118,12 +124,7 @@
             this.DeshabilitarProveedor = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txtConsultarProveedor = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.serie1Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serie2Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.autorizacionNumeroProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.validoHastaProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.facturaInicioProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.facturaFinProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.tcProveedor.SuspendLayout();
             this.tpNuevoProveedor.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -675,6 +676,45 @@
             this.dgvDatosAutorizacionProveedor.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvDatosAutorizacionProveedor_CellBeginEdit);
             this.dgvDatosAutorizacionProveedor.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosAutorizacionProveedor_CellEndEdit);
             // 
+            // serie1Proveedor
+            // 
+            this.serie1Proveedor.HeaderText = "Serie 1";
+            this.serie1Proveedor.Name = "serie1Proveedor";
+            this.serie1Proveedor.ReadOnly = true;
+            // 
+            // serie2Proveedor
+            // 
+            this.serie2Proveedor.HeaderText = "Serie 2";
+            this.serie2Proveedor.Name = "serie2Proveedor";
+            this.serie2Proveedor.ReadOnly = true;
+            // 
+            // autorizacionNumeroProveedor
+            // 
+            this.autorizacionNumeroProveedor.HeaderText = "# Autorización";
+            this.autorizacionNumeroProveedor.Name = "autorizacionNumeroProveedor";
+            this.autorizacionNumeroProveedor.ReadOnly = true;
+            this.autorizacionNumeroProveedor.Width = 300;
+            // 
+            // validoHastaProveedor
+            // 
+            this.validoHastaProveedor.HeaderText = "Val. Hasta";
+            this.validoHastaProveedor.Name = "validoHastaProveedor";
+            this.validoHastaProveedor.ReadOnly = true;
+            // 
+            // facturaInicioProveedor
+            // 
+            this.facturaInicioProveedor.HeaderText = "Fac. Inicio";
+            this.facturaInicioProveedor.Name = "facturaInicioProveedor";
+            this.facturaInicioProveedor.ReadOnly = true;
+            this.facturaInicioProveedor.Width = 125;
+            // 
+            // facturaFinProveedor
+            // 
+            this.facturaFinProveedor.HeaderText = "Fac. Fin";
+            this.facturaFinProveedor.Name = "facturaFinProveedor";
+            this.facturaFinProveedor.ReadOnly = true;
+            this.facturaFinProveedor.Width = 125;
+            // 
             // gbCodigoRetencionProveedor
             // 
             this.gbCodigoRetencionProveedor.Controls.Add(this.dgvCodigoRetencionProveedor);
@@ -1093,6 +1133,7 @@
             // tpConsultarModificarProveedor
             // 
             this.tpConsultarModificarProveedor.BackColor = System.Drawing.Color.Bisque;
+            this.tpConsultarModificarProveedor.Controls.Add(this.BtnExportarExcel);
             this.tpConsultarModificarProveedor.Controls.Add(this.rbtInactivosProveedor);
             this.tpConsultarModificarProveedor.Controls.Add(this.rbtActivosProveedor);
             this.tpConsultarModificarProveedor.Controls.Add(this.dgvDatosProveedor);
@@ -1198,44 +1239,16 @@
             this.label8.TabIndex = 3;
             this.label8.Text = "Consultar:";
             // 
-            // serie1Proveedor
+            // BtnExportarExcel
             // 
-            this.serie1Proveedor.HeaderText = "Serie 1";
-            this.serie1Proveedor.Name = "serie1Proveedor";
-            this.serie1Proveedor.ReadOnly = true;
-            // 
-            // serie2Proveedor
-            // 
-            this.serie2Proveedor.HeaderText = "Serie 2";
-            this.serie2Proveedor.Name = "serie2Proveedor";
-            this.serie2Proveedor.ReadOnly = true;
-            // 
-            // autorizacionNumeroProveedor
-            // 
-            this.autorizacionNumeroProveedor.HeaderText = "# Autorización";
-            this.autorizacionNumeroProveedor.Name = "autorizacionNumeroProveedor";
-            this.autorizacionNumeroProveedor.ReadOnly = true;
-            this.autorizacionNumeroProveedor.Width = 300;
-            // 
-            // validoHastaProveedor
-            // 
-            this.validoHastaProveedor.HeaderText = "Val. Hasta";
-            this.validoHastaProveedor.Name = "validoHastaProveedor";
-            this.validoHastaProveedor.ReadOnly = true;
-            // 
-            // facturaInicioProveedor
-            // 
-            this.facturaInicioProveedor.HeaderText = "Fac. Inicio";
-            this.facturaInicioProveedor.Name = "facturaInicioProveedor";
-            this.facturaInicioProveedor.ReadOnly = true;
-            this.facturaInicioProveedor.Width = 125;
-            // 
-            // facturaFinProveedor
-            // 
-            this.facturaFinProveedor.HeaderText = "Fac. Fin";
-            this.facturaFinProveedor.Name = "facturaFinProveedor";
-            this.facturaFinProveedor.ReadOnly = true;
-            this.facturaFinProveedor.Width = 125;
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(1003, 13);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 25;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click);
             // 
             // FrmProveedores
             // 
@@ -1374,5 +1387,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn validoHastaProveedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn facturaInicioProveedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn facturaFinProveedor;
+        private System.Windows.Forms.Button BtnExportarExcel;
     }
 }
