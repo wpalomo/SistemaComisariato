@@ -71,6 +71,7 @@
             this.dtpHasta.Name = "dtpHasta";
             this.dtpHasta.Size = new System.Drawing.Size(340, 23);
             this.dtpHasta.TabIndex = 20;
+            this.dtpHasta.ValueChanged += new System.EventHandler(this.dtpDesde_ValueChanged);
             // 
             // dtpDesde
             // 
