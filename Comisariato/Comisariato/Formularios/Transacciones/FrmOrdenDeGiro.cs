@@ -152,7 +152,7 @@ namespace Comisariato.Formularios.Transacciones
             ObjConsul.BoolLlenarComboBox(CmbProveedor, "Select IDPROVEEDOR AS ID , NOMBRES AS TEXTO from TbProveedor");
             // hacer aparecer un scrollBar, poniendo un limite de item que aparezcan
             CmbProveedor.DropDownHeight = CmbProveedor.ItemHeight = 100;
-            ObjConsul.BoolLlenarComboBox(CmbTipoDocumento, "Select IDTIPODOCUMENTO ID, NOMBREDOCUMENTO AS TEXTO from TbTipoDocumento");
+            ObjConsul.BoolLlenarComboBox(CmbTipoDocumento, "Select CODIGOSRI ID, NOMBREDOCUMENTO AS TEXTO from TbTipoDocumento");
             // hacer aparecer un scrollBar, poniendo un limite de item que aparezcan
             CmbTipoDocumento.DropDownHeight = CmbTipoDocumento.ItemHeight = 100;
             cbTipo.SelectedIndex = 0;
@@ -487,7 +487,7 @@ namespace Comisariato.Formularios.Transacciones
                     //xmlRetencion.infoCompRetencion(infoCompReten);
 
                     ////xmlRetencion.impuestos(dgvDatosRetencion,txtSerie1.Text+txtSerie2.Text+ txtNumero.Text);
-                    //xmlRetencion.impuestos(dgvDatosRetencion, txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString());
+                    //xmlRetencion.impuestos(dgvDatosRetencion, txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString(), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
 
                     //var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
                     //if (Directory.Exists(PathServer + @"\Generados\"))
@@ -847,5 +847,6 @@ namespace Comisariato.Formularios.Transacciones
         {
 
         }
+
     }
 }

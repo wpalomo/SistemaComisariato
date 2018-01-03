@@ -506,6 +506,7 @@
             this.Font = new System.Drawing.Font("Arial", 8.25F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmDeclaracionSRI";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Reporte para Declaracion SRI";
             this.Load += new System.EventHandler(this.FrmDeclaracionSRI_Load);
             this.gbReporteVentas.ResumeLayout(false);

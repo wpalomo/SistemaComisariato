@@ -1031,6 +1031,23 @@ namespace Comisariato.Formularios
         private void FrmProveedores_FormClosing(object sender, FormClosingEventArgs e)
         {
             Program.FormularioProveedorCompra = false;
+            inicializarDatos();
+        }
+
+        private void BtnExportarExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvDatosProveedor.Rows.Count > 0)
+            {
+                if (Funcion.ExportarDataGridViewExcel(dgvDatosProveedor,2))
+                {
+                    MessageBox.Show("Reporte creado con exito.");
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al crear el reporte.");
+                }
+
+            }
         }
     }
 }

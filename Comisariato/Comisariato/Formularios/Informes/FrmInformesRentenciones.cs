@@ -21,7 +21,22 @@ namespace Comisariato.Formularios.Informes
         string cadenaGeneral = "select * from Vista_InformeRetenciones where IDCODIGOSRI = IDRETENCION ", cadeCondicion = "", condicionEntre="", añoDesde = "", 
             fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "", 
             cadenaConsultar = "";
-        
+
+        private void BtnExportarExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvInformeRetenciones.Rows[0].Cells[0].Value != null)
+            {
+                if (Funcion.ExportarDataGridViewExcel(dgvInformeRetenciones,0))
+                {
+                    MessageBox.Show("Reporte creado con exito.");
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al crear el reporte.");
+                }
+
+            }
+        }
 
         private void FrmVentas_Load(object sender, EventArgs e)
         {

@@ -630,5 +630,21 @@ namespace Comisariato.Formularios.Mantenimiento
         {
             TxtSueldoExtra.SelectAll();
         }
+
+        private void BtnExportarExcel_Click(object sender, EventArgs e)
+        {
+            if (DgvDatosEmpleado.Rows.Count > 0)
+            {
+                if (Funcion.ExportarDataGridViewExcel(DgvDatosEmpleado,2))
+                {
+                    MessageBox.Show("Reporte creado con exito.");
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al crear el reporte.");
+                }
+
+            }
+        }
     }
 }

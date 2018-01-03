@@ -16,6 +16,8 @@ namespace Comisariato.Formularios.SRI
         {
             InitializeComponent();
             this.Height = Program.tamañoVentanaPrincipal - 75;
+            int width = this.Width;
+            this.Width = width - 9;
         }
 
         private void FrmComprobantesSri_Load(object sender, EventArgs e)

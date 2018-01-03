@@ -53,5 +53,21 @@ namespace Comisariato.Formularios.Informes
                 dgvInformeCajas.Rows.Add();
             }
         }
+
+        private void BtnExportarExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvInformeCajas.Rows[0].Cells[0].Value != null)
+            {
+                if (Funcion.ExportarDataGridViewExcel(dgvInformeCajas, 0))
+                {
+                    MessageBox.Show("Reporte creado con exito.");
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al crear el reporte.");
+                }
+
+            }
+        }
     }
 }

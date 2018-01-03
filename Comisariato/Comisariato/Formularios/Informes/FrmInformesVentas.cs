@@ -21,7 +21,23 @@ namespace Comisariato.Formularios.Informes
         string cadenaGeneral = "select * from Vista_InformeVentas", cadeCondicion = "", condicionEntre="", añoDesde = "", 
             fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "", 
             cadenaConsultar = "";
-        
+
+        private void BtnExportarExcel_Click_1(object sender, EventArgs e)
+        {
+            if (dgvInformeVentas.Rows[0].Cells[0].Value != null)
+            {
+                if (Funcion.ExportarDataGridViewExcel(dgvInformeVentas,0))
+                {
+                    MessageBox.Show("Reporte creado con exito.");
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al crear el reporte.");
+                }
+                
+            }
+        }
+
 
         private void FrmVentas_Load(object sender, EventArgs e)
         {
