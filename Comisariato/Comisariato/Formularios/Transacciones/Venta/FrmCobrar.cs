@@ -956,7 +956,7 @@ namespace Comisariato.Formularios.Transacciones
                         }
 
                         inicioContador += (filasaxuiliar);
-                      FormarXml(sucursal, caja, numfactbd);
+                      //FormarXml(sucursal, caja, numfactbd);
                     }
                 }
                 else
@@ -1282,6 +1282,7 @@ namespace Comisariato.Formularios.Transacciones
             ticket.AgregarTotales("Descuento", Convert.ToSingle(descuento));
             ticket.AgregarTotales("Iva 12%  ", DetallePago[2]);
             ticket.AgregarTotales("Total a pagar", Convert.ToSingle(DetallePago[3]));
+            //MessageBox.Show("Total a pagar: "+Convert.ToSingle(DetallePago[3]));
 
             if (Program.BoolAutorizadoImprimir)
             {
@@ -1398,7 +1399,7 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     imsubtotal += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
                 }
-                totaapagar += subtotaliva+imsubtotal;
+                totaapagar += total+iva;
             }
 
             imsubtotal = Math.Round(imsubtotal, 2);

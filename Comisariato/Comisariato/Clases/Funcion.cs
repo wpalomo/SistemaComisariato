@@ -9,6 +9,7 @@ using System.IO;
 using System.Net;
 using Comisariato.Formularios;
 
+
 namespace Comisariato.Clases
 {
     public class Funcion

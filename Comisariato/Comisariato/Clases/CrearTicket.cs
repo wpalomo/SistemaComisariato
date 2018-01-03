@@ -400,6 +400,8 @@ namespace Comisariato.Clases
             linea.AppendLine("\x1B" + "m"); //Caracteres de corte. Estos comando varian segun el tipo de impresora
             linea.AppendLine("\x1B" + "d" + "\x09"); //Avanza 9 renglones, Tambien varian
         }
+
+
         //Para abrir el cajon
         public void AbreCajon()
         {
