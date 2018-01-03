@@ -150,9 +150,9 @@ namespace Comisariato.Formularios.Transacciones
                                     f.sucursal = sucursal;
                                     f.numcaja = numcaja;
 
-                                    f.MdiParent = Program.panelPrincipalVariable;
-                                    f.BringToFront();
-                                    f.Show();
+                                    //f.MdiParent = Program.panelPrincipalVariable;
+                                    //f.BringToFront();
+                                    f.ShowDialog();
 
                                 }
                                 else { f.BringToFront(); }
