@@ -493,7 +493,7 @@ namespace Comisariato.Formularios.Transacciones
 
             ////posible error
             //float totalfinal = (Convert.ToInt32(txtCantidad.Text)*Convert.ToSingle(txtPrecio.Text))+Convert.ToSingle(txtIvaPrecio.Text);
-
+            
             dgvDetalleProductos.Rows[fila].Cells[0].Value = txtCodigo.Text;
             dgvDetalleProductos.Rows[fila].Cells[1].Value = txtDetalle.Text;
             dgvDetalleProductos.Rows[fila].Cells[2].Value = txtCantidad.Text;
@@ -510,8 +510,9 @@ namespace Comisariato.Formularios.Transacciones
             {
                 dgvDetalleProductos.Rows[fila].Cells[8].Value = 0;
             }
-            
+            dgvDetalleProductos.CurrentCell = dgvDetalleProductos.Rows[fila].Cells[0];
             Ivas.Add("" + Producto.Iva);
+
             dgvDetalleProductos.Rows.Add("");
             LimpiarTexbox();
         }
