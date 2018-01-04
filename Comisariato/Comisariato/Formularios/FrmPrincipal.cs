@@ -52,6 +52,7 @@ namespace Comisariato.Formularios
         public static FrmRegistrarIVA FrmRegistrarIVA;
         public static FrmInformesCajas FrmInformesCajas;
         public static FrmComprobantesSri FrmComprobantesSri;
+        public static FormEnviarArchivos forSri;
 
         public bool primerIngresoSistema;
 
@@ -445,6 +446,17 @@ namespace Comisariato.Formularios
                     FrmInformesCajas.Show();
                 }
                 else { FrmInformesCajas.BringToFront(); }
+            }
+            else if (nombre == "Enviar Archivos")
+            {
+                if (forSri == null || forSri.IsDisposed)
+                {
+                    forSri = new FormEnviarArchivos();
+                    forSri.MdiParent = this;
+                    //FrmDevolucionVenta.BringToFront();
+                    forSri.Show();
+                }
+                else { forSri.BringToFront(); }
             }
         }
 

@@ -39,7 +39,6 @@ namespace Comisariato.Clases
 
         public static bool ExportarDataGridViewExcel(DataGridView grd,int InicioDeColumna) //InicioDeColumna comienza desde 0
         {
-<<<<<<< HEAD
             try
             {
                 //SaveFileDialog fichero = new SaveFileDialog();
@@ -73,7 +72,6 @@ namespace Comisariato.Clases
             }
             catch (Exception)
             {
-=======
             //try
             //{
             //    SaveFileDialog fichero = new SaveFileDialog();
@@ -104,16 +102,15 @@ namespace Comisariato.Clases
             //        aplicacion.Quit();
             //    }
             return true;
-            //}
-            //catch (Exception)
-            //{
+                //}
+                //catch (Exception)
+                //{
 
-            //    return false;
-            //}
->>>>>>> a6345cf5d504b230d66b4814b6d70d7abbb1fcff
-
+                //    return false;
+                //}
+            }
         }
-
+        
 
         public static void ValidarNumerosStock(DataGridViewCellValidatingEventArgs e, DataGridView Dgv)
         {
