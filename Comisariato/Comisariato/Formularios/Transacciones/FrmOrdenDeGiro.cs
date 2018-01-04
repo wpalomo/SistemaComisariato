@@ -462,7 +462,7 @@ namespace Comisariato.Formularios.Transacciones
                     
 
 
-                    InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
+                    InfoTributaria infotribu = new InfoTributaria(2, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
                     //string serie = txtSerie1.Text + txtSerie2.Text;
                     //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
 

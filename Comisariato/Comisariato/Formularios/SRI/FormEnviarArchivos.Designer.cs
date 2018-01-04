@@ -43,6 +43,38 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
+<<<<<<< HEAD
+=======
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Comisariato.Properties.Resources._base;
+            this.pictureBox2.Location = new System.Drawing.Point(49, 78);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(163, 152);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(309, 78);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(170, 58);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Enviar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(311, 172);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(170, 58);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+>>>>>>> b73464b22018c82c597cd1ddcd4f3b4ae00eee56
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -50,7 +82,11 @@
             this.TollMenuLablelFecha});
             this.statusStrip1.Location = new System.Drawing.Point(0, 303);
             this.statusStrip1.Name = "statusStrip1";
+<<<<<<< HEAD
             this.statusStrip1.Size = new System.Drawing.Size(645, 22);
+=======
+            this.statusStrip1.Size = new System.Drawing.Size(524, 22);
+>>>>>>> b73464b22018c82c597cd1ddcd4f3b4ae00eee56
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -65,7 +101,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+<<<<<<< HEAD
             this.label1.Location = new System.Drawing.Point(218, 19);
+=======
+            this.label1.Location = new System.Drawing.Point(152, 19);
+>>>>>>> b73464b22018c82c597cd1ddcd4f3b4ae00eee56
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(211, 24);
             this.label1.TabIndex = 5;
@@ -147,8 +187,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
+<<<<<<< HEAD
             this.ClientSize = new System.Drawing.Size(645, 325);
             this.Controls.Add(this.groupBox1);
+=======
+            this.ClientSize = new System.Drawing.Size(524, 296);
+>>>>>>> b73464b22018c82c597cd1ddcd4f3b4ae00eee56
             this.Controls.Add(this.label1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "FormEnviarArchivos";

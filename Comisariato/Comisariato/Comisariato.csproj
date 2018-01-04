@@ -70,6 +70,7 @@
     <Compile Include="Clases\Empresa.cs" />
     <Compile Include="Clases\EncabezadoNotaCredito.cs" />
     <Compile Include="Clases\EncabezadoOrdenGiro.cs" />
+    <Compile Include="Clases\Generados.cs" />
     <Compile Include="Clases\Funcion.cs" />
     <Compile Include="Clases\InfoCompRetencion.cs" />
     <Compile Include="Clases\InfoFactura.cs" />

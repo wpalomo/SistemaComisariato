@@ -541,7 +541,7 @@ namespace Comisariato.Formularios
                     {
                         if (txtIdentificacionCliente.Text.Length == 13)
                         {
-                            if (txtIdentificacionCliente.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtIdentificacionCliente.Text.Substring(0, 10)) == false)
+                            if (txtIdentificacionCliente.Text.Substring(10, 3) != "001")
                             {
                                 MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                                 txtIdentificacionCliente.Focus();

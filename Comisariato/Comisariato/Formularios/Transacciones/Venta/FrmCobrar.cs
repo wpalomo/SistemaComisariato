@@ -991,7 +991,7 @@ namespace Comisariato.Formularios.Transacciones
                 }
             InfoTributaria objcit = new InfoTributaria();
 
-            objcit.Ambiente = 1;
+            objcit.Ambiente = 2;
             objcit.TipoEmision = 1;
             objcit.RazonSociaL = Program.razonsocialempresa;
             objcit.NombreComerciaL = Program.nombreempresa;
@@ -1359,7 +1359,7 @@ namespace Comisariato.Formularios.Transacciones
             if (Program.BoolAutorizadoImprimir)
             {
                 ticket.TextoIzquierda("");
-                ticket.TextoIzquierda("ARTICULOS VENDIDOS: " + cantidadVendida);
+                ticket.TextoIzquierda("ITEMS VENDIDOS: " + cantidadVendida);
                 ticket.TextoIzquierda("");
                 String PIEFA = Program.piefactura;
                 string[] PIES = PIEFA.Split('\n');
@@ -1389,7 +1389,6 @@ namespace Comisariato.Formularios.Transacciones
             filasaxuiliar = filasaxuiliar + inicioContador;
             for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
             {
-
                 double total = Convert.ToDouble(dg.Rows[J].Cells[4].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
                 double iva = 0.0f;
                 if (Convert.ToSingle(dg.Rows[J].Cells[5].Value.ToString()) != 0)
@@ -1401,9 +1400,10 @@ namespace Comisariato.Formularios.Transacciones
                 }
                 else
                 {
+                    iva = 0;
                     imsubtotal += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
                 }
-                totaapagar += total+iva;
+                totaapagar += Convert.ToSingle(dg.Rows[J].Cells[6].Value);
             }
 
             imsubtotal = Math.Round(imsubtotal, 2);
@@ -1418,8 +1418,6 @@ namespace Comisariato.Formularios.Transacciones
             DetallePago.Add(totaapagar);
 
             return DetallePago;
-
-
         }
 
         private void ImprimirenRed()

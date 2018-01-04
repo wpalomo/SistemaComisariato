@@ -223,6 +223,8 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     if (verificadorfrm==2)
                     {
+                        //txtCodigo.Focus();
+                        //SendKeys.Send("{ENTER}");
                         if (DatosCliente.Count>0)
                         {
                             Producto = new Producto();
@@ -240,8 +242,8 @@ namespace Comisariato.Formularios.Transacciones
                                 }
                                 else
                                 {
-                                    txtPrecio.Text = Convert.ToDouble(DatosCliente[4]).ToString("#####0.00");
-                                    PrecioTodoslosDecimales = DatosCliente[4];
+                                    txtPrecio.Text = Convert.ToDouble(DatosCliente[5]).ToString("#####0.00");
+                                    PrecioTodoslosDecimales = DatosCliente[5];
                                 }
                             }
 
@@ -663,7 +665,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        if (txtIdentidicacion.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtIdentidicacion.Text.Substring(0, 10)) == false)
+                        if (txtIdentidicacion.Text.Substring(10, 3) != "001")
                         {
                             cedu = false;
                             cor = 1;

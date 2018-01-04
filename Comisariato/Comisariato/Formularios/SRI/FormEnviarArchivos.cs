@@ -20,6 +20,16 @@ namespace Comisariato.Formularios.SRI
         }
         Consultas objConsult = new Consultas();
 
+<<<<<<< HEAD
+=======
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //DirectoryInfo di = new DirectoryInfo(@"C:\Users\MaxDJ\Desktop\prueba\");
+            //foreach (var fi in di.GetFiles("test?.txt"))
+            //{
+            //    MessageBox.Show(fi.Name);
+            //}
+>>>>>>> b73464b22018c82c597cd1ddcd4f3b4ae00eee56
 
         String RutaXML = "";
         String NombreXML = "";
