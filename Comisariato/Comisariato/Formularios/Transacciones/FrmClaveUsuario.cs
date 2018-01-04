@@ -205,6 +205,7 @@ namespace Comisariato.Formularios.Transacciones
 
         private void FrmClaveUsuario_Load(object sender, EventArgs e)
         {
+            txtClave.Focus();
             SendKeys.Send("{TAB}");
 
             txtClave.Focus();

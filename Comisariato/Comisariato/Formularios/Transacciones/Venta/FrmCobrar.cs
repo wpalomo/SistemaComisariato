@@ -1365,12 +1365,12 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.TextoCentro(PIES[3]);
                 ticket.TextoCentro("¡GRACIAS POR SU COMPRA!");
             }
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
+            //ticket.TextoIzquierda("");
+            //ticket.TextoIzquierda("");
+            //ticket.TextoIzquierda("");
+            //ticket.TextoIzquierda("");
+            //ticket.TextoIzquierda("");
+            //ticket.TextoIzquierda("");
             ticket.CortaTicket();
 
             //String ruta = @"\\AIRCONTROL\BodegaPedido";
@@ -1455,12 +1455,6 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.lineasAsteriscos();
             //ticket.TextoIzquierda("Corporacion AirNet");
             //ticket.TextoIzquierda("Corporacion AirNet" );
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-
             ticket.CortaTicket();
             //pd.PrinterSettings.PrinterName = "\\SCLIENTE-PC\\PedidoBodega";
             //MessageBox.Show(""+ pd.PrinterSettings.PrinterName);
