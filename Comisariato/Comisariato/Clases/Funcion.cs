@@ -72,6 +72,7 @@ namespace Comisariato.Clases
             }
             catch (Exception)
             {
+<<<<<<< HEAD
                 //try
                 //{
                 //    SaveFileDialog fichero = new SaveFileDialog();
@@ -102,11 +103,45 @@ namespace Comisariato.Clases
                 //        aplicacion.Quit();
                 //    }
                 //    return true;
+=======
+            //try
+            //{
+            //    SaveFileDialog fichero = new SaveFileDialog();
+            //    fichero.Filter = "Excel (*.xls)|*.xls";
+            //    if (fichero.ShowDialog() == DialogResult.OK)
+            //    {
+            //        Microsoft.Office.Interop.Excel.Application aplicacion;
+            //        Microsoft.Office.Interop.Excel.Workbook libros_trabajo;
+            //        Microsoft.Office.Interop.Excel.Worksheet hoja_trabajo;
+            //        aplicacion = new Microsoft.Office.Interop.Excel.Application();
+            //        libros_trabajo = aplicacion.Workbooks.Add();
+            //        hoja_trabajo = (Microsoft.Office.Interop.Excel.Worksheet)libros_trabajo.Worksheets.get_Item(1);
+            //        for (int i = 0; i < grd.ColumnCount; i++)
+            //        {
+            //            hoja_trabajo.Cells[1, i + 1] = grd.Columns[i].HeaderText;
+            //        }
+            //        //Recorremos el DataGridView rellenando la hoja de trabajo
+            //        for (int i = 1; i < grd.Rows.Count - 1; i++)
+            //        {
+            //            for (int j = InicioDeColumna; j < grd.Columns.Count; j++)
+            //            {
+            //                hoja_trabajo.Cells[i + 1, j + 1] = grd.Rows[i].Cells[j].Value.ToString();
+            //            }
+            //        }
+            //        libros_trabajo.SaveAs(fichero.FileName,
+            //        Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+            //        libros_trabajo.Close(true);
+            //        aplicacion.Quit();
+            //    }
+>>>>>>> 54b82a89c4dfda0e03eb3f64b98a350e54cab8b2
                 //}
                 //catch (Exception)
                 //{
 
+                //    return false;
+                //}
                 return false;
+<<<<<<< HEAD
                 //}
 
                 //}
@@ -115,9 +150,10 @@ namespace Comisariato.Clases
 
                 //    return false;
                 //}
+=======
+>>>>>>> 54b82a89c4dfda0e03eb3f64b98a350e54cab8b2
             }
         }
-
 
         public static void ValidarNumerosStock(DataGridViewCellValidatingEventArgs e, DataGridView Dgv)
         {

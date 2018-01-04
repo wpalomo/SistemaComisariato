@@ -64,7 +64,7 @@ namespace Comisariato.Formularios.Transacciones
             //Creamos una instancia d ela clase CrearTicket
             CrearTicket ticket = new CrearTicket();
             //Ya podemos usar todos sus metodos
-            ticket.AbreCajon();//Para abrir el cajon de dinero.
+            //ticket.AbreCajon();//Para abrir el cajon de dinero.
 
 
             DateTime FECHA = Convert.ToDateTime(em.Fecha);

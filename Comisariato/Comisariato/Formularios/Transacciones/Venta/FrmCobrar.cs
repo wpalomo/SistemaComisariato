@@ -1277,8 +1277,12 @@ namespace Comisariato.Formularios.Transacciones
 
             ticket.lineasAsteriscos();
             //Resumen de la venta. Sólo son ejemplos
+
+            //posible error
+            float posibleerror =Convert.ToSingle( DetallePago[1])/1.12f;
+
             ticket.AgregarTotales("SUBTOTAL  0%", DetallePago[0]);
-            ticket.AgregarTotales("SUBTOTAL 12% ", DetallePago[1]);
+            ticket.AgregarTotales("SUBTOTAL 12% ", posibleerror);
             ticket.AgregarTotales("Descuento", Convert.ToSingle(descuento));
             ticket.AgregarTotales("Iva 12%  ", DetallePago[2]);
             ticket.AgregarTotales("Total a pagar", Convert.ToSingle(DetallePago[3]));
@@ -1365,12 +1369,6 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.TextoCentro(PIES[3]);
                 ticket.TextoCentro("¡GRACIAS POR SU COMPRA!");
             }
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
             ticket.CortaTicket();
 
             //String ruta = @"\\AIRCONTROL\BodegaPedido";
@@ -1455,12 +1453,6 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.lineasAsteriscos();
             //ticket.TextoIzquierda("Corporacion AirNet");
             //ticket.TextoIzquierda("Corporacion AirNet" );
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("");
-
             ticket.CortaTicket();
             //pd.PrinterSettings.PrinterName = "\\SCLIENTE-PC\\PedidoBodega";
             //MessageBox.Show(""+ pd.PrinterSettings.PrinterName);

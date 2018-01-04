@@ -405,7 +405,7 @@ namespace Comisariato.Formularios.Transacciones
                      
                         total = (Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(txtCantidad.Text)) + iva;
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
-                        AgregarFila(codigos.Count - 1, total);
+                        AgregarFila(codigos.Count - 1, total, iva);
                         Calcular();
                         pr = true;
                     }
@@ -465,7 +465,7 @@ namespace Comisariato.Formularios.Transacciones
                     {
                         total = Convert.ToInt32(txtCantidad.Text) * Convert.ToSingle(PrecioTodoslosDecimales);
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
-                        AgregarFila(codigos.Count - 1, total);
+                        AgregarFila(codigos.Count - 1, total, iva);
                        
                         pr = true;
                         Calcular();
@@ -483,7 +483,7 @@ namespace Comisariato.Formularios.Transacciones
 
         }
         bool li;
-        private void AgregarFila(int fila, float total)
+        private void AgregarFila(int fila, float total,float iva)
         {
            
             if (Producto.LibreImpuesto)
@@ -500,7 +500,11 @@ namespace Comisariato.Formularios.Transacciones
             dgvDetalleProductos.Rows[fila].Cells[3].Value = txtBodega.Text;
             dgvDetalleProductos.Rows[fila].Cells[4].Value = txtPrecio.Text;
             dgvDetalleProductos.Rows[fila].Cells[5].Value = txtIvaPrecio.Text;
-            dgvDetalleProductos.Rows[fila].Cells[6].Value = total.ToString("#####0.00"); ;
+            
+            //posible error
+            float posibleerror = Convert.ToSingle(txtCantidad.Text) *Convert.ToSingle( PrecioTodoslosDecimales);
+            float posibleerror1 = posibleerror + iva;
+            dgvDetalleProductos.Rows[fila].Cells[6].Value = posibleerror1.ToString("#####0.00"); ;
             dgvDetalleProductos.Rows[fila].Cells[9].Value = Convert.ToInt32(Producto.LibreImpuesto);
             if (rdbCaja.Checked)
             {
@@ -512,7 +516,7 @@ namespace Comisariato.Formularios.Transacciones
             }
             dgvDetalleProductos.CurrentCell = dgvDetalleProductos.Rows[fila].Cells[0];
             Ivas.Add("" + Producto.Iva);
-
+            
             dgvDetalleProductos.Rows.Add("");
             LimpiarTexbox();
         }
@@ -538,7 +542,8 @@ namespace Comisariato.Formularios.Transacciones
                    
                     if (Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[5].Value) != 0)
                     {
-                        sumasubiva += Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[2].Value.ToString())* Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[4].Value.ToString());
+                        //sumasubiva += Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[2].Value.ToString())* Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[4].Value.ToString());
+                        sumasubiva+= Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value); 
                         ivatotal += Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[5].Value.ToString());
 
                     }
@@ -548,13 +553,21 @@ namespace Comisariato.Formularios.Transacciones
                         sumasubcero += Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value.ToString());
                     }
 
-                    totalpagar += Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value.ToString());
-
+                    // totalpagar += Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value.ToString());
+                    //posible error
+                    //float multicantpre = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[2].Value) * Convert.ToSingle(PrecioTodoslosDecimales);
+                    // totalpagar += multicantpre + Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[5].Value);
+                    totalpagar += Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value);
 
                 }
+                float prueba = 1.12f;
                 txtSubTotalcero.Text = sumasubcero.ToString("#####0.00");
                 txtSubTotal.Text = totalpagar.ToString("#####0.00");
-                txtSubTotalIva.Text = sumasubiva.ToString("#####0.00");
+
+                float subtotaivafinal = sumasubiva / prueba;
+
+                txtSubTotalIva.Text = subtotaivafinal.ToString("#####0.00");
+
                 //totalpagar = sumasub + ivatotal;
                 txtIva.Text = ivatotal.ToString("#####0.00");
                 lblTotalPagar.Text = "" + Funcion.reemplazarcaracter(totalpagar.ToString("#####0.00"));
