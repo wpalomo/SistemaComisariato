@@ -119,13 +119,13 @@ namespace Comisariato.Formularios.Transacciones
                 if (myRow["CODIGO"].ToString() == "COD_RET_FUE")
                 {
                     dgvDatosRetencion.Rows[i].Cells[1].Value = "FUENTE";
-
+                    dgvDatosRetencion.Rows[i].Cells[3].Value = txtBaseImponible.Text;
                 }
                 else
                 {
                     dgvDatosRetencion.Rows[i].Cells[1].Value = "IVA";
+                    dgvDatosRetencion.Rows[i].Cells[3].Value = txtIVA.Text;
                 }
-                dgvDatosRetencion.Rows[i].Cells[3].Value = txtBaseImponible.Text;
                 dgvDatosRetencion.Rows[i].Cells[4].Value = Funcion.reemplazarcaracter(((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(dgvDatosRetencion.Rows[i].Cells[3].Value.ToString())) * Convert.ToSingle(dgvDatosRetencion.Rows[i].Cells[2].Value)) / 100).ToString());
                 dgvDatosRetencion.Rows[i].Cells[6].Value = Convert.ToDateTime(myRow["FECHAVALIDODESDE"]).ToShortDateString() + " - " + Convert.ToDateTime(myRow["FECHAVALIDOHASTA"]).ToShortDateString();
                 dgvDatosRetencion.Rows[i].Cells[7].Value = Convert.ToInt32(myRow["IDCODIGOSRI"]);
@@ -299,7 +299,7 @@ namespace Comisariato.Formularios.Transacciones
 
         private void btnContabilizar_Click(object sender, EventArgs e)
         {
-            if(txtValorPagar.Text != "" && txtConcepto.Text != "" && cbFormaPago.Text != "")
+            if(txtValorPagar.Text != "" && cbFormaPago.Text != "")
             {
                 dgvDatosLibroDiario.Rows.Clear();
                 for (int i = 0; i < 5; i++)
@@ -378,7 +378,7 @@ namespace Comisariato.Formularios.Transacciones
             int columna;
             for (int i = 0; i < dgvDatosLibroDiario.RowCount -1; i++)
             {
-                if (dgvDatosLibroDiario.Rows[i].Cells[2].Value != null)
+                if (Convert.ToString(dgvDatosLibroDiario.Rows[i].Cells[2].Value) != "")
                 {
                     columna = 2;
                 }
@@ -386,7 +386,9 @@ namespace Comisariato.Formularios.Transacciones
                     columna = 3;
                 if (Convert.ToString(dgvDatosLibroDiario.Rows[i].Cells[columna].Value) == "0.0000")
                 {
-                    dgvDatosLibroDiario.Rows.Remove(dgvDatosLibroDiario.Rows[i]);
+                    //dgvDatosLibroDiario.Rows.Remove(dgvDatosLibroDiario.Rows[i]);
+                    dgvDatosLibroDiario.Rows.RemoveAt(i);
+                    i--;
                 }
             }
         }
@@ -407,7 +409,7 @@ namespace Comisariato.Formularios.Transacciones
         }
         private void btnGuardarProveedor_Click(object sender, EventArgs e)
         {
-            if (txtValorPagar.Text != "" && txtConcepto.Text != "" && cbFormaPago.Text != "" && txtNAutorizacion.Text != "" && cbTipo.Text != "")
+            if (txtValorPagar.Text != "" && cbFormaPago.Text != "" && txtNAutorizacion.Text != "" && cbTipo.Text != "")
             {
                 string idEncabezado = ObjConsul.ObtenerValorCampo("IDEMCABEZADOCOMPRA", "TbEncabezadoyPieCompra", " WHERE SERIE1 ="+ txtSerie1.Text + " AND SERIE2 =" + txtSerie2.Text + " AND NUMERO = " + txtNumero.Text + "");
                 EncabezadoOrdenGiro objEncabezadoOG = new EncabezadoOrdenGiro(Convert.ToInt32(txtOrdenGiro.Text), Convert.ToInt32(CmbTipoDocumento.SelectedValue), Convert.ToInt32(CmbProveedor.SelectedValue), cbTipo.Text, txtPlazo.Text,
@@ -525,8 +527,15 @@ namespace Comisariato.Formularios.Transacciones
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.Handled = true;
-                SendKeys.Send("{TAB}");
+                //if (txtNAutorizacion.Text.Length != 49)
+                //{
+                //    MessageBox.Show("La Autorización debe de tener exactamente 49 digitos", "Aviso", MessageBoxButtons.OK);
+                //}
+                //else
+                //{
+                    e.Handled = true;
+                    SendKeys.Send("{TAB}");
+                //}
             }
         }
 
@@ -760,9 +769,6 @@ namespace Comisariato.Formularios.Transacciones
                 e.Graphics.DrawString(txtIVA.Text, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 175, 230);
                 e.Graphics.DrawString("IRBP: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 25, 250);
                 e.Graphics.DrawString(txtIRBP.Text, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 175, 250);
-                e.Graphics.DrawString("N° Retención: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 25, 270);
-                string retencion = txtSerie1Retencion.Text + '-' + txtSerie2Retencion.Text + '-' + txtNumeroRetencion.Text;
-                e.Graphics.DrawString(retencion, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 175, 270);
 
 
 
@@ -778,10 +784,13 @@ namespace Comisariato.Formularios.Transacciones
                 e.Graphics.DrawString(Convert.ToString(dtpFechaVenceDocumento.Value), new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 675, 110);
                 e.Graphics.DrawString("Total:", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 500, 150);
                 e.Graphics.DrawString(txtTotal.Text, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 675, 150);
-                e.Graphics.DrawString("Firma:", new Font("Verdana", 12, FontStyle.Bold), Brushes.Black, 500, 250);
 
                 //DGV Retencion
-                int y = 250;
+
+                e.Graphics.DrawString("N° Retención: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 25, 285);
+                string retencion = txtSerie1Retencion.Text + '-' + txtSerie2Retencion.Text + '-' + txtNumeroRetencion.Text;
+                e.Graphics.DrawString(retencion, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 175, 285);
+                int y = 265;
                 dibujarRayas(ref y, 40, 2);
                 e.Graphics.DrawLine(blackPen, puntoInicio, puntoFinal);
 
@@ -815,6 +824,9 @@ namespace Comisariato.Formularios.Transacciones
                 }
                 e.Graphics.DrawString("Retención:", new Font("Verdana", 9, FontStyle.Bold), Brushes.Black, 550, y);
                 e.Graphics.DrawString(Funcion.reemplazarcaracter(Convert.ToString(sumaRetencion)), new Font("Verdana", 9, FontStyle.Regular), Brushes.Black, 650, y);
+
+                
+                e.Graphics.DrawString("Firma:", new Font("Verdana", 12, FontStyle.Bold), Brushes.Black, 500, y+75);
 
             }
             catch (Exception)

@@ -35,6 +35,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
         int posicion = 0;
         bool tieneIVA=false;
         float ivaTotal = 0.0f;
+        public static string CodigoBarraConsultaProducto = "";
         public void incializar()
         {
             tieneIVA = false;
@@ -644,6 +645,31 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 " from Vista_InformeCompras", cadeCondicion = "", condicionEntre = "", añoDesde = "",
             fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "",
             cadenaConsultar = "";
+
+        private void FrmCompra_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F6:
+                    Program.banderaProductosCompras = true;
+                    for (int i = 0; i < dgvProductosIngresos.ColumnCount; i++)
+                    {
+                        dgvProductosIngresos.CurrentRow.Cells[i].Value = "";
+                    }
+                    for (int i = 1; i < dgvProductosIngresos.ColumnCount; i++)
+                    {
+                        dgvProductosIngresos.CurrentRow.Cells[i].ReadOnly = true;
+                    }
+                    FrmConsultarProducto FrmConsultarProduct = new FrmConsultarProducto();
+                    FrmConsultarProduct.ShowDialog();
+                    dgvProductosIngresos.Focus();
+                    dgvProductosIngresos.CurrentCell = dgvProductosIngresos.CurrentRow.Cells[0];
+                    dgvProductosIngresos.BeginEdit(true);
+                    dgvProductosIngresos.CurrentCell.Value = CodigoBarraConsultaProducto;                    
+                    SendKeys.Send("{ENTER}");
+                    break;
+            }
+        }
 
         private void txtConsultar_TextChanged(object sender, EventArgs e)
         {
