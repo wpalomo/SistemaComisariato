@@ -20,11 +20,13 @@ namespace Comisariato.Formularios.SRI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //DirectoryInfo di = new DirectoryInfo(@"C:\Users\MaxDJ\Desktop\prueba\");
-            //foreach (var fi in di.GetFiles("test?.txt"))
-            //{
-            //    MessageBox.Show(fi.Name);
-            //}
+
+
+            DirectoryInfo di = new DirectoryInfo(@"C:\Users\Public\Documents\ArchivosXml\Generados");
+            foreach (var fi in di.GetFiles("0301201801180211442900110010980000000010000001015.xml"))
+            {
+                MessageBox.Show(fi.Name);
+            }
         }
     }
 }
