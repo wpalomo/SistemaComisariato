@@ -57,5 +57,44 @@ namespace Comisariato.Clases
             connection = new SqlConnection(con);
             connection.Close();
         }
+
+
+        public void conectarBDFact()
+        {
+            try
+            {
+
+                //string[] datosArchivoConfig = Funcion.leerArchivo(@"\\Aircontrol\c\Program Files (x86)\AIRCONTROL\Conexion.shc");
+                //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
+                //connection = new SqlConnection("data source = AIRCONTROL, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
+                System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
+                String confact = connec[2].ToString();
+                connection = new SqlConnection(confact);
+
+                //connection = new SqlConnection("data source = SERVER, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
+                connection.Open();
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Error al conectarse a la Base De Datos " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            }
+
+        }
+        public  void CerrarBDFact()
+        {
+            //string[] datosArchivoConfig = Funcion.leerArchivo(@"\\Aircontrol\c\Program Files (x86)\AIRCONTROL\Conexion.shc");
+            //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
+            //connection = new SqlConnection("data source = AIRCONTROL, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
+            System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
+            String confact = connec[1].ToString();
+            connection = new SqlConnection(confact);
+            connection.Close();
+        }
+
+
+
+
+
     }
 }
