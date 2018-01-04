@@ -100,6 +100,13 @@ namespace Comisariato.Formularios.Transacciones
                     ticket.TextoIzquierda("");
                     ticket.TextoIzquierda("");
                     ticket.TextoCentro("Firma");
+
+                    ticket.TextoIzquierda("");
+                    ticket.TextoIzquierda("");
+                    ticket.TextoIzquierda("");
+                    ticket.TextoIzquierda("");
+                    ticket.TextoIzquierda("");
+
                     ticket.CortaTicket();
                     var valor = ConfigurationManager.AppSettings["Local"];
                     ticket.ImprimirTicket(valor);

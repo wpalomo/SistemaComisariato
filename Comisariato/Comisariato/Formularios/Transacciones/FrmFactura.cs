@@ -54,7 +54,7 @@ namespace Comisariato.Formularios.Transacciones
         {
             InitializeComponent();
             codigos = new List<string>();
-            this.Height = Program.tamañoVentanaPrincipal - 75;
+            //this.Height = Program.tamañoVentanaPrincipal - 75;
 
         }
 

@@ -903,7 +903,6 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Enabled = false;
             this.button3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Image = global::Comisariato.Properties.Resources.dinero;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -934,7 +933,6 @@
             // btnReimprimirFact
             // 
             this.btnReimprimirFact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnReimprimirFact.Enabled = false;
             this.btnReimprimirFact.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReimprimirFact.Image = global::Comisariato.Properties.Resources.impresora2;
             this.btnReimprimirFact.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1006,7 +1004,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(1192, 554);
             this.Controls.Add(this.label19);
@@ -1042,10 +1039,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximizeBox = false;
             this.Name = "FrmFactura";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "VENTAS - Aircontrol";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.FrmFactura_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmFactura_FormClosed);
             this.Load += new System.EventHandler(this.FrmFactura_Load);
