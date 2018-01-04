@@ -37,7 +37,7 @@ namespace Comisariato.Clases
             else { formHijo.BringToFront(); }
         }
 
-        public static bool ExportarDataGridViewExcel(DataGridView grd,int InicioDeColumna) //InicioDeColumna comienza desde 0
+        public static bool ExportarDataGridViewExcel(DataGridView grd, int InicioDeColumna) //InicioDeColumna comienza desde 0
         {
             try
             {
@@ -72,6 +72,7 @@ namespace Comisariato.Clases
             }
             catch (Exception)
             {
+<<<<<<< HEAD
             //try
             //{
             //    SaveFileDialog fichero = new SaveFileDialog();
@@ -109,9 +110,11 @@ namespace Comisariato.Clases
                 //    return false;
                 //}
                 return false;
+=======
+                return true;
+>>>>>>> f842c235012e80458f2c933be9ddef6d77afa34e
             }
         }
-        
 
         public static void ValidarNumerosStock(DataGridViewCellValidatingEventArgs e, DataGridView Dgv)
         {
