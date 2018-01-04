@@ -397,13 +397,8 @@ namespace Comisariato.Clases
         //Para cortar el ticket
         public void CortaTicket()
         {
-<<<<<<< HEAD
             linea.AppendLine("\x1B" + "m" ); //Caracteres de corte. Estos comando varian segun el tipo de impresora
             linea.AppendLine("\x1B" + "d" + "\x09"); //Avanza 9 renglones, Tambien varian
-=======
-            linea.AppendLine("\x1B" + "d" + "\x06"); //Avanza 9 renglones, Tambien varian
-            linea.AppendLine("\x1B" + "m"); //Caracteres de corte. Estos comando varian segun el tipo de impresora
->>>>>>> eadf187e4b6535321af50ad5e3c923d8ca560cb9
         }
 
 
