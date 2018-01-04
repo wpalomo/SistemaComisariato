@@ -18,13 +18,17 @@ namespace Comisariato.Formularios.Informes
             InitializeComponent();
         }
         Consultas objConsulta = new Consultas();
-        string sqlCaja = "select cc.CAJA, TOTALRECAUDADO as ValorEntregado, ct.ESTACION,  ct.IPESTACION, u.USUARIO from TbUsuario u, TbCierreCaja cc, TbCajasTalonario ct " +
-" where ct.SERIE2 = cc.CAJA and ct.TIPODOCUMENTO = 'FAC' and u.IDUSUARIO =  cc.IDUSUARIO"; 
+        string fechaDesde = "", fechaHasta = "";
         private void dtpDesde_ValueChanged(object sender, EventArgs e)
         {
-            llenarDataGrid();
+            fechaDesde = Convert.ToString(dtpDesde.Value.ToShortDateString());
+            fechaHasta = Convert.ToString(dtpHasta.Value.ToShortDateString());
+            string sqlCaja = "select cc.CAJA, TOTALRECAUDADO as ValorEntregado, ct.ESTACION,  ct.IPESTACION, u.USUARIO  " +
+            " from TbUsuario u, TbCierreCaja cc, TbCajasTalonario ct" +
+            " where ct.SERIE2 = cc.CAJA and ct.TIPODOCUMENTO = 'FAC' and u.IDUSUARIO =  cc.IDUSUARIO and cc.FECHA between '" + fechaDesde + "' and '"+ fechaHasta +"'";
+            llenarDataGrid(sqlCaja);
         }
-        public void llenarDataGrid()
+        public void llenarDataGrid(string sqlCaja)
         {
             DataTable dt = objConsulta.BoolDataTable(sqlCaja);
             if (dt.Rows.Count > 0)
