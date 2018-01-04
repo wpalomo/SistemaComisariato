@@ -18,7 +18,7 @@ namespace Comisariato.Clases
         {
             //Form fh = formHijo as Form;
             //fh.TopLevel = false;
-            //panelPrincipal.Controls.Add(fh);
+            //panelPrincipal.Controls.Add(fh);  
             ////panelPrincipal.Tag = fh;
             //int index = panelPrincipal.Controls.GetChildIndex(fh);
             //fh.BringToFront();
@@ -37,11 +37,8 @@ namespace Comisariato.Clases
             else { formHijo.BringToFront(); }
         }
 
-        public static bool ExportarDataGridViewExcel(DataGridView grd,int InicioDeColumna) //InicioDeColumna comienza desde 0
+        public static bool ExportarDataGridViewExcel(DataGridView grd, int InicioDeColumna) //InicioDeColumna comienza desde 0
         {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
             try
             {
                 //SaveFileDialog fichero = new SaveFileDialog();
@@ -75,57 +72,50 @@ namespace Comisariato.Clases
             }
             catch (Exception)
             {
-=======
->>>>>>> aad7f7bb52a9454daa3e38b446b049ab3e0ecfa8
-            //try
-            //{
-            //    SaveFileDialog fichero = new SaveFileDialog();
-            //    fichero.Filter = "Excel (*.xls)|*.xls";
-            //    if (fichero.ShowDialog() == DialogResult.OK)
-            //    {
-            //        Microsoft.Office.Interop.Excel.Application aplicacion;
-            //        Microsoft.Office.Interop.Excel.Workbook libros_trabajo;
-            //        Microsoft.Office.Interop.Excel.Worksheet hoja_trabajo;
-            //        aplicacion = new Microsoft.Office.Interop.Excel.Application();
-            //        libros_trabajo = aplicacion.Workbooks.Add();
-            //        hoja_trabajo = (Microsoft.Office.Interop.Excel.Worksheet)libros_trabajo.Worksheets.get_Item(1);
-            //        for (int i = 0; i < grd.ColumnCount; i++)
-            //        {
-            //            hoja_trabajo.Cells[1, i + 1] = grd.Columns[i].HeaderText;
-            //        }
-            //        //Recorremos el DataGridView rellenando la hoja de trabajo
-            //        for (int i = 1; i < grd.Rows.Count - 1; i++)
-            //        {
-            //            for (int j = InicioDeColumna; j < grd.Columns.Count; j++)
-            //            {
-            //                hoja_trabajo.Cells[i + 1, j + 1] = grd.Rows[i].Cells[j].Value.ToString();
-            //            }
-            //        }
-            //        libros_trabajo.SaveAs(fichero.FileName,
-            //        Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
-            //        libros_trabajo.Close(true);
-            //        aplicacion.Quit();
-            //    }
-<<<<<<< HEAD
-            //    return true;
-            //}
-            //catch (Exception)
-            //{
+                //try
+                //{
+                //    SaveFileDialog fichero = new SaveFileDialog();
+                //    fichero.Filter = "Excel (*.xls)|*.xls";
+                //    if (fichero.ShowDialog() == DialogResult.OK)
+                //    {
+                //        Microsoft.Office.Interop.Excel.Application aplicacion;
+                //        Microsoft.Office.Interop.Excel.Workbook libros_trabajo;
+                //        Microsoft.Office.Interop.Excel.Worksheet hoja_trabajo;
+                //        aplicacion = new Microsoft.Office.Interop.Excel.Application();
+                //        libros_trabajo = aplicacion.Workbooks.Add();
+                //        hoja_trabajo = (Microsoft.Office.Interop.Excel.Worksheet)libros_trabajo.Worksheets.get_Item(1);
+                //        for (int i = 0; i < grd.ColumnCount; i++)
+                //        {
+                //            hoja_trabajo.Cells[1, i + 1] = grd.Columns[i].HeaderText;
+                //        }
+                //        //Recorremos el DataGridView rellenando la hoja de trabajo
+                //        for (int i = 1; i < grd.Rows.Count - 1; i++)
+                //        {
+                //            for (int j = InicioDeColumna; j < grd.Columns.Count; j++)
+                //            {
+                //                hoja_trabajo.Cells[i + 1, j + 1] = grd.Rows[i].Cells[j].Value.ToString();
+                //            }
+                //        }
+                //        libros_trabajo.SaveAs(fichero.FileName,
+                //        Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+                //        libros_trabajo.Close(true);
+                //        aplicacion.Quit();
+                //    }
+                //    return true;
+                //}
+                //catch (Exception)
+                //{
 
                 return false;
-            //}
-           
-=======
-            return true;
-            //}
-            //catch (Exception)
-            //{
+                //}
 
-            //    return false;
-            //}
->>>>>>> a6345cf5d504b230d66b4814b6d70d7abbb1fcff
+                //}
+                //catch (Exception)
+                //{
 
->>>>>>> aad7f7bb52a9454daa3e38b446b049ab3e0ecfa8
+                //    return false;
+                //}
+            }
         }
 
 
@@ -440,6 +430,7 @@ namespace Comisariato.Clases
             {
                 return cadena;
             }
+
         }
 
         /// Verificar Cedula

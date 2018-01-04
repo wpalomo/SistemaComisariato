@@ -40,6 +40,7 @@ namespace Comisariato
         public static bool FormularioOrdenGiro = false;
         public static int EmpresaUsuario = 0;
         public static int NumeroCaja = 0;
+        public static bool banderaProductosCompras = false;
         //datos empresa
         public static string nombreempresa;
         public static string rucempresa;
