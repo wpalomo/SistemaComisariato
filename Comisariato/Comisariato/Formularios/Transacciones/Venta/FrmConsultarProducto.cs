@@ -1,4 +1,5 @@
 ﻿using Comisariato.Clases;
+using Comisariato.Formularios.Mantenimiento.Inventario;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,30 +60,37 @@ namespace Comisariato.Formularios.Transacciones
                 case Keys.Escape:
                     try
                     {
-                        if (Convert.ToSingle(dgvProductos.CurrentRow.Cells[2].Value)>0)
+                        if (Program.banderaProductosCompras)
                         {
-                            if (FrmFactura.DatosCliente.Count > 0)
-                            {
-                                FrmFactura.DatosCliente.Clear();
-                            }
-                            FrmFactura.verificadorfrm = 2;
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[0].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[1].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[2].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[3].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[4].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[5].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[6].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[7].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[8].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[9].Value.ToString());
-                            this.Close();
+                            FrmCompra.CodigoBarraConsultaProducto = dgvProductos.CurrentRow.Cells[0].Value.ToString();
+                            Program.banderaProductosCompras = false;
                         }
                         else
                         {
-                            MessageBox.Show("Producto agotado. Selecciona otro producto con cantidad diferente de cero.");
+                            if (Convert.ToSingle(dgvProductos.CurrentRow.Cells[2].Value) > 0)
+                            {
+                                if (FrmFactura.DatosCliente.Count > 0)
+                                {
+                                    FrmFactura.DatosCliente.Clear();
+                                }
+                                FrmFactura.verificadorfrm = 2;
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[0].Value.ToString());
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[1].Value.ToString());
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[2].Value.ToString());
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[3].Value.ToString());
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[4].Value.ToString());
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[5].Value.ToString());
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[6].Value.ToString());
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[7].Value.ToString());
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[8].Value.ToString());
+                                FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[9].Value.ToString());
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Producto agotado. Selecciona otro producto con cantidad diferente de cero.");
+                            }
                         }
-                       
                     }
                     catch (Exception)
                     {
