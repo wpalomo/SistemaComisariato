@@ -1365,12 +1365,6 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.TextoCentro(PIES[3]);
                 ticket.TextoCentro("¡GRACIAS POR SU COMPRA!");
             }
-            //ticket.TextoIzquierda("");
-            //ticket.TextoIzquierda("");
-            //ticket.TextoIzquierda("");
-            //ticket.TextoIzquierda("");
-            //ticket.TextoIzquierda("");
-            //ticket.TextoIzquierda("");
             ticket.CortaTicket();
 
             //String ruta = @"\\AIRCONTROL\BodegaPedido";
