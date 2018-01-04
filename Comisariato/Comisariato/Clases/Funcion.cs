@@ -72,7 +72,6 @@ namespace Comisariato.Clases
             }
             catch (Exception)
             {
-<<<<<<< HEAD
             //try
             //{
             //    SaveFileDialog fichero = new SaveFileDialog();
@@ -102,7 +101,6 @@ namespace Comisariato.Clases
             //        libros_trabajo.Close(true);
             //        aplicacion.Quit();
             //    }
-            return true;
                 //}
                 //catch (Exception)
                 //{
@@ -110,9 +108,6 @@ namespace Comisariato.Clases
                 //    return false;
                 //}
                 return false;
-=======
-                return true;
->>>>>>> f842c235012e80458f2c933be9ddef6d77afa34e
             }
         }
 
