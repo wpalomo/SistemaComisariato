@@ -72,6 +72,7 @@ namespace Comisariato.Clases
             }
             catch (Exception)
             {
+<<<<<<< HEAD
                 //try
                 //{
                 //    SaveFileDialog fichero = new SaveFileDialog();
@@ -146,6 +147,9 @@ namespace Comisariato.Clases
 
                 //    return false;
                 //}
+=======
+                return false;
+>>>>>>> eadf187e4b6535321af50ad5e3c923d8ca560cb9
             }
         }
 

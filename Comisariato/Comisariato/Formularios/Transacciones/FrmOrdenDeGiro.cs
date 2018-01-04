@@ -458,7 +458,8 @@ namespace Comisariato.Formularios.Transacciones
 
                     XmlRetencion xmlRetencion = new XmlRetencion();
                     ////var ruta = ConfigurationManager.AppSettings["XmlRetencion"];
-                    xmlRetencion._crearXml(PathLocal, "comprobanteRetencion");
+                    //xml._crearXml(PathLocal + @"\" + claveacceso + ".xml", "factura");
+                    
 
 
                     InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
@@ -466,6 +467,7 @@ namespace Comisariato.Formularios.Transacciones
                     //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
 
                     string claveacceso = infotribu.GenerarClaveAcceso(fecha, "1", serie);
+                    xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml","comprobanteRetencion");
                     var ruta = ConfigurationManager.AppSettings["XmlServidor"];
                     xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
                     string pathfinal = PathLocal + @"\" + claveacceso + ".xml";
