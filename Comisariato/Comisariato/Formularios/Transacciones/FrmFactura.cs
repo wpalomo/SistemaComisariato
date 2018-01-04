@@ -665,7 +665,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        if (txtIdentidicacion.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtIdentidicacion.Text.Substring(0, 10)) == false)
+                        if (txtIdentidicacion.Text.Substring(10, 3) != "001")
                         {
                             cedu = false;
                             cor = 1;
