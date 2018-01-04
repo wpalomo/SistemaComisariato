@@ -72,7 +72,6 @@ namespace Comisariato.Clases
             }
             catch (Exception)
             {
-<<<<<<< HEAD
                 //try
                 //{
                 //    SaveFileDialog fichero = new SaveFileDialog();
@@ -103,7 +102,6 @@ namespace Comisariato.Clases
                 //        aplicacion.Quit();
                 //    }
                 //    return true;
-=======
             //try
             //{
             //    SaveFileDialog fichero = new SaveFileDialog();
@@ -133,7 +131,6 @@ namespace Comisariato.Clases
             //        libros_trabajo.Close(true);
             //        aplicacion.Quit();
             //    }
->>>>>>> 54b82a89c4dfda0e03eb3f64b98a350e54cab8b2
                 //}
                 //catch (Exception)
                 //{
@@ -141,7 +138,6 @@ namespace Comisariato.Clases
                 //    return false;
                 //}
                 return false;
-<<<<<<< HEAD
                 //}
 
                 //}
@@ -150,8 +146,6 @@ namespace Comisariato.Clases
 
                 //    return false;
                 //}
-=======
->>>>>>> 54b82a89c4dfda0e03eb3f64b98a350e54cab8b2
             }
         }
 
