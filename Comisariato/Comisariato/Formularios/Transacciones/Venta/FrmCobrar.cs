@@ -956,7 +956,7 @@ namespace Comisariato.Formularios.Transacciones
                         }
 
                         inicioContador += (filasaxuiliar);
-                      FormarXml(sucursal, caja, numfactbd);
+                        FormarXml(sucursal, caja, numfactbd);
                     }
                 }
                 else
@@ -1282,6 +1282,7 @@ namespace Comisariato.Formularios.Transacciones
             ticket.AgregarTotales("Descuento", Convert.ToSingle(descuento));
             ticket.AgregarTotales("Iva 12%  ", DetallePago[2]);
             ticket.AgregarTotales("Total a pagar", Convert.ToSingle(DetallePago[3]));
+            //MessageBox.Show("Total a pagar: "+Convert.ToSingle(DetallePago[3]));
 
             if (Program.BoolAutorizadoImprimir)
             {
@@ -1364,6 +1365,12 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.TextoCentro(PIES[3]);
                 ticket.TextoCentro("¡GRACIAS POR SU COMPRA!");
             }
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
             ticket.CortaTicket();
 
             //String ruta = @"\\AIRCONTROL\BodegaPedido";
@@ -1398,7 +1405,7 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     imsubtotal += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
                 }
-                totaapagar += subtotaliva+imsubtotal;
+                totaapagar += total+iva;
             }
 
             imsubtotal = Math.Round(imsubtotal, 2);
@@ -1448,7 +1455,13 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.lineasAsteriscos();
             //ticket.TextoIzquierda("Corporacion AirNet");
             //ticket.TextoIzquierda("Corporacion AirNet" );
-                ticket.CortaTicket();
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
+            ticket.TextoIzquierda("");
+
+            ticket.CortaTicket();
             //pd.PrinterSettings.PrinterName = "\\SCLIENTE-PC\\PedidoBodega";
             //MessageBox.Show(""+ pd.PrinterSettings.PrinterName);
             //string r = pd.PrinterSettings.PrinterName;

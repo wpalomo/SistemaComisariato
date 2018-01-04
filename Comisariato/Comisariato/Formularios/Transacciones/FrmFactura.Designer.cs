@@ -1004,7 +1004,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(1192, 554);
             this.Controls.Add(this.label19);
@@ -1040,10 +1039,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximizeBox = false;
             this.Name = "FrmFactura";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "VENTAS - Aircontrol";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.FrmFactura_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmFactura_FormClosed);
             this.Load += new System.EventHandler(this.FrmFactura_Load);
