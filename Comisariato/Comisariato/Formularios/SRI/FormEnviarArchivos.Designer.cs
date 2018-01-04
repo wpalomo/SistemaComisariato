@@ -95,7 +95,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox2);
             this.Name = "FormEnviarArchivos";
-            this.Text = "FormEnviarArchivos";
+            this.Text = "Autorización SRI";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
