@@ -991,7 +991,7 @@ namespace Comisariato.Formularios.Transacciones
                 }
             InfoTributaria objcit = new InfoTributaria();
 
-            objcit.Ambiente = 1;
+            objcit.Ambiente = 2;
             objcit.TipoEmision = 1;
             objcit.RazonSociaL = Program.razonsocialempresa;
             objcit.NombreComerciaL = Program.nombreempresa;
@@ -1403,7 +1403,7 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     imsubtotal += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
                 }
-                totaapagar += total+iva;
+                totaapagar += Convert.ToSingle(dg.Rows[J].Cells[6].Value);
             }
 
             imsubtotal = Math.Round(imsubtotal, 2);

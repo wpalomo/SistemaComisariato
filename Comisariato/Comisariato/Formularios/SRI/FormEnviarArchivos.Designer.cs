@@ -39,16 +39,16 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Comisariato.Properties.Resources._base;
-            this.pictureBox2.Location = new System.Drawing.Point(33, 58);
+            this.pictureBox2.Location = new System.Drawing.Point(49, 78);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(200, 191);
+            this.pictureBox2.Size = new System.Drawing.Size(163, 152);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(276, 58);
+            this.button1.Location = new System.Drawing.Point(309, 78);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(170, 58);
             this.button1.TabIndex = 2;
@@ -58,7 +58,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(276, 191);
+            this.button2.Location = new System.Drawing.Point(311, 172);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(170, 58);
             this.button2.TabIndex = 3;
@@ -69,7 +69,7 @@
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 274);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(478, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(524, 22);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -77,7 +77,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(130, 19);
+            this.label1.Location = new System.Drawing.Point(152, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(211, 24);
             this.label1.TabIndex = 5;
@@ -88,7 +88,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(478, 296);
+            this.ClientSize = new System.Drawing.Size(524, 296);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button2);
