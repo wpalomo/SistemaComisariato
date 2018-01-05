@@ -477,14 +477,11 @@ namespace Comisariato.Formularios.Transacciones
 
                     //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie, claveacceso);
 
-<<<<<<< HEAD
-=======
                     var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
                     if (!Directory.Exists(PathServer + @"\Generados\"))
                     {
                         Directory.CreateDirectory(PathServer + @"\Generados\");
                     }
->>>>>>> b29af8ac9f8daba72a391500830511a9ea96d080
 
 
                     //DataTable dt = ObjConsul.BoolDataTable("Select TIPOIDENTIFICACION,IDENTIFICACION,RAZONSOCIAL,NOMBRES from TbProveedor where IDPROVEEDOR = " + CmbProveedor.SelectedValue + ";");
