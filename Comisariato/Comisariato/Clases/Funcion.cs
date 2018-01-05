@@ -524,6 +524,9 @@ namespace Comisariato.Clases
         /// <summary>
         /// FirmaXml
         /// </summary>
+        /// 
+
+        
 
         private static Random rnd = new Random(DateTime.Now.Millisecond);
         public const string XmlDsigRSASHA1Url = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";

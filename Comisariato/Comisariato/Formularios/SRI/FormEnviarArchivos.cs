@@ -82,7 +82,7 @@ namespace Comisariato.Formularios.SRI
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }
