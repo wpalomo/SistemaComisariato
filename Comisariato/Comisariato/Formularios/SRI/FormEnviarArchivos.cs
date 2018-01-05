@@ -28,7 +28,7 @@ namespace Comisariato.Formularios.SRI
         private void BtnEnviarXML_Click(object sender, EventArgs e)
         {
             FechaEmision = Funcion.reemplazarcaracterFecha(DtpFecha.Value.Date.ToShortDateString());
-            DataTable DtDocuemtosXML = objConsult.BoolDataTableFactElect("Select * from TbDocumentosGeneradosFact DocFact where DocFact.FechaEmision = '" + FechaEmision + "'");
+            DataTable DtDocuemtosXML = objConsult.BoolDataTableFactElect("Select * from TbDocumentosGeneradosFact DocFact where DocFact.FechaEmision = '" + FechaEmision + "' and   EstadoAutorizacion = '0'");
 
             if (DtDocuemtosXML.Rows.Count > 0)
             {
@@ -40,12 +40,11 @@ namespace Comisariato.Formularios.SRI
 
                     //Inicio menuInferior
                     TollMenuLablelDocumento.Text = "Documento : " + NombreXML + ".xml";
-                    TollMenuLablelFecha.Text = "Fecha : " + FechaEmision;
+                    TollMenuLablelFecha.Text = "Fecha : " + Funcion.reemplazarcaracterFecha(Convert.ToDateTime(FechaEmision).Date.ToShortDateString());
                     //Fin menuInferior
 
-
-
-                    MessageBox.Show(RutaXML + NombreXML);
+                    Funcion.FirmaXML(RutaXML + @"\" + NombreXML + ".xml",NombreXML);
+                    //MessageBox.Show(RutaXML + NombreXML);
                 }
 
 

@@ -41,6 +41,9 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -326,6 +329,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ServiceAutorizacion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceRecepcion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Formularios\FrmCambioClave.resx">
       <DependentUpon>FrmCambioClave.cs</DependentUpon>
     </EmbeddedResource>
@@ -465,6 +478,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\ServiceAutorizacion\AutorizacionComprobantesOfflineService.wsdl" />
+    <None Include="Service References\ServiceAutorizacion\Comisariato.ServiceAutorizacion.autorizacionComprobanteLoteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceAutorizacion\Comisariato.ServiceAutorizacion.autorizacionComprobanteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceAutorizacion\Comisariato.ServiceAutorizacion.respuestaComprobante.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceAutorizacion\Comisariato.ServiceAutorizacion.respuestaLote.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceRecepcion\Comisariato.ServiceRecepcion.respuestaSolicitud.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceRecepcion\Comisariato.ServiceRecepcion.validarComprobanteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceRecepcion\RecepcionComprobantesOfflineService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -677,6 +710,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icono_aircontrol.ico" />
+    <None Include="Service References\ServiceRecepcion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceRecepcion\configuration.svcinfo" />
+    <None Include="Service References\ServiceRecepcion\configuration91.svcinfo" />
+    <None Include="Service References\ServiceAutorizacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceAutorizacion\configuration.svcinfo" />
+    <None Include="Service References\ServiceAutorizacion\configuration91.svcinfo" />
     <None Include="Resources\base.jpg" />
     <None Include="Resources\Excel_2013_24px_1180012_easyicon.net.ico" />
     <None Include="Resources\BuscarArchivo.png" />
@@ -708,6 +753,10 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceAutorizacion\" />
+    <WCFMetadataStorage Include="Service References\ServiceRecepcion\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
