@@ -271,22 +271,22 @@ namespace Comisariato.Clases
 
         public DataTable BoolDataTableFactElect(String SQL)
         {
-            //try
-            //{
-            //    Objc.conectarBDFact();
-            //    SqlDataAdapter objDA;
-            //    DataTable objDS = new DataTable();
-            //    objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
-            //    //2. Llenar el DataSet
-            //    objDA.Fill(objDS);
-            //    Objc.CerrarBDFact();
-            //    objDA.Dispose();
-            //    return objDS;
-            //}
-            //catch (Exception ex)
-            //{
+            try
+            {
+                //Objc.conectarBDFact();
+                //SqlDataAdapter objDA;
+                DataTable objDS = new DataTable();
+                //objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
+                ////2. Llenar el DataSet
+                //objDA.Fill(objDS);
+                //Objc.CerrarBDFact();
+                //objDA.Dispose();
+                return objDS;
+            }
+            catch (Exception ex)
+            {
                 return null;
-            //}
+            }
 
         }
         public bool RegistrarCheque(DataGridView dg, int ultimafact)

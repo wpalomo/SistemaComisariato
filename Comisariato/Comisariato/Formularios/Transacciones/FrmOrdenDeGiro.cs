@@ -447,75 +447,70 @@ namespace Comisariato.Formularios.Transacciones
                     ObjConsul.seriesDocumentoRetencion(txtNumeroRetencion, txtSerie1Retencion, txtSerie2Retencion, txtAutorizacionRetencion, "RET", bitacora.LocalIPAddress());
                     txtOrdenGiro.Text = (Convert.ToInt32(ObjConsul.ObtenerID("NUMEROORDENGIRO", "TbEncabezadoOrdenGiro", "")) + 1).ToString();
 
-                    //////XmlRetencion xmlRetencion = new XmlRetencion();
-                    ////InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
-                    //if (!Directory.Exists(PathLocal))
-                    //{
-                    //    Directory.CreateDirectory(PathLocal);
-                    //}
+                    ////XmlRetencion xmlRetencion = new XmlRetencion();
+                    //InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
+                    if (!Directory.Exists(PathLocal))
+                    {
+                        Directory.CreateDirectory(PathLocal);
+                    }
+                    string serie = txtSerie1.Text + txtSerie2.Text;
+                    string fecha = DateTime.Now.Date.ToShortDateString();
+
+                    XmlRetencion xmlRetencion = new XmlRetencion();
+                    ////var ruta = ConfigurationManager.AppSettings["XmlRetencion"];
+                    //xml._crearXml(PathLocal + @"\" + claveacceso + ".xml", "factura");
+
+
+
+                    InfoTributaria infotribu = new InfoTributaria(2, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
                     //string serie = txtSerie1.Text + txtSerie2.Text;
-                    //string fecha = DateTime.Now.Date.ToShortDateString();
+                    //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
 
-                    //XmlRetencion xmlRetencion = new XmlRetencion();
-                    //////var ruta = ConfigurationManager.AppSettings["XmlRetencion"];
-                    ////xml._crearXml(PathLocal + @"\" + claveacceso + ".xml", "factura");
-                    
-
-
-                    //InfoTributaria infotribu = new InfoTributaria(2, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
-                    ////string serie = txtSerie1.Text + txtSerie2.Text;
-                    ////xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
-
-                    //string claveacceso = infotribu.GenerarClaveAcceso(fecha, "1", serie);
-                    //xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml","comprobanteRetencion");
-                    //var ruta = ConfigurationManager.AppSettings["XmlServidor"];
-                    //xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
-                    //string pathfinal = PathLocal + @"\" + claveacceso + ".xml";
+                    string claveacceso = infotribu.GenerarClaveAcceso(fecha, "1", serie);
+                    xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
+                    var ruta = ConfigurationManager.AppSettings["XmlServidor"];
+                    xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
+                    string pathfinal = PathLocal + @"\" + claveacceso + ".xml";
 
 
-                    ////InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
+                    //InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
 
-                    //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie, claveacceso);
+                    xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie, claveacceso);
+
+
+
+                    DataTable dt = ObjConsul.BoolDataTable("Select TIPOIDENTIFICACION,IDENTIFICACION,RAZONSOCIAL,NOMBRES from TbProveedor where IDPROVEEDOR = " + CmbProveedor.SelectedValue + ";");
+                    DataRow myRow = dt.Rows[0];
+                    string periodoFiscal = dtpFechaContabilizacion.Value.Date.Month.ToString();
+                    if (myRow["RAZONSOCIAL"] != System.DBNull.Value)
+                    {
+                        myRow["RAZONSOCIAL"] = myRow["NOMBRES"];
+                    }
+                    periodoFiscal = periodoFiscal + "/" + dtpFechaContabilizacion.Value.Date.Year.ToString();
+                    InfoCompRetencion infoCompReten = new InfoCompRetencion(fecha, Program.direccionempresa, parametrosFactu[1], Program.obligadoContabilidad, myRow["TIPOIDENTIFICACION"].ToString(), myRow["RAZONSOCIAL"].ToString(), myRow["IDENTIFICACION"].ToString(), periodoFiscal);
+                    xmlRetencion.infoCompRetencion(infoCompReten);
+
+                    //xmlRetencion.impuestos(dgvDatosRetencion,txtSerie1.Text+txtSerie2.Text+ txtNumero.Text);
+                    xmlRetencion.impuestos(dgvDatosRetencion, txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString(), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
 
                     var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-                    if (!Directory.Exists(PathServer + @"\Generados\"))
+                    if (Directory.Exists(PathServer + @"\Generados\"))
                     {
                         Directory.CreateDirectory(PathServer + @"\Generados\");
                     }
 
+                    File.Copy(pathfinal, PathServer + @"\Generados\" + @"\" + claveacceso + ".xml", true);
 
-                    //DataTable dt = ObjConsul.BoolDataTable("Select TIPOIDENTIFICACION,IDENTIFICACION,RAZONSOCIAL,NOMBRES from TbProveedor where IDPROVEEDOR = " + CmbProveedor.SelectedValue + ";");
+                    //string fecha = DateTime.Now.Date.ToShortDateString();
+                    //DataTable dt = ObjConsul.BoolDataTable("Select TIPOIDENTIFICACION,IDENTIFICACION,RAZONSOCIAL from TbProveedor where IDPROVEEDOR = " + CmbProveedor.SelectedValue + ";");
                     //DataRow myRow = dt.Rows[0];
                     //string periodoFiscal = dtpFechaContabilizacion.Value.Date.Month.ToString();
-                    //if (myRow["RAZONSOCIAL"] != System.DBNull.Value)
-                    //{
-                    //    myRow["RAZONSOCIAL"] = myRow["NOMBRES"];
-                    //}
                     //periodoFiscal = periodoFiscal + "/" + dtpFechaContabilizacion.Value.Date.Year.ToString();
                     //InfoCompRetencion infoCompReten = new InfoCompRetencion(fecha, Program.direccionempresa, parametrosFactu[1], Program.obligadoContabilidad, myRow["TIPOIDENTIFICACION"].ToString(), myRow["RAZONSOCIAL"].ToString(), myRow["IDENTIFICACION"].ToString(), periodoFiscal);
                     //xmlRetencion.infoCompRetencion(infoCompReten);
 
-                    ////xmlRetencion.impuestos(dgvDatosRetencion,txtSerie1.Text+txtSerie2.Text+ txtNumero.Text);
-                    //xmlRetencion.impuestos(dgvDatosRetencion, txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString(), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
-
-                    //var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-                    //if (Directory.Exists(PathServer + @"\Generados\"))
-                    //{
-                    //    Directory.CreateDirectory(PathServer + @"\Generados\");
-                    //}
-
-                    //File.Copy(pathfinal, PathServer + @"\Generados\" + @"\" + claveacceso + ".xml", true);
-
-                    ////string fecha = DateTime.Now.Date.ToShortDateString();
-                    ////DataTable dt = ObjConsul.BoolDataTable("Select TIPOIDENTIFICACION,IDENTIFICACION,RAZONSOCIAL from TbProveedor where IDPROVEEDOR = " + CmbProveedor.SelectedValue + ";");
-                    ////DataRow myRow = dt.Rows[0];
-                    ////string periodoFiscal = dtpFechaContabilizacion.Value.Date.Month.ToString();
-                    ////periodoFiscal = periodoFiscal + "/" + dtpFechaContabilizacion.Value.Date.Year.ToString();
-                    ////InfoCompRetencion infoCompReten = new InfoCompRetencion(fecha, Program.direccionempresa, parametrosFactu[1], Program.obligadoContabilidad, myRow["TIPOIDENTIFICACION"].ToString(), myRow["RAZONSOCIAL"].ToString(), myRow["IDENTIFICACION"].ToString(), periodoFiscal);
-                    ////xmlRetencion.infoCompRetencion(infoCompReten);
-
-                    ////xmlRetencion.impuestos(dgvDatosRetencion, txtSerie1.Text + txtSerie2.Text + txtNumero.Text);
-                    ////xmlRetencion.impuestos(dgvDatosRetencion, txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString());
+                    //xmlRetencion.impuestos(dgvDatosRetencion, txtSerie1.Text + txtSerie2.Text + txtNumero.Text);
+                    //xmlRetencion.impuestos(dgvDatosRetencion, txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString());
                     inicializar();
                 }
                 else if (resultado == "Error al Registrar")
