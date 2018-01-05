@@ -34,6 +34,8 @@ namespace Comisariato.Formularios.SRI
                 FechaEmision = Funcion.reemplazarcaracterFecha(DtpFecha.Value.Date.ToShortDateString());
                 DataTable DtDocuemtosXML = objConsult.BoolDataTableFactElect("Select * from TbDocumentosGeneradosFact DocFact where DocFact.FechaEmision = '" + FechaEmision + "' and   EstadoAutorizacion = '0'");
 
+                String RecepcionSRIRespuesta = "";
+
                 if (DtDocuemtosXML.Rows.Count > 0)
                 {
                     foreach (DataRow myRow in DtDocuemtosXML.Rows)
@@ -49,16 +51,34 @@ namespace Comisariato.Formularios.SRI
 
 
                         //Firmar Documento
-                        Funcion.FirmaXML(RutaXML + @"\" + NombreXML + ".xml", NombreXML);
+                        Funcion.FirmaXML(RutaXML+ @"\Generados" + @"\" + NombreXML + ".xml", NombreXML);
                         //Fin Firmar Documento
 
                         //RecepcionSRI
-
+                        SRIRecepcionComprobante sriRecepcion = new SRIRecepcionComprobante();
+                        RecepcionSRIRespuesta = sriRecepcion.LlamarSRIRecepcion(RutaXML + @"\Firmados" + @"\" + NombreXML + ".xml", NombreXML);
                         //Fin RecepcionSRI
 
+                        String[] axuAto = RecepcionSRIRespuesta.Split(';');
+                        String claveAcceso = axuAto[1];
 
+                        switch (RecepcionSRIRespuesta)
+                        {
+                            case "DEVUELTA":
+                                RecepcionSRIRespuesta = "D";
+                                break;
+                            case "RECIBIDA":
+                                RecepcionSRIRespuesta = "R";
+                                break;
+                            default:
+                                break;
+                        }
 
-                        //MessageBox.Show(RutaXML + NombreXML);
+                        //Autorizacion
+                        SRIAutorizacionComprobante sriAutori = new SRIAutorizacionComprobante();
+                        sriAutori.ConsultarAutorizaciones(claveAcceso);
+                        //FIN Autorizacion
+
                     }
                 }
             }
