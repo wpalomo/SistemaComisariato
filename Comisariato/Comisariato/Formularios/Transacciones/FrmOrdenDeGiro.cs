@@ -494,7 +494,7 @@ namespace Comisariato.Formularios.Transacciones
                     xmlRetencion.impuestos(dgvDatosRetencion, txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString(), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
 
                     var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-                    if (Directory.Exists(PathServer + @"\Generados\"))
+                    if (!Directory.Exists(PathServer + @"\Generados\"))
                     {
                         Directory.CreateDirectory(PathServer + @"\Generados\");
                     }

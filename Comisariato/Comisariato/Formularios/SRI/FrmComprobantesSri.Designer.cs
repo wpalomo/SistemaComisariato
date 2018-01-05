@@ -50,6 +50,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvComprobantesErroneos)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +85,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.BtnGuardar);
             this.groupBox1.Controls.Add(this.richTextBox1);
             this.groupBox1.Controls.Add(this.dgvComprobantesErroneos);
@@ -93,7 +97,7 @@
             this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Location = new System.Drawing.Point(13, 53);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1082, 536);
+            this.groupBox1.Size = new System.Drawing.Size(1082, 548);
             this.groupBox1.TabIndex = 60;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Errores";
@@ -103,7 +107,7 @@
             this.BtnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnGuardar.Image = global::Comisariato.Properties.Resources.GUARDAR32X32;
             this.BtnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnGuardar.Location = new System.Drawing.Point(910, 485);
+            this.BtnGuardar.Location = new System.Drawing.Point(910, 499);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(155, 45);
             this.BtnGuardar.TabIndex = 66;
@@ -115,7 +119,7 @@
             // 
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.Location = new System.Drawing.Point(14, 288);
+            this.richTextBox1.Location = new System.Drawing.Point(14, 299);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(1051, 194);
@@ -151,7 +155,7 @@
             this.dgvComprobantesErroneos.MultiSelect = false;
             this.dgvComprobantesErroneos.Name = "dgvComprobantesErroneos";
             this.dgvComprobantesErroneos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvComprobantesErroneos.Size = new System.Drawing.Size(1051, 199);
+            this.dgvComprobantesErroneos.Size = new System.Drawing.Size(1051, 211);
             this.dgvComprobantesErroneos.TabIndex = 65;
             // 
             // DOC
@@ -228,11 +232,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Teal;
-            this.label2.Location = new System.Drawing.Point(317, 17);
+            this.label2.Location = new System.Drawing.Point(317, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 13);
+            this.label2.Size = new System.Drawing.Size(81, 13);
             this.label2.TabIndex = 63;
-            this.label2.Text = "Fecha Inicial :";
+            this.label2.Text = "Fecha Final :";
             // 
             // label1
             // 
@@ -259,6 +263,23 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(165, 20);
             this.dateTimePicker1.TabIndex = 60;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(122, 276);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(943, 20);
+            this.textBox2.TabIndex = 68;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Teal;
+            this.label4.Location = new System.Drawing.Point(11, 280);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 13);
+            this.label4.TabIndex = 69;
+            this.label4.Text = "Mensaje Error  :";
             // 
             // FrmComprobantesSri
             // 
@@ -308,5 +329,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
