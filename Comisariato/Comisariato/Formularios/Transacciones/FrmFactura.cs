@@ -516,6 +516,7 @@ namespace Comisariato.Formularios.Transacciones
             {
                 dgvDetalleProductos.Rows[fila].Cells[8].Value = 0;
             }
+            dgvDetalleProductos.Rows[fila].Cells[10].Value = PrecioTodoslosDecimales;
             dgvDetalleProductos.CurrentCell = dgvDetalleProductos.Rows[fila].Cells[0];
             Ivas.Add("" + Producto.Iva);
             

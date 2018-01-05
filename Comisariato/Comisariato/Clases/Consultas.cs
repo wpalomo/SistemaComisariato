@@ -364,7 +364,7 @@ namespace Comisariato.Clases
                 int contador = 0;
                 for (int i = inicioContador; i < nfilas; i++)
                 {
-                    precio = Funcion.reemplazarcaracter(dg.Rows[i].Cells[4].Value.ToString());
+                    precio = Funcion.reemplazarcaracter(dg.Rows[i].Cells[10].Value.ToString());
                     cmd = new SqlCommand("REGISTRAR_FACTURA", ConexionBD.connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@CONTADOR ", contador);
@@ -375,12 +375,13 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@hora", enca[4]);
                     cmd.Parameters.AddWithValue("@descuento", detalle[0]);
                     cmd.Parameters.AddWithValue("@cant", dg.Rows[i].Cells[2].Value);
-                    cmd.Parameters.AddWithValue("@iva", detalle[7]);
+                    cmd.Parameters.AddWithValue("@iva", detalle[8]);
                     cmd.Parameters.AddWithValue("@efectivo", detalle[1]);
                     cmd.Parameters.AddWithValue("@cheque", detalle[2]);
                     cmd.Parameters.AddWithValue("@credito", detalle[3]);
                     cmd.Parameters.AddWithValue("@idempleado", enca[5]);
                     cmd.Parameters.AddWithValue("@idcliente", enca[6]);
+                    cmd.Parameters.AddWithValue("@claveacceso", enca[7]);
                     cmd.Parameters.AddWithValue("@precio", precio);
                     cmd.Parameters.AddWithValue("@codigobarraproducto", dg.Rows[i].Cells[0].Value);
                     cmd.Parameters.AddWithValue("@recibido", detalle[4]);
@@ -390,8 +391,9 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@idempresa", idempresa);
                     cmd.Parameters.AddWithValue("@cantcaja", dg.Rows[i].Cells[8].Value);
                     cmd.Parameters.AddWithValue("@subtotal0", detallepago[6]);
-                    cmd.Parameters.AddWithValue("@subtotal12", detallepago[8]);
+                    cmd.Parameters.AddWithValue("@subtotal12", detallepago[7]);
                     cmd.Parameters.AddWithValue("@totalpagar", detallepago[9]);
+                    
 
                     result = cmd.ExecuteNonQuery();
                     contador += 1;
@@ -620,7 +622,7 @@ namespace Comisariato.Clases
             {
                 detallepagoreim = new List<string>();
                 Objc.conectar();
-                string sql = "SELECT U.SUCURSAL, U.CAJA, U.NFACTURA, U.FECHA, U.HORA, U.IDEMPLEADO, U.IDCLIENTE, C.NOMBRES AS NCLIENTE, C.APELLIDOS AS ACLIENTE, C.IDENTIFICACION, A.NOMBRES AS NEMPLEADO, A.APELLIDOS AS AEMPLEADO, P.EFECTIVO, P.CHEQUE, P.CREDITO, P.IVA, P.DESCUENTO, P.CAMBIO, P.RECIBIDO from TbEncabezadoFactura U INNER JOIN TbEmpleado A ON(U.SUCURSAL='" + sucursal + "' and U.CAJA= '" + caja + "' and NFACTURA='" + numfact + "') AND ( A.IDEMPLEADO= U.IDEMPLEADO) INNER JOIN TbCliente C ON( A.IDEMPLEADO= U.IDEMPLEADO and C.IDCLIENTE=U.IDCLIENTE)  INNER JOIN TbDetallePago P ON(U.IDFACTURA=P.IDENCABEZADOFACT)";
+                string sql = "SELECT U.SUCURSAL, U.CAJA, U.NFACTURA, U.FECHA, U.HORA, U.IDEMPLEADO, U.IDCLIENTE, U.CLAVEACCESO, C.NOMBRES AS NCLIENTE, C.APELLIDOS AS ACLIENTE, C.IDENTIFICACION, A.NOMBRES AS NEMPLEADO, A.APELLIDOS AS AEMPLEADO, P.EFECTIVO, P.CHEQUE, P.CREDITO, P.IVA, P.DESCUENTO, P.CAMBIO, P.RECIBIDO, P.TOTAPAGAR, P.SUBTOTAL12, P.SUBTOTAL0 from TbEncabezadoFactura U INNER JOIN TbEmpleado A ON(U.SUCURSAL='" + sucursal + "' and U.CAJA= '" + caja + "' and NFACTURA='" + numfact + "') AND ( A.IDEMPLEADO= U.IDEMPLEADO) INNER JOIN TbCliente C ON( A.IDEMPLEADO= U.IDEMPLEADO and C.IDCLIENTE=U.IDCLIENTE)  INNER JOIN TbDetallePago P ON(U.IDFACTURA=P.IDENCABEZADOFACT)";
 
                 SqlCommand Sentencia = new SqlCommand(sql);
                 Sentencia.Connection = ConexionBD.connection;
@@ -646,8 +648,9 @@ namespace Comisariato.Clases
                     encabezado.NombreUsuario = (String)dato["NEMPLEADO"] + " " + (String)dato["AEMPLEADO"];
                     encabezado.Identificacion = (String)dato["IDENTIFICACION"];
                     encabezado.Fecha = Convert.ToDateTime(dato["FECHA"]).ToString();
+                    encabezado.Claveacceso = (String)dato["CLAVEACCESO"];
                     //encabezado.Hora = Convert.ToDateTime( dato["HORA"]).ToString("HHMMss");
-                    detalleFact = DetalleFact(numfact, metodo);
+                    detalleFact = DetalleFact(numfact, metodo, caja);
                     detallepagoreim.Add(Convert.ToString(dato["EFECTIVO"]));
                     detallepagoreim.Add(Convert.ToString(dato["CHEQUE"]));
                     detallepagoreim.Add(Convert.ToString(dato["CREDITO"]));
@@ -655,7 +658,9 @@ namespace Comisariato.Clases
                     detallepagoreim.Add(Convert.ToString(dato["IVA"]));
                     detallepagoreim.Add(Convert.ToString(dato["RECIBIDO"]));
                     detallepagoreim.Add(Convert.ToString(dato["CAMBIO"]));
-
+                    detallepagoreim.Add(Convert.ToString(dato["TOTAPAGAR"]));
+                    detallepagoreim.Add(Convert.ToString(dato["SUBTOTAL12"]));
+                    detallepagoreim.Add(Convert.ToString(dato["SUBTOTAL0"]));
                 }
                 else
                 {
@@ -676,7 +681,7 @@ namespace Comisariato.Clases
             return encabezado;
         }
 
-        public List<Producto> DetalleFact(int nfact, int verimetodo)
+        public List<Producto> DetalleFact(int nfact, int verimetodo,int caja)
         {
             try
             {
@@ -685,7 +690,7 @@ namespace Comisariato.Clases
                 //string sql = " SELECT U.PRECIO, U.CANTDEVUELTA, U.CANTIDAD, U.CODIGOBARRAPRODUCTO, U.ESTADO, U.IVA, P.NOMBREPRODUCTO, P.IVAESTADO from TbDetalleFactura U INNER JOIN TbProducto P  ON(U.NFACTURA = '" + nfact + "') AND(P.CODIGOBARRA = U.CODIGOBARRAPRODUCTO)";
                 String sql = "SELECT        dbo.TbDetalleFactura.PRECIO, dbo.TbDetalleFactura.CANTDEVUELTA, dbo.TbDetalleFactura.CANTIDAD, dbo.TbDetalleFactura.CODIGOBARRAPRODUCTO, dbo.TbDetalleFactura.ESTADO, dbo.TbDetalleFactura.IVA, dbo.TbProducto.NOMBREPRODUCTO, dbo.TbProducto.IVAESTADO, dbo.TbEncabezadoFactura.NFACTURA FROM  dbo.TbDetalleFactura INNER JOIN" +
                          " dbo.TbProducto ON dbo.TbDetalleFactura.CODIGOBARRAPRODUCTO = dbo.TbProducto.CODIGOBARRA INNER JOIN dbo.TbEncabezadoFactura ON dbo.TbDetalleFactura.NFACTURA = dbo.TbEncabezadoFactura.IDFACTURA" +
-                         " WHERE(dbo.TbEncabezadoFactura.NFACTURA = '" + nfact + "')";
+                         " WHERE(dbo.TbEncabezadoFactura.NFACTURA = '" + nfact + "' and dbo.TbEncabezadoFactura.CAJA = '" + caja + "')";
                 SqlCommand comando = new SqlCommand(sql);
                 comando.Connection = ConexionBD.connection;
                 SqlDataReader dato = comando.ExecuteReader();
