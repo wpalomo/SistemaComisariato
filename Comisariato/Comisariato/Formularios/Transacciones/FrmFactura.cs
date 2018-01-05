@@ -1716,9 +1716,9 @@ namespace Comisariato.Formularios.Transacciones
                     break;
                 case Keys.F8:
                     break;
-                case Keys.F9:
-                    nuevafact();
-                    break;
+                //case Keys.F9:
+                //    nuevafact();
+                //    break;
                 case Keys.F10:
                     FrmCierreCaja FrmCierreCaja = new FrmCierreCaja();
                     FrmCierreCaja.ShowDialog();
