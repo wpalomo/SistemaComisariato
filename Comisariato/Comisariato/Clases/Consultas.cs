@@ -273,14 +273,14 @@ namespace Comisariato.Clases
         {
             try
             {
-                Objc.conectarBDFact();
-                SqlDataAdapter objDA;
+                //Objc.conectarBDFact();
+                //SqlDataAdapter objDA;
                 DataTable objDS = new DataTable();
-                objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
-                //2. Llenar el DataSet
-                objDA.Fill(objDS);
-                Objc.CerrarBDFact();
-                objDA.Dispose();
+                //objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
+                ////2. Llenar el DataSet
+                //objDA.Fill(objDS);
+                //Objc.CerrarBDFact();
+                //objDA.Dispose();
                 return objDS;
             }
             catch (Exception ex)
