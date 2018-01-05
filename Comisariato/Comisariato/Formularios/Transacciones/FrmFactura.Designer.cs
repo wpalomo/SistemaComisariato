@@ -814,6 +814,7 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Enabled = false;
             this.button3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Image = global::Comisariato.Properties.Resources.dinero;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -844,6 +845,7 @@
             // btnReimprimirFact
             // 
             this.btnReimprimirFact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnReimprimirFact.Enabled = false;
             this.btnReimprimirFact.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReimprimirFact.Image = global::Comisariato.Properties.Resources.impresora2;
             this.btnReimprimirFact.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -859,6 +861,7 @@
             // btnActivarFact
             // 
             this.btnActivarFact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnActivarFact.Enabled = false;
             this.btnActivarFact.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActivarFact.Image = global::Comisariato.Properties.Resources._10_128;
             this.btnActivarFact.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -889,6 +892,7 @@
             // btnFactEspera
             // 
             this.btnFactEspera.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnFactEspera.Enabled = false;
             this.btnFactEspera.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFactEspera.Image = global::Comisariato.Properties.Resources._9_128;
             this.btnFactEspera.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
