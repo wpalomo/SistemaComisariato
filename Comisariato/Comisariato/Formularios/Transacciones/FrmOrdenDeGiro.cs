@@ -459,7 +459,7 @@ namespace Comisariato.Formularios.Transacciones
                     XmlRetencion xmlRetencion = new XmlRetencion();
                     ////var ruta = ConfigurationManager.AppSettings["XmlRetencion"];
                     //xml._crearXml(PathLocal + @"\" + claveacceso + ".xml", "factura");
-                    
+
 
 
                     InfoTributaria infotribu = new InfoTributaria(2, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
@@ -467,7 +467,7 @@ namespace Comisariato.Formularios.Transacciones
                     //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
 
                     string claveacceso = infotribu.GenerarClaveAcceso(fecha, "1", serie);
-                    xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml","comprobanteRetencion");
+                    xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
                     var ruta = ConfigurationManager.AppSettings["XmlServidor"];
                     xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
                     string pathfinal = PathLocal + @"\" + claveacceso + ".xml";
@@ -494,7 +494,7 @@ namespace Comisariato.Formularios.Transacciones
                     xmlRetencion.impuestos(dgvDatosRetencion, txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString(), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
 
                     var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-                    if (!Directory.Exists(PathServer + @"\Generados\"))
+                    if (Directory.Exists(PathServer + @"\Generados\"))
                     {
                         Directory.CreateDirectory(PathServer + @"\Generados\");
                     }

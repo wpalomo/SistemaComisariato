@@ -29,35 +29,44 @@ namespace Comisariato.Formularios.SRI
 
         private void BtnEnviarXML_Click(object sender, EventArgs e)
         {
-            FechaEmision = Funcion.reemplazarcaracterFecha(DtpFecha.Value.Date.ToShortDateString());
-            DataTable DtDocuemtosXML = objConsult.BoolDataTableFactElect("Select * from TbDocumentosGeneradosFact DocFact where DocFact.FechaEmision = '" + FechaEmision + "' and   EstadoAutorizacion = '0'");
-
-            if (DtDocuemtosXML.Rows.Count > 0)
+            try
             {
-                foreach (DataRow myRow in DtDocuemtosXML.Rows)
+                FechaEmision = Funcion.reemplazarcaracterFecha(DtpFecha.Value.Date.ToShortDateString());
+                DataTable DtDocuemtosXML = objConsult.BoolDataTableFactElect("Select * from TbDocumentosGeneradosFact DocFact where DocFact.FechaEmision = '" + FechaEmision + "' and   EstadoAutorizacion = '0'");
+
+                if (DtDocuemtosXML.Rows.Count > 0)
                 {
-                    RutaXML = myRow["RutaXML"].ToString();
-                    NombreXML = myRow["NombreXML"].ToString();
-                    FechaEmision = myRow["FechaEmision"].ToString();
+                    foreach (DataRow myRow in DtDocuemtosXML.Rows)
+                    {
+                        RutaXML = myRow["RutaXML"].ToString();
+                        NombreXML = myRow["NombreXML"].ToString();
+                        FechaEmision = myRow["FechaEmision"].ToString();
 
-                    //Inicio menuInferior
-                    TollMenuLablelDocumento.Text = "Documento : " + NombreXML + ".xml";
-                    TollMenuLablelFecha.Text = "Fecha : " + Funcion.reemplazarcaracterFecha(Convert.ToDateTime(FechaEmision).Date.ToShortDateString());
-                    //Fin menuInferior
+                        //Inicio menuInferior
+                        TollMenuLablelDocumento.Text = "Documento : " + NombreXML + ".xml";
+                        TollMenuLablelFecha.Text = "Fecha : " + Funcion.reemplazarcaracterFecha(Convert.ToDateTime(FechaEmision).Date.ToShortDateString());
+                        //Fin menuInferior
 
-                    Funcion.FirmaXML(RutaXML + @"\" + NombreXML + ".xml",NombreXML);
-                    //MessageBox.Show(RutaXML + NombreXML);
+
+                        //Firmar Documento
+                        Funcion.FirmaXML(RutaXML + @"\" + NombreXML + ".xml", NombreXML);
+                        //Fin Firmar Documento
+
+                        //RecepcionSRI
+
+                        //Fin RecepcionSRI
+
+
+
+                        //MessageBox.Show(RutaXML + NombreXML);
+                    }
                 }
-
-
-
-
-                //DirectoryInfo di = new DirectoryInfo(@RutaXML);
-                //foreach (var fi in di.GetFiles("" + NombreXML + "" + ".xml"))
-                //{
-                //    //MessageBox.Show(fi.Attributes.ToString());
-                //}
             }
+            catch (Exception)
+            {
+
+            }
+            
 
         }
 

@@ -223,7 +223,7 @@
             treeNode36.Text = "Declaración SRI";
             treeNode37.Name = "Nodo0";
             treeNode37.Text = "Comprobantes";
-            treeNode38.Name = "Nodo0";
+            treeNode38.Name = "Nodo1";
             treeNode38.Text = "Enviar Archivos";
             treeNode39.Name = "nodoSRI";
             treeNode39.Text = "SRI";

@@ -32,18 +32,19 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnConsultar = new System.Windows.Forms.Button();
             this.dtpHasta = new System.Windows.Forms.DateTimePicker();
             this.dtpDesde = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.dgvInformeCajas = new System.Windows.Forms.DataGridView();
-            this.Factura = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Iva = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Irbp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subtotal0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vEntregado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vRecaudado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.diferencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ip = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInformeCajas)).BeginInit();
@@ -51,27 +52,37 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnConsultar);
             this.groupBox2.Controls.Add(this.dtpHasta);
             this.groupBox2.Controls.Add(this.dtpDesde);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.groupBox2.ForeColor = System.Drawing.Color.Teal;
-            this.groupBox2.Location = new System.Drawing.Point(262, 12);
+            this.groupBox2.Location = new System.Drawing.Point(189, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(454, 98);
+            this.groupBox2.Size = new System.Drawing.Size(527, 98);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fecha";
+            // 
+            // btnConsultar
+            // 
+            this.btnConsultar.Location = new System.Drawing.Point(349, 21);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(156, 61);
+            this.btnConsultar.TabIndex = 21;
+            this.btnConsultar.Text = "Consultar";
+            this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
             // dtpHasta
             // 
             this.dtpHasta.Font = new System.Drawing.Font("Arial", 10F);
             this.dtpHasta.Location = new System.Drawing.Point(94, 59);
             this.dtpHasta.Name = "dtpHasta";
-            this.dtpHasta.Size = new System.Drawing.Size(340, 23);
+            this.dtpHasta.Size = new System.Drawing.Size(239, 23);
             this.dtpHasta.TabIndex = 20;
-            this.dtpHasta.ValueChanged += new System.EventHandler(this.dtpDesde_ValueChanged);
             // 
             // dtpDesde
             // 
@@ -79,9 +90,8 @@
             this.dtpDesde.Location = new System.Drawing.Point(94, 21);
             this.dtpDesde.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dtpDesde.Name = "dtpDesde";
-            this.dtpDesde.Size = new System.Drawing.Size(340, 23);
+            this.dtpDesde.Size = new System.Drawing.Size(239, 23);
             this.dtpDesde.TabIndex = 19;
-            this.dtpDesde.ValueChanged += new System.EventHandler(this.dtpDesde_ValueChanged);
             // 
             // label14
             // 
@@ -115,13 +125,13 @@
             this.dgvInformeCajas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvInformeCajas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInformeCajas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Factura,
-            this.Fecha,
-            this.Proveedor,
-            this.Iva,
-            this.Ice,
-            this.Irbp,
-            this.Subtotal0});
+            this.usuario,
+            this.fecha,
+            this.vEntregado,
+            this.vRecaudado,
+            this.diferencia,
+            this.estacion,
+            this.ip});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -143,60 +153,60 @@
             this.dgvInformeCajas.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvInformeCajas.RowHeadersVisible = false;
             this.dgvInformeCajas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvInformeCajas.Size = new System.Drawing.Size(953, 275);
+            this.dgvInformeCajas.Size = new System.Drawing.Size(953, 365);
             this.dgvInformeCajas.TabIndex = 25;
             // 
-            // Factura
+            // usuario
             // 
-            this.Factura.FillWeight = 160.7917F;
-            this.Factura.HeaderText = "Usuario";
-            this.Factura.Name = "Factura";
-            this.Factura.ReadOnly = true;
-            this.Factura.Width = 150;
+            this.usuario.FillWeight = 160.7917F;
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
+            this.usuario.Width = 150;
             // 
-            // Fecha
+            // fecha
             // 
-            this.Fecha.FillWeight = 82.69291F;
-            this.Fecha.HeaderText = "Valor Entregado";
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 150;
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            this.fecha.Width = 150;
             // 
-            // Proveedor
+            // vEntregado
             // 
-            this.Proveedor.FillWeight = 82.69291F;
-            this.Proveedor.HeaderText = "Valor Recaudado";
-            this.Proveedor.Name = "Proveedor";
-            this.Proveedor.ReadOnly = true;
-            this.Proveedor.Width = 150;
+            this.vEntregado.FillWeight = 82.69291F;
+            this.vEntregado.HeaderText = "Valor Entregado";
+            this.vEntregado.Name = "vEntregado";
+            this.vEntregado.ReadOnly = true;
+            this.vEntregado.Width = 150;
             // 
-            // Iva
+            // vRecaudado
             // 
-            this.Iva.FillWeight = 82.69291F;
-            this.Iva.HeaderText = "Total Caja";
-            this.Iva.Name = "Iva";
-            this.Iva.ReadOnly = true;
+            this.vRecaudado.FillWeight = 82.69291F;
+            this.vRecaudado.HeaderText = "Valor Recaudado";
+            this.vRecaudado.Name = "vRecaudado";
+            this.vRecaudado.ReadOnly = true;
+            this.vRecaudado.Width = 150;
             // 
-            // Ice
+            // diferencia
             // 
-            this.Ice.HeaderText = "Diferencia";
-            this.Ice.Name = "Ice";
-            this.Ice.ReadOnly = true;
+            this.diferencia.HeaderText = "Diferencia";
+            this.diferencia.Name = "diferencia";
+            this.diferencia.ReadOnly = true;
             // 
-            // Irbp
+            // estacion
             // 
-            this.Irbp.HeaderText = "Estación";
-            this.Irbp.Name = "Irbp";
-            this.Irbp.ReadOnly = true;
-            this.Irbp.Width = 125;
+            this.estacion.HeaderText = "Estación";
+            this.estacion.Name = "estacion";
+            this.estacion.ReadOnly = true;
+            this.estacion.Width = 75;
             // 
-            // Subtotal0
+            // ip
             // 
-            this.Subtotal0.FillWeight = 82.69291F;
-            this.Subtotal0.HeaderText = "IP";
-            this.Subtotal0.Name = "Subtotal0";
-            this.Subtotal0.ReadOnly = true;
-            this.Subtotal0.Width = 150;
+            this.ip.FillWeight = 82.69291F;
+            this.ip.HeaderText = "IP";
+            this.ip.Name = "ip";
+            this.ip.ReadOnly = true;
+            this.ip.Width = 150;
             // 
             // BtnExportarExcel
             // 
@@ -214,7 +224,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(979, 427);
+            this.ClientSize = new System.Drawing.Size(979, 506);
             this.Controls.Add(this.BtnExportarExcel);
             this.Controls.Add(this.dgvInformeCajas);
             this.Controls.Add(this.groupBox2);
@@ -238,13 +248,14 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.DataGridView dgvInformeCajas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Factura;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Iva;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Irbp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal0;
         private System.Windows.Forms.Button BtnExportarExcel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vEntregado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vRecaudado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn diferencia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ip;
+        private System.Windows.Forms.Button btnConsultar;
     }
 }
