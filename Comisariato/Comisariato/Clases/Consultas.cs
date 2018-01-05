@@ -273,14 +273,14 @@ namespace Comisariato.Clases
         {
             try
             {
-                Objc.conectarBDFact();
-                SqlDataAdapter objDA;
+                //Objc.conectarBDFact();
+                //SqlDataAdapter objDA;
                 DataTable objDS = new DataTable();
-                objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
-                //2. Llenar el DataSet
-                objDA.Fill(objDS);
-                Objc.CerrarBDFact();
-                objDA.Dispose();
+                //objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
+                ////2. Llenar el DataSet
+                //objDA.Fill(objDS);
+                //Objc.CerrarBDFact();
+                //objDA.Dispose();
                 return objDS;
             }
             catch (Exception ex)
@@ -289,6 +289,8 @@ namespace Comisariato.Clases
             }
 
         }
+
+
         public bool RegistrarCheque(DataGridView dg, int ultimafact)
         {
             try
@@ -321,6 +323,26 @@ namespace Comisariato.Clases
                 return false;
             }
         }
+
+        public bool RegistrarArchivosXml(string nombrexml,string rutaxml,string fecha)
+        {
+            try
+            {
+                SqlCommand Sentencia;
+                Objc.conectarBDFact();
+                Sentencia = new SqlCommand("INSERT INTO TbDocumentosGeneradosFact (NombreXML, RutaXML, FechaEmision, EstadoAutorizacion, RecepcionSRI, AutorizadoSRI, RutaRide) VALUES ( '" + nombrexml + "','" + rutaxml + "','" + fecha + "','" + 0 + "','" + "F" + "','" + "F" + "','" + " " + "')");
+                Sentencia.Connection = ConexionBD.connection;
+                Sentencia.ExecuteNonQuery();
+                Objc.CerrarBDFact();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error.. " + ex.Message);
+                return false;
+            }
+        }
+
 
         public bool RegistrarTarjeta(DataGridView dg, int utl)
         {

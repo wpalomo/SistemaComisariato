@@ -57,7 +57,7 @@ namespace Comisariato.Formularios.Informes
                 {
                     DataRow row = dt.Rows[0];
                     dgvInformeCajas.Rows[i].Cells[2].Value = row[0];
-                    dgvInformeCajas.Rows[i].Cells[4].Value = Math.Round(Math.Abs(Convert.ToSingle(dgvInformeCajas.Rows[i].Cells[2].Value) - Convert.ToSingle(dgvInformeCajas.Rows[i].Cells[3].Value)), 2);
+                    dgvInformeCajas.Rows[i].Cells[4].Value = Math.Round(Convert.ToSingle(dgvInformeCajas.Rows[i].Cells[2].Value) - Convert.ToSingle(dgvInformeCajas.Rows[i].Cells[3].Value), 2);
                 }
                 if (Convert.ToString(dgvInformeCajas.Rows[i+1].Cells[0].Value) == "")
                 {

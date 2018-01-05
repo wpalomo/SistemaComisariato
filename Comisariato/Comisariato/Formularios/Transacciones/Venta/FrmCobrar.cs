@@ -957,20 +957,21 @@ namespace Comisariato.Formularios.Transacciones
                                 ImprimirenRed();
                             }
 
-                           
+                            var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
+                            c.RegistrarArchivosXml(claveacceso, PathServer, fecha);
 
-                            Imprimirfact(inicioContador, filasaxuiliar,claveacceso);
-                            encabezadofact[2] = (Convert.ToInt32(encabezadofact[2])+1).ToString();
+                            Imprimirfact(inicioContador, filasaxuiliar, claveacceso);
+                            encabezadofact[2] = (Convert.ToInt32(encabezadofact[2]) + 1).ToString();
                             Program.em.Numfact = Convert.ToInt32(encabezadofact[2]);
 
-                            if (i == (totalfacturasAGenerar-1))
+                            if (i == (totalfacturasAGenerar - 1))
                             {
                                 FrmFactura.verificadorfrm = 3;
                                 FrmFactura.numfactnuevo = Convert.ToInt32(encabezadofact[2]);
                                 this.Close();
                             }
+                            
 
-                           
 
                         }
                         else
@@ -979,6 +980,7 @@ namespace Comisariato.Formularios.Transacciones
                         }
 
                         inicioContador += (filasaxuiliar);
+                        //FormarXml(sucursal, caja, numfactbd);
                         FormarXml(sucursal, caja, numfactbd, claveacceso, serie);
                     }
                 }

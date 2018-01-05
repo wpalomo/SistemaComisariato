@@ -90,7 +90,7 @@ namespace Comisariato.Formularios.Transacciones.Venta
         {
             billetesTotal = (Convert.ToInt32(txtBillestes1.Text) * 1) + (Convert.ToInt32(txtBillestes5.Text) * 5) + (Convert.ToInt32(txtBillestes10.Text) * 10) + (Convert.ToInt32(txtBillestes20.Text) * 20) + (Convert.ToInt32(txtBillestes50.Text) * 50) + (Convert.ToInt32(txtBillestes100.Text) * 100);
             txtTotalBillestes.Text = Funcion.reemplazarcaracter(billetesTotal.ToString());
-            txtTotalRecaudado.Text = Funcion.reemplazarcaracter((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalBillestes.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalCheque.Text))).ToString());
+            txtTotalRecaudado.Text = Funcion.reemplazarcaracter((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalBillestes.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalCheque.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtAvances.Text))).ToString());
             totalRecaudado = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalRecaudado.Text));
         }
         public void calcularMonedas()
@@ -98,7 +98,7 @@ namespace Comisariato.Formularios.Transacciones.Venta
             monedasTotal = ((Convert.ToSingle(txtMonedas1.Text) * 1) / 100) + ((Convert.ToSingle(txtMonedas5.Text) * 5) / 100) + ((Convert.ToSingle(txtMonedas10.Text) * 10) / 100) + ((Convert.ToSingle(txtMonedas25.Text) * 25) / 100) + ((Convert.ToSingle(txtMonedas50.Text) * 50) / 100);
             monedasTotal = monedasTotal + Convert.ToSingle(txtMonedas1Dolar.Text);
             txtTotalMonedas.Text = Funcion.reemplazarcaracter(monedasTotal.ToString());
-            txtTotalRecaudado.Text = Funcion.reemplazarcaracter((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalBillestes.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalCheque.Text))).ToString());
+            txtTotalRecaudado.Text = Funcion.reemplazarcaracter((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalBillestes.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalCheque.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtAvances.Text))).ToString());
             totalRecaudado = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalRecaudado.Text));
         }
 

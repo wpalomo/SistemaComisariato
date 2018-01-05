@@ -366,7 +366,7 @@ namespace Comisariato.Formularios.Transacciones
 
         private void FrmReimprimirFact_Load(object sender, EventArgs e)
         {
-
+           
         }
     }
 }

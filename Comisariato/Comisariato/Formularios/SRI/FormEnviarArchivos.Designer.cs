@@ -38,6 +38,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.BtnEnviarXML = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lblprueba = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -121,6 +122,7 @@
             this.button2.TabIndex = 10;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // BtnEnviarXML
             // 
@@ -143,12 +145,22 @@
             this.pictureBox2.TabIndex = 8;
             this.pictureBox2.TabStop = false;
             // 
+            // lblprueba
+            // 
+            this.lblprueba.AutoSize = true;
+            this.lblprueba.Location = new System.Drawing.Point(403, 29);
+            this.lblprueba.Name = "lblprueba";
+            this.lblprueba.Size = new System.Drawing.Size(35, 13);
+            this.lblprueba.TabIndex = 9;
+            this.lblprueba.Text = "label3";
+            // 
             // FormEnviarArchivos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(644, 324);
+            this.Controls.Add(this.lblprueba);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.statusStrip1);
@@ -176,5 +188,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ToolStripStatusLabel TollMenuLablelDocumento;
         private System.Windows.Forms.ToolStripStatusLabel TollMenuLablelFecha;
+        private System.Windows.Forms.Label lblprueba;
     }
 }
