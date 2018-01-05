@@ -62,6 +62,7 @@
     <Compile Include="Clases\CajaTalonarioEmpresa.cs" />
     <Compile Include="Clases\Cliente.cs" />
     <Compile Include="Clases\CrearTicket.cs" />
+    <Compile Include="Clases\DatosTributarios.cs" />
     <Compile Include="Clases\DetalleNotaCredito.cs" />
     <Compile Include="Clases\DetalleOrdenGiro.cs" />
     <Compile Include="Clases\EmcabezadoFactura.cs" />
@@ -81,6 +82,8 @@
     <Compile Include="Clases\ParametrosFactura.cs" />
     <Compile Include="Clases\Producto.cs" />
     <Compile Include="Clases\Proveedor.cs" />
+    <Compile Include="Clases\SRIAutorizacionComprobante.cs" />
+    <Compile Include="Clases\SRIRecepcionComprobante.cs" />
     <Compile Include="Clases\Sucursal.cs" />
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Clases\Xml.cs" />
@@ -329,11 +332,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\ServiceAutorizacion\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\ServiceRecepcion\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -478,19 +476,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Service References\ServiceAutorizacion\AutorizacionComprobantesOfflineService.wsdl" />
-    <None Include="Service References\ServiceAutorizacion\Comisariato.ServiceAutorizacion.autorizacionComprobanteLoteResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceAutorizacion\Comisariato.ServiceAutorizacion.autorizacionComprobanteResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceAutorizacion\Comisariato.ServiceAutorizacion.respuestaComprobante.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceAutorizacion\Comisariato.ServiceAutorizacion.respuestaLote.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\ServiceRecepcion\Comisariato.ServiceRecepcion.respuestaSolicitud.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -710,12 +695,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icono_aircontrol.ico" />
-    <None Include="Service References\ServiceAutorizacion\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ServiceAutorizacion\configuration.svcinfo" />
-    <None Include="Service References\ServiceAutorizacion\configuration91.svcinfo" />
     <None Include="Service References\ServiceRecepcion\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -755,7 +734,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ServiceAutorizacion\" />
     <WCFMetadataStorage Include="Service References\ServiceRecepcion\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

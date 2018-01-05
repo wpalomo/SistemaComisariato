@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="CU+SpvWWPQMk7tB6FJrCu4aX2RA=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="Qq7noQKIZcNwzqPKjwIz46u2DDQ=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="RecepcionComprobantesOfflineServiceSoapBinding">
       <properties>
@@ -221,10 +221,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="RecepcionComprobantesOfflinePort" contract="ServiceRecepcion.RecepcionComprobantesOffline" bindingType="basicHttpBinding" address="https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline" bindingConfiguration="RecepcionComprobantesOfflineServiceSoapBinding">
+    <endpoint name="RecepcionComprobantesOfflinePort" contract="ServiceRecepcion.RecepcionComprobantesOffline" bindingType="basicHttpBinding" address="https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline" bindingConfiguration="RecepcionComprobantesOfflineServiceSoapBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline</serializedValue>
+          <serializedValue>https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

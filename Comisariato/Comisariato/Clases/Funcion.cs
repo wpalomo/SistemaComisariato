@@ -1,6 +1,6 @@
 ﻿using System;
 using Comisariato.ServiceRecepcion;
-using Comisariato.ServiceAutorizacion;
+//using Comisariato.ServiceAutorizacion;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -563,7 +563,7 @@ namespace Comisariato.Clases
 
                 // Create a reference to be signed.
                 Reference reference = new Reference();
-                // reference.Id = newID("#Certificate");
+                //reference.Id = newID("#Certificate");
                 reference.Uri = "";
 
                 // Add an enveloped transformation to the reference.
@@ -637,6 +637,9 @@ namespace Comisariato.Clases
             newID = prefix + rnd.Next(1048576);
             return newID;
         }
+
+
+        
 
     }
 }

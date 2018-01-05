@@ -77,7 +77,7 @@
   </wsdl:binding>
   <wsdl:service name="RecepcionComprobantesOfflineService">
     <wsdl:port name="RecepcionComprobantesOfflinePort" binding="tns:RecepcionComprobantesOfflineServiceSoapBinding">
-      <soap:address location="https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline" />
+      <soap:address location="https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
