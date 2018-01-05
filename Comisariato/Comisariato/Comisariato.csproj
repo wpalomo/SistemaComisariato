@@ -710,18 +710,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icono_aircontrol.ico" />
-    <None Include="Service References\ServiceRecepcion\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ServiceRecepcion\configuration.svcinfo" />
-    <None Include="Service References\ServiceRecepcion\configuration91.svcinfo" />
     <None Include="Service References\ServiceAutorizacion\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceAutorizacion\configuration.svcinfo" />
     <None Include="Service References\ServiceAutorizacion\configuration91.svcinfo" />
+    <None Include="Service References\ServiceRecepcion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceRecepcion\configuration.svcinfo" />
+    <None Include="Service References\ServiceRecepcion\configuration91.svcinfo" />
     <None Include="Resources\base.jpg" />
     <None Include="Resources\Excel_2013_24px_1180012_easyicon.net.ico" />
     <None Include="Resources\BuscarArchivo.png" />
