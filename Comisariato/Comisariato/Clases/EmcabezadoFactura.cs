@@ -19,13 +19,14 @@ namespace Comisariato.Clases
 
         private string nombrescliente;
         private string nombresusuario;
+        private string claveacceso;
 
         public EmcabezadoFactura()
         {
 
         }
 
-        public EmcabezadoFactura(int sucursal,int caja,string fecha, string hora,int nunfact,int idempleado,int idcliente)
+        public EmcabezadoFactura(int sucursal,int caja,string fecha, string hora,int nunfact,int idempleado,int idcliente,string claveacceso)
         {
             this.sucursal = sucursal;
             this.caja = caja;
@@ -34,6 +35,7 @@ namespace Comisariato.Clases
             this.numfact = nunfact;
             this.idempleado = idempleado;
             this.idcliente = idcliente;
+            this.Claveacceso = claveacceso;
 
         }
 
@@ -168,5 +170,17 @@ namespace Comisariato.Clases
             }
         }
 
+        public string Claveacceso
+        {
+            get
+            {
+                return claveacceso;
+            }
+
+            set
+            {
+                claveacceso = value;
+            }
+        }
     }
 }

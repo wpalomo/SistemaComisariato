@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -81,7 +82,7 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.TextoCentro("RUC: " + Program.rucempresa);
                 ticket.TextoIzquierda(Program.direccionempresa);
                 ticket.TextoIzquierda("Valido: " + FECHA.ToShortDateString() + " Hasta: " + FECHA.Date.AddYears(1).ToShortDateString());
-                ticket.TextoIzquierda("Clave: 4530000");
+                ticket.TextoIzquierda("Clave: "+em.Claveacceso);
             }
             else if(Program.BoolPreimpresa)
             {
@@ -103,7 +104,7 @@ namespace Comisariato.Formularios.Transacciones
             ticket.TextoIzquierda("         Informacion del Consumidor");//Es el mio por si me quieren contactar ...
             ticket.TextoIzquierda("RUC: " + em.Identificacion);
             ticket.TextoIzquierda("Cliente: " + em.NombresCliente);
-            ticket.TextoIzquierda("Facturado: " + em.NombreUsuario);
+            ticket.TextoIzquierda("Facturado: " + em.NombreUsuario + " # CAJA: "+int.Parse(txtCaja.Text).ToString("D3"));
             ticket.TextoIzquierda("Fecha: " + em.Fecha + "          " + em.Hora);
 
             if (detapago[0]!="0"&&detapago[1]!="0"&& detapago[2]!="0")
@@ -189,11 +190,17 @@ namespace Comisariato.Formularios.Transacciones
             ticket.lineasAsteriscos();
             //Resumen de la venta. Sólo son ejemplos
             //Resumen de la venta. Sólo son ejemplos
-            ticket.AgregarTotales("SUBTOTAL 0% ", subtotal);
-            ticket.AgregarTotales("SUBTOTAL 12% ", subtotaconiva);
+            //ticket.AgregarTotales("SUBTOTAL 0% ", subtotal);
+            //ticket.AgregarTotales("SUBTOTAL 12% ", subtotaconiva);
+            //ticket.AgregarTotales("Descuento", Convert.ToDouble(detapago[3]));
+            //ticket.AgregarTotales("Iva 12%  ", Convert.ToDouble(detapago[4]));
+            //ticket.AgregarTotales("Total a pagar", totaapagar);
+
+            ticket.AgregarTotales("SUBTOTAL 0% ",Convert.ToDouble(detapago[9]));
+            ticket.AgregarTotales("SUBTOTAL 12% ", Convert.ToDouble(detapago[8]));
             ticket.AgregarTotales("Descuento", Convert.ToDouble(detapago[3]));
             ticket.AgregarTotales("Iva 12%  ", Convert.ToDouble(detapago[4]));
-            ticket.AgregarTotales("Total a pagar", totaapagar);
+            ticket.AgregarTotales("Total a pagar", Convert.ToDouble(detapago[7]));
 
             if (detapago[0] != "0" && detapago[1] != "0" && detapago[2] != "0")
             {
@@ -274,8 +281,8 @@ namespace Comisariato.Formularios.Transacciones
             }
             ticket.TextoCentro("¡GRACIAS POR SU COMPRA!");
             ticket.CortaTicket();
-            String ruta = @"\\AIRCONTROL\BodegaPedido";
-            ticket.ImprimirTicket(ruta);
+            var valor = ConfigurationManager.AppSettings["Local"];
+            ticket.ImprimirTicket(valor);
             //ticket.ImprimirTicket("Generic / Text Only");//Nombre de la impresora ticketera
 
 

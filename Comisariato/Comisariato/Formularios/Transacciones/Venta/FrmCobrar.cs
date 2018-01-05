@@ -31,6 +31,8 @@ namespace Comisariato.Formularios.Transacciones
         //private bool chequear;
         string PathLocal = @"C:\Users\Public\Documents\ArchivosXml\Generados\";
 
+        InfoTributaria objcit;
+
         public FrmCobrar()
         {
             InitializeComponent();
@@ -807,6 +809,8 @@ namespace Comisariato.Formularios.Transacciones
             c = new Consultas();
             try
             {
+                string claveacceso = "";
+                string serie = "";
                 int sucursal = Program.em.Sucursal;
                 int caja = Program.em.Caja;
                 int numfactbd = Program.em.Numfact;
@@ -909,10 +913,28 @@ namespace Comisariato.Formularios.Transacciones
                         }
                         List<double> DetallePago = calcularDetallepago(inicioContador, filasaxuiliar);
                         detallepago.Add(Funcion.reemplazarcaracter(DetallePago[0].ToString()));
-                        detallepago.Add(Funcion.reemplazarcaracter(DetallePago[1].ToString()));
+                        detallepago.Add(Funcion.reemplazarcaracter(Convert.ToString(DetallePago[1]/1.12)));
                         detallepago.Add(Funcion.reemplazarcaracter(DetallePago[2].ToString()));
                         detallepago.Add(Funcion.reemplazarcaracter(DetallePago[3].ToString()));
 
+                        objcit = new InfoTributaria();
+
+                        objcit.Ambiente = 2;
+                        objcit.TipoEmision = 1;
+                        objcit.RazonSociaL = Program.razonsocialempresa;
+                        objcit.NombreComerciaL = Program.nombreempresa;
+                        objcit.RuC = Program.rucempresa;
+                        objcit.CodDoC = "01";
+                        objcit.EstaB = Program.em.Sucursal.ToString("D3");
+                        objcit.PtoEmI = caja.ToString("D3");
+                        objcit.SecuenciaL = numfactbd.ToString("D9");
+                        objcit.DirMatriz = Program.direccionempresa;
+                        serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
+                        string fecha = DateTime.Now.Date.ToShortDateString();
+                        claveacceso = objcit.GenerarClaveAcceso(fecha, "1", serie);
+
+
+                        encabezadofact.Add(claveacceso);
                         bool b = c.GuardarFact(filasaxuiliar, dg, encabezadofact, detallepago, ivas, inicioContador);
                         detallepago.RemoveRange(6, 4);
                         if (b)
@@ -935,8 +957,9 @@ namespace Comisariato.Formularios.Transacciones
                                 ImprimirenRed();
                             }
 
+                           
 
-                            Imprimirfact(inicioContador, filasaxuiliar);
+                            Imprimirfact(inicioContador, filasaxuiliar,claveacceso);
                             encabezadofact[2] = (Convert.ToInt32(encabezadofact[2])+1).ToString();
                             Program.em.Numfact = Convert.ToInt32(encabezadofact[2]);
 
@@ -956,7 +979,7 @@ namespace Comisariato.Formularios.Transacciones
                         }
 
                         inicioContador += (filasaxuiliar);
-                        FormarXml(sucursal, caja, numfactbd);
+                        FormarXml(sucursal, caja, numfactbd, claveacceso, serie);
                     }
                 }
                 else
@@ -975,7 +998,7 @@ namespace Comisariato.Formularios.Transacciones
            
         }
 
-        private void FormarXml(int sucursal, int caja,int numfactbd)
+        private void FormarXml(int sucursal, int caja,int numfactbd,string claveacceso,string serie)
         {
             if (Program.BoolAutorizadoImprimir)
             {
@@ -989,21 +1012,7 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     Directory.CreateDirectory(PathLocal);
                 }
-            InfoTributaria objcit = new InfoTributaria();
-
-            objcit.Ambiente = 2;
-            objcit.TipoEmision = 1;
-            objcit.RazonSociaL = Program.razonsocialempresa;
-            objcit.NombreComerciaL = Program.nombreempresa;
-            objcit.RuC = Program.rucempresa;
-            objcit.CodDoC = "01";
-            objcit.EstaB = Program.em.Sucursal.ToString("D3");
-            objcit.PtoEmI = caja.ToString("D3");
-            objcit.SecuenciaL = numfactbd.ToString("D9");
-            objcit.DirMatriz = Program.direccionempresa;
-            string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
-            string fecha = DateTime.Now.Date.ToShortDateString();
-           string claveacceso = objcit.GenerarClaveAcceso(fecha,"1",serie);
+             
 
             xml._crearXml(PathLocal + @"\"+ claveacceso + ".xml", "factura");
             string pathfinal = PathLocal + @"\" +claveacceso + ".xml";
@@ -1122,7 +1131,7 @@ namespace Comisariato.Formularios.Transacciones
             }
         }
 
-        private void Imprimirfact(int inicioContador, int filasaxuiliar)
+        private void Imprimirfact(int inicioContador, int filasaxuiliar,string claveacceso)
         {
             //Creamos una instancia d ela clase CrearTicket
             CrearTicket ticket = new CrearTicket();
@@ -1153,7 +1162,7 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.TextoCentro("RUC: " + Program.rucempresa);
                 ticket.TextoIzquierda(Program.direccionempresa);
                 ticket.TextoIzquierda("Valido: " + fechactual + " Hasta: " + fechaexpira);
-                ticket.TextoIzquierda("Clave: 4530000");
+                ticket.TextoIzquierda("Clave: "+claveacceso);
             }
             else if (Program.BoolPreimpresa)
             {
@@ -1248,7 +1257,7 @@ namespace Comisariato.Formularios.Transacciones
             for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
             {
 
-                double total = Convert.ToDouble(dg.Rows[J].Cells[4].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
+                double total = Convert.ToDouble(dg.Rows[J].Cells[10].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
                 if (Convert.ToSingle(dg.Rows[J].Cells[5].Value.ToString()) != 0)
                 {
                     ticket.AgregaArticulo("*" + dg.Rows[J].Cells[1].Value.ToString(), int.Parse(dg.Rows[J].Cells[2].Value.ToString()),
@@ -1389,13 +1398,13 @@ namespace Comisariato.Formularios.Transacciones
             filasaxuiliar = filasaxuiliar + inicioContador;
             for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
             {
-                double total = Convert.ToDouble(dg.Rows[J].Cells[4].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
+                double total = Convert.ToDouble(dg.Rows[J].Cells[10].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
                 double iva = 0.0f;
                 if (Convert.ToSingle(dg.Rows[J].Cells[5].Value.ToString()) != 0)
                 {
                     iva = (Convert.ToDouble(dg.Rows[J].Cells[5].Value.ToString()));
 
-                    imivasuma += Convert.ToDouble(dg.Rows[J].Cells[5].Value);
+                    imivasuma += ((Convert.ToDouble(dg.Rows[J].Cells[2].Value)* Convert.ToDouble(dg.Rows[J].Cells[10].Value))*12)/100;
                     subtotaliva += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
                 }
                 else
