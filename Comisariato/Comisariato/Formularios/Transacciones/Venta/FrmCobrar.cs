@@ -956,7 +956,7 @@ namespace Comisariato.Formularios.Transacciones
                         }
 
                         inicioContador += (filasaxuiliar);
-                        FormarXml(sucursal, caja, numfactbd);
+                        //FormarXml(sucursal, caja, numfactbd);
                     }
                 }
                 else

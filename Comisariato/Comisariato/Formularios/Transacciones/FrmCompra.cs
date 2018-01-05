@@ -451,6 +451,10 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                         Funcion.ValidaCeldasPrecios(datosProductoCompra, posicion, ref banderaFocoCelda);
                         datosProductoCompra.CurrentCell = datosProductoCompra.CurrentRow.Cells[12];
                         datosProductoCompra.Rows[e.RowIndex + 1].Cells[0].ReadOnly = false;
+                        if (e.RowIndex == dgvProductosIngresos.RowCount - 2)
+                        {
+                            dgvProductosIngresos.Rows.Add();
+                        }
                         SendKeys.Send("{TAB}");
                     }
                     banderaTab = true;
@@ -769,10 +773,9 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 if (datosProductoCompra.CurrentCell == datosProductoCompra.CurrentRow.Cells[8])
                     datosProductoCompra.BeginEdit(true);
                 if (datosProductoCompra.CurrentCell == datosProductoCompra.CurrentRow.Cells[9])
-                    datosProductoCompra.BeginEdit(true);
-
+                    datosProductoCompra.BeginEdit(true);                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
             }
         }

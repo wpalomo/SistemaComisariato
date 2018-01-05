@@ -95,20 +95,16 @@
             treeNode33});
             System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("ATS");
             System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Declaración SRI");
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Comprobantes");
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Enviar Archivos");
-            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("SRI", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("SRI", new System.Windows.Forms.TreeNode[] {
             treeNode35,
-            treeNode36,
-            treeNode37,
-            treeNode38});
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Enviados");
-            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Recibidos");
-            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Eliminados");
-            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Correo Electrónico", new System.Windows.Forms.TreeNode[] {
-            treeNode40,
-            treeNode41,
-            treeNode42});
+            treeNode36});
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Enviados");
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Recibidos");
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Eliminados");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Correo Electrónico", new System.Windows.Forms.TreeNode[] {
+            treeNode38,
+            treeNode39,
+            treeNode40});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.tvPrincipal = new System.Windows.Forms.TreeView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -221,28 +217,24 @@
             treeNode35.Text = "ATS";
             treeNode36.Name = "Nodo0";
             treeNode36.Text = "Declaración SRI";
-            treeNode37.Name = "Nodo0";
-            treeNode37.Text = "Comprobantes";
-            treeNode38.Name = "Nodo0";
-            treeNode38.Text = "Enviar Archivos";
-            treeNode39.Name = "nodoSRI";
-            treeNode39.Text = "SRI";
-            treeNode40.Name = "Nodo11";
-            treeNode40.Text = "Enviados";
-            treeNode41.Name = "Nodo12";
-            treeNode41.Text = "Recibidos";
-            treeNode42.Name = "Nodo13";
-            treeNode42.Text = "Eliminados";
-            treeNode43.Name = "nodoCorreoElectronico";
-            treeNode43.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode43.Text = "Correo Electrónico";
+            treeNode37.Name = "nodoSRI";
+            treeNode37.Text = "SRI";
+            treeNode38.Name = "Nodo11";
+            treeNode38.Text = "Enviados";
+            treeNode39.Name = "Nodo12";
+            treeNode39.Text = "Recibidos";
+            treeNode40.Name = "Nodo13";
+            treeNode40.Text = "Eliminados";
+            treeNode41.Name = "nodoCorreoElectronico";
+            treeNode41.NodeFont = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode41.Text = "Correo Electrónico";
             this.tvPrincipal.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode14,
             treeNode20,
             treeNode26,
             treeNode34,
-            treeNode39,
-            treeNode43});
+            treeNode37,
+            treeNode41});
             this.tvPrincipal.Size = new System.Drawing.Size(239, 592);
             this.tvPrincipal.TabIndex = 0;
             this.tvPrincipal.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvPrincipal_NodeMouseClick);
