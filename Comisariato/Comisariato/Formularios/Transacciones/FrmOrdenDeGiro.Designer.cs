@@ -39,7 +39,6 @@
             this.btnLimpiarProveedor = new System.Windows.Forms.Button();
             this.btnGuardarProveedor = new System.Windows.Forms.Button();
             this.txtSerie1 = new System.Windows.Forms.TextBox();
-            this.btnImprimir = new System.Windows.Forms.Button();
             this.txtSerie2 = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -187,7 +186,6 @@
             this.tabPage1.Controls.Add(this.btnLimpiarProveedor);
             this.tabPage1.Controls.Add(this.btnGuardarProveedor);
             this.tabPage1.Controls.Add(this.txtSerie1);
-            this.tabPage1.Controls.Add(this.btnImprimir);
             this.tabPage1.Controls.Add(this.txtSerie2);
             this.tabPage1.Controls.Add(this.tabControl2);
             this.tabPage1.Controls.Add(this.ckbRISE);
@@ -300,19 +298,6 @@
             this.txtSerie1.TabIndex = 2;
             this.txtSerie1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
             this.txtSerie1.Leave += new System.EventHandler(this.txtNumero_Leave);
-            // 
-            // btnImprimir
-            // 
-            this.btnImprimir.Image = global::Comisariato.Properties.Resources.impresora2;
-            this.btnImprimir.Location = new System.Drawing.Point(13, 579);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(145, 117);
-            this.btnImprimir.TabIndex = 21;
-            this.btnImprimir.Text = "Imprimir";
-            this.btnImprimir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnImprimir.UseVisualStyleBackColor = true;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
-            this.btnImprimir.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
             // 
             // txtSerie2
             // 
@@ -1604,7 +1589,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalIVA;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubtotalSinIVA;
         private System.Windows.Forms.DataGridViewTextBoxColumn baseImponibleConsulta;
-        private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Button btnLimpiarProveedor;
         private System.Windows.Forms.Button btnGuardarProveedor;
         private System.Windows.Forms.Label label9;
