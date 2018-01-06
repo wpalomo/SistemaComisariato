@@ -415,7 +415,8 @@ namespace Comisariato.Formularios
                     {
                         DataRow myRow = dt.Rows[0];
                         txtCodigo.Text = myRow["IDPROVEEDOR"].ToString();
-                        TxtCodigo2.Text = myRow["CODIGO"].ToString();
+                        if(myRow["CODIGO"] != System.DBNull.Value)
+                            TxtCodigo2.Text = myRow["CODIGO"].ToString();
                         txtNombreProveedor.Text = myRow["NOMBRES"].ToString();
                         txtNumeroIdentificacionProveedor.Text = myRow["IDENTIFICACION"].ToString();
                         txtDireccionProveedor.Text = myRow["DIRECCION"].ToString();

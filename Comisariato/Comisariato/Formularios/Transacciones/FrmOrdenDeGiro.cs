@@ -465,7 +465,7 @@ namespace Comisariato.Formularios.Transacciones
                     //xml._crearXml(PathLocal + @"\" + claveacceso + ".xml", "factura");
 
 
-
+                    
                     InfoTributaria infotribu = new InfoTributaria(2, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
                     //string serie = txtSerie1.Text + txtSerie2.Text;
                     //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
@@ -504,7 +504,7 @@ namespace Comisariato.Formularios.Transacciones
                         Directory.CreateDirectory(PathServer + @"\Generados\");
                     }
 
-                    File.Copy(pathfinal, PathServer + @"\Generados\" + @"\" + claveacceso + ".xml", true);
+                    File.Copy(pathfinal, @"C: \Users\Public\Documents\ArchivosXml" + @"\" + claveacceso + ".xml", true);
 
                     //string fecha = DateTime.Now.Date.ToShortDateString();
                     //DataTable dt = ObjConsul.BoolDataTable("Select TIPOIDENTIFICACION,IDENTIFICACION,RAZONSOCIAL from TbProveedor where IDPROVEEDOR = " + CmbProveedor.SelectedValue + ";");
