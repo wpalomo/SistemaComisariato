@@ -89,7 +89,7 @@ namespace Comisariato.Formularios
             //    default:
             //        break;
             //}
-            txtCodigo.Text = GlobalCodigoProveedor;
+            TxtCodigo2.Text = GlobalCodigoProveedor;
 
             cbCreditoProveedor.DataSource = null;
             cbICEProveedor.DataSource = null;
@@ -169,55 +169,102 @@ namespace Comisariato.Formularios
         {
             if (txtNombreProveedor.Text != "" && txtNumeroIdentificacionProveedor.Text != "" && txtDireccionProveedor.Text != "" && cbCreditoProveedor.Text != "" && cbICEProveedor.Text != "" && cbCodigo101Proveedor.Text != "")
             {
-                Proveedor ObjProvee = new Proveedor(txtFax.Text, ckbEstado.Checked, txtPlazo.Text, txtCodigo.Text, cbIdentificacionProveedor.Text,
-                    txtNombreProveedor.Text, txtNumeroIdentificacionProveedor.Text, cbNacionalidadProveedor.Text, cbNaturalezaProveedor.Text,
-                    txtDireccionProveedor.Text, txtRazonSocialProveedor.Text, txtEmailProveedor.Text, txtTelefonoProveedor.Text, txtCelularProveedor.Text,
-                    txtGiraChequeProveedor.Text, txtResponsableProveedor.Text, cbTipoGastoProveedor.Text, cbTipoServicioProveedor.Text,
-                    Convert.ToInt32(cbParroquiaProveedor.SelectedValue), ckbRISEProveedor.Checked, Convert.ToInt32(cbCuentaContableProveedor.SelectedValue), Convert.ToInt32(cbCreditoProveedor.SelectedValue), Convert.ToInt32(cbICEProveedor.SelectedValue), Convert.ToInt32(cbCodigo101Proveedor.SelectedValue), TxtCelularResponsable.Text);
-                if (!bandera_Estado)
+                ////
+                bool erroresIdentificacion = false;
+
+                if (txtNumeroIdentificacionProveedor.Text != "")
                 {
-                    String resultado = ObjProvee.InsertarProveedor(ObjProvee);
-                    if (resultado == "Datos Guardados")
+                    if (cbIdentificacionProveedor.SelectedIndex == 0)
                     {
-                        //string res = ObjProvee.InsertarAutorizacionProveedor()
-                        ObjProvee.InsertarAutorizacionProveedor(dgvDatosAutorizacionProveedor, txtNumeroIdentificacionProveedor.Text);
-                        ObjProvee.InsertarRetencion(dgvCodigoRetencionProveedor, txtNumeroIdentificacionProveedor.Text);
-                        MessageBox.Show("Proveedor Registrado Correctamente ", "Exito", MessageBoxButtons.OK);
-                        cargarDatos("1");
-                        rbtActivosProveedor.Checked = true;
-                        inicializarDatos();
-                        if (Program.FormularioLlamado)
+                        if (!Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text))
                         {
-                            Program.FormularioLlamado = false;
-                            Program.FormularioProveedorCompra = true;
-                            consultas.BoolLlenarComboBox(FrmCompra.datosProveedor, "select IDPROVEEDOR AS Id, NOMBRES AS Texto from TbProveedor");
-                            FrmCompra.datosProveedor.SelectedValue = consultas.ObtenerID("IDPROVEEDOR", "TbProveedor", "");
-                            this.Close();
+                            erroresIdentificacion = true;
+                            MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            txtNumeroIdentificacionProveedor.Focus();
+                            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
                         }
                     }
-                    else if (resultado == "Error al Registrar") { MessageBox.Show("Error al guardar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-                    else if (resultado == "Existe") { MessageBox.Show("Ya Existe el Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information); }
-                }
-                else if (bandera_Estado)
-                {
-                    String Resultado = ObjProvee.ModificarProveedor(identificacion);
-                    if (Resultado == "Correcto")
+                    if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 0)
                     {
-                        consultas.EjecutarSQL("DELETE FROM [dbo].[TbAutorizacionProveedor] WHERE IDPROVEEDOR = " + Convert.ToInt32(txtCodigo.Text));
-                        ObjProvee.InsertarAutorizacionProveedor(dgvDatosAutorizacionProveedor, txtNumeroIdentificacionProveedor.Text);
-                        consultas.EjecutarSQL("DELETE FROM [dbo].[TbRetencionProveedor] WHERE IDPROVEEDOR = "+Convert.ToInt32(txtCodigo.Text));
-                        ObjProvee.InsertarRetencion(dgvCodigoRetencionProveedor, txtNumeroIdentificacionProveedor.Text);
-                        MessageBox.Show("Proveedor Actualizado", "Exito");
-                        cargarDatos("1");
-                        rbtActivosProveedor.Checked = true;
-                        identificacion = "";
+                        if (txtNumeroIdentificacionProveedor.Text.Length == 13)
+                        {
+                            if (txtNumeroIdentificacionProveedor.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text.Substring(0, 10)) == false)
+                            {
+                                erroresIdentificacion = true;
+                                MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                txtNumeroIdentificacionProveedor.Focus();
+                                txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+                            }
+                        }
+                        else
+                        {
+                            erroresIdentificacion = true;
+                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
+                            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+                        }
                     }
-                    else { MessageBox.Show("Error al actualizar Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-                    bandera_Estado = false;
-                    btnGuardarProveedor.Text = "&Guardar";
-                    btnLimpiarProveedor.Text = "&Limpiar";
-                    //Funcion.Limpiarobjetos(gbDatosAutorizacionProveedor);
-                    inicializarDatos();
+                    else if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 1)
+                    {
+                        if (txtNumeroIdentificacionProveedor.Text.Length != 13)
+                        {
+                            erroresIdentificacion = true;
+                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
+                            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+                        }
+                    }
+                }
+                if(!erroresIdentificacion)
+                {
+                    Proveedor ObjProvee = new Proveedor(txtFax.Text, ckbEstado.Checked, txtPlazo.Text, txtCodigo.Text, cbIdentificacionProveedor.Text,
+                        txtNombreProveedor.Text, txtNumeroIdentificacionProveedor.Text, cbNacionalidadProveedor.Text, cbNaturalezaProveedor.Text,
+                        txtDireccionProveedor.Text, txtRazonSocialProveedor.Text, txtEmailProveedor.Text, txtTelefonoProveedor.Text, txtCelularProveedor.Text,
+                        txtGiraChequeProveedor.Text, txtResponsableProveedor.Text, cbTipoGastoProveedor.Text, cbTipoServicioProveedor.Text,
+                        Convert.ToInt32(cbParroquiaProveedor.SelectedValue), ckbRISEProveedor.Checked, Convert.ToInt32(cbCuentaContableProveedor.SelectedValue), Convert.ToInt32(cbCreditoProveedor.SelectedValue), Convert.ToInt32(cbICEProveedor.SelectedValue), Convert.ToInt32(cbCodigo101Proveedor.SelectedValue), TxtCelularResponsable.Text);
+                    if (!bandera_Estado)
+                    {
+                        String resultado = ObjProvee.InsertarProveedor(ObjProvee);
+                        if (resultado == "Datos Guardados")
+                        {
+                            //string res = ObjProvee.InsertarAutorizacionProveedor()
+                            ObjProvee.InsertarAutorizacionProveedor(dgvDatosAutorizacionProveedor, txtNumeroIdentificacionProveedor.Text);
+                            ObjProvee.InsertarRetencion(dgvCodigoRetencionProveedor, txtNumeroIdentificacionProveedor.Text);
+                            MessageBox.Show("Proveedor Registrado Correctamente ", "Exito", MessageBoxButtons.OK);
+                            cargarDatos("1");
+                            rbtActivosProveedor.Checked = true;
+                            inicializarDatos();
+                            if (Program.FormularioLlamado)
+                            {
+                                Program.FormularioLlamado = false;
+                                Program.FormularioProveedorCompra = true;
+                                consultas.BoolLlenarComboBox(FrmCompra.datosProveedor, "select IDPROVEEDOR AS Id, NOMBRES AS Texto from TbProveedor");
+                                FrmCompra.datosProveedor.SelectedValue = consultas.ObtenerID("IDPROVEEDOR", "TbProveedor", "");
+                                this.Close();
+                            }
+                        }
+                        else if (resultado == "Error al Registrar") { MessageBox.Show("Error al guardar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                        else if (resultado == "Existe") { MessageBox.Show("Ya Existe el Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+                    }
+                    else if (bandera_Estado)
+                    {
+                        String Resultado = ObjProvee.ModificarProveedor(identificacion);
+                        if (Resultado == "Correcto")
+                        {
+                            consultas.EjecutarSQL("DELETE FROM [dbo].[TbAutorizacionProveedor] WHERE IDPROVEEDOR = " + Convert.ToInt32(txtCodigo.Text));
+                            ObjProvee.InsertarAutorizacionProveedor(dgvDatosAutorizacionProveedor, txtNumeroIdentificacionProveedor.Text);
+                            consultas.EjecutarSQL("DELETE FROM [dbo].[TbRetencionProveedor] WHERE IDPROVEEDOR = " + Convert.ToInt32(txtCodigo.Text));
+                            ObjProvee.InsertarRetencion(dgvCodigoRetencionProveedor, txtNumeroIdentificacionProveedor.Text);
+                            MessageBox.Show("Proveedor Actualizado", "Exito");
+                            cargarDatos("1");
+                            rbtActivosProveedor.Checked = true;
+                            identificacion = "";
+                        }
+                        else { MessageBox.Show("Error al actualizar Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                        bandera_Estado = false;
+                        btnGuardarProveedor.Text = "&Guardar";
+                        btnLimpiarProveedor.Text = "&Limpiar";
+                        //Funcion.Limpiarobjetos(gbDatosAutorizacionProveedor);
+                        inicializarDatos();
+                    }
                 }
             }
             else { MessageBox.Show("Ingrese los datos del Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -367,7 +414,8 @@ namespace Comisariato.Formularios
                     if (dt.Rows.Count > 0)
                     {
                         DataRow myRow = dt.Rows[0];
-                        txtCodigo.Text = myRow["CODIGO"].ToString();
+                        txtCodigo.Text = myRow["IDPROVEEDOR"].ToString();
+                        TxtCodigo2.Text = myRow["CODIGO"].ToString();
                         txtNombreProveedor.Text = myRow["NOMBRES"].ToString();
                         txtNumeroIdentificacionProveedor.Text = myRow["IDENTIFICACION"].ToString();
                         txtDireccionProveedor.Text = myRow["DIRECCION"].ToString();
@@ -384,10 +432,21 @@ namespace Comisariato.Formularios
                         ckbRISEProveedor.Checked = Convert.ToBoolean(myRow["PROVEEDORRISE"]);
 
 
+                        string tipoidentificacion = myRow["TIPOIDENTIFICACION"].ToString();
+                        string nacionalidad = myRow["NACIONALIDAD"].ToString();
+                        string naturaleza = myRow["NATURALEZA"].ToString();
+                        string tipogasto = myRow["TIPOGASTO"].ToString();
+
+
                         cbIdentificacionProveedor.SelectedItem = myRow["TIPOIDENTIFICACION"].ToString();
                         cbNacionalidadProveedor.SelectedItem = myRow["NACIONALIDAD"].ToString();
                         cbNaturalezaProveedor.SelectedItem = myRow["NATURALEZA"].ToString();
                         cbTipoGastoProveedor.SelectedItem = myRow["TIPOGASTO"].ToString();
+
+
+
+
+
 
 
                         int idservicion = consultas.ObtenerID("IDSERVICIO", "TbTipoServicio", " where DESCRIPCION = '" + myRow["TIPOSERVICIO"].ToString() + "' ");
@@ -482,43 +541,43 @@ namespace Comisariato.Formularios
 
         private void txtNumeroIdentificacionProveedor_Leave(object sender, EventArgs e)
         {
-            if (txtNumeroIdentificacionProveedor.Text != "")
-            {
-                if (cbIdentificacionProveedor.SelectedIndex == 0)
-                {
-                    if (!Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text))
-                    {
-                        MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        txtNumeroIdentificacionProveedor.Focus();
-                        txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
-                    }
-                }
-                if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 0)
-                {
-                    if (txtNumeroIdentificacionProveedor.Text.Length == 13)
-                    {
-                        if (txtNumeroIdentificacionProveedor.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text.Substring(0, 10)) == false)
-                        {
-                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                            txtNumeroIdentificacionProveedor.Focus();
-                            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
-                        txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
-                    }
-                }
-                else if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 1)
-                {
-                    if (txtNumeroIdentificacionProveedor.Text.Length != 13)
-                    {
-                        MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
-                        txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
-                    }
-                }
-            }
+            //if (txtNumeroIdentificacionProveedor.Text != "")
+            //{
+            //    if (cbIdentificacionProveedor.SelectedIndex == 0)
+            //    {
+            //        if (!Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text))
+            //        {
+            //            MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            //            txtNumeroIdentificacionProveedor.Focus();
+            //            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+            //        }
+            //    }
+            //    if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 0)
+            //    {
+            //        if (txtNumeroIdentificacionProveedor.Text.Length == 13)
+            //        {
+            //            if (txtNumeroIdentificacionProveedor.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text.Substring(0, 10)) == false)
+            //            {
+            //                MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            //                txtNumeroIdentificacionProveedor.Focus();
+            //                txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
+            //            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+            //        }
+            //    }
+            //    else if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 1)
+            //    {
+            //        if (txtNumeroIdentificacionProveedor.Text.Length != 13)
+            //        {
+            //            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
+            //            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+            //        }
+            //    }
+            //}
         }
 
         private void dgvDatosProveedor_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
