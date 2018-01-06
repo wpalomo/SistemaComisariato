@@ -34,15 +34,42 @@ namespace Comisariato.Formularios.Transacciones.Venta
             if (correcto)
             { 
                 MessageBox.Show("Registrado Correctamente");
+                Imprimir();
                 inicializar();
             }
             else
                 MessageBox.Show("Error al Registrar");
         }
 
-        private void BtnLimpiar_Click(object sender, EventArgs e)
+        private void Imprimir()
         {
-            inicializar();
+            CrearTicket ticket = new CrearTicket();
+            //int maximoCaracteres = 40;
+            string espacios = "";
+            string cajaImprimir = "CAJA #" + Program.NumeroCaja;
+            string fecha = DateTime.Now.Date.ToString();
+            string cantidadAvance = txtCantidadAvances.Text;
+            string avances = txtAvances.Text;
+            string efectivo = Convert.ToString(Convert.ToSingle(txtTotalBillestes.Text) + Convert.ToSingle(txtTotalMonedas.Text));
+            string cheques = txtTotalCheque.Text;
+            //int tamañoencabezado = 0, tamañoPie = 0, cantItems = 0;
+            if (Program.BoolAutorizadoImprimir)
+            {
+                ticket.TextoCentro(cajaImprimir);
+                ticket.TextoCentro(fecha);
+                //int nespacios = maximoCaracteres - ((cantidadAvance.Length + 10) + avances.Length);
+                //for (int i = 0; i < nespacios; i++)
+                //{
+                //    espacios = espacios + " ";
+                //}
+                //ticket.TextoIzquierda(cantidadAvance + " Avances: "+ nespacios +avances);
+                ticket.TextoExtremos(cantidadAvance + " Avances: ", "$"+avances);
+                ticket.TextoExtremos("Efectivo: ", "$" + efectivo);
+                //ticket.TextoIzquierda("Efectivo: "+efectivo);
+                //ticket.TextoIzquierda("V. Entregado: ");
+                ticket.TextoExtremos("V.Entregado: ", "$" + Convert.ToString(Convert.ToSingle(efectivo) + Convert.ToSingle(cheques) + Convert.ToSingle(cantidadAvance)));
+                ticket.TextoCentro(Program.Usuario);
+            }
         }
 
         private void txtBillestes1_Enter(object sender, EventArgs e)
@@ -290,6 +317,11 @@ namespace Comisariato.Formularios.Transacciones.Venta
         {
             txtMonedas1Dolar.SelectAll();
             txtMonedas1Dolar.Focus();
+        }
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            inicializar();
         }
 
         private void txtMonedas50_Enter(object sender, EventArgs e)
