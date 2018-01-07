@@ -1242,9 +1242,11 @@ namespace Comisariato.Formularios.Transacciones
 
         }
 
-        private void BtnCalculadora_Click(object sender, EventArgs e)
+        private void BtnConsultarPrecio_Click(object sender, EventArgs e)
         {
-            
+            FrmConsultarPrecios frmPrecios = new FrmConsultarPrecios();
+            frmPrecios = new FrmConsultarPrecios();
+            frmPrecios.ShowDialog();
         }
 
         private void dgvDetalleProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
