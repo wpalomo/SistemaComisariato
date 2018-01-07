@@ -460,6 +460,11 @@ namespace Comisariato.Formularios.Transacciones
                     string serie = txtSerie1.Text + txtSerie2.Text;
                     string fecha = DateTime.Now.Date.ToShortDateString();
 
+                    //Si la fecha Obtenida no tienen los ceros en dias y meses
+
+                    fecha = Funcion.FormarFecha(fecha);
+
+
                     XmlRetencion xmlRetencion = new XmlRetencion();
                     ////var ruta = ConfigurationManager.AppSettings["XmlRetencion"];
                     //xml._crearXml(PathLocal + @"\" + claveacceso + ".xml", "factura");
@@ -869,5 +874,11 @@ namespace Comisariato.Formularios.Transacciones
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string fecha = DateTime.Now.Date.ToShortDateString();
+            string fechaActual = Funcion.FormarFecha(fecha);
+
+        }
     }
 }

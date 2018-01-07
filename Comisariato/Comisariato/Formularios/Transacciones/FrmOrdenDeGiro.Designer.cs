@@ -150,6 +150,7 @@
             this.label45 = new System.Windows.Forms.Label();
             this.ImpresionOG = new System.Drawing.Printing.PrintDocument();
             this.ElegirImpresero = new System.Windows.Forms.PrintDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -180,6 +181,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Bisque;
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.btnSalirCompra);
             this.tabPage1.Controls.Add(this.label46);
             this.tabPage1.Controls.Add(this.label9);
@@ -1453,13 +1455,25 @@
             // 
             this.ElegirImpresero.UseEXDialog = true;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(784, 108);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 23);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "&Contabilizar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FrmOrdenDeGiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1085, 636);
+            this.ClientSize = new System.Drawing.Size(1102, 636);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
@@ -1615,5 +1629,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn debe;
         private System.Windows.Forms.DataGridViewTextBoxColumn haber;
         private System.Windows.Forms.DataGridViewTextBoxColumn concepto;
+        private System.Windows.Forms.Button button1;
     }
 }

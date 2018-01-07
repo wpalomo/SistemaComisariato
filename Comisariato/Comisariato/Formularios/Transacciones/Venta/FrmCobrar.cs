@@ -931,6 +931,8 @@ namespace Comisariato.Formularios.Transacciones
                         objcit.DirMatriz = Program.direccionempresa;
                         serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
                         string fecha = DateTime.Now.Date.ToShortDateString();
+                        //Si la fecha Obtenida no tienen los ceros en dias y meses
+                        fecha = Funcion.FormarFecha(fecha);
                         claveacceso = objcit.GenerarClaveAcceso(fecha, "1", serie);
 
 
