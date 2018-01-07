@@ -46,7 +46,7 @@ namespace Comisariato.Formularios.Transacciones
                 Auntenticar();
             }
         }
-        FrmFactura f;
+        public static FrmFactura f;
         private void Auntenticar()
         {
             try

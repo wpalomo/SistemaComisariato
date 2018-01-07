@@ -20,6 +20,7 @@ namespace Comisariato.Formularios.Transacciones
     {
 
         string PathLocal = @"C:\Users\Public\Documents\ArchivosXml\Generados\";
+        int numeroOrden = 0;
         public FrmOrdenDeGiro()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace Comisariato.Formularios.Transacciones
         Consultas ObjConsul = new Consultas();
         Bitacora bitacora = new Bitacora();
         List<string> parametrosFactu =  new List<string>();
+        string claveacceso="";
         public void inicializar()
         {
             Funcion.Limpiarobjetos(gbDatosFactura);
@@ -421,6 +423,7 @@ namespace Comisariato.Formularios.Transacciones
                 string resultado =  objEncabezadoOG.InsertarEncabezadoOrden(objEncabezadoOG);
                 if (resultado == "Datos Guardados")
                 {
+                    numeroOrden = Convert.ToInt32(txtOrdenGiro.Text);
                     if (Convert.ToString(dgvDatosRetencion.Rows[0].Cells[0].Value) != "")
                     {
                         string valor = ObjConsul.ObtenerValorCampo("IDORDENGIRO", "TbEncabezadoOrdenGiro", " WHERE IDPROVEEDOR = "+ CmbProveedor.SelectedValue +" AND SERIE1PROVEEDOR = "+ Convert.ToInt32(txtSerie1.Text) + " AND SERIE2PROVEEDOR = "+ Convert.ToInt32(txtSerie2.Text) +" AND NUMERODOCUMENTOPROVEEDOR = "+ Convert.ToInt32(txtNumero.Text) + "");
@@ -444,6 +447,7 @@ namespace Comisariato.Formularios.Transacciones
                     string numeroRetencion = (Convert.ToInt32(txtNumeroRetencion.Text) + 1).ToString("D9");                    
                     ObjConsul.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET [DOCUMENTOACTUAL] = '"+ numeroRetencion +"' WHERE SERIE1 = '"+ txtSerie1Retencion.Text + "' and SERIE2 = '" + txtSerie2Retencion.Text + "' and IPESTACION = '" + bitacora.LocalIPAddress() + "' and TIPODOCUMENTO = 'RET'");
                     MessageBox.Show("Registrado Corsrectamente ", "Exito", MessageBoxButtons.OK);
+                    
                     ObjConsul.seriesDocumentoRetencion(txtNumeroRetencion, txtSerie1Retencion, txtSerie2Retencion, txtAutorizacionRetencion, "RET", bitacora.LocalIPAddress());
                     txtOrdenGiro.Text = (Convert.ToInt32(ObjConsul.ObtenerID("NUMEROORDENGIRO", "TbEncabezadoOrdenGiro", "")) + 1).ToString();
 
@@ -456,22 +460,28 @@ namespace Comisariato.Formularios.Transacciones
                     string serie = txtSerie1.Text + txtSerie2.Text;
                     string fecha = DateTime.Now.Date.ToShortDateString();
 
+                    //Si la fecha Obtenida no tienen los ceros en dias y meses
+
+                    fecha = Funcion.FormarFecha(fecha);
+
+
                     XmlRetencion xmlRetencion = new XmlRetencion();
                     ////var ruta = ConfigurationManager.AppSettings["XmlRetencion"];
                     //xml._crearXml(PathLocal + @"\" + claveacceso + ".xml", "factura");
 
 
-
+                    
                     InfoTributaria infotribu = new InfoTributaria(2, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
                     //string serie = txtSerie1.Text + txtSerie2.Text;
                     //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
 
-                    string claveacceso = infotribu.GenerarClaveAcceso(fecha, "1", serie);
+                    claveacceso = infotribu.GenerarClaveAcceso(fecha, "1", serie);
                     xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
                     var ruta = ConfigurationManager.AppSettings["XmlServidor"];
                     xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
                     string pathfinal = PathLocal + @"\" + claveacceso + ".xml";
 
+                    imprimir();
 
                     //InfoTributaria infotribu = new InfoTributaria(1, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa);
 
@@ -499,7 +509,7 @@ namespace Comisariato.Formularios.Transacciones
                         Directory.CreateDirectory(PathServer + @"\Generados\");
                     }
 
-                    File.Copy(pathfinal, PathServer + @"\Generados\" + @"\" + claveacceso + ".xml", true);
+                    File.Copy(pathfinal, @"C: \Users\Public\Documents\ArchivosXml" + @"\" + claveacceso + ".xml", true);
 
                     //string fecha = DateTime.Now.Date.ToShortDateString();
                     //DataTable dt = ObjConsul.BoolDataTable("Select TIPOIDENTIFICACION,IDENTIFICACION,RAZONSOCIAL from TbProveedor where IDPROVEEDOR = " + CmbProveedor.SelectedValue + ";");
@@ -747,7 +757,7 @@ namespace Comisariato.Formularios.Transacciones
             try
             {
                 e.Graphics.DrawString("Orden de Giro#:", new Font("Verdana", 14, FontStyle.Bold), Brushes.Black, 25, 25);
-                e.Graphics.DrawString(txtOrdenGiro.Text, new Font("Verdana", 14, FontStyle.Italic), Brushes.Black, 200, 25);
+                e.Graphics.DrawString(numeroOrden.ToString(), new Font("Verdana", 14, FontStyle.Italic), Brushes.Black, 200, 25);
                 e.Graphics.DrawString("Proveedor: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 25, 70);
                 e.Graphics.DrawString(CmbProveedor.Text, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 175, 70);
                 e.Graphics.DrawString("Tipo Documento: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 25, 90);
@@ -792,7 +802,9 @@ namespace Comisariato.Formularios.Transacciones
                 e.Graphics.DrawString("N° Retención: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 25, 285);
                 string retencion = txtSerie1Retencion.Text + '-' + txtSerie2Retencion.Text + '-' + txtNumeroRetencion.Text;
                 e.Graphics.DrawString(retencion, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 175, 285);
-                int y = 265;
+                e.Graphics.DrawString("Clave de Acceso: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 25, 295);
+                e.Graphics.DrawString(claveacceso, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 175, 295);
+                int y = 275;
                 dibujarRayas(ref y, 40, 2);
                 e.Graphics.DrawLine(blackPen, puntoInicio, puntoFinal);
 
@@ -836,7 +848,7 @@ namespace Comisariato.Formularios.Transacciones
             }
         }
 
-        private void btnImprimir_Click(object sender, EventArgs e)
+        private void imprimir()
         {
             ElegirImpresero.AllowSomePages = true;
             ElegirImpresero.ShowHelp = true;
@@ -862,5 +874,11 @@ namespace Comisariato.Formularios.Transacciones
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string fecha = DateTime.Now.Date.ToShortDateString();
+            string fechaActual = Funcion.FormarFecha(fecha);
+
+        }
     }
 }

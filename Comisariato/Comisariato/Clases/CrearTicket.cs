@@ -253,8 +253,8 @@ namespace Comisariato.Clases
                 string elemento = "", espacios = "";
                 bool bandera = false;//Indicara si es la primera linea que se escribe cuando bajemos a la segunda si el nombre del articulo no entra en la primera linea
                 int nroEspacios = 0;
-                if(articulo.Length > 15)
-                    articulo = articulo.Substring(0, 15);
+                if(articulo.Length > 18)
+                    articulo = articulo.Substring(0, 18);
                 //Si el nombre o descripcion del articulo es mayor a 20, bajar a la siguiente linea
                 if (articulo.Length > 20)
                 {

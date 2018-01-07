@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -25,24 +26,59 @@ namespace Comisariato.Formularios.Transacciones.Venta
         {
             Funcion.Validar_Numeros(e);
         }
-
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             string sqlInsert = " INSERT INTO[dbo].[TbCierreCaja]([TOTALBILLETES],[TOTALMONEDAS],[TOTALCHEQUES],[TOTALAVANCES],[TOTALRECAUDADO],[TOTALENTREGADO],[FECHA],[IDUSUARIO],[CAJA])" +
-                                                               " VALUES(" + Funcion.reemplazarcaracter(billetesTotal.ToString()) + ", "+ Funcion.reemplazarcaracter(monedasTotal.ToString()) + ","+ Funcion.reemplazarcaracter(totalCheque.ToString()) + ","+ Funcion.reemplazarcaracter(txtAvances.Text.ToString()) + ","+ Funcion.reemplazarcaracter(totalRecaudado.ToString()) + ",0,'"+ Funcion.reemplazarcaracterFecha(DateTime.Now.Date.ToShortDateString()) +"', "+ Program.IDUsuarioMenu +", "+ Program.NumeroCaja+")";
+                                          " VALUES(" + Funcion.reemplazarcaracter(billetesTotal.ToString()) + ", "+ Funcion.reemplazarcaracter(monedasTotal.ToString()) + ","+ Funcion.reemplazarcaracter(totalCheque.ToString()) + ","+ Funcion.reemplazarcaracter(txtAvances.Text.ToString()) + ","+ Funcion.reemplazarcaracter(totalRecaudado.ToString()) + ",0,'"+ Funcion.reemplazarcaracterFecha(DateTime.Now.Date.ToShortDateString()) +"', "+ Program.IDUsuarioMenu +", "+ Program.NumeroCaja+")";
             bool correcto = objConsulta.EjecutarSQL(sqlInsert);
             if (correcto)
             { 
                 MessageBox.Show("Registrado Correctamente");
+                Imprimir();
                 inicializar();
+                FrmClaveUsuario.f.Close();
             }
             else
                 MessageBox.Show("Error al Registrar");
         }
 
-        private void BtnLimpiar_Click(object sender, EventArgs e)
+        private void Imprimir()
         {
-            inicializar();
+            CrearTicket ticket = new CrearTicket();
+            //int maximoCaracteres = 40;
+            string espacios = "";
+            string cajaImprimir = "CAJA #" + Program.NumeroCaja;
+            string fecha = DateTime.Now.Date.ToString();
+            string cantidadAvance = txtCantidadAvances.Text;
+            string avances = Funcion.reemplazarcaracterViceversa(txtAvances.Text);
+            string efectivo = Convert.ToString(Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalBillestes.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)));
+            string cheques = Funcion.reemplazarcaracterViceversa(txtTotalCheque.Text);
+            string Empresa = objConsulta.ObtenerValorCampo("NOMBRE", "TbEmpresa", "where IDEMPRESA = " + Program.IDEMPRESA);
+            ticket.TextoCentro(Empresa);
+            ticket.TextoIzquierda("     ");
+            ticket.TextoCentro("AVANCE DE DINERO");
+            ticket.TextoIzquierda("         ");
+            ticket.TextoCentro(cajaImprimir);
+            ticket.TextoCentro(Program.Usuario);
+            ticket.TextoIzquierda("         ");
+            ticket.TextoCentro(fecha);
+            ticket.lineasAsteriscos();
+            ticket.TextoExtremos(cantidadAvance + " Avances: ", "$" + Funcion.reemplazarcaracter(avances));
+            ticket.lineasAsteriscos();
+            ticket.TextoExtremos("Cheques: ", "$" + Funcion.reemplazarcaracter(cheques));
+            ticket.lineasAsteriscos();
+            ticket.TextoExtremos("Efectivo: ", "$" + Funcion.reemplazarcaracter(efectivo));
+            ticket.lineasAsteriscos();
+            ticket.TextoExtremos("V.Entregado: ", "$" + Funcion.reemplazarcaracter(Convert.ToString(Convert.ToSingle(efectivo) + Convert.ToSingle(cheques) + Convert.ToSingle(avances))));
+            ticket.lineasAsteriscos();
+
+            //}
+            ticket.CortaTicket();
+
+            //String ruta = @"\\AIRCONTROL\BodegaPedido";
+            //ticket.ImprimirTicket(ruta);
+            var valor = ConfigurationManager.AppSettings["Local"];
+            ticket.ImprimirTicket(valor);//Nombre de la impresora ticketera
         }
 
         private void txtBillestes1_Enter(object sender, EventArgs e)
@@ -290,6 +326,11 @@ namespace Comisariato.Formularios.Transacciones.Venta
         {
             txtMonedas1Dolar.SelectAll();
             txtMonedas1Dolar.Focus();
+        }
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            inicializar();
         }
 
         private void txtMonedas50_Enter(object sender, EventArgs e)

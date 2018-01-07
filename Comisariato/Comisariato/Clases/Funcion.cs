@@ -524,6 +524,9 @@ namespace Comisariato.Clases
         /// <summary>
         /// FirmaXml
         /// </summary>
+        /// 
+
+        
 
         private static Random rnd = new Random(DateTime.Now.Millisecond);
         public const string XmlDsigRSASHA1Url = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
@@ -638,8 +641,23 @@ namespace Comisariato.Clases
             return newID;
         }
 
+        public static string FormarFecha(string fecha)
+        {
+            //Dia-Mes-Año
+            string [] arregloFecha = fecha.Split('/');
+            //dia
+            if (arregloFecha[0].Length < 2)
+            {
+                arregloFecha[0] = "0" + arregloFecha[0];
+            }
+            //Mes
+            if (arregloFecha[1].Length < 2)
+            {
+                arregloFecha[1] = "0" + arregloFecha[1];
+            }
 
-        
+            return arregloFecha[0] + "/" + arregloFecha[1] + "/" + arregloFecha[2];
+        }
 
     }
 }

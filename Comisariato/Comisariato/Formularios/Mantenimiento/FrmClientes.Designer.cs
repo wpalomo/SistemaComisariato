@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcCliente = new System.Windows.Forms.TabControl();
             this.tpNuevoCliente = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -121,6 +121,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.tpConsultarModificarCliente = new System.Windows.Forms.TabPage();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.dgvDatosCliente = new System.Windows.Forms.DataGridView();
             this.modificarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
             this.DeshabilitarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -128,7 +129,6 @@
             this.rbtActivosCliente = new System.Windows.Forms.RadioButton();
             this.txtConsultarCliente = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.tcCliente.SuspendLayout();
             this.tpNuevoCliente.SuspendLayout();
             this.gbDatosPersonalesClientes.SuspendLayout();
@@ -1304,20 +1304,31 @@
             this.tpConsultarModificarCliente.TabIndex = 1;
             this.tpConsultarModificarCliente.Text = "Consultar - Modificar Cliente";
             // 
+            // BtnExportarExcel
+            // 
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(991, 19);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 25;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click);
+            // 
             // dgvDatosCliente
             // 
             this.dgvDatosCliente.AllowUserToAddRows = false;
             this.dgvDatosCliente.AllowUserToDeleteRows = false;
             this.dgvDatosCliente.AllowUserToOrderColumns = true;
             this.dgvDatosCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDatosCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDatosCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosCliente.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.modificarCliente,
@@ -1325,10 +1336,10 @@
             this.dgvDatosCliente.Location = new System.Drawing.Point(16, 86);
             this.dgvDatosCliente.Name = "dgvDatosCliente";
             this.dgvDatosCliente.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            this.dgvDatosCliente.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            this.dgvDatosCliente.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvDatosCliente.Size = new System.Drawing.Size(1011, 460);
             this.dgvDatosCliente.TabIndex = 10;
             this.dgvDatosCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellClick);
@@ -1401,17 +1412,6 @@
             this.label25.Size = new System.Drawing.Size(67, 16);
             this.label25.TabIndex = 4;
             this.label25.Text = "Consultar:";
-            // 
-            // BtnExportarExcel
-            // 
-            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
-            this.BtnExportarExcel.Location = new System.Drawing.Point(991, 19);
-            this.BtnExportarExcel.Name = "BtnExportarExcel";
-            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
-            this.BtnExportarExcel.TabIndex = 25;
-            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.BtnExportarExcel.UseVisualStyleBackColor = true;
-            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click);
             // 
             // FrmClientes
             // 
