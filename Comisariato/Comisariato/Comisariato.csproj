@@ -300,6 +300,12 @@
     <Compile Include="Formularios\Transacciones\FrmCompra.Designer.cs">
       <DependentUpon>FrmCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Transacciones\Venta\FrmConsultarPrecios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Transacciones\Venta\FrmConsultarPrecios.Designer.cs">
+      <DependentUpon>FrmConsultarPrecios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Transacciones\Venta\FrmConsultarProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -441,6 +447,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\FrmCompra.resx">
       <DependentUpon>FrmCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmConsultarPrecios.resx">
+      <DependentUpon>FrmConsultarPrecios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Transacciones\Venta\FrmConsultarProducto.resx">
       <DependentUpon>FrmConsultarProducto.cs</DependentUpon>

@@ -250,7 +250,7 @@ namespace Comisariato.Formularios.Transacciones.Venta
                 calcularMonedas();
                 //txtTotalMonedas.Text = Funcion.reemplazarcaracter((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtMonedas1Dolar.Text))).ToString());
                 e.Handled = true;
-                txtTotalRecaudado.Text = Funcion.reemplazarcaracter((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalBillestes.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalCheque.Text))).ToString());
+                txtTotalRecaudado.Text = Funcion.reemplazarcaracter((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalBillestes.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalCheque.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtAvances.Text))).ToString());
                 totalRecaudado = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalRecaudado.Text));
                 BtnGuardar.Focus();
             }
