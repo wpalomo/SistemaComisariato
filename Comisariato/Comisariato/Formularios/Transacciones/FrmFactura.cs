@@ -21,13 +21,13 @@ namespace Comisariato.Formularios.Transacciones
         internal static List<string> DatosProducto = new List<string>();
         internal static int  correcta;
         internal static int verificadorfrm;
-        private int cantidadanterior = 0, posicion, ivaporcentaje, tipoprecio = 0, cantmayorita = 20, fila,contador=0,factenter, tipoprecio1 = 0, formapago = 0, fr, idcliente,idclienteespe,cantcaja=0;
+        private int  posicion, ivaporcentaje, tipoprecio = 0, cantmayorita = 20, fila,contador=0,factenter, tipoprecio1 = 0, formapago = 0, fr, idcliente,idclienteespe,cantcaja=0;
         private string codactual = "",cantactual="";
         public string numcaja;
         public string sucursal,direccionComprador;
         public int numfact=0,IDCLIENTEINICIO;
         internal static int numfactnuevo = 0;
-
+        private float cantidadanterior;
         private string PrecioTodoslosDecimales;
         List<String> listatipo = new List<String>();
         List<String> pedidos = new List<String>();
@@ -225,35 +225,35 @@ namespace Comisariato.Formularios.Transacciones
                     {
                         //txtCodigo.Focus();
                         //SendKeys.Send("{ENTER}");
-                        if (DatosCliente.Count>0)
+                        if (DatosProducto.Count>0)
                         {
                             Producto = new Producto();
                             if (rdbPublico.Checked)
                             {
-                                txtPrecio.Text =Convert.ToDouble(DatosCliente[3]).ToString("#####0.00");
-                                PrecioTodoslosDecimales = DatosCliente[3];
+                                txtPrecio.Text =Convert.ToDouble(DatosProducto[3]).ToString("#####0.00");
+                                PrecioTodoslosDecimales = DatosProducto[3];
                             }
                             else
                             {
                                 if (rdbMayorista.Checked)
                                 {
-                                    txtPrecio.Text = Convert.ToDouble(DatosCliente[4]).ToString("#####0.00");
-                                    PrecioTodoslosDecimales = DatosCliente[4];
+                                    txtPrecio.Text = Convert.ToDouble(DatosProducto[4]).ToString("#####0.00");
+                                    PrecioTodoslosDecimales = DatosProducto[4];
                                 }
                                 else
                                 {
-                                    txtPrecio.Text = Convert.ToDouble(DatosCliente[5]).ToString("#####0.00");
-                                    PrecioTodoslosDecimales = DatosCliente[5];
+                                    txtPrecio.Text = Convert.ToDouble(DatosProducto[5]).ToString("#####0.00");
+                                    PrecioTodoslosDecimales = DatosProducto[5];
                                 }
                             }
 
-                            int verificariva = Convert.ToInt32(DatosCliente[6]);
+                            int verificariva = Convert.ToInt32(DatosProducto[6]);
                             //estadoiva = verificariva;
                             if (verificariva == 1)
                             {
                                 estadoiva = true;
                                 //Producto.Iva = Convert.ToInt32(DatosCliente[7]);
-                                ivaporcentaje = Convert.ToInt32(DatosCliente[7]);
+                                ivaporcentaje = Convert.ToInt32(DatosProducto[7]);
                                 Producto.Iva = ivaporcentaje;
                             }
                             else
@@ -262,11 +262,11 @@ namespace Comisariato.Formularios.Transacciones
                                 float prueba = 0.0f;
                                 txtIvaPrecio.Text = prueba.ToString("#####0.00");
                             }
-                            cantcaja =Convert.ToInt32(DatosCliente[8]);
-                            txtCodigo.Text = DatosCliente[0];
-                            txtDetalle.Text = DatosCliente[1];
-                            txtBodega.Text = DatosCliente[2];
-                            Producto.LibreImpuesto = Convert.ToBoolean(Convert.ToInt32(DatosCliente[9]));
+                            cantcaja =Convert.ToInt32(DatosProducto[8]);
+                            txtCodigo.Text = DatosProducto[0];
+                            txtDetalle.Text = DatosProducto[1];
+                            txtBodega.Text = DatosProducto[2];
+                            Producto.LibreImpuesto = Convert.ToBoolean(Convert.ToInt32(DatosProducto[9]));
                             txtCantidad.Text = "1";
                             txtCantidad.Focus();
 
@@ -323,34 +323,19 @@ namespace Comisariato.Formularios.Transacciones
           
             if (n == 1)
             {
-                //if (ClicFila)
-                //{
-                //    total = (Convert.ToSingle(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text)) + iva;
-                //    dgvDetalleProductos.Rows[fr].Cells[0].Value = txtCodigo.Text;
-                //    dgvDetalleProductos.Rows[fr].Cells[1].Value = txtDetalle.Text;
-                //    dgvDetalleProductos.Rows[fr].Cells[2].Value = txtCantidad.Text;
-                //    dgvDetalleProductos.Rows[fr].Cells[3].Value = txtBodega.Text;
-                //    dgvDetalleProductos.Rows[fr].Cells[4].Value = txtPrecio.Text;
-                //    dgvDetalleProductos.Rows[fr].Cells[5].Value = txtIvaPrecio.Text;
-                //    dgvDetalleProductos.Rows[fr].Cells[6].Value = total;
-                //    ClicFila = false;
-                //    Calcular();
-                //}
-                //else
-                //{
                     if (verificarcodigos(txtCodigo.Text))
                     {
 
                     if (rdbCaja.Checked)
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >=((Convert.ToInt32(txtCantidad.Text) + cantidadanterior) * cantcaja))
+                        if (Convert.ToInt32(txtBodega.Text) >=((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
                         {
-                            dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToInt32(txtCantidad.Text) + cantidadanterior;
+                            dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
 
                             float ivant = Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[5].Value.ToString()) + iva;
                             dgvDetalleProductos.Rows[posicion].Cells[5].Value = ivant.ToString("#####0.00");
 
-                            total = (Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString())) + ivant;
+                            total = (Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString())) + ivant;
                             //dgvDetalleProductos.CurrentRow.Cells[2].Value = Convert.ToInt32(dgvDetalleProductos.CurrentRow.Cells[2].Value.ToString()) + cantidadanterior;
                             dgvDetalleProductos.Rows[posicion].Cells[6].Value = total.ToString("#####0.00");
                             //dgvDetalleProductos.Rows[posicion].Cells[6].Value = Math.Round(total,2);
@@ -372,14 +357,14 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToInt32(txtCantidad.Text) + cantidadanterior))
+                        if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
                         {
-                            dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToInt32(txtCantidad.Text) + cantidadanterior;
+                            dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
 
                             float ivant = Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[5].Value.ToString()) + iva;
                             dgvDetalleProductos.Rows[posicion].Cells[5].Value = ivant.ToString("#####0.00");
 
-                            total = (Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString())) + ivant;
+                            total = (Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString())) + ivant;
                             //dgvDetalleProductos.CurrentRow.Cells[2].Value = Convert.ToInt32(dgvDetalleProductos.CurrentRow.Cells[2].Value.ToString()) + cantidadanterior;
                             dgvDetalleProductos.Rows[posicion].Cells[6].Value = total.ToString("#####0.00");
                             //dgvDetalleProductos.Rows[posicion].Cells[6].Value = Math.Round(total, 2);
@@ -405,7 +390,7 @@ namespace Comisariato.Formularios.Transacciones
                     else
                     {
                      
-                        total = (Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(txtCantidad.Text)) + iva;
+                        total = (Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(txtCantidad.Text)) + iva;
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
                         AgregarFila(codigos.Count - 1, total, iva);
                         Calcular();
@@ -422,10 +407,10 @@ namespace Comisariato.Formularios.Transacciones
                     {
                     if (rdbCaja.Checked)
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >= ((Convert.ToInt32(txtCantidad.Text) + cantidadanterior) * cantcaja))
+                        if (Convert.ToInt32(txtBodega.Text) >= ((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
                         {
-                            dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToInt32(txtCantidad.Text) + cantidadanterior;
-                            total = Convert.ToInt32(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString()) * Convert.ToSingle(PrecioTodoslosDecimales);
+                            dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
+                            total = Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString()) * Convert.ToSingle(PrecioTodoslosDecimales);
                             //dgvDetalleProductos.CurrentRow.Cells[2].Value = Convert.ToInt32(dgvDetalleProductos.CurrentRow.Cells[2].Value.ToString()) + cantidadanterior;
                             dgvDetalleProductos.Rows[posicion].Cells[6].Value = total.ToString("#####0.00");
                             //dgvDetalleProductos.Rows[posicion].Cells[6].Value = Math.Round(total, 2);
@@ -442,10 +427,10 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToInt32(txtCantidad.Text) + cantidadanterior))
+                        if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
                         {
-                            dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToInt32(txtCantidad.Text) + cantidadanterior;
-                            total = Convert.ToInt32(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString()) * Convert.ToSingle(PrecioTodoslosDecimales);
+                            dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
+                            total = Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString()) * Convert.ToSingle(PrecioTodoslosDecimales);
                             //dgvDetalleProductos.CurrentRow.Cells[2].Value = Convert.ToInt32(dgvDetalleProductos.CurrentRow.Cells[2].Value.ToString()) + cantidadanterior;
                             dgvDetalleProductos.Rows[posicion].Cells[6].Value = total.ToString("#####0.00");
                             //dgvDetalleProductos.Rows[posicion].Cells[6].Value = Math.Round(total, 2);
@@ -465,7 +450,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        total = Convert.ToInt32(txtCantidad.Text) * Convert.ToSingle(PrecioTodoslosDecimales);
+                        total = Convert.ToSingle(txtCantidad.Text) * Convert.ToSingle(PrecioTodoslosDecimales);
                         codigos.Add(txtCodigo.Text + ";" + tipoprecio);
                         AgregarFila(codigos.Count - 1, total, iva);
                        
@@ -506,7 +491,7 @@ namespace Comisariato.Formularios.Transacciones
             //posible error
             float posibleerror = Convert.ToSingle(txtCantidad.Text) *Convert.ToSingle( PrecioTodoslosDecimales);
             float posibleerror1 = posibleerror + iva;
-            dgvDetalleProductos.Rows[fila].Cells[6].Value = posibleerror1.ToString("#####0.00"); ;
+            dgvDetalleProductos.Rows[fila].Cells[6].Value = posibleerror1.ToString("#####0.00");
             dgvDetalleProductos.Rows[fila].Cells[9].Value = Convert.ToInt32(Producto.LibreImpuesto);
             if (rdbCaja.Checked)
             {
@@ -1002,8 +987,9 @@ namespace Comisariato.Formularios.Transacciones
             try
             {
                 if (e.KeyChar == (char)Keys.Return)
-                {     
-                    if (Convert.ToInt32(txtCantidad.Text)!=0)
+                {
+                    txtCantidad.Text = Funcion.reemplazarcaracterViceversa(txtCantidad.Text);
+                    if (Convert.ToSingle(txtCantidad.Text)>0)
                     {
                         cantactual = txtCantidad.Text;
                         float iva = 0.0f;
@@ -1013,9 +999,9 @@ namespace Comisariato.Formularios.Transacciones
                             {
                                 if (rdbCaja.Checked)
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToInt32(txtCantidad.Text) * cantcaja))
+                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
                                     {
-                                        iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(txtCantidad.Text)) * ivaporcentaje) / 100;
+                                        iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(txtCantidad.Text)) * ivaporcentaje) / 100;
                                         txtIvaPrecio.Text = iva.ToString("#####0.00");
                                         if (tipoprecio == 1)
                                         {
@@ -1046,9 +1032,9 @@ namespace Comisariato.Formularios.Transacciones
                                 }
                                 else //////////// Iva O%
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToInt32(txtCantidad.Text))
+                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
                                     {
-                                        iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(txtCantidad.Text)) * ivaporcentaje) / 100;
+                                        iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(txtCantidad.Text)) * ivaporcentaje) / 100;
                                         txtIvaPrecio.Text = iva.ToString("#####0.00");
                                         if (tipoprecio == 1)
                                         {
@@ -1087,7 +1073,7 @@ namespace Comisariato.Formularios.Transacciones
                                 Producto.Iva = 0;
                                 if (rdbCaja.Checked)
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToInt32(txtCantidad.Text) * cantcaja))
+                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
                                     {
                                         if (tipoprecio == 1)
                                         {
@@ -1120,7 +1106,7 @@ namespace Comisariato.Formularios.Transacciones
                                 }
                                 else
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToInt32(txtCantidad.Text))
+                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
                                     {
                                         if (tipoprecio == 1)
                                         {
@@ -1176,7 +1162,7 @@ namespace Comisariato.Formularios.Transacciones
                 }
                 else
                 {
-                    Funcion.Validar_Numeros(e);
+                    Funcion.SoloValores(e,txtCantidad.Text);
                 }
                // LimpiarTexbox();
             }
@@ -1192,16 +1178,17 @@ namespace Comisariato.Formularios.Transacciones
         {
             try
             {
+               
                 if (txtCantidad.Text[0] != '0')
                 {
-
+                    
                     if (estadoiva)
                     {
-                        float iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToInt32(txtCantidad.Text)) * ivaporcentaje) / 100;
+                        float iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(txtCantidad.Text)) * ivaporcentaje) / 100;
                         txtIvaPrecio.Text = iva.ToString("#####0.00");
                     }
                 }
-                else { txtCantidad.Text = ""; }
+               
                 
             }
             catch (Exception)
@@ -1248,6 +1235,11 @@ namespace Comisariato.Formularios.Transacciones
         private void FrmFactura_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.FormularioVentaAbierto = false;
+        }
+
+        private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
 
         private void BtnCalculadora_Click(object sender, EventArgs e)
@@ -1366,6 +1358,7 @@ namespace Comisariato.Formularios.Transacciones
                     dgvDetalleProductos.Rows[i].Cells[6].Value = retencionfact[i].Precioalmayor_sin_iva;
                     dgvDetalleProductos.Rows[i].Cells[9].Value = Convert.ToInt32(retencionfact[i].LibreImpuesto);
                     dgvDetalleProductos.Rows[i].Cells[8].Value = Convert.ToInt32(retencionfact[i].Caja);
+                    dgvDetalleProductos.Rows[i].Cells[10].Value = retencionfact[i].Preciopublico_iva;
 
                 }
                 if (tipoprecio1==0)
@@ -1448,12 +1441,15 @@ namespace Comisariato.Formularios.Transacciones
         {
             if (codigos.Count > 0)
             {
-                fila = e.RowIndex;
-                //dgvDetalleProductos.Rows[fila].Selected = true;
-                s = new FrmClaveSupervisor();
-                s.ShowDialog();
-                txtCodigo.Focus();
-                FrmFactura_Activated(null, null);
+                if (dgvDetalleProductos.Rows[e.RowIndex].Cells[0].Value!=null)
+                {
+                    fila = e.RowIndex;
+                    //dgvDetalleProductos.Rows[fila].Selected = true;
+                    s = new FrmClaveSupervisor();
+                    s.ShowDialog();
+                    txtCodigo.Focus();
+                    FrmFactura_Activated(null, null);
+                }
             }
             else
             {
@@ -1472,7 +1468,7 @@ namespace Comisariato.Formularios.Transacciones
                     vector = codigos[i].Split(';');
                     if (vector[0].Equals(codigo) && vector[1].Equals(Convert.ToString(tipoprecio)))
                     {
-                        cantidadanterior = Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[2].Value.ToString());
+                        cantidadanterior = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[2].Value.ToString());
                         posicion = i;
                         b =true;
                         break;
@@ -1503,13 +1499,14 @@ namespace Comisariato.Formularios.Transacciones
                             Producto p = new Producto();
                             p.Codigobarra = dgvDetalleProductos.Rows[i].Cells[0].Value.ToString();
                             p.Nombreproducto = dgvDetalleProductos.Rows[i].Cells[1].Value.ToString();
-                            p.Cantidad = Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[2].Value.ToString());
+                            p.Cantidad = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[2].Value.ToString());
                             p.Cantidad1 = Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[3].Value.ToString());
                             p.Preciopublico_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[4].Value.ToString());
                             p.Precioporcaja_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[5].Value.ToString());
                             p.Precioalmayor_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value.ToString());
                             p.LibreImpuesto = Convert.ToBoolean(Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[9].Value));
                             p.Caja= Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[8].Value.ToString());
+                            p.Preciopublico_iva= Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[10].Value.ToString()); 
                             //codigos.Add(dgvDetalleProductos.Rows[i].Cells[0].Value.ToString());
                             retencionfact.Add(p);
                         }
@@ -1684,7 +1681,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     break;
                 case Keys.F6:
-                    DatosClienteAUX = DatosCliente;
+                    // DatosClienteAUX = DatosCliente;
                     FrmConsultarProducto FrmConsultarProduct = new FrmConsultarProducto();
                     //if (FrmConsultarProduct == null || FrmConsultarProduct.IsDisposed)
                     //{
@@ -1695,15 +1692,15 @@ namespace Comisariato.Formularios.Transacciones
 
                     //}
                    
-                    if (DatosCliente.Count>0)
+                    if (DatosProducto.Count>0)
                     {
                         txtCantidad.Text = "1";
                         txtCantidad.Focus();
                         FrmFactura_Activated(null, null);
-                        if (DatosCliente.Count > 0)
+                        if (DatosProducto.Count > 0)
                         {
-                            DatosCliente.Clear();
-                            DatosCliente = DatosClienteAUX;
+                            DatosProducto.Clear();
+                           // DatosCliente = DatosClienteAUX;
                         }
                     }
                     else
@@ -1776,7 +1773,11 @@ namespace Comisariato.Formularios.Transacciones
             frmcobrar.ivas = Ivas;
             frmcobrar.DatosCliente = DatosCliente;
             frmcobrar.ShowDialog();
-            FrmFactura_Activated(null, null);
+            //FrmFactura_Activated(null, null);
+            //    if (DatosCliente.Count>0)
+            //    {
+            //        DatosCliente.Clear();
+            //    }
 
             //nuevafact();
             }
@@ -1821,6 +1822,9 @@ namespace Comisariato.Formularios.Transacciones
             indezp.Clear();
             listatipo.Clear();
 
+            DatosCliente = new List<string>();
+            Ivas = new List<string>();
+            codigos= new List<string>();
             if (!hayfactenespera)
             {
                 Ivas1.Clear();
@@ -1839,6 +1843,10 @@ namespace Comisariato.Formularios.Transacciones
             for (int i = 0; i < 27; i++)
             {
                 dgvDetalleProductos.Rows.Add();
+            }
+            if (DatosProducto.Count>=0)
+            {
+                DatosProducto.Clear();
             }
             txtCodigo.Focus();
         }
