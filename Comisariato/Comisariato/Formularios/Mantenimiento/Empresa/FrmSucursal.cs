@@ -198,56 +198,65 @@ namespace Comisariato.Formularios.Mantenimiento.Empresa
 
         private void DgvDatosSucursal_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Sucursal ObjSucursal = new Sucursal();
-            if (rbtActivos.Checked)
+            try
             {
-                if (this.DgvDatosSucursal.Columns[e.ColumnIndex].Name == "Deshabilitar")
-                {
-                    ObjSucursal.EstadoSucursal(DgvDatosSucursal.CurrentRow.Cells[5].Value.ToString(), 2);
-                    cargarDatos("1");
-                }
-            }
-            else if (rbtInactivos.Checked)
-            {
-                if (this.DgvDatosSucursal.Columns[e.ColumnIndex].Name == "Deshabilitar")
-                {
-                    ObjSucursal.EstadoSucursal(DgvDatosSucursal.CurrentRow.Cells[5].Value.ToString(), 1);
-                    cargarDatos("0");
-                }
-            }
 
-            if (this.DgvDatosSucursal.Columns[e.ColumnIndex].Name == "Modificar")
-            {
-                //MessageBox.Show("modificar toca " + DgvDatosEmpleado.CurrentRow.Cells[3].Value.ToString());
-                GlovalRUC = DgvDatosSucursal.CurrentRow.Cells[5].Value.ToString();
-                tcSucursal.SelectedIndex = 0;
-                bandera_Estado = true;
-                //Llenar el DataTable
-                DataTable dt = consultas.BoolDataTable("Select * from TbSucursal where RUC = '" + GlovalRUC + "'");
-                //Arreglo de byte en donde se almacenara la foto en bytes
-                byte[] MyData = new byte[0];
-                //Verificar si tiene Datos
-                if (dt.Rows.Count > 0)
+                Sucursal ObjSucursal = new Sucursal();
+                if (rbtActivos.Checked)
                 {
-                    DataRow myRow = dt.Rows[0];
-
-                    //Cargar los demas Datos
-                    CmbEmpresa.SelectedValue = Convert.ToInt32(myRow["IDEMPRESA"]);
-                    int codigo = Convert.ToInt32(myRow["CODIGO"].ToString());
-                    txtCodigoSucursal.Text = codigo.ToString("D3");
-                    txtSucursal.Text = myRow["NOMBRESUCURSAL"].ToString();
-                    txtRUCSucursal.Text = myRow["RUC"].ToString();
-                    txtTelefonoSucursal.Text = myRow["TELEFONO"].ToString();
-                    //CmbParroquia
-                    txtCelular.Text = myRow["CELULAR"].ToString();
-                    txtJefeSucursal.Text = myRow["JEFESUCURSAL"].ToString();
-                    TxtEmail.Text = myRow["EMAIL"].ToString();
-                    txtDireccionSucursal.Text = myRow["DIRECCION"].ToString();
-                    ckbEstadoSucursal.Checked = Convert.ToBoolean(myRow["ESTADO"]);
-                    txtUbicacionSucursal.Text = myRow["UBICACION"].ToString();
+                    if (this.DgvDatosSucursal.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                    {
+                        ObjSucursal.EstadoSucursal(DgvDatosSucursal.CurrentRow.Cells[5].Value.ToString(), 2);
+                        cargarDatos("1");
+                    }
                 }
-                btnLimpiar.Text = "&Cancelar";
-                btnGuardar.Text = "&Modificar";
+                else if (rbtInactivos.Checked)
+                {
+                    if (this.DgvDatosSucursal.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                    {
+                        ObjSucursal.EstadoSucursal(DgvDatosSucursal.CurrentRow.Cells[5].Value.ToString(), 1);
+                        cargarDatos("0");
+                    }
+                }
+
+                if (this.DgvDatosSucursal.Columns[e.ColumnIndex].Name == "Modificar")
+                {
+                    //MessageBox.Show("modificar toca " + DgvDatosEmpleado.CurrentRow.Cells[3].Value.ToString());
+                    GlovalRUC = DgvDatosSucursal.CurrentRow.Cells[5].Value.ToString();
+                    tcSucursal.SelectedIndex = 0;
+                    bandera_Estado = true;
+                    //Llenar el DataTable
+                    DataTable dt = consultas.BoolDataTable("Select * from TbSucursal where RUC = '" + GlovalRUC + "'");
+                    //Arreglo de byte en donde se almacenara la foto en bytes
+                    byte[] MyData = new byte[0];
+                    //Verificar si tiene Datos
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataRow myRow = dt.Rows[0];
+
+                        //Cargar los demas Datos
+                        CmbEmpresa.SelectedValue = Convert.ToInt32(myRow["IDEMPRESA"]);
+                        int codigo = Convert.ToInt32(myRow["CODIGO"].ToString());
+                        txtCodigoSucursal.Text = codigo.ToString("D3");
+                        txtSucursal.Text = myRow["NOMBRESUCURSAL"].ToString();
+                        txtRUCSucursal.Text = myRow["RUC"].ToString();
+                        txtTelefonoSucursal.Text = myRow["TELEFONO"].ToString();
+                        //CmbParroquia
+                        txtCelular.Text = myRow["CELULAR"].ToString();
+                        txtJefeSucursal.Text = myRow["JEFESUCURSAL"].ToString();
+                        TxtEmail.Text = myRow["EMAIL"].ToString();
+                        txtDireccionSucursal.Text = myRow["DIRECCION"].ToString();
+                        ckbEstadoSucursal.Checked = Convert.ToBoolean(myRow["ESTADO"]);
+                        txtUbicacionSucursal.Text = myRow["UBICACION"].ToString();
+                    }
+                    btnLimpiar.Text = "&Cancelar";
+                    btnGuardar.Text = "&Modificar";
+
+                }
+
+            }
+            catch (Exception)
+            {
 
             }
         }

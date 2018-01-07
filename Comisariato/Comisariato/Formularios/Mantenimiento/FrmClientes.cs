@@ -316,137 +316,145 @@ namespace Comisariato.Formularios
 
         private void dgvDatosCliente_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Cliente ObjCliente = new Cliente();
-            if (Convert.ToString(dgvDatosCliente.CurrentRow.Cells[2].Value) != "")
+            try
             {
-                if (rbtActivosCliente.Checked)
-            {
-                if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
+                Cliente ObjCliente = new Cliente();
+                if (Convert.ToString(dgvDatosCliente.CurrentRow.Cells[2].Value) != "")
                 {
-                        ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 2);
-                        cargarDatos("1");
-                }
-            }
-            else if (rbtInactivosCliente.Checked)
-            {
-                if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
-                {
-                        ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 1);
-                        cargarDatos("0");
-                }
-            }
-
-                if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "modificarCliente")
-                {
-                    //este vale
-
-                    //MessageBox.Show("modificar toca");
-                    bandera_Estado = true;
-                    tcCliente.SelectedIndex = 0;
-                    btnGuardarCliente.Text = "&Modificar";
-                    btnLimpiarCliente.Text = "&Cancelar";
-                    identificacion = dgvDatosCliente.CurrentRow.Cells[2].Value.ToString();
-
-                    //Llenar el DataTable
-                    DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDENTIFICACION = '" + dgvDatosCliente.Rows[e.RowIndex].Cells[2].Value.ToString() + "'");
-                    if (dt.Rows.Count > 0)
+                    if (rbtActivosCliente.Checked)
                     {
-                        DataRow myRow = dt.Rows[0];
-                        cbTipoCliente.SelectedItem = myRow["TIPOCLIENTE"].ToString();
-                        //llenar identificacion y seleccionar combobox tipodoc
-                        txtIdentificacionCliente.Text = myRow["IDENTIFICACION"].ToString();
-                        if (myRow["IDENTIFICACION"].ToString().Length == 10)
-                            cbIdentificacionCliente.SelectedIndex = 0;
-                        else if (myRow["IDENTIFICACION"].ToString().Length == 13)
-                            cbIdentificacionCliente.SelectedIndex = 1;
-                        else
-                            cbIdentificacionCliente.SelectedIndex = 2;
-
-                        ckClienteActivo.Checked = Convert.ToBoolean(myRow["ACTIVO"]);
-                        txtNombresCliente.Text = myRow["NOMBRES"].ToString();
-                        txtApellidosCliente.Text = myRow["APELLIDOS"].ToString();
-                        dtpFechaNacimientoCliente.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
-                        txtRazonSocialCliente.Text = myRow["RAZONSOCIAL"].ToString();
-                        txtEmailCliente.Text = myRow["EMAIL"].ToString();
-                        txtDireccion.Text = myRow["DIRECCION"].ToString();
-                        cbActividadEconomicaCliente.SelectedItem = myRow["ACTIVIDADECONOMICA"].ToString();
-                        //// cargar los combo de pais canton provincia y parroquia
-                        consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisCliente, ref cbProvinciaCliente, ref cbCantonCliente, ref cbParroquiaCliente);
-
-                        cbCategoriaCliente.SelectedItem = myRow["ESPECIFICACIONES_CATEGORIA"].ToString();
-
-                        // marcar especificaciones TIPO CREDITO
-                        String tipoCredito = myRow["ESPECIFICACIONES_TIPOCREDITO"].ToString();
-                        if (tipoCredito == "Crédito")
-                            rbCreditoCliente.Checked = true;
-                        else if (tipoCredito == "Contado")
-                            rbContadoCliente.Checked = true;
-                        else
-                            rbAmbasCliente.Checked = true;
-
-                        if (myRow["CONDICIONES_COMERC_CREDITOASIGNADO"] != System.DBNull.Value)
-                            txtCreditoAsignadoCliente.Text = myRow["CONDICIONES_COMERC_CREDITOASIGNADO"].ToString();
-                        if (myRow["CONDICIONES_COMERC_CUPOCREDITO"] != System.DBNull.Value)
-                            txtCupoCreditoCliente.Text = myRow["CONDICIONES_COMERC_CUPOCREDITO"].ToString();
-                        if (myRow["CONDICIONES_COMERC_DESCUENTO"] != System.DBNull.Value)
-                            txtDescuentoCliente.Text = myRow["CONDICIONES_COMERC_DESCUENTO"].ToString();
-                        if(myRow["CASILLA"] != System.DBNull.Value)
-                            txtCasillaCliente.Text = myRow["CASILLA"].ToString();
-                        if (myRow["FAX"] != System.DBNull.Value)
-                            txtFaxCliente.Text = myRow["FAX"].ToString();
-                        if (myRow["CELULAR1"] != System.DBNull.Value)
-                            txtCelular1Cliente.Text = myRow["CELULAR1"].ToString();
-                        if (myRow["CELULAR2"] != System.DBNull.Value)
-                            txtCelular2Cliente.Text = myRow["CELULAR2"].ToString();
-                        txtObservacionCliente.Text = myRow["OBSERVACION"].ToString();
-
-                        cbCuentaContable.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
-                        int indexcuenta = cbCuentaContable.SelectedIndex;
-                        cbCuentaContable.SelectedIndex = indexcuenta;
-
-                        int IdCliente = Convert.ToInt32(myRow["IDCLIENTE"]);
-
-
-                        //cargar lista OTRA INFORMACION Cliente
-                        DataTable DTOtrainformacion = consultas.BoolDataTable("Select * from TbOtraInformacionCliente where IDCLIENTE = " + IdCliente.ToString() + "");
-                        int contador = 0;
-                        if (DTOtrainformacion.Rows.Count > 0)
+                        if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
                         {
+                            ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 2);
+                            cargarDatos("1");
+                        }
+                    }
+                    else if (rbtInactivosCliente.Checked)
+                    {
+                        if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
+                        {
+                            ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 1);
+                            cargarDatos("0");
+                        }
+                    }
 
-                            while (DTOtrainformacion.Rows.Count - 1 >= contador)
+                    if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "modificarCliente")
+                    {
+                        //este vale
+
+                        //MessageBox.Show("modificar toca");
+                        bandera_Estado = true;
+                        tcCliente.SelectedIndex = 0;
+                        btnGuardarCliente.Text = "&Modificar";
+                        btnLimpiarCliente.Text = "&Cancelar";
+                        identificacion = dgvDatosCliente.CurrentRow.Cells[2].Value.ToString();
+
+                        //Llenar el DataTable
+                        DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDENTIFICACION = '" + dgvDatosCliente.Rows[e.RowIndex].Cells[2].Value.ToString() + "'");
+                        if (dt.Rows.Count > 0)
+                        {
+                            DataRow myRow = dt.Rows[0];
+                            cbTipoCliente.SelectedItem = myRow["TIPOCLIENTE"].ToString();
+                            //llenar identificacion y seleccionar combobox tipodoc
+                            txtIdentificacionCliente.Text = myRow["IDENTIFICACION"].ToString();
+                            if (myRow["IDENTIFICACION"].ToString().Length == 10)
+                                cbIdentificacionCliente.SelectedIndex = 0;
+                            else if (myRow["IDENTIFICACION"].ToString().Length == 13)
+                                cbIdentificacionCliente.SelectedIndex = 1;
+                            else
+                                cbIdentificacionCliente.SelectedIndex = 2;
+
+                            ckClienteActivo.Checked = Convert.ToBoolean(myRow["ACTIVO"]);
+                            txtNombresCliente.Text = myRow["NOMBRES"].ToString();
+                            txtApellidosCliente.Text = myRow["APELLIDOS"].ToString();
+                            dtpFechaNacimientoCliente.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
+                            txtRazonSocialCliente.Text = myRow["RAZONSOCIAL"].ToString();
+                            txtEmailCliente.Text = myRow["EMAIL"].ToString();
+                            txtDireccion.Text = myRow["DIRECCION"].ToString();
+                            cbActividadEconomicaCliente.SelectedItem = myRow["ACTIVIDADECONOMICA"].ToString();
+                            //// cargar los combo de pais canton provincia y parroquia
+                            consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisCliente, ref cbProvinciaCliente, ref cbCantonCliente, ref cbParroquiaCliente);
+
+                            cbCategoriaCliente.SelectedItem = myRow["ESPECIFICACIONES_CATEGORIA"].ToString();
+
+                            // marcar especificaciones TIPO CREDITO
+                            String tipoCredito = myRow["ESPECIFICACIONES_TIPOCREDITO"].ToString();
+                            if (tipoCredito == "Crédito")
+                                rbCreditoCliente.Checked = true;
+                            else if (tipoCredito == "Contado")
+                                rbContadoCliente.Checked = true;
+                            else
+                                rbAmbasCliente.Checked = true;
+
+                            if (myRow["CONDICIONES_COMERC_CREDITOASIGNADO"] != System.DBNull.Value)
+                                txtCreditoAsignadoCliente.Text = myRow["CONDICIONES_COMERC_CREDITOASIGNADO"].ToString();
+                            if (myRow["CONDICIONES_COMERC_CUPOCREDITO"] != System.DBNull.Value)
+                                txtCupoCreditoCliente.Text = myRow["CONDICIONES_COMERC_CUPOCREDITO"].ToString();
+                            if (myRow["CONDICIONES_COMERC_DESCUENTO"] != System.DBNull.Value)
+                                txtDescuentoCliente.Text = myRow["CONDICIONES_COMERC_DESCUENTO"].ToString();
+                            if (myRow["CASILLA"] != System.DBNull.Value)
+                                txtCasillaCliente.Text = myRow["CASILLA"].ToString();
+                            if (myRow["FAX"] != System.DBNull.Value)
+                                txtFaxCliente.Text = myRow["FAX"].ToString();
+                            if (myRow["CELULAR1"] != System.DBNull.Value)
+                                txtCelular1Cliente.Text = myRow["CELULAR1"].ToString();
+                            if (myRow["CELULAR2"] != System.DBNull.Value)
+                                txtCelular2Cliente.Text = myRow["CELULAR2"].ToString();
+                            txtObservacionCliente.Text = myRow["OBSERVACION"].ToString();
+
+                            cbCuentaContable.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
+                            int indexcuenta = cbCuentaContable.SelectedIndex;
+                            cbCuentaContable.SelectedIndex = indexcuenta;
+
+                            int IdCliente = Convert.ToInt32(myRow["IDCLIENTE"]);
+
+
+                            //cargar lista OTRA INFORMACION Cliente
+                            DataTable DTOtrainformacion = consultas.BoolDataTable("Select * from TbOtraInformacionCliente where IDCLIENTE = " + IdCliente.ToString() + "");
+                            int contador = 0;
+                            if (DTOtrainformacion.Rows.Count > 0)
                             {
-                                DataRow row = DTOtrainformacion.Rows[contador];
-                                if (row["TIPO"].ToString() == "Representante Legal")
-                                {
-                                    txtIdentificacionRepresentanteLegalCliente.Text = row["IDENTIFICACION"].ToString();
-                                    txtNombreRepresentanteLegalCliente.Text = row["NOMBRE"].ToString();
-                                    txtEmailRepresentanteLegalCliente.Text = row["EMAIL"].ToString();
-                                    txtCelularRepresentanteLegalCliente.Text = row["CELULAR"].ToString();
-                                }
-                                else if (row["TIPO"].ToString() == "Gerente General")
-                                {
-                                    txtIdentificacionGerenteGeneralCliente.Text = row["IDENTIFICACION"].ToString();
-                                    txtNombreGerenteGeneralCliente.Text = row["NOMBRE"].ToString();
-                                    txtEmailGerenteGeneralCliente.Text = row["EMAIL"].ToString();
-                                    txtCelularGerenteGeneralCliente.Text = row["CELULAR"].ToString();
-                                }
 
-                                else if (row["TIPO"].ToString() == "Garante")
+                                while (DTOtrainformacion.Rows.Count - 1 >= contador)
                                 {
-                                    txtIdentificacionGaranteCliente.Text = row["IDENTIFICACION"].ToString();
-                                    txtNombreGaranteCliente.Text = row["NOMBRE"].ToString();
-                                    txtEmailGaranteCliente.Text = row["EMAIL"].ToString();
-                                    txtCelularGaranteCliente.Text = row["CELULAR"].ToString();
+                                    DataRow row = DTOtrainformacion.Rows[contador];
+                                    if (row["TIPO"].ToString() == "Representante Legal")
+                                    {
+                                        txtIdentificacionRepresentanteLegalCliente.Text = row["IDENTIFICACION"].ToString();
+                                        txtNombreRepresentanteLegalCliente.Text = row["NOMBRE"].ToString();
+                                        txtEmailRepresentanteLegalCliente.Text = row["EMAIL"].ToString();
+                                        txtCelularRepresentanteLegalCliente.Text = row["CELULAR"].ToString();
+                                    }
+                                    else if (row["TIPO"].ToString() == "Gerente General")
+                                    {
+                                        txtIdentificacionGerenteGeneralCliente.Text = row["IDENTIFICACION"].ToString();
+                                        txtNombreGerenteGeneralCliente.Text = row["NOMBRE"].ToString();
+                                        txtEmailGerenteGeneralCliente.Text = row["EMAIL"].ToString();
+                                        txtCelularGerenteGeneralCliente.Text = row["CELULAR"].ToString();
+                                    }
+
+                                    else if (row["TIPO"].ToString() == "Garante")
+                                    {
+                                        txtIdentificacionGaranteCliente.Text = row["IDENTIFICACION"].ToString();
+                                        txtNombreGaranteCliente.Text = row["NOMBRE"].ToString();
+                                        txtEmailGaranteCliente.Text = row["EMAIL"].ToString();
+                                        txtCelularGaranteCliente.Text = row["CELULAR"].ToString();
+                                    }
+                                    contador++;
                                 }
-                                contador++;
                             }
+
                         }
 
                     }
 
                 }
+            }
+            catch (Exception)
+            {
 
             }
+            
         }
 
         private void cargarDatos(string condicion)

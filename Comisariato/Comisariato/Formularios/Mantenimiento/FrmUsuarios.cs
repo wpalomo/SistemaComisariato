@@ -197,61 +197,71 @@ namespace Comisariato.Formularios
 
         private void dgvDatosUsuario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Usuario ObjUsuario = new Usuario();
-            if (Convert.ToString(dgvDatosUsuario.CurrentRow.Cells[6].Value) != "")
+
+            try
             {
-                if (rbtActivos.Checked)
+
+
+                Usuario ObjUsuario = new Usuario();
+                if (Convert.ToString(dgvDatosUsuario.CurrentRow.Cells[6].Value) != "")
                 {
-                    if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                    if (rbtActivos.Checked)
                     {
-                        ObjUsuario.EstadoUsuario(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString(), 2);
-                        cargarDatos("1");
+                        if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                        {
+                            ObjUsuario.EstadoUsuario(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString(), 2);
+                            cargarDatos("1");
+                        }
                     }
-                }
-                else if (rbtInactivos.Checked)
-                {
-                    if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                    else if (rbtInactivos.Checked)
                     {
-                        ObjUsuario.EstadoUsuario(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString(), 1);
-                        cargarDatos("0");
-                    }
-                }
-
-                if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Modificar")
-                {
-                    GlovalIDUsuario = dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString();
-                    tcUsuario.SelectedIndex = 0;
-                    bandera_Estado = true;
-                    //Llenar el DataTable
-                    DataTable dt = objConsul.BoolDataTable("Select * from TbUsuario where IDUSUARIO = " + GlovalIDUsuario + "");
-                    //Verificar si tiene Datos
-                    if (dt.Rows.Count > 0)
-                    {
-                        DataRow myRow = dt.Rows[0];
-
-
-                        cbPersonaUsuario.SelectedValue = Convert.ToInt32(myRow["IDEMPLEADO"]);
-                        int indexUSUARIO = cbPersonaUsuario.SelectedIndex;
-                        cbPersonaUsuario.SelectedIndex = indexUSUARIO;
-
-                        cbTipoUsuario.SelectedValue = Convert.ToInt32(myRow["IDTIPOUSUARIO"]);
-                        int indexTIPOUSUARIO = cbTipoUsuario.SelectedIndex;
-                        cbTipoUsuario.SelectedIndex = indexTIPOUSUARIO;
-
-                        CheckListBEmpresas.SelectedValue = Convert.ToInt32(myRow["IDEMPRESA"]);
-                        int indexIDEMPRESA = CheckListBEmpresas.SelectedIndex;
-                        CheckListBEmpresas.SetItemChecked(indexIDEMPRESA, true);
-
-                        txtUsuario.Text = myRow["USUARIO"].ToString();
-                        txtContraseñaUsuario.Text = myRow["CONTRASEÑA"].ToString();
-                        if (myRow["FACTURA"].ToString() != "")
-                            ckbFacturaUsuario.Checked = Convert.ToBoolean(myRow["FACTURA"]);
-
+                        if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                        {
+                            ObjUsuario.EstadoUsuario(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString(), 1);
+                            cargarDatos("0");
+                        }
                     }
 
-                    btnLimpiarProveedor.Text = "&Cancelar";
-                    btnGuardarUsuario.Text = "&Modificar";
+                    if (this.dgvDatosUsuario.Columns[e.ColumnIndex].Name == "Modificar")
+                    {
+                        GlovalIDUsuario = dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString();
+                        tcUsuario.SelectedIndex = 0;
+                        bandera_Estado = true;
+                        //Llenar el DataTable
+                        DataTable dt = objConsul.BoolDataTable("Select * from TbUsuario where IDUSUARIO = " + GlovalIDUsuario + "");
+                        //Verificar si tiene Datos
+                        if (dt.Rows.Count > 0)
+                        {
+                            DataRow myRow = dt.Rows[0];
+
+
+                            cbPersonaUsuario.SelectedValue = Convert.ToInt32(myRow["IDEMPLEADO"]);
+                            int indexUSUARIO = cbPersonaUsuario.SelectedIndex;
+                            cbPersonaUsuario.SelectedIndex = indexUSUARIO;
+
+                            cbTipoUsuario.SelectedValue = Convert.ToInt32(myRow["IDTIPOUSUARIO"]);
+                            int indexTIPOUSUARIO = cbTipoUsuario.SelectedIndex;
+                            cbTipoUsuario.SelectedIndex = indexTIPOUSUARIO;
+
+                            CheckListBEmpresas.SelectedValue = Convert.ToInt32(myRow["IDEMPRESA"]);
+                            int indexIDEMPRESA = CheckListBEmpresas.SelectedIndex;
+                            CheckListBEmpresas.SetItemChecked(indexIDEMPRESA, true);
+
+                            txtUsuario.Text = myRow["USUARIO"].ToString();
+                            txtContraseñaUsuario.Text = myRow["CONTRASEÑA"].ToString();
+                            if (myRow["FACTURA"].ToString() != "")
+                                ckbFacturaUsuario.Checked = Convert.ToBoolean(myRow["FACTURA"]);
+
+                        }
+
+                        btnLimpiarProveedor.Text = "&Cancelar";
+                        btnGuardarUsuario.Text = "&Modificar";
+                    }
                 }
+            }
+            catch (Exception)
+            {
+
             }
         }
 
