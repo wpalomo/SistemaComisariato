@@ -1380,29 +1380,7 @@ namespace Comisariato.Formularios.Transacciones
                 Ivas = Ivas1;
                 codigos = codigosfactespe;
                 indezp  = indezpfactespe;
-                idcliente = idclienteespe  ;
-
-                //if (Ivas1.Count > 0)
-                //{
-                //    for (int i = 0; i < Ivas1.Count; i++)
-                //    {
-                //        Ivas.Add(Ivas1[i]);
-                //    }
-                //}
-                //if (codigosfactespe.Count > 0)
-                //{
-                //    for (int i = 0; i < codigosfactespe.Count; i++)
-                //    {
-                //        codigos.Add(codigosfactespe[i]);
-                //    }
-                //}
-                //if (indezpfactespe.Count > 0)
-                //{
-                //    for (int i = 0; i < indezpfactespe.Count; i++)
-                //    {
-                //        indezp.Add(indezpfactespe[i]);
-                //    }
-                //}
+                idcliente = idclienteespe;
 
 
                 DatosCliente = DatosClientefactespe;
@@ -1427,7 +1405,17 @@ namespace Comisariato.Formularios.Transacciones
                 contador = 0;
                 txtCodigo.Focus();
                 hayfactenespera = false;
+
+                //Reiniciar datos
                 DatosClientefactespe.Clear();
+                codigosfactespe.Clear();
+                Ivas1.Clear();
+                indezpfactespe.Clear();
+                idclienteespe = 0;
+                DatosClientefactespe = new List<string>();
+                Ivas1 = new List<string>();
+                codigosfactespe = new List<string>();
+                indezpfactespe.Clear();
             }
             catch (Exception ex)
             {
