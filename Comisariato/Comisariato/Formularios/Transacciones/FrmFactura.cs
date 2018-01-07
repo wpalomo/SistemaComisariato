@@ -1434,6 +1434,7 @@ namespace Comisariato.Formularios.Transacciones
                 else
                 {
                     MessageBox.Show("Estas creando una nueva factura. No se puede restaurar la factura anterior.");
+                    txtCodigo.Focus();
                 }
                 
             }
