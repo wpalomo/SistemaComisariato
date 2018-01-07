@@ -1348,76 +1348,95 @@ namespace Comisariato.Formularios.Transacciones
         {
             try
             {
-                for (int i = 0; i < retencionfact.Count; i++)
+                if (codigos.Count==0)
                 {
-                    codigos.Add(retencionfact[i].Codigobarra);
-                    dgvDetalleProductos.Rows[i].Cells[0].Value = retencionfact[i].Codigobarra;
-                    dgvDetalleProductos.Rows[i].Cells[1].Value = retencionfact[i].Nombreproducto;
-                    dgvDetalleProductos.Rows[i].Cells[2].Value = retencionfact[i].Cantidad;
-                    dgvDetalleProductos.Rows[i].Cells[3].Value = retencionfact[i].Cantidad1;
-                    dgvDetalleProductos.Rows[i].Cells[4].Value = retencionfact[i].Precioporcaja_sin_iva;
-                    dgvDetalleProductos.Rows[i].Cells[5].Value = retencionfact[i].Precioporcaja_sin_iva;
-                    dgvDetalleProductos.Rows[i].Cells[6].Value = retencionfact[i].Precioalmayor_sin_iva;
-                    dgvDetalleProductos.Rows[i].Cells[9].Value = Convert.ToInt32(retencionfact[i].LibreImpuesto);
-                    dgvDetalleProductos.Rows[i].Cells[8].Value = Convert.ToInt32(retencionfact[i].Caja);
-                    dgvDetalleProductos.Rows[i].Cells[10].Value = retencionfact[i].Preciopublico_iva;
-
-                }
-                if (tipoprecio1==0)
-                {
-                    rdbPublico.Checked = true;
-                }
-                else
-                {
-                    if (tipoprecio1==1)
+                    for (int i = 0; i < retencionfact.Count; i++)
                     {
-                        rdbMayorista.Checked = true;
+                        // codigos.Add(retencionfact[i].Codigobarra);
+                        dgvDetalleProductos.Rows[i].Cells[0].Value = retencionfact[i].Codigobarra;
+                        dgvDetalleProductos.Rows[i].Cells[1].Value = retencionfact[i].Nombreproducto;
+                        dgvDetalleProductos.Rows[i].Cells[2].Value = retencionfact[i].Cantidad;
+                        dgvDetalleProductos.Rows[i].Cells[3].Value = retencionfact[i].Cantidad1;
+                        dgvDetalleProductos.Rows[i].Cells[4].Value = retencionfact[i].Precioporcaja_sin_iva;
+                        dgvDetalleProductos.Rows[i].Cells[5].Value = retencionfact[i].Precioporcaja_sin_iva;
+                        dgvDetalleProductos.Rows[i].Cells[6].Value = retencionfact[i].Precioalmayor_sin_iva;
+                        dgvDetalleProductos.Rows[i].Cells[9].Value = Convert.ToInt32(retencionfact[i].LibreImpuesto);
+                        dgvDetalleProductos.Rows[i].Cells[8].Value = Convert.ToInt32(retencionfact[i].Caja);
+                        dgvDetalleProductos.Rows[i].Cells[10].Value = retencionfact[i].Preciopublico_iva;
+
+                    }
+                    if (tipoprecio1 == 0)
+                    {
+                        rdbPublico.Checked = true;
                     }
                     else
                     {
-                        rdbCaja.Checked = true;
+                        if (tipoprecio1 == 1)
+                        {
+                            rdbMayorista.Checked = true;
+                        }
+                        else
+                        {
+                            rdbCaja.Checked = true;
+                        }
                     }
-                }
 
-                Ivas = Ivas1;
-                codigos = codigosfactespe;
-                indezp  = indezpfactespe;
-                idcliente = idclienteespe;
+                    //Ivas = Ivas1;
+                    for (int i = 0; i < Ivas1.Count; i++)
+                    {
+                        Ivas.Add(Ivas1[i]);
+                    }
+                    //codigos = codigosfactespe;
+
+                    for (int i = 0; i < codigosfactespe.Count; i++)
+                    {
+                        codigos.Add(codigosfactespe[i]);
+                    }
+
+                    indezp = indezpfactespe;
+                    idcliente = idclienteespe;
 
 
-                DatosCliente = DatosClientefactespe;
-               
-                //AQUI SALE MAL
+                    DatosCliente = DatosClientefactespe;
 
-                if (DatosCliente[0]!="9999999999999")
-                {
-                    rdbFacturaDatos.Checked = true;
-                    txtIdentidicacion.Text = DatosCliente[0];
-                    txtConsumidor.Text = DatosCliente[1];
+                    //AQUI SALE MAL
+
+                    if (DatosCliente[0] != "9999999999999")
+                    {
+                        rdbFacturaDatos.Checked = true;
+                        txtIdentidicacion.Text = DatosCliente[0];
+                        txtConsumidor.Text = DatosCliente[1];
+                        txtCodigo.Focus();
+                    }
+                    else
+                    {
+                        rdbConsumidorFinal.Checked = true;
+                    }
+
+                    Calcular();
+                    btnActivarFact.Enabled = false;
+                    btnFactEspera.Enabled = true;
+                    contador = 0;
                     txtCodigo.Focus();
+                    hayfactenespera = false;
+
+                    //Reiniciar datos
+                    DatosClientefactespe.Clear();
+                    codigosfactespe.Clear();
+                    Ivas1.Clear();
+                    indezpfactespe.Clear();
+                    idclienteespe = 0;
+                    DatosClientefactespe = new List<string>();
+                    Ivas1 = new List<string>();
+                    codigosfactespe = new List<string>();
+                    indezpfactespe = new List<int>();
                 }
                 else
                 {
-                    rdbConsumidorFinal.Checked = true;
+                    MessageBox.Show("Estas creando una nueva factura. No se puede restaurar la factura anterior.");
+                    txtCodigo.Focus();
                 }
-               
-                Calcular();
-                btnActivarFact.Enabled = false;
-                btnFactEspera.Enabled = true;
-                contador = 0;
-                txtCodigo.Focus();
-                hayfactenespera = false;
-
-                //Reiniciar datos
-                DatosClientefactespe.Clear();
-                codigosfactespe.Clear();
-                Ivas1.Clear();
-                indezpfactespe.Clear();
-                idclienteespe = 0;
-                DatosClientefactespe = new List<string>();
-                Ivas1 = new List<string>();
-                codigosfactespe = new List<string>();
-                indezpfactespe.Clear();
+                
             }
             catch (Exception ex)
             {
