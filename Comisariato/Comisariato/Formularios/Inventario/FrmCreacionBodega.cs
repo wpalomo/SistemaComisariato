@@ -72,38 +72,47 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void dgvDatosBodega_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (rbActivosBodega.Checked)
+            try
             {
-                if (this.dgvDatosBodega.Columns[e.ColumnIndex].Name == "DeshabilitarDatosBodega")
-                {
-                    //ObjConsul.EjecutarSQL("UPDATE TbBodega SET ESTADO = 0 WHERE NOMBRE = '" + dgvDatosBodega.CurrentRow.Cells[2].Value + "'");
-                    Bodega ObjBodega = new Bodega();
-                    ObjBodega.EstadoBodega(dgvDatosBodega.CurrentRow.Cells[2].Value.ToString(), 2);
-                    cargarDatos("1");
-                }
-            }
-            else if (rbInactivoBodega.Checked)
-            {
-                if (this.dgvDatosBodega.Columns[e.ColumnIndex].Name == "DeshabilitarDatosBodega")
-                {
-                    //ObjConsul.EjecutarSQL("UPDATE TbBodega SET ESTADO = 1 WHERE NOMBRE = '" + dgvDatosBodega.CurrentRow.Cells[2].Value + "'");
-                    Bodega ObjBodega = new Bodega();
-                    ObjBodega.EstadoBodega(dgvDatosBodega.CurrentRow.Cells[2].Value.ToString(), 1);
-                    cargarDatos("0");
-                }
-            }
 
-            if (this.dgvDatosBodega.Columns[e.ColumnIndex].Name == "modificarDatosBodega")
-            {
-                tcbodega.SelectedIndex = 0;
-                txtDescripcionBodega.Text = dgvDatosBodega.CurrentRow.Cells[2].Value.ToString();
-                txtUbicacionBodega.Text = dgvDatosBodega.CurrentRow.Cells[3].Value.ToString();
-                cbResponsableBodega.Text = dgvDatosBodega.CurrentRow.Cells[4].Value.ToString();
-                nombreBodega = txtDescripcionBodega.Text;
-                bandera_Estado = true;
-                btnGuardarBodega.Text = "&Modificar";
+                if (rbActivosBodega.Checked)
+                {
+                    if (this.dgvDatosBodega.Columns[e.ColumnIndex].Name == "DeshabilitarDatosBodega")
+                    {
+                        //ObjConsul.EjecutarSQL("UPDATE TbBodega SET ESTADO = 0 WHERE NOMBRE = '" + dgvDatosBodega.CurrentRow.Cells[2].Value + "'");
+                        Bodega ObjBodega = new Bodega();
+                        ObjBodega.EstadoBodega(dgvDatosBodega.CurrentRow.Cells[2].Value.ToString(), 2);
+                        cargarDatos("1");
+                    }
+                }
+                else if (rbInactivoBodega.Checked)
+                {
+                    if (this.dgvDatosBodega.Columns[e.ColumnIndex].Name == "DeshabilitarDatosBodega")
+                    {
+                        //ObjConsul.EjecutarSQL("UPDATE TbBodega SET ESTADO = 1 WHERE NOMBRE = '" + dgvDatosBodega.CurrentRow.Cells[2].Value + "'");
+                        Bodega ObjBodega = new Bodega();
+                        ObjBodega.EstadoBodega(dgvDatosBodega.CurrentRow.Cells[2].Value.ToString(), 1);
+                        cargarDatos("0");
+                    }
+                }
 
-                btnLimpiarBodega.Text = "&Cancelar";
+                if (this.dgvDatosBodega.Columns[e.ColumnIndex].Name == "modificarDatosBodega")
+                {
+                    tcbodega.SelectedIndex = 0;
+                    txtDescripcionBodega.Text = dgvDatosBodega.CurrentRow.Cells[2].Value.ToString();
+                    txtUbicacionBodega.Text = dgvDatosBodega.CurrentRow.Cells[3].Value.ToString();
+                    cbResponsableBodega.Text = dgvDatosBodega.CurrentRow.Cells[4].Value.ToString();
+                    nombreBodega = txtDescripcionBodega.Text;
+                    bandera_Estado = true;
+                    btnGuardarBodega.Text = "&Modificar";
+
+                    btnLimpiarBodega.Text = "&Cancelar";
+                }
+
+            }
+            catch (Exception)
+            {
+
             }
         }
 
