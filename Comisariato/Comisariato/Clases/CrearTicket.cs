@@ -245,7 +245,7 @@ namespace Comisariato.Clases
         }
 
         //Metodo para agreagar articulos al ticket de venta
-        public void AgregaArticulo(string articulo, int cant, string precio, string importe)
+        public void AgregaArticulo(string articulo, float cant, string precio, string importe)
         {
             //Valida que cant precio e importe esten dentro del rango.
             if (cant.ToString().Length <= 5 && precio.Length <= 7 && importe.Length <= 8)

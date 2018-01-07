@@ -417,7 +417,7 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@fecha", Funcion.reemplazarcaracterFecha(enca[3]));
                     cmd.Parameters.AddWithValue("@hora", enca[4]);
                     cmd.Parameters.AddWithValue("@descuento", detalle[0]);
-                    cmd.Parameters.AddWithValue("@cant", dg.Rows[i].Cells[2].Value);
+                    cmd.Parameters.AddWithValue("@cant", Funcion.reemplazarcaracter(Convert.ToString(dg.Rows[i].Cells[2].Value)));
                     cmd.Parameters.AddWithValue("@iva", detalle[8]);
                     cmd.Parameters.AddWithValue("@efectivo", detalle[1]);
                     cmd.Parameters.AddWithValue("@cheque", detalle[2]);
@@ -742,11 +742,11 @@ namespace Comisariato.Clases
                 {
                     Producto p = new Producto();
                     p.Preciopublico_sin_iva = Convert.ToSingle(dato["PRECIO"].ToString());
-                    p.Cantidad = Convert.ToInt32(dato["CANTIDAD"].ToString());
+                    p.Cantidad = Convert.ToSingle(dato["CANTIDAD"].ToString());
                     p.Codigobarra = (String)dato["CODIGOBARRAPRODUCTO"];
                     p.Nombreproducto = (String)dato["NOMBREPRODUCTO"];
                     p.Iva = Convert.ToInt32(dato["IVA"].ToString());
-                    p.Cantidad1 = Convert.ToInt32(dato["CANTDEVUELTA"].ToString());
+                    p.Cantidad1 = Convert.ToSingle(dato["CANTDEVUELTA"].ToString());
                     if (verimetodo == 1)
                     {
                         lista.Add(p);
@@ -756,7 +756,7 @@ namespace Comisariato.Clases
                         bool b = Convert.ToBoolean(dato["ESTADO"]);
                         if (b)
                         {
-                            int resultado = p.Cantidad - p.Cantidad1;
+                            float resultado = p.Cantidad - p.Cantidad1;
                             if (resultado != 0)
                             {
                                 p.Cantidad = resultado;
