@@ -44,7 +44,7 @@
             this.lblTotalPagar.ForeColor = System.Drawing.Color.RoyalBlue;
             this.lblTotalPagar.Location = new System.Drawing.Point(55, 36);
             this.lblTotalPagar.Name = "lblTotalPagar";
-            this.lblTotalPagar.Size = new System.Drawing.Size(281, 77);
+            this.lblTotalPagar.Size = new System.Drawing.Size(270, 61);
             this.lblTotalPagar.TabIndex = 34;
             this.lblTotalPagar.Text = "0.00";
             this.lblTotalPagar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -56,6 +56,8 @@
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(151, 26);
             this.txtCodigo.TabIndex = 36;
+            this.txtCodigo.TextChanged += new System.EventHandler(this.txtCodigo_TextChanged);
+            this.txtCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigo_KeyDown);
             // 
             // label6
             // 
@@ -90,6 +92,7 @@
             this.btnSalirCompra.Text = "Salir";
             this.btnSalirCompra.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSalirCompra.UseVisualStyleBackColor = true;
+            this.btnSalirCompra.Click += new System.EventHandler(this.btnSalirCompra_Click);
             // 
             // FrmConsultarPrecios
             // 
