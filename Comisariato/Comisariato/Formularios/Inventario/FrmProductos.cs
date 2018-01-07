@@ -118,7 +118,14 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                     bitDataImagen = Funcion.imgToByteArray(img);
                 }
                 //Objconsul.BoolDataTable("SELECT [CANTIDAD]  FROM [dbo].[TbProducto] where IDPRODUCTO = ''")
-                Producto ObjProducto = new Producto(txtNombreProducto.Text, ckbActivoProducto.Checked, txtCodigoBarraProducto.Text, cbTipoProducto.Text, cbUnidadMedidaProducto.Text, txtPeso.Text, Convert.ToInt32(txtStockMaximoProducto.Text), Convert.ToInt32(txtStockMinimoProducto.Text), Convert.ToInt32(txtCajaProducto.Text), Convert.ToInt32(txtUnidadProducto.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaConIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaSinIVAProducto.Text)), bitDataImagen, CkbIva.Checked, txtObservacionesProducto.Text, Convert.ToInt32(cbTipoProducto.SelectedValue), Convert.ToInt32(TxtStockActual.Text), Convert.ToInt32(txtDisplay.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIce.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIRBP.Text))/*Convert.ToInt32(txtUnidadProducto.Text)*/, CkbLibreImpuesto.Checked);
+                Producto ObjProducto = new Producto(txtNombreProducto.Text, ckbActivoProducto.Checked, txtCodigoBarraProducto.Text, cbTipoProducto.Text, 
+                    cbUnidadMedidaProducto.Text, txtPeso.Text, Convert.ToInt32(txtStockMaximoProducto.Text), Convert.ToInt32(txtStockMinimoProducto.Text), 
+                    Convert.ToInt32(txtCajaProducto.Text), Convert.ToInt32(txtUnidadProducto.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPConIVAProducto.Text)), 
+                    Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPVPSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorConIVAProducto.Text)), 
+                    Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioMayorSinIVAProducto.Text)), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaConIVAProducto.Text)), 
+                    Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtPrecioCajaSinIVAProducto.Text)), bitDataImagen, CkbIva.Checked, txtObservacionesProducto.Text, 
+                    Convert.ToInt32(cbTipoProducto.SelectedValue), Convert.ToInt32(TxtStockActual.Text), Convert.ToInt32(txtDisplay.Text), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIce.Text)), 
+                    Convert.ToSingle(Funcion.reemplazarcaracterViceversa(TxtIRBP.Text))/*Convert.ToInt32(txtUnidadProducto.Text)*/, CkbLibreImpuesto.Checked);
 
                 if (!bandera_Estado) // Para identificar si se va ingresar
                 {
@@ -284,7 +291,6 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 //}
                 if (PVPConIva != 0 && PrecioMayorConIva != 0 && PrecioCajaConIva != 0)
                 {
-
                     txtPVPConIVAProducto.Text = PVPSinIva.ToString("#####0.0000");
                     txtPrecioMayorConIVAProducto.Text = PrecioMayorSinIva.ToString("#####0.0000");
                     txtPrecioCajaConIVAProducto.Text = PrecioCajaSinIva.ToString("#####0.0000");

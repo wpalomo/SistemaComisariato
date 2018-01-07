@@ -39,7 +39,8 @@ namespace Comisariato.Clases
         string observaciones;
         int idcategoria;
 
-        int cantidad,cantidad1;
+        float cantidad, cantidad1;
+       
         int iva;
 
         float ice;
@@ -49,7 +50,7 @@ namespace Comisariato.Clases
 
         bool libreImpuesto;
 
-        public Producto(string nombreproducto, bool activo, string codigobarra, string tipoproducto, string unidamedida, string peso, int stockmaximo, int stockminimo, int caja, int unidad, float preciopublico_iva, float preciopublico_sin_iva, float precioalmayor_iva, float precioalmayor_sin_iva, float precioporcaja_iva, float precioporcaja_sin_iva, byte[] imagenproducto, bool ivaestado, string observaciones, int idcategoria, int cantidad, int display, float ice, float irbp/*, int unidadProducto*/,bool libreImpuesto)
+        public Producto(string nombreproducto, bool activo, string codigobarra, string tipoproducto, string unidamedida, string peso, int stockmaximo, int stockminimo, int caja, int unidad, float preciopublico_iva, float preciopublico_sin_iva, float precioalmayor_iva, float precioalmayor_sin_iva, float precioporcaja_iva, float precioporcaja_sin_iva, byte[] imagenproducto, bool ivaestado, string observaciones, int idcategoria, float cantidad, int display, float ice, float irbp/*, int unidadProducto*/,bool libreImpuesto)
         {
             this.nombreproducto = nombreproducto;
             this.activo = activo;
@@ -346,7 +347,7 @@ namespace Comisariato.Clases
             }
         }
 
-        public int Cantidad
+        public float Cantidad
         {
             get
             {
@@ -359,7 +360,7 @@ namespace Comisariato.Clases
             }
         }
 
-        public int Cantidad1
+        public float Cantidad1
         {
             get
             {

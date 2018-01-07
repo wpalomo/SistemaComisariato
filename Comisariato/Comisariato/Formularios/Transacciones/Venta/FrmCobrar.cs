@@ -959,8 +959,8 @@ namespace Comisariato.Formularios.Transacciones
                                 ImprimirenRed();
                             }
 
-                            var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-                            c.RegistrarArchivosXml(claveacceso, PathServer, fecha);
+                            //var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
+                            //c.RegistrarArchivosXml(claveacceso, PathServer, fecha);
 
                             Imprimirfact(inicioContador, filasaxuiliar, claveacceso);
                             encabezadofact[2] = (Convert.ToInt32(encabezadofact[2]) + 1).ToString();
@@ -1029,7 +1029,7 @@ namespace Comisariato.Formularios.Transacciones
                 for (int j = 0; j < dg.RowCount; j++)
                 {
                     if (dg.Rows[j].Cells[0].Value != null)
-                        totalSinImpuesto += Convert.ToInt32(dg.Rows[j].Cells[2].Value) * Convert.ToDouble(dg.Rows[j].Cells[4].Value);
+                        totalSinImpuesto += Convert.ToSingle(dg.Rows[j].Cells[2].Value) * Convert.ToDouble(dg.Rows[j].Cells[4].Value);
                     else
                         break;
                 }
@@ -1261,15 +1261,15 @@ namespace Comisariato.Formularios.Transacciones
             for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
             {
 
-                double total = Convert.ToDouble(dg.Rows[J].Cells[10].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
+                double total = Convert.ToDouble(dg.Rows[J].Cells[10].Value.ToString()) * Convert.ToSingle(dg.Rows[J].Cells[2].Value.ToString());
                 if (Convert.ToSingle(dg.Rows[J].Cells[5].Value.ToString()) != 0)
                 {
-                    ticket.AgregaArticulo("*" + dg.Rows[J].Cells[1].Value.ToString(), int.Parse(dg.Rows[J].Cells[2].Value.ToString()),
+                    ticket.AgregaArticulo("*" + dg.Rows[J].Cells[1].Value.ToString(), Convert.ToSingle(dg.Rows[J].Cells[2].Value.ToString()),
                     Convert.ToSingle(dg.Rows[J].Cells[4].Value).ToString("#####0.00"), total.ToString("#####0.00"));
                 }
                 else
                 {
-                    ticket.AgregaArticulo(" " + dg.Rows[J].Cells[1].Value.ToString(), int.Parse(dg.Rows[J].Cells[2].Value.ToString()),
+                    ticket.AgregaArticulo(" " + dg.Rows[J].Cells[1].Value.ToString(), Convert.ToSingle(dg.Rows[J].Cells[2].Value.ToString()),
                 Convert.ToSingle(dg.Rows[J].Cells[4].Value).ToString("#####0.00"), total.ToString("#####0.00"));
                 }
             }
@@ -1402,7 +1402,7 @@ namespace Comisariato.Formularios.Transacciones
             filasaxuiliar = filasaxuiliar + inicioContador;
             for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
             {
-                double total = Convert.ToDouble(dg.Rows[J].Cells[10].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
+                double total = Convert.ToDouble(dg.Rows[J].Cells[10].Value.ToString()) * Convert.ToSingle(dg.Rows[J].Cells[2].Value.ToString());
                 double iva = 0.0f;
                 if (Convert.ToSingle(dg.Rows[J].Cells[5].Value.ToString()) != 0)
                 {
