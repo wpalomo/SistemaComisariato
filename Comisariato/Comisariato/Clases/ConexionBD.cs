@@ -18,6 +18,7 @@ namespace Comisariato.Clases
         //Data Source=DESKTOP-G14ID1U;Initial Catalog=BDComisariato;Integrated Security=True
         //------------------------------Conexion Servidor----------------------------------------//
         //data source = AIRCONTROL, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;
+        
         //------------------------------Conexion Byron ----------------------------------------//
         //Data Source = DESKTOP-SI5M9C5; Initial Catalog = BDComisariato; Integrated Security = True
 
@@ -32,10 +33,10 @@ namespace Comisariato.Clases
 
                 //string[] datosArchivoConfig = Funcion.leerArchivo(@"\\Aircontrol\c\Program Files (x86)\AIRCONTROL\Conexion.shc");
                 //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
-                connection = new SqlConnection("Data Source=DESKTOP-FUFA7EG\\ANDRES;Initial Catalog=BDComiSuper2;Integrated Security=True");
-                //System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
-                //String con = connec[1].ToString();
-                //connection = new SqlConnection(con);
+                //connection = new SqlConnection("Data Source=DESKTOP-FUFA7EG\\ANDRES;Initial Catalog=BDComiSuper2;Integrated Security=True");
+                System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
+                String con = connec[1].ToString();
+                connection = new SqlConnection(con);
 
                 //connection = new SqlConnection("data source = SERVER, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;");
                 connection.Open();
@@ -52,10 +53,10 @@ namespace Comisariato.Clases
             //string[] datosArchivoConfig = Funcion.leerArchivo(@"\\Aircontrol\c\Program Files (x86)\AIRCONTROL\Conexion.shc");
             //string[] servidorPuerto = datosArchivoConfig[0].Split(':');
             //connection = new SqlConnection("Data Source=DESKTOP-FUFA7EG\\ANDRES;Initial Catalog=DBComiVillacis;Integrated Security=True");
-            connection = new SqlConnection("Data Source=DESKTOP-FUFA7EG\\ANDRES;Initial Catalog=BDComiSuper2;Integrated Security=True");
-            //System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
-            //String con = connec[1].ToString();
-            //connection = new SqlConnection(con);
+            //connection = new SqlConnection("Data Source=DESKTOP-FUFA7EG\\ANDRES;Initial Catalog=BDComiSuper2;Integrated Security=True");
+            System.Configuration.ConnectionStringSettingsCollection connec = ConfigurationManager.ConnectionStrings;
+            String con = connec[1].ToString();
+            connection = new SqlConnection(con);
             connection.Close();
         }
 
