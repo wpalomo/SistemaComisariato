@@ -425,6 +425,7 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@idempleado", enca[5]);
                     cmd.Parameters.AddWithValue("@idcliente", enca[6]);
                     cmd.Parameters.AddWithValue("@claveacceso", enca[7]);
+                    //cmd.Parameters.AddWithValue("@claveacceso", "12345");
                     cmd.Parameters.AddWithValue("@precio", precio);
                     cmd.Parameters.AddWithValue("@codigobarraproducto", dg.Rows[i].Cells[0].Value);
                     cmd.Parameters.AddWithValue("@recibido", detalle[4]);
