@@ -175,6 +175,7 @@
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.TxtPrecioPVP);
+            this.MaximizeBox = false;
             this.Name = "FrmConsultarPrecios";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Consultar Precios";

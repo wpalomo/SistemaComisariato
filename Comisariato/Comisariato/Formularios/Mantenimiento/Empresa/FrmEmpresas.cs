@@ -193,75 +193,84 @@ namespace Comisariato.Formularios
 
         private void dgvDatosEmpresa_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Empleado ObjEmpleado = new Empleado();
-
-            if (this.dgvDatosEmpresa.Columns[e.ColumnIndex].Name == "Modificar")
+            try
             {
-                //MessageBox.Show("modificar toca " + DgvDatosEmpleado.CurrentRow.Cells[3].Value.ToString());
-                GlobalRuc = dgvDatosEmpresa.CurrentRow.Cells[4].Value.ToString();
-                inicializarDatos();
-                tcEmpresa.SelectedIndex = 0;
-                bandera_Estado = true;
-                //Llenar el DataTable
-                DataTable dt = consultas.BoolDataTable("Select * from TbEmpresa where RUC = '" + GlobalRuc + "'");
-                //Arreglo de byte en donde se almacenara la foto en bytes
-                byte[] MyDataLogo = new byte[0];
-                byte[] MyDataFondo = new byte[0];
-                //Verificar si tiene Datos
-                if (dt.Rows.Count > 0)
+                Empleado ObjEmpleado = new Empleado();
+
+                if (this.dgvDatosEmpresa.Columns[e.ColumnIndex].Name == "Modificar")
                 {
-                    DataRow myRow = dt.Rows[0];
-                    MemoryStream stream;
-                    //Se almacena el campo foto de la tabla en el arreglo de bytes
-                    
-                    if (myRow["LOGO"] != System.DBNull.Value)
+                    //MessageBox.Show("modificar toca " + DgvDatosEmpleado.CurrentRow.Cells[3].Value.ToString());
+                    GlobalRuc = dgvDatosEmpresa.CurrentRow.Cells[4].Value.ToString();
+                    inicializarDatos();
+                    tcEmpresa.SelectedIndex = 0;
+                    bandera_Estado = true;
+                    //Llenar el DataTable
+                    DataTable dt = consultas.BoolDataTable("Select * from TbEmpresa where RUC = '" + GlobalRuc + "'");
+                    //Arreglo de byte en donde se almacenara la foto en bytes
+                    byte[] MyDataLogo = new byte[0];
+                    byte[] MyDataFondo = new byte[0];
+                    //Verificar si tiene Datos
+                    if (dt.Rows.Count > 0)
                     {
-                        MyDataLogo = (byte[])myRow["LOGO"];
-                        AuxMyDataImagenLogo = MyDataLogo;
-                        //Se inicializa un flujo en memoria del arreglo de bytes
-                        stream = new MemoryStream(MyDataLogo);
-                        //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
-                        //el cual contiene el arreglo de bytes
-                        pbLogoEmpresa.Image = Image.FromStream(stream);
-                        stream.Dispose();
-                    }
-                    if (myRow["FONDOPANTALLA"] != System.DBNull.Value)
-                    {
-                        MyDataFondo = (byte[])myRow["FONDOPANTALLA"];
-                        AuxMyDataImagenFondo = MyDataFondo;
-                        stream = new MemoryStream(MyDataFondo);
-                        pbfondoPantallaEmpresa.Image = Image.FromStream(stream);
-                        stream.Dispose();
-                    }
+                        DataRow myRow = dt.Rows[0];
+                        MemoryStream stream;
+                        //Se almacena el campo foto de la tabla en el arreglo de bytes
 
-                    if (myRow["CLAVESUPERVISOR"] != System.DBNull.Value)
-                    {
-                        txtClaveUsuario.Text = myRow["CLAVESUPERVISOR"].ToString();
-                    }
+                        if (myRow["LOGO"] != System.DBNull.Value)
+                        {
+                            MyDataLogo = (byte[])myRow["LOGO"];
+                            AuxMyDataImagenLogo = MyDataLogo;
+                            //Se inicializa un flujo en memoria del arreglo de bytes
+                            stream = new MemoryStream(MyDataLogo);
+                            //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
+                            //el cual contiene el arreglo de bytes
+                            pbLogoEmpresa.Image = Image.FromStream(stream);
+                            stream.Dispose();
+                        }
+                        if (myRow["FONDOPANTALLA"] != System.DBNull.Value)
+                        {
+                            MyDataFondo = (byte[])myRow["FONDOPANTALLA"];
+                            AuxMyDataImagenFondo = MyDataFondo;
+                            stream = new MemoryStream(MyDataFondo);
+                            pbfondoPantallaEmpresa.Image = Image.FromStream(stream);
+                            stream.Dispose();
+                        }
 
-                    //Cargar los demas Datos
-                    txtNombreEmpresa.Text = myRow["NOMBRE"].ToString();
-                    txtRUCEmpresa.Text = myRow["RUC"].ToString();
-                    txtNombreComercialEmpresa.Text = myRow["NOMBRECOMERCIAL"].ToString();
-                    txtRazonSocialEmpresa.Text = myRow["RAZONSOCIAL"].ToString();
-                    txtGerenteEmpresa.Text = myRow["GERENTE"].ToString();
-                    txtDireccionEmpresa.Text = myRow["DIRECCION"].ToString();
-                    txtEmailEmpresa.Text = myRow["EMAIL"].ToString();
-                    if (myRow["FECHAINICIOCONTABLE"].ToString() != "")
-                        dtpFechaInicioContableEmpresa.Value = Convert.ToDateTime(myRow["FECHAINICIOCONTABLE"]);
-                    txtCeluar1Empresa.Text = myRow["CELULAR1"].ToString();
-                    txtCelular2Empresa.Text = myRow["CELULAR2"].ToString();
-                    txtRUCContadorEmpresa.Text = myRow["RUCCONTADOR"].ToString();
-                    txtNombreContadorempresa.Text = myRow["NOMBRECONTADOR"].ToString();
-                    txtEmailContadorEmpresa.Text = myRow["EMAILCONTADOR"].ToString();
-                    txtCelular1ContadorEmpresa.Text = myRow["CELULAR1CONTADOR"].ToString();
-                    txtCelular2ContadorEmpresa.Text = myRow["CELULAR2CONTADOR"].ToString();
+                        if (myRow["CLAVESUPERVISOR"] != System.DBNull.Value)
+                        {
+                            txtClaveUsuario.Text = myRow["CLAVESUPERVISOR"].ToString();
+                        }
+
+                        //Cargar los demas Datos
+                        txtNombreEmpresa.Text = myRow["NOMBRE"].ToString();
+                        txtRUCEmpresa.Text = myRow["RUC"].ToString();
+                        txtNombreComercialEmpresa.Text = myRow["NOMBRECOMERCIAL"].ToString();
+                        txtRazonSocialEmpresa.Text = myRow["RAZONSOCIAL"].ToString();
+                        txtGerenteEmpresa.Text = myRow["GERENTE"].ToString();
+                        txtDireccionEmpresa.Text = myRow["DIRECCION"].ToString();
+                        txtEmailEmpresa.Text = myRow["EMAIL"].ToString();
+                        if (myRow["FECHAINICIOCONTABLE"].ToString() != "")
+                            dtpFechaInicioContableEmpresa.Value = Convert.ToDateTime(myRow["FECHAINICIOCONTABLE"]);
+                        txtCeluar1Empresa.Text = myRow["CELULAR1"].ToString();
+                        txtCelular2Empresa.Text = myRow["CELULAR2"].ToString();
+                        txtRUCContadorEmpresa.Text = myRow["RUCCONTADOR"].ToString();
+                        txtNombreContadorempresa.Text = myRow["NOMBRECONTADOR"].ToString();
+                        txtEmailContadorEmpresa.Text = myRow["EMAILCONTADOR"].ToString();
+                        txtCelular1ContadorEmpresa.Text = myRow["CELULAR1CONTADOR"].ToString();
+                        txtCelular2ContadorEmpresa.Text = myRow["CELULAR2CONTADOR"].ToString();
+
+                    }
+                    btnLimpiarEmpresa.Text = "&Cancelar";
+                    btnGuardarEmpresa.Text = "&Modificar";
 
                 }
-                btnLimpiarEmpresa.Text = "&Cancelar";
-                btnGuardarEmpresa.Text = "&Modificar";
 
             }
+            catch (Exception)
+            {
+
+            }
+
         }
 
         private void txtNombreEmpresa_KeyPress(object sender, KeyPressEventArgs e)

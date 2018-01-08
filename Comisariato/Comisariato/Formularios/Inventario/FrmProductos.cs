@@ -340,125 +340,132 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 
         private void dgvDatosProducto_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Producto ObjProducto = new Producto();
-            if (rbtActivos.Checked)
+            try
             {
-                if (this.dgvDatosProducto.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                Producto ObjProducto = new Producto();
+                if (rbtActivos.Checked)
                 {
-                    ObjProducto.EstadoProducto(dgvDatosProducto.CurrentRow.Cells[2].Value.ToString(), 2);
-                    //cargarDatos("1");
-                    dgvDatosProducto.Rows.RemoveAt(e.RowIndex);
+                    if (this.dgvDatosProducto.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                    {
+                        ObjProducto.EstadoProducto(dgvDatosProducto.CurrentRow.Cells[2].Value.ToString(), 2);
+                        //cargarDatos("1");
+                        dgvDatosProducto.Rows.RemoveAt(e.RowIndex);
+                    }
+                }
+                else if (rbtInactivos.Checked)
+                {
+                    if (this.dgvDatosProducto.Columns[e.ColumnIndex].Name == "Deshabilitar")
+                    {
+                        ObjProducto.EstadoProducto(dgvDatosProducto.CurrentRow.Cells[2].Value.ToString(), 1);
+                        //cargarDatos("0");
+                        dgvDatosProducto.Rows.RemoveAt(e.RowIndex);
+                    }
+                }
+
+                if (this.dgvDatosProducto.Columns[e.ColumnIndex].Name == "Modificar")
+                {
+                    //MessageBox.Show("modificar toca " + DgvDatosEmpleado.CurrentRow.Cells[3].Value.ToString());
+                    GlobalCodigoBarra = dgvDatosProducto.CurrentRow.Cells[2].Value.ToString();
+                    tcProducto.SelectedIndex = 0;
+                    bandera_Estado = true;
+                    //Llenar el DataTable
+                    DataTable dt = Objconsul.BoolDataTable("Select * from TbProducto where CODIGOBARRA = '" + GlobalCodigoBarra + "'");
+                    //Arreglo de byte en donde se almacenara la foto en bytes
+                    byte[] MyDataProducto = new byte[0];
+                    //Verificar si tiene Datos
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataRow myRow = dt.Rows[0];
+                        MemoryStream stream;
+
+                        //Se almacena el campo foto de la tabla en el arreglo de bytes
+
+                        if (myRow["IMAGENPRODUCTO"] != System.DBNull.Value)
+                        {
+                            MyDataProducto = (byte[])myRow["IMAGENPRODUCTO"];
+                            AuxMyDataImagenProducto = MyDataProducto;
+                            //Se inicializa un flujo en memoria del arreglo de bytes
+                            stream = new MemoryStream(MyDataProducto);
+                            //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
+                            //el cual contiene el arreglo de bytes
+                            pbImagenProducto.Image = Image.FromStream(stream);
+                            stream.Dispose();
+                        }
+
+                        //Cargar los demas Datos
+                        cbTipoProducto.SelectedValue = Convert.ToInt32(myRow["IDCATEGORIA"]);
+                        ckbActivoProducto.Checked = Convert.ToBoolean(myRow["ACTIVO"]);
+                        txtNombreProducto.Text = myRow["NOMBREPRODUCTO"].ToString();
+                        txtCodigoBarraProducto.Text = myRow["CODIGOBARRA"].ToString();
+
+                        cbUnidadMedidaProducto.SelectedItem = myRow["UNIDAMEDIDA"].ToString();
+                        txtPeso.Text = myRow["PESO"].ToString();
+                        txtStockMaximoProducto.Text = myRow["STOCKMAXIMO"].ToString();
+                        txtStockMinimoProducto.Text = myRow["STOCKMINIMO"].ToString();
+                        //txtDisplay.Text= myRow["DISPLAY"].ToString();
+                        txtUnidadProducto.Text = myRow["UNIDAD"].ToString();
+                        TxtIce.Text = Funcion.reemplazarcaracter(myRow["ICE"].ToString());
+                        TxtIRBP.Text = Funcion.reemplazarcaracter(myRow["IRBP"].ToString());
+
+
+
+                        CkbIva.Checked = Convert.ToBoolean(myRow["IVAESTADO"]);
+
+                        if (myRow["CAJA"] != System.DBNull.Value)
+                        {
+                            txtCajaProducto.Text = myRow["CAJA"].ToString();
+                        }
+                        if (myRow["DISPLAY"] != System.DBNull.Value)
+                        {
+                            txtDisplay.Text = myRow["DISPLAY"].ToString();
+                        }
+
+                        if (myRow["CANTIDAD"] != System.DBNull.Value)
+                        {
+                            TxtStockActual.Text = myRow["CANTIDAD"].ToString();
+                        }
+
+                        txtPVPConIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPUBLICO_IVA"].ToString());
+                        txtPVPSinIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPUBLICO_SIN_IVA"].ToString());
+                        txtPrecioMayorConIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOALMAYOR_IVA"].ToString());
+                        txtPrecioMayorSinIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOALMAYOR_SIN_IVA"].ToString());
+                        txtPrecioCajaConIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPORCAJA_IVA"].ToString());
+                        txtPrecioCajaSinIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPORCAJA_SIN_IVA"].ToString());
+
+                        if (TxtIce.Text != "0" && TxtIce.Text != "")
+                            CkbICE.Checked = true;
+                        else
+                        {
+                            CkbICE.Checked = false;
+                            TxtIce.Text = "0.00";
+                        }
+                        if (TxtIRBP.Text != "0" && TxtIRBP.Text != "")
+                            CkbIRBP.Checked = true;
+                        else
+                        {
+                            CkbIRBP.Checked = false;
+                            TxtIRBP.Text = "0.00";
+                        }
+                        if (myRow["LIBREIMPUESTO"] != System.DBNull.Value)
+                        {
+                            CkbLibreImpuesto.Checked = Convert.ToBoolean(myRow["LIBREIMPUESTO"]);
+                        }
+                        //CkbICE.Checked = Convert.ToBoolean(myRow["ICEESTADO"]);
+                        //CkbIRBP.Checked = Convert.ToBoolean(myRow["IRBPESTADO"]);
+
+                        //TxtIVA.Text = myRow["IVA"].ToString();
+                        //TxtIce.Text = myRow["ICE"].ToString();
+                        //TxtIRBP.Text = myRow["IRBP"].ToString();
+
+                        txtObservacionesProducto.Text = myRow["OBSERVACIONES"].ToString();
+                    }
+                    btnLimpiarProducto.Text = "&Cancelar";
+                    btnGuardarProducto.Text = "&Modificar";
+
                 }
             }
-            else if (rbtInactivos.Checked)
+            catch (Exception)
             {
-                if (this.dgvDatosProducto.Columns[e.ColumnIndex].Name == "Deshabilitar")
-                {
-                    ObjProducto.EstadoProducto(dgvDatosProducto.CurrentRow.Cells[2].Value.ToString(), 1);
-                    //cargarDatos("0");
-                    dgvDatosProducto.Rows.RemoveAt(e.RowIndex);
-                }
-            }
-
-            if (this.dgvDatosProducto.Columns[e.ColumnIndex].Name == "Modificar")
-            {
-                //MessageBox.Show("modificar toca " + DgvDatosEmpleado.CurrentRow.Cells[3].Value.ToString());
-                GlobalCodigoBarra = dgvDatosProducto.CurrentRow.Cells[2].Value.ToString();
-                tcProducto.SelectedIndex = 0;
-                bandera_Estado = true;
-                //Llenar el DataTable
-                DataTable dt = Objconsul.BoolDataTable("Select * from TbProducto where CODIGOBARRA = '" + GlobalCodigoBarra + "'");
-                //Arreglo de byte en donde se almacenara la foto en bytes
-                byte[] MyDataProducto = new byte[0];
-                //Verificar si tiene Datos
-                if (dt.Rows.Count > 0)
-                {
-                    DataRow myRow = dt.Rows[0];
-                    MemoryStream stream;
-
-                    //Se almacena el campo foto de la tabla en el arreglo de bytes
-
-                    if (myRow["IMAGENPRODUCTO"] != System.DBNull.Value)
-                    {
-                        MyDataProducto = (byte[])myRow["IMAGENPRODUCTO"];
-                        AuxMyDataImagenProducto = MyDataProducto;
-                        //Se inicializa un flujo en memoria del arreglo de bytes
-                        stream = new MemoryStream(MyDataProducto);
-                        //En el picture box se muestra la imagen que esta almacenada en el flujo en memoria 
-                        //el cual contiene el arreglo de bytes
-                        pbImagenProducto.Image = Image.FromStream(stream);
-                        stream.Dispose();
-                    }
-
-                    //Cargar los demas Datos
-                    cbTipoProducto.SelectedValue = Convert.ToInt32(myRow["IDCATEGORIA"]);
-                    ckbActivoProducto.Checked = Convert.ToBoolean(myRow["ACTIVO"]);
-                    txtNombreProducto.Text = myRow["NOMBREPRODUCTO"].ToString();
-                    txtCodigoBarraProducto.Text = myRow["CODIGOBARRA"].ToString();
-
-                    cbUnidadMedidaProducto.SelectedItem = myRow["UNIDAMEDIDA"].ToString();
-                    txtPeso.Text = myRow["PESO"].ToString();
-                    txtStockMaximoProducto.Text = myRow["STOCKMAXIMO"].ToString();
-                    txtStockMinimoProducto.Text = myRow["STOCKMINIMO"].ToString();
-                    //txtDisplay.Text= myRow["DISPLAY"].ToString();
-                    txtUnidadProducto.Text = myRow["UNIDAD"].ToString();
-                    TxtIce.Text = Funcion.reemplazarcaracter(myRow["ICE"].ToString());
-                    TxtIRBP.Text = Funcion.reemplazarcaracter(myRow["IRBP"].ToString());
-
-
-
-                    CkbIva.Checked = Convert.ToBoolean(myRow["IVAESTADO"]);
-
-                    if (myRow["CAJA"] != System.DBNull.Value)
-                    {
-                        txtCajaProducto.Text = myRow["CAJA"].ToString();
-                    }
-                    if (myRow["DISPLAY"] != System.DBNull.Value)
-                    {
-                        txtDisplay.Text = myRow["DISPLAY"].ToString();
-                    }
-
-                    if (myRow["CANTIDAD"] != System.DBNull.Value)
-                    {
-                        TxtStockActual.Text = myRow["CANTIDAD"].ToString();
-                    }
-
-                    txtPVPConIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPUBLICO_IVA"].ToString());
-                    txtPVPSinIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPUBLICO_SIN_IVA"].ToString());
-                    txtPrecioMayorConIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOALMAYOR_IVA"].ToString());
-                    txtPrecioMayorSinIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOALMAYOR_SIN_IVA"].ToString());
-                    txtPrecioCajaConIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPORCAJA_IVA"].ToString());
-                    txtPrecioCajaSinIVAProducto.Text = Funcion.reemplazarcaracter(myRow["PRECIOPORCAJA_SIN_IVA"].ToString());
-
-                    if (TxtIce.Text != "0" && TxtIce.Text != "")
-                        CkbICE.Checked = true;
-                    else
-                    {
-                        CkbICE.Checked = false;
-                        TxtIce.Text = "0.00";
-                    }
-                    if (TxtIRBP.Text != "0" && TxtIRBP.Text != "")
-                        CkbIRBP.Checked = true;
-                    else
-                    {
-                        CkbIRBP.Checked = false;
-                        TxtIRBP.Text = "0.00";
-                    }
-                    if (myRow["LIBREIMPUESTO"] != System.DBNull.Value)
-                    {
-                        CkbLibreImpuesto.Checked = Convert.ToBoolean(myRow["LIBREIMPUESTO"]);
-                    }
-                    //CkbICE.Checked = Convert.ToBoolean(myRow["ICEESTADO"]);
-                    //CkbIRBP.Checked = Convert.ToBoolean(myRow["IRBPESTADO"]);
-
-                    //TxtIVA.Text = myRow["IVA"].ToString();
-                    //TxtIce.Text = myRow["ICE"].ToString();
-                    //TxtIRBP.Text = myRow["IRBP"].ToString();
-
-                    txtObservacionesProducto.Text = myRow["OBSERVACIONES"].ToString();
-                }
-                btnLimpiarProducto.Text = "&Cancelar";
-                btnGuardarProducto.Text = "&Modificar";
 
             }
 

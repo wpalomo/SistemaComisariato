@@ -51,7 +51,7 @@ namespace Comisariato.Formularios.Transacciones
         {
             try
             {
-
+                f = null;
                 if (txtClave.Text != "")
                 {
                     c = new Consultas();
