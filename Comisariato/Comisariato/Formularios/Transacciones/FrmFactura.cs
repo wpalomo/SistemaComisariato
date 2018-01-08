@@ -21,13 +21,13 @@ namespace Comisariato.Formularios.Transacciones
         internal static List<string> DatosProducto = new List<string>();
         internal static int  correcta;
         internal static int verificadorfrm;
-        private int  posicion, ivaporcentaje, tipoprecio = 0, cantmayorita = 20, fila,contador=0,factenter, tipoprecio1 = 0, formapago = 0, fr, idcliente,idclienteespe,cantcaja=0;
+        private int  posicion, ivaporcentaje, tipoprecio = 0, cantmayorita = 20, fila,contador=0,factenter, tipoprecio1 = 0, formapago = 0, fr, idcliente,idclienteespe;
         private string codactual = "",cantactual="";
         public string numcaja;
         public string sucursal,direccionComprador;
         public int numfact=0,IDCLIENTEINICIO;
         internal static int numfactnuevo = 0;
-        private float cantidadanterior;
+        private float cantidadanterior, cantcaja = 0;
         private string PrecioTodoslosDecimales;
         List<String> listatipo = new List<String>();
         List<String> pedidos = new List<String>();
@@ -262,7 +262,7 @@ namespace Comisariato.Formularios.Transacciones
                                 float prueba = 0.0f;
                                 txtIvaPrecio.Text = prueba.ToString("#####0.00");
                             }
-                            cantcaja =Convert.ToInt32(DatosProducto[8]);
+                            cantcaja =Convert.ToSingle(DatosProducto[8]);
                             txtCodigo.Text = DatosProducto[0];
                             txtDetalle.Text = DatosProducto[1];
                             txtBodega.Text = DatosProducto[2];

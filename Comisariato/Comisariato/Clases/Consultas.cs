@@ -552,10 +552,10 @@ namespace Comisariato.Clases
                     if (activo == 1)
                     {
                         producto.Nombreproducto = (String)dato["DETALLE"];
-                        producto.Cantidad = Convert.ToInt32(dato["CANTIDAD"]);
+                        producto.Cantidad = Convert.ToSingle(dato["CANTIDAD"]);
                         if (Convert.ToString(dato["CAJA"]) != "")
                         {
-                            producto.Caja = Convert.ToInt32(dato["CAJA"]);
+                            producto.Caja = Convert.ToSingle(dato["CAJA"]);
                         }
                         else
                         {
@@ -922,13 +922,13 @@ namespace Comisariato.Clases
             DataTable dt = new DataTable();
             dt.Columns.Add("CODIGO", typeof(String));
             dt.Columns.Add("DETALLE", typeof(String));
-            dt.Columns.Add("CANT.", typeof(int));
+            dt.Columns.Add("CANT.", typeof(float));
             dt.Columns.Add("P. PUBLICO", typeof(String));
             dt.Columns.Add("P. MAYORISTA", typeof(String));
             dt.Columns.Add("P. CAJA", typeof(String));
             dt.Columns.Add("ESTADO IVA", typeof(int));
             dt.Columns.Add("IVA", typeof(int));
-            dt.Columns.Add("Cant. Caja", typeof(int));
+            dt.Columns.Add("Cant. Caja", typeof(float));
             dt.Columns.Add("LI", typeof(int));
 
             try
@@ -951,33 +951,35 @@ namespace Comisariato.Clases
                         if (ivaestado)
                         {
                             v = 1;
-                            int caja = 0, libreImpuesto = 0;
+                            int libreImpuesto = 0;
+                            float caja=0;
                             int iva = int.Parse(dato["IVA"].ToString());
                             if (dato["CAJA"] != System.DBNull.Value)
                             {
-                                caja = (int)dato["CAJA"];
+                                caja =Convert.ToSingle(dato["CAJA"]);
                             }
                             if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
                             {
                                 libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
                             }
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString(), pm.ToString(), pc.ToString(), v, iva, caja, libreImpuesto);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"],Convert.ToSingle(dato["CANTIDAD"]), pp.ToString(), pm.ToString(), pc.ToString(), v, iva, caja, libreImpuesto);
                         }
                         else
                         {
                             v = 0;
-                            int caja = 0, libreImpuesto = 0;
+                            float caja = 0;
+                            int  libreImpuesto = 0;
                             int iva = int.Parse(dato["IVA"].ToString());
                             if (dato["CAJA"] != System.DBNull.Value)
                             {
-                                caja = (int)dato["CAJA"];
+                                caja = Convert.ToSingle(dato["CAJA"]);
                             }
                             if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
                             {
                                 libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
                             }
 
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString(), pm.ToString(), pc.ToString(), v, 0, caja, libreImpuesto);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"],Convert.ToSingle(dato["CANTIDAD"]), pp.ToString(), pm.ToString(), pc.ToString(), v, 0, caja, libreImpuesto);
                         }
                         //dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, (int)dato["IVA"]);
 

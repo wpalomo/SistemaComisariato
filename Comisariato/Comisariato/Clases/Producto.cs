@@ -20,7 +20,7 @@ namespace Comisariato.Clases
         string peso;
         int stockmaximo;
         int stockminimo;
-        int caja;
+        float caja;
         int unidad;
         int display;
         //int unidadProducto;
@@ -191,7 +191,7 @@ namespace Comisariato.Clases
             }
         }
 
-        public int Caja
+        public float Caja
         {
             get
             {
