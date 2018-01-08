@@ -98,6 +98,7 @@ namespace Comisariato.Formularios.Transacciones
 
         private void FrmFactura_Load(object sender, EventArgs e)
         {
+            
             // this.dgvDetalleProductos.CellValidating += new DataGridViewCellValidatingEventHandler(dgv_validating);
             //propiedadesdgv();
             Program.FormularioVentaAbierto = true;
