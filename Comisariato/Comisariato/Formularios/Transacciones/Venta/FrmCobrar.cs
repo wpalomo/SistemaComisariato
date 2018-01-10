@@ -890,7 +890,7 @@ namespace Comisariato.Formularios.Transacciones
                     int auxiliar = totalfilas;
                     for (int i = 0; i < totalfacturasAGenerar; i++)
                     {
-                        
+
                         if (auxiliar > ItemsPermitidos)
                         {
                             int aux1 = auxiliar;
@@ -959,8 +959,8 @@ namespace Comisariato.Formularios.Transacciones
                                 ImprimirenRed();
                             }
 
-                            //var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-                            //c.RegistrarArchivosXml(claveacceso, PathServer, fecha);
+                            var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
+                            c.RegistrarArchivosXml(claveacceso, PathServer, fecha);
 
                             Imprimirfact(inicioContador, filasaxuiliar, claveacceso);
                             encabezadofact[2] = (Convert.ToInt32(encabezadofact[2]) + 1).ToString();
@@ -993,7 +993,7 @@ namespace Comisariato.Formularios.Transacciones
                 
 
             }
-            catch (Exception EX)
+            catch (Exception Ex)
             {
 
                 //throw;
@@ -1091,8 +1091,8 @@ namespace Comisariato.Formularios.Transacciones
                 xml.infoFactura("infoFactura", objcif,dgvCheque,dgvTarjeta,ckbEfectivo,txtEfectivo.Text,dg);
                 xml.detalleFactura("detalles", dg);
 
-            //System.IO.File.WriteAllBytes(@"C:\Users\Galito\Desktop\valida1.xml", bytes);
-            var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
+                //System.IO.File.WriteAllBytes(@"C:\Users\Galito\Desktop\valida1.xml", bytes);
+                var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
             if (!Directory.Exists(PathServer))
             {
                 Directory.CreateDirectory(PathServer + @"\Generados\");
