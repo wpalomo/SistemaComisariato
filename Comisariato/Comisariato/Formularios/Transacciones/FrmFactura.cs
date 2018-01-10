@@ -329,7 +329,7 @@ namespace Comisariato.Formularios.Transacciones
 
                     if (rdbCaja.Checked)
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >=((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
+                        if (Convert.ToSingle(txtBodega.Text) >=((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
                         {
                             dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
 
@@ -358,7 +358,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
+                        if (Convert.ToSingle(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
                         {
                             dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
 
@@ -408,7 +408,7 @@ namespace Comisariato.Formularios.Transacciones
                     {
                     if (rdbCaja.Checked)
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >= ((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
+                        if (Convert.ToSingle(txtBodega.Text) >= ((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
                         {
                             dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
                             total = Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString()) * Convert.ToSingle(PrecioTodoslosDecimales);
@@ -421,14 +421,14 @@ namespace Comisariato.Formularios.Transacciones
                         }
                         else
                         {
-                            MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                            MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                             txtCantidad.Focus();
                             pr = false;
                         }
                     }
                     else
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
+                        if (Convert.ToSingle(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
                         {
                             dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
                             total = Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString()) * Convert.ToSingle(PrecioTodoslosDecimales);
@@ -441,7 +441,7 @@ namespace Comisariato.Formularios.Transacciones
                         }
                         else
                         {
-                            MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                            MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                             txtCantidad.Focus();
                             pr = false;
                         }
@@ -1010,7 +1010,7 @@ namespace Comisariato.Formularios.Transacciones
                             {
                                 if (rdbCaja.Checked)
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
+                                    if (Convert.ToSingle(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
                                     {
                                         iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(txtCantidad.Text)) * ivaporcentaje) / 100;
                                         txtIvaPrecio.Text = iva.ToString("#####0.00");
@@ -1036,14 +1036,14 @@ namespace Comisariato.Formularios.Transacciones
                                     }
                                     else
                                     {
-                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                                         txtCantidad.Focus();
                                         pr = false;
                                     }
                                 }
                                 else //////////// Iva O%
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
+                                    if (Convert.ToSingle(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
                                     {
                                         iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(txtCantidad.Text)) * ivaporcentaje) / 100;
                                         txtIvaPrecio.Text = iva.ToString("#####0.00");
@@ -1069,7 +1069,7 @@ namespace Comisariato.Formularios.Transacciones
                                     }
                                     else
                                     {
-                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                                         txtCantidad.Focus();
                                         pr = false;
                                     }
@@ -1084,7 +1084,7 @@ namespace Comisariato.Formularios.Transacciones
                                 Producto.Iva = 0;
                                 if (rdbCaja.Checked)
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
+                                    if (Convert.ToSingle(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
                                     {
                                         if (tipoprecio == 1)
                                         {
@@ -1110,14 +1110,14 @@ namespace Comisariato.Formularios.Transacciones
                                     }
                                     else
                                     {
-                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                                         txtCantidad.Focus();
                                         pr = false;
                                     }
                                 }
                                 else
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
+                                    if (Convert.ToSingle(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
                                     {
                                         if (tipoprecio == 1)
                                         {
@@ -1364,7 +1364,7 @@ namespace Comisariato.Formularios.Transacciones
                         dgvDetalleProductos.Rows[i].Cells[5].Value = retencionfact[i].Precioporcaja_sin_iva;
                         dgvDetalleProductos.Rows[i].Cells[6].Value = retencionfact[i].Precioalmayor_sin_iva;
                         dgvDetalleProductos.Rows[i].Cells[9].Value = Convert.ToInt32(retencionfact[i].LibreImpuesto);
-                        dgvDetalleProductos.Rows[i].Cells[8].Value = Convert.ToInt32(retencionfact[i].Caja);
+                        dgvDetalleProductos.Rows[i].Cells[8].Value = Convert.ToSingle(retencionfact[i].Caja);
                         dgvDetalleProductos.Rows[i].Cells[10].Value = retencionfact[i].Preciopublico_iva;
 
                     }
@@ -1517,7 +1517,7 @@ namespace Comisariato.Formularios.Transacciones
                             p.Precioporcaja_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[5].Value.ToString());
                             p.Precioalmayor_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value.ToString());
                             p.LibreImpuesto = Convert.ToBoolean(Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[9].Value));
-                            p.Caja= Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[8].Value.ToString());
+                            p.Caja= Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[8].Value.ToString());
                             p.Preciopublico_iva= Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[10].Value.ToString()); 
                             //codigos.Add(dgvDetalleProductos.Rows[i].Cells[0].Value.ToString());
                             retencionfact.Add(p);
@@ -1785,7 +1785,7 @@ namespace Comisariato.Formularios.Transacciones
             frmcobrar.ivas = Ivas;
             frmcobrar.DatosCliente = DatosCliente;
             frmcobrar.ShowDialog();
-            //FrmFactura_Activated(null, null);
+            FrmFactura_Activated(null, null);
             //    if (DatosCliente.Count>0)
             //    {
             //        DatosCliente.Clear();
