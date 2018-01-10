@@ -49,6 +49,17 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.dgvDetalleProductos = new System.Windows.Forms.DataGridView();
+            this.CODIGO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CANTIDAD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PBodega = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CantC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AplicaImpuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.preciosoriginales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtIva = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -76,7 +87,6 @@
             this.rdbMayorista = new System.Windows.Forms.RadioButton();
             this.rdbPublico = new System.Windows.Forms.RadioButton();
             this.rdbCaja = new System.Windows.Forms.RadioButton();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -98,16 +108,8 @@
             this.btnEliminarFact = new System.Windows.Forms.Button();
             this.btnFactEspera = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.CODIGO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CANTIDAD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PBodega = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CantC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AplicaImpuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtnConsultarPrecio = new System.Windows.Forms.Button();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleProductos)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -254,6 +256,7 @@
             this.txtCantidad.Size = new System.Drawing.Size(96, 26);
             this.txtCantidad.TabIndex = 6;
             this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
+            this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
             this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             // 
             // label8
@@ -328,7 +331,8 @@
             this.Column16,
             this.PBodega,
             this.CantC,
-            this.AplicaImpuesto});
+            this.AplicaImpuesto,
+            this.preciosoriginales});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -353,6 +357,110 @@
             this.dgvDetalleProductos.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvDetalleProductos_RowHeaderMouseClick);
             this.dgvDetalleProductos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvDetalleProductos_KeyPress);
             // 
+            // CODIGO
+            // 
+            this.CODIGO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CODIGO.DefaultCellStyle = dataGridViewCellStyle1;
+            this.CODIGO.FillWeight = 12.35128F;
+            this.CODIGO.HeaderText = "Codigo";
+            this.CODIGO.Name = "CODIGO";
+            this.CODIGO.ReadOnly = true;
+            this.CODIGO.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.CODIGO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CODIGO.Width = 160;
+            // 
+            // Column12
+            // 
+            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column12.FillWeight = 21.52845F;
+            this.Column12.HeaderText = "Producto";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column12.Width = 300;
+            // 
+            // CANTIDAD
+            // 
+            this.CANTIDAD.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.CANTIDAD.FillWeight = 42.35656F;
+            this.CANTIDAD.HeaderText = "Cantidad";
+            this.CANTIDAD.Name = "CANTIDAD";
+            this.CANTIDAD.ReadOnly = true;
+            this.CANTIDAD.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.CANTIDAD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CANTIDAD.Width = 90;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.FillWeight = 111.3851F;
+            this.Column1.HeaderText = "En Bodega";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column1.Width = 130;
+            // 
+            // Column14
+            // 
+            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column14.FillWeight = 84.21147F;
+            this.Column14.HeaderText = "Precio";
+            this.Column14.Name = "Column14";
+            this.Column14.ReadOnly = true;
+            this.Column14.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column14.Width = 90;
+            // 
+            // Column15
+            // 
+            this.Column15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column15.FillWeight = 168.6188F;
+            this.Column15.HeaderText = "IVA";
+            this.Column15.Name = "Column15";
+            this.Column15.ReadOnly = true;
+            this.Column15.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column15.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column15.Width = 90;
+            // 
+            // Column16
+            // 
+            this.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column16.FillWeight = 339.2439F;
+            this.Column16.HeaderText = "Total";
+            this.Column16.Name = "Column16";
+            this.Column16.ReadOnly = true;
+            this.Column16.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column16.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // PBodega
+            // 
+            this.PBodega.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.PBodega.FillWeight = 20.30457F;
+            this.PBodega.HeaderText = "P. B.";
+            this.PBodega.Name = "PBodega";
+            this.PBodega.Width = 50;
+            // 
+            // CantC
+            // 
+            this.CantC.HeaderText = "C";
+            this.CantC.Name = "CantC";
+            this.CantC.Visible = false;
+            // 
+            // AplicaImpuesto
+            // 
+            this.AplicaImpuesto.HeaderText = "AplicaImpuesto";
+            this.AplicaImpuesto.Name = "AplicaImpuesto";
+            this.AplicaImpuesto.Visible = false;
+            // 
+            // preciosoriginales
+            // 
+            this.preciosoriginales.HeaderText = "Column2";
+            this.preciosoriginales.Name = "preciosoriginales";
+            this.preciosoriginales.Visible = false;
+            // 
             // txtIva
             // 
             this.txtIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -376,6 +484,7 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.Color.Bisque;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblCajero,
             this.lblGrabarFact,
@@ -628,11 +737,6 @@
             this.rdbCaja.UseVisualStyleBackColor = true;
             this.rdbCaja.CheckedChanged += new System.EventHandler(this.rdbCaja_CheckedChanged);
             // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
-            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FloralWhite;
@@ -857,6 +961,7 @@
             // btnActivarFact
             // 
             this.btnActivarFact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnActivarFact.Enabled = false;
             this.btnActivarFact.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActivarFact.Image = global::Comisariato.Properties.Resources._10_128;
             this.btnActivarFact.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -887,6 +992,7 @@
             // btnFactEspera
             // 
             this.btnFactEspera.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnFactEspera.Enabled = false;
             this.btnFactEspera.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFactEspera.Image = global::Comisariato.Properties.Resources._9_128;
             this.btnFactEspera.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -909,104 +1015,31 @@
             this.pictureBox1.TabIndex = 40;
             this.pictureBox1.TabStop = false;
             // 
-            // CODIGO
+            // BtnConsultarPrecio
             // 
-            this.CODIGO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CODIGO.DefaultCellStyle = dataGridViewCellStyle1;
-            this.CODIGO.FillWeight = 12.35128F;
-            this.CODIGO.HeaderText = "Codigo";
-            this.CODIGO.Name = "CODIGO";
-            this.CODIGO.ReadOnly = true;
-            this.CODIGO.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.CODIGO.Width = 160;
+            this.BtnConsultarPrecio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnConsultarPrecio.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnConsultarPrecio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnConsultarPrecio.Location = new System.Drawing.Point(694, 18);
+            this.BtnConsultarPrecio.Name = "BtnConsultarPrecio";
+            this.BtnConsultarPrecio.Size = new System.Drawing.Size(102, 45);
+            this.BtnConsultarPrecio.TabIndex = 51;
+            this.BtnConsultarPrecio.Text = "Consultar Precio";
+            this.BtnConsultarPrecio.UseVisualStyleBackColor = true;
+            this.BtnConsultarPrecio.Click += new System.EventHandler(this.BtnConsultarPrecio_Click);
             // 
-            // Column12
+            // notifyIcon1
             // 
-            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column12.FillWeight = 21.52845F;
-            this.Column12.HeaderText = "Producto";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            this.Column12.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column12.Width = 300;
-            // 
-            // CANTIDAD
-            // 
-            this.CANTIDAD.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.CANTIDAD.FillWeight = 42.35656F;
-            this.CANTIDAD.HeaderText = "Cantidad";
-            this.CANTIDAD.Name = "CANTIDAD";
-            this.CANTIDAD.ReadOnly = true;
-            this.CANTIDAD.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.CANTIDAD.Width = 90;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.FillWeight = 111.3851F;
-            this.Column1.HeaderText = "En Bodega";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.Width = 130;
-            // 
-            // Column14
-            // 
-            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column14.FillWeight = 84.21147F;
-            this.Column14.HeaderText = "Precio";
-            this.Column14.Name = "Column14";
-            this.Column14.ReadOnly = true;
-            this.Column14.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column14.Width = 90;
-            // 
-            // Column15
-            // 
-            this.Column15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column15.FillWeight = 168.6188F;
-            this.Column15.HeaderText = "IVA";
-            this.Column15.Name = "Column15";
-            this.Column15.ReadOnly = true;
-            this.Column15.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column15.Width = 90;
-            // 
-            // Column16
-            // 
-            this.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column16.FillWeight = 339.2439F;
-            this.Column16.HeaderText = "Total";
-            this.Column16.Name = "Column16";
-            this.Column16.ReadOnly = true;
-            this.Column16.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // PBodega
-            // 
-            this.PBodega.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.PBodega.FillWeight = 20.30457F;
-            this.PBodega.HeaderText = "P. B.";
-            this.PBodega.Name = "PBodega";
-            this.PBodega.Width = 50;
-            // 
-            // CantC
-            // 
-            this.CantC.HeaderText = "C";
-            this.CantC.Name = "CantC";
-            this.CantC.Visible = false;
-            // 
-            // AplicaImpuesto
-            // 
-            this.AplicaImpuesto.HeaderText = "AplicaImpuesto";
-            this.AplicaImpuesto.Name = "AplicaImpuesto";
-            this.AplicaImpuesto.Visible = false;
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
             // 
             // FrmFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(1192, 554);
+            this.Controls.Add(this.BtnConsultarPrecio);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button3);
@@ -1040,10 +1073,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximizeBox = false;
             this.Name = "FrmFactura";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "VENTAS - Aircontrol";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.FrmFactura_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmFactura_FormClosed);
             this.Load += new System.EventHandler(this.FrmFactura_Load);
@@ -1109,7 +1142,6 @@
         private System.Windows.Forms.Button btnReimprimirFact;
         private System.Windows.Forms.DataGridView dgvDetalleProductos;
         private System.Windows.Forms.Button btnEliminarFact;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtDescuento;
@@ -1143,5 +1175,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn PBodega;
         private System.Windows.Forms.DataGridViewTextBoxColumn CantC;
         private System.Windows.Forms.DataGridViewTextBoxColumn AplicaImpuesto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn preciosoriginales;
+        private System.Windows.Forms.Button BtnConsultarPrecio;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }

@@ -39,7 +39,6 @@
             this.btnLimpiarProveedor = new System.Windows.Forms.Button();
             this.btnGuardarProveedor = new System.Windows.Forms.Button();
             this.txtSerie1 = new System.Windows.Forms.TextBox();
-            this.btnImprimir = new System.Windows.Forms.Button();
             this.txtSerie2 = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -77,6 +76,16 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dgvDatosRetencion = new System.Windows.Forms.DataGridView();
+            this.retencionSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.baseImponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.montoRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cuentaContable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaVigente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CODIGOSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDTIPOCODIGOSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtAutorizacionRetencion = new System.Windows.Forms.TextBox();
             this.dtpFechaVenceDocumento = new System.Windows.Forms.DateTimePicker();
             this.txtSerie2Retencion = new System.Windows.Forms.TextBox();
@@ -141,16 +150,6 @@
             this.label45 = new System.Windows.Forms.Label();
             this.ImpresionOG = new System.Drawing.Printing.PrintDocument();
             this.ElegirImpresero = new System.Windows.Forms.PrintDialog();
-            this.retencionSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.porcentaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baseImponible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.montoRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cuentaContable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaVigente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IdRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CODIGOSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDTIPOCODIGOSRI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -187,7 +186,6 @@
             this.tabPage1.Controls.Add(this.btnLimpiarProveedor);
             this.tabPage1.Controls.Add(this.btnGuardarProveedor);
             this.tabPage1.Controls.Add(this.txtSerie1);
-            this.tabPage1.Controls.Add(this.btnImprimir);
             this.tabPage1.Controls.Add(this.txtSerie2);
             this.tabPage1.Controls.Add(this.tabControl2);
             this.tabPage1.Controls.Add(this.ckbRISE);
@@ -301,19 +299,6 @@
             this.txtSerie1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
             this.txtSerie1.Leave += new System.EventHandler(this.txtNumero_Leave);
             // 
-            // btnImprimir
-            // 
-            this.btnImprimir.Image = global::Comisariato.Properties.Resources.impresora2;
-            this.btnImprimir.Location = new System.Drawing.Point(13, 579);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(145, 117);
-            this.btnImprimir.TabIndex = 21;
-            this.btnImprimir.Text = "Imprimir";
-            this.btnImprimir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnImprimir.UseVisualStyleBackColor = true;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
-            this.btnImprimir.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
-            // 
             // txtSerie2
             // 
             this.txtSerie2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -347,6 +332,7 @@
             this.tabPage3.Size = new System.Drawing.Size(1008, 348);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Datos Generales";
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // btnContabilizar
             // 
@@ -378,7 +364,7 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(427, 195);
+            this.label37.Location = new System.Drawing.Point(419, 195);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(43, 16);
             this.label37.TabIndex = 40;
@@ -386,14 +372,14 @@
             // 
             // txtTotalDebe
             // 
-            this.txtTotalDebe.Location = new System.Drawing.Point(481, 192);
+            this.txtTotalDebe.Location = new System.Drawing.Point(473, 192);
             this.txtTotalDebe.Name = "txtTotalDebe";
             this.txtTotalDebe.Size = new System.Drawing.Size(100, 22);
             this.txtTotalDebe.TabIndex = 39;
             // 
             // txtTotalHaber
             // 
-            this.txtTotalHaber.Location = new System.Drawing.Point(582, 192);
+            this.txtTotalHaber.Location = new System.Drawing.Point(574, 192);
             this.txtTotalHaber.Name = "txtTotalHaber";
             this.txtTotalHaber.Size = new System.Drawing.Size(100, 22);
             this.txtTotalHaber.TabIndex = 38;
@@ -426,13 +412,14 @@
             this.planCuenta.HeaderText = "Plan Cuenta";
             this.planCuenta.Name = "planCuenta";
             this.planCuenta.ReadOnly = true;
-            this.planCuenta.Width = 250;
+            this.planCuenta.Width = 435;
             // 
             // centroCosto
             // 
             this.centroCosto.HeaderText = "Centro Costo";
             this.centroCosto.Name = "centroCosto";
             this.centroCosto.ReadOnly = true;
+            this.centroCosto.Visible = false;
             this.centroCosto.Width = 190;
             // 
             // debe
@@ -737,6 +724,76 @@
             this.dgvDatosRetencion.TabIndex = 20;
             this.dgvDatosRetencion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
             // 
+            // retencionSRI
+            // 
+            this.retencionSRI.HeaderText = "Retención SRI";
+            this.retencionSRI.Name = "retencionSRI";
+            this.retencionSRI.ReadOnly = true;
+            this.retencionSRI.Width = 155;
+            // 
+            // tipo
+            // 
+            this.tipo.HeaderText = "Tipo";
+            this.tipo.Name = "tipo";
+            this.tipo.ReadOnly = true;
+            this.tipo.Width = 50;
+            // 
+            // porcentaje
+            // 
+            this.porcentaje.HeaderText = "%";
+            this.porcentaje.Name = "porcentaje";
+            this.porcentaje.ReadOnly = true;
+            this.porcentaje.Width = 35;
+            // 
+            // baseImponible
+            // 
+            this.baseImponible.HeaderText = "Base Imponible";
+            this.baseImponible.Name = "baseImponible";
+            this.baseImponible.ReadOnly = true;
+            this.baseImponible.Width = 145;
+            // 
+            // montoRetencion
+            // 
+            this.montoRetencion.HeaderText = "Monto Retención";
+            this.montoRetencion.Name = "montoRetencion";
+            this.montoRetencion.ReadOnly = true;
+            this.montoRetencion.Width = 150;
+            // 
+            // cuentaContable
+            // 
+            this.cuentaContable.HeaderText = "Cuenta Contable";
+            this.cuentaContable.Name = "cuentaContable";
+            this.cuentaContable.ReadOnly = true;
+            this.cuentaContable.Width = 250;
+            // 
+            // fechaVigente
+            // 
+            this.fechaVigente.HeaderText = "Fecha Vigente";
+            this.fechaVigente.Name = "fechaVigente";
+            this.fechaVigente.ReadOnly = true;
+            this.fechaVigente.Width = 150;
+            // 
+            // IdRetencion
+            // 
+            this.IdRetencion.HeaderText = "IDRETENCION";
+            this.IdRetencion.Name = "IdRetencion";
+            this.IdRetencion.ReadOnly = true;
+            this.IdRetencion.Visible = false;
+            // 
+            // CODIGOSRI
+            // 
+            this.CODIGOSRI.HeaderText = "CODIGOSRI";
+            this.CODIGOSRI.Name = "CODIGOSRI";
+            this.CODIGOSRI.ReadOnly = true;
+            this.CODIGOSRI.Visible = false;
+            // 
+            // IDTIPOCODIGOSRI
+            // 
+            this.IDTIPOCODIGOSRI.HeaderText = "IDTIPOCODIGOSRI";
+            this.IDTIPOCODIGOSRI.Name = "IDTIPOCODIGOSRI";
+            this.IDTIPOCODIGOSRI.ReadOnly = true;
+            this.IDTIPOCODIGOSRI.Visible = false;
+            // 
             // txtAutorizacionRetencion
             // 
             this.txtAutorizacionRetencion.Enabled = false;
@@ -841,7 +898,7 @@
             this.ckbRISE.Enabled = false;
             this.ckbRISE.Font = new System.Drawing.Font("Arial", 10F);
             this.ckbRISE.ForeColor = System.Drawing.Color.Teal;
-            this.ckbRISE.Location = new System.Drawing.Point(834, 142);
+            this.ckbRISE.Location = new System.Drawing.Point(499, 120);
             this.ckbRISE.Name = "ckbRISE";
             this.ckbRISE.Size = new System.Drawing.Size(58, 20);
             this.ckbRISE.TabIndex = 14;
@@ -887,17 +944,18 @@
             this.gbDatosAutorizacion.ForeColor = System.Drawing.Color.Teal;
             this.gbDatosAutorizacion.Location = new System.Drawing.Point(9, 142);
             this.gbDatosAutorizacion.Name = "gbDatosAutorizacion";
-            this.gbDatosAutorizacion.Size = new System.Drawing.Size(808, 48);
+            this.gbDatosAutorizacion.Size = new System.Drawing.Size(846, 48);
             this.gbDatosAutorizacion.TabIndex = 17;
             this.gbDatosAutorizacion.TabStop = false;
             this.gbDatosAutorizacion.Text = "Datos Autorización";
             // 
             // txtNAutorizacion
             // 
-            this.txtNAutorizacion.Location = new System.Drawing.Point(346, 16);
+            this.txtNAutorizacion.Location = new System.Drawing.Point(260, 16);
+            this.txtNAutorizacion.MaxLength = 49;
             this.txtNAutorizacion.Multiline = true;
             this.txtNAutorizacion.Name = "txtNAutorizacion";
-            this.txtNAutorizacion.Size = new System.Drawing.Size(241, 26);
+            this.txtNAutorizacion.Size = new System.Drawing.Size(363, 26);
             this.txtNAutorizacion.TabIndex = 19;
             this.txtNAutorizacion.Enter += new System.EventHandler(this.txtNAutorizacion_Enter);
             this.txtNAutorizacion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
@@ -908,7 +966,7 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.Teal;
-            this.label14.Location = new System.Drawing.Point(275, 21);
+            this.label14.Location = new System.Drawing.Point(196, 21);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(65, 16);
             this.label14.TabIndex = 34;
@@ -923,7 +981,7 @@
             "Normal"});
             this.cbAutorizacionSRI.Location = new System.Drawing.Point(81, 18);
             this.cbAutorizacionSRI.Name = "cbAutorizacionSRI";
-            this.cbAutorizacionSRI.Size = new System.Drawing.Size(188, 24);
+            this.cbAutorizacionSRI.Size = new System.Drawing.Size(112, 24);
             this.cbAutorizacionSRI.TabIndex = 18;
             this.cbAutorizacionSRI.SelectedIndexChanged += new System.EventHandler(this.cbAutorizacionSRI_SelectedIndexChanged);
             this.cbAutorizacionSRI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
@@ -932,9 +990,9 @@
             // 
             this.dtpFechaVigente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFechaVigente.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaVigente.Location = new System.Drawing.Point(700, 18);
+            this.dtpFechaVigente.Location = new System.Drawing.Point(733, 18);
             this.dtpFechaVigente.Name = "dtpFechaVigente";
-            this.dtpFechaVigente.Size = new System.Drawing.Size(101, 22);
+            this.dtpFechaVigente.Size = new System.Drawing.Size(100, 22);
             this.dtpFechaVigente.TabIndex = 20;
             this.dtpFechaVigente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
             // 
@@ -954,7 +1012,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Teal;
-            this.label6.Location = new System.Drawing.Point(596, 21);
+            this.label6.Location = new System.Drawing.Point(629, 21);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 16);
             this.label6.TabIndex = 5;
@@ -974,10 +1032,10 @@
             // txtPlazo
             // 
             this.txtPlazo.Font = new System.Drawing.Font("Arial", 10F);
-            this.txtPlazo.Location = new System.Drawing.Point(542, 91);
+            this.txtPlazo.Location = new System.Drawing.Point(601, 91);
             this.txtPlazo.MaxLength = 3;
             this.txtPlazo.Name = "txtPlazo";
-            this.txtPlazo.Size = new System.Drawing.Size(103, 23);
+            this.txtPlazo.Size = new System.Drawing.Size(100, 23);
             this.txtPlazo.TabIndex = 11;
             this.txtPlazo.Text = "0";
             this.txtPlazo.TextChanged += new System.EventHandler(this.txtPlazo_TextChanged);
@@ -1395,83 +1453,13 @@
             // 
             this.ElegirImpresero.UseEXDialog = true;
             // 
-            // retencionSRI
-            // 
-            this.retencionSRI.HeaderText = "Retención SRI";
-            this.retencionSRI.Name = "retencionSRI";
-            this.retencionSRI.ReadOnly = true;
-            this.retencionSRI.Width = 155;
-            // 
-            // tipo
-            // 
-            this.tipo.HeaderText = "Tipo";
-            this.tipo.Name = "tipo";
-            this.tipo.ReadOnly = true;
-            this.tipo.Width = 50;
-            // 
-            // porcentaje
-            // 
-            this.porcentaje.HeaderText = "%";
-            this.porcentaje.Name = "porcentaje";
-            this.porcentaje.ReadOnly = true;
-            this.porcentaje.Width = 35;
-            // 
-            // baseImponible
-            // 
-            this.baseImponible.HeaderText = "Base Imponible";
-            this.baseImponible.Name = "baseImponible";
-            this.baseImponible.ReadOnly = true;
-            this.baseImponible.Width = 145;
-            // 
-            // montoRetencion
-            // 
-            this.montoRetencion.HeaderText = "Monto Retención";
-            this.montoRetencion.Name = "montoRetencion";
-            this.montoRetencion.ReadOnly = true;
-            this.montoRetencion.Width = 150;
-            // 
-            // cuentaContable
-            // 
-            this.cuentaContable.HeaderText = "Cuenta Contable";
-            this.cuentaContable.Name = "cuentaContable";
-            this.cuentaContable.ReadOnly = true;
-            this.cuentaContable.Width = 250;
-            // 
-            // fechaVigente
-            // 
-            this.fechaVigente.HeaderText = "Fecha Vigente";
-            this.fechaVigente.Name = "fechaVigente";
-            this.fechaVigente.ReadOnly = true;
-            this.fechaVigente.Width = 150;
-            // 
-            // IdRetencion
-            // 
-            this.IdRetencion.HeaderText = "IDRETENCION";
-            this.IdRetencion.Name = "IdRetencion";
-            this.IdRetencion.ReadOnly = true;
-            this.IdRetencion.Visible = false;
-            // 
-            // CODIGOSRI
-            // 
-            this.CODIGOSRI.HeaderText = "CODIGOSRI";
-            this.CODIGOSRI.Name = "CODIGOSRI";
-            this.CODIGOSRI.ReadOnly = true;
-            this.CODIGOSRI.Visible = false;
-            // 
-            // IDTIPOCODIGOSRI
-            // 
-            this.IDTIPOCODIGOSRI.HeaderText = "IDTIPOCODIGOSRI";
-            this.IDTIPOCODIGOSRI.Name = "IDTIPOCODIGOSRI";
-            this.IDTIPOCODIGOSRI.ReadOnly = true;
-            this.IDTIPOCODIGOSRI.Visible = false;
-            // 
             // FrmOrdenDeGiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1102, 637);
+            this.ClientSize = new System.Drawing.Size(1085, 636);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
@@ -1569,11 +1557,6 @@
         private System.Windows.Forms.TextBox txtTotalDebe;
         private System.Windows.Forms.TextBox txtTotalHaber;
         private System.Windows.Forms.DataGridView dgvDatosLibroDiario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn planCuenta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn centroCosto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn debe;
-        private System.Windows.Forms.DataGridViewTextBoxColumn haber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn concepto;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DataGridView dgvDatosRetencion;
@@ -1606,7 +1589,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalIVA;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubtotalSinIVA;
         private System.Windows.Forms.DataGridViewTextBoxColumn baseImponibleConsulta;
-        private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Button btnLimpiarProveedor;
         private System.Windows.Forms.Button btnGuardarProveedor;
         private System.Windows.Forms.Label label9;
@@ -1628,5 +1610,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IdRetencion;
         private System.Windows.Forms.DataGridViewTextBoxColumn CODIGOSRI;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDTIPOCODIGOSRI;
+        private System.Windows.Forms.DataGridViewTextBoxColumn planCuenta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn centroCosto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn debe;
+        private System.Windows.Forms.DataGridViewTextBoxColumn haber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn concepto;
     }
 }

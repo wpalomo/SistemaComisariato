@@ -20,7 +20,7 @@ namespace Comisariato.Clases
         string peso;
         int stockmaximo;
         int stockminimo;
-        int caja;
+        float caja;
         int unidad;
         int display;
         //int unidadProducto;
@@ -39,16 +39,18 @@ namespace Comisariato.Clases
         string observaciones;
         int idcategoria;
 
-        int cantidad,cantidad1;
+        float cantidad, cantidad1;
+       
         int iva;
 
         float ice;
         float irbp;
 
+        string stockActual;
 
         bool libreImpuesto;
 
-        public Producto(string nombreproducto, bool activo, string codigobarra, string tipoproducto, string unidamedida, string peso, int stockmaximo, int stockminimo, int caja, int unidad, float preciopublico_iva, float preciopublico_sin_iva, float precioalmayor_iva, float precioalmayor_sin_iva, float precioporcaja_iva, float precioporcaja_sin_iva, byte[] imagenproducto, bool ivaestado, string observaciones, int idcategoria, int canitdad, int display, float ice, float irbp/*, int unidadProducto*/,bool libreImpuesto)
+        public Producto(string nombreproducto, bool activo, string codigobarra, string tipoproducto, string unidamedida, string peso, int stockmaximo, int stockminimo, int caja, int unidad, float preciopublico_iva, float preciopublico_sin_iva, float precioalmayor_iva, float precioalmayor_sin_iva, float precioporcaja_iva, float precioporcaja_sin_iva, byte[] imagenproducto, bool ivaestado, string observaciones, int idcategoria, float cantidad, int display, float ice, float irbp/*, int unidadProducto*/,bool libreImpuesto)
         {
             this.nombreproducto = nombreproducto;
             this.activo = activo;
@@ -189,7 +191,7 @@ namespace Comisariato.Clases
             }
         }
 
-        public int Caja
+        public float Caja
         {
             get
             {
@@ -345,7 +347,7 @@ namespace Comisariato.Clases
             }
         }
 
-        public int Cantidad
+        public float Cantidad
         {
             get
             {
@@ -358,7 +360,7 @@ namespace Comisariato.Clases
             }
         }
 
-        public int Cantidad1
+        public float Cantidad1
         {
             get
             {
@@ -449,6 +451,19 @@ namespace Comisariato.Clases
             }
         }
 
+        public string StockActual
+        {
+            get
+            {
+                return stockActual;
+            }
+
+            set
+            {
+                stockActual = value;
+            }
+        }
+
         //public int UnidadProducto
         //{
         //    get
@@ -502,7 +517,7 @@ namespace Comisariato.Clases
                 + " ,[UNIDAMEDIDA] = '"+unidamedida+ "'  ,[PESO] = '"+peso+ "' ,[STOCKMAXIMO] = "+stockmaximo+ " ,[STOCKMINIMO] = "+stockminimo+ " ,[CAJA] = "+caja+ " ,[UNIDAD] = "+unidad+ " ,[PRECIOPUBLICO_IVA] = "+ Funcion.reemplazarcaracter(preciopublico_iva.ToString()) +""
                 + " ,[PRECIOPUBLICO_SIN_IVA] = "+ Funcion.reemplazarcaracter(preciopublico_sin_iva.ToString()) + " ,[PRECIOALMAYOR_IVA] = "+ Funcion.reemplazarcaracter(precioalmayor_iva.ToString()) + " ,[PRECIOALMAYOR_SIN_IVA] = "+ Funcion.reemplazarcaracter(precioalmayor_sin_iva.ToString()) + ",[PRECIOPORCAJA_IVA] = "+ Funcion.reemplazarcaracter(precioporcaja_iva.ToString()) +""
                 + " ,[PRECIOPORCAJA_SIN_IVA] = "+ Funcion.reemplazarcaracter(precioporcaja_sin_iva.ToString()) + " ,[IVAESTADO] = '"+ivaestado+ "'"
-                + " ,[OBSERVACIONES] = '"+observaciones+ "' ,[IDCATEGORIA] = "+idcategoria+ ",[DISPLAY] = "+display+ ", [ICE] = " + Funcion.reemplazarcaracter(ice.ToString()) + " , [IRBP] = " + Funcion.reemplazarcaracter(irbp.ToString()) +", [LIBREIMPUESTO] = '"+libreImpuesto+"' "
+                + " ,[OBSERVACIONES] = '"+observaciones+ "' ,[IDCATEGORIA] = "+idcategoria+ ",[DISPLAY] = "+display+ ", [ICE] = " + Funcion.reemplazarcaracter(ice.ToString()) + " , [IRBP] = " + Funcion.reemplazarcaracter(irbp.ToString()) +", [LIBREIMPUESTO] = '"+libreImpuesto+"',[CANTIDAD] = '"+cantidad+"' "
                 + " WHERE CODIGOBARRA ='"+ CodigoBarra + "' "))
             {
                 ObjConsulta.EditarFoto(Imagenproducto, CodigoBarra, "[TbProducto]", "IMAGENPRODUCTO", "CODIGOBARRA");

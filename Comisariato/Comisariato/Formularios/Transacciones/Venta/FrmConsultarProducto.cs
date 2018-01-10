@@ -1,4 +1,6 @@
 ﻿using Comisariato.Clases;
+using Comisariato.Formularios.Mantenimiento.Inventario;
+using Comisariato.Formularios.Transacciones.Venta;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +17,7 @@ namespace Comisariato.Formularios.Transacciones
     {
         Consultas ObjConsul;
 
+
         public FrmConsultarProducto()
         {
             InitializeComponent();
@@ -28,13 +31,16 @@ namespace Comisariato.Formularios.Transacciones
             
             //ObjConsul.boolLlenarDataGridView(dgvProductos, "Select TbProducto.CODIGOBARRA AS CODIGO, TbProducto.DETALLE,TbProducto.CANTIDAD, TbProducto.PRECIOVENTAPUBLICO AS PRECIOPUBLICO, TbProducto.PRECIOVENTAMAYORISTA AS PRECIOMAY, TbProducto.PRECIOVENTACAJA AS PRECIOCAJA from TbProducto;");
             ObjConsul.BoolCrearDateTable(dgvProductos, "Select  P.IVA as IVA, TbProducto.CODIGOBARRA, TbProducto.ACTIVO, TbProducto.NOMBREPRODUCTO AS DETALLE,TbProducto.CANTIDAD, TbProducto.PRECIOPUBLICO_SIN_IVA AS PRECIOVENTAPUBLICO, TbProducto.PRECIOALMAYOR_SIN_IVA AS PRECIOVENTAMAYORISTA, TbProducto.PRECIOPORCAJA_SIN_IVA AS PRECIOVENTACAJA, TbProducto.IVAESTADO, TbProducto.CAJA, TbProducto.LIBREIMPUESTO from TbProducto , TbParametrosFactura P; ");
-            
+            dgvProductos.Columns[0].Width = 150;
+            dgvProductos.Columns[1].Width = 210;
         }
 
         private void txtconsultar_TextChanged(object sender, EventArgs e)
         {
             ObjConsul = new Consultas();
             ObjConsul.BoolCrearDateTable(dgvProductos, "Select  P.IVA as IVA, TbProducto.CODIGOBARRA, TbProducto.ACTIVO, TbProducto.NOMBREPRODUCTO AS DETALLE,TbProducto.CANTIDAD, TbProducto.PRECIOPUBLICO_SIN_IVA AS PRECIOVENTAPUBLICO, TbProducto.PRECIOALMAYOR_SIN_IVA AS PRECIOVENTAMAYORISTA, TbProducto.PRECIOPORCAJA_SIN_IVA AS PRECIOVENTACAJA, TbProducto.IVAESTADO, TbProducto.CAJA,TbProducto.LIBREIMPUESTO from TbProducto , TbParametrosFactura P where NOMBREPRODUCTO like '%" + txtconsultar.Text + "%' or CODIGOBARRA like '%" + txtconsultar.Text +"%';");
+            dgvProductos.Columns[0].Width = 150;
+            dgvProductos.Columns[1].Width = 210;
         }
 
         private void FrmConsultarProducto_KeyUp(object sender, KeyEventArgs e)
@@ -56,30 +62,44 @@ namespace Comisariato.Formularios.Transacciones
                 case Keys.Escape:
                     try
                     {
-                        if (Convert.ToSingle(dgvProductos.CurrentRow.Cells[2].Value)>0)
+                        if (Program.banderaProductosCompras)
                         {
-                            if (FrmFactura.DatosCliente.Count > 0)
-                            {
-                                FrmFactura.DatosCliente.Clear();
-                            }
-                            FrmFactura.verificadorfrm = 2;
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[0].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[1].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[2].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[3].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[4].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[5].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[6].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[7].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[8].Value.ToString());
-                            FrmFactura.DatosCliente.Add(dgvProductos.CurrentRow.Cells[9].Value.ToString());
+                            FrmCompra.CodigoBarraConsultaProducto = dgvProductos.CurrentRow.Cells[0].Value.ToString();
+                            Program.banderaProductosCompras = false;
+                        }
+                        else if(Program.banderaProductosConsultarPrecio)
+                        {
+                            //FrmConsultarPrecios.DatosProducto.Cear();
+                            FrmConsultarPrecios.DatosProducto.Add(dgvProductos.CurrentRow.Cells[0].Value.ToString());
                             this.Close();
                         }
                         else
                         {
-                            MessageBox.Show("Producto agotado. Selecciona otro producto con cantidad diferente de cero.");
+                            if (Convert.ToSingle(dgvProductos.CurrentRow.Cells[2].Value) > 0)
+                            {
+
+                                    if (FrmFactura.DatosProducto.Count > 0)
+                                    {
+                                        FrmFactura.DatosProducto.Clear();
+                                    }
+                                    FrmFactura.verificadorfrm = 2;
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[0].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[1].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[2].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[3].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[4].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[5].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[6].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[7].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[8].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[9].Value.ToString());
+                                    this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Producto agotado. Selecciona otro producto con cantidad diferente de cero.");
+                            }
                         }
-                       
                     }
                     catch (Exception)
                     {

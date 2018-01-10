@@ -58,6 +58,7 @@
             this.cantidadExistecia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.costoExistencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalExistencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.gbEncabezadoKardex.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -173,6 +174,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.BtnExportarExcel);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.groupBox4);
             this.groupBox2.Controls.Add(this.groupBox1);
@@ -266,8 +268,8 @@
             this.totalExistencia});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 8F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Teal;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
@@ -344,6 +346,17 @@
             this.totalExistencia.Name = "totalExistencia";
             this.totalExistencia.Width = 75;
             // 
+            // BtnExportarExcel
+            // 
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(387, 19);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 24;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click);
+            // 
             // FrmKardex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -404,5 +417,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn costoExistencia;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalExistencia;
         private System.Windows.Forms.Button btnGenerarKardex;
+        private System.Windows.Forms.Button BtnExportarExcel;
     }
 }

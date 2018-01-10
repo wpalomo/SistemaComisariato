@@ -46,12 +46,12 @@ namespace Comisariato.Formularios.Transacciones
                 Auntenticar();
             }
         }
-        FrmFactura f;
+        public static FrmFactura f;
         private void Auntenticar()
         {
             try
             {
-
+                f = null;
                 if (txtClave.Text != "")
                 {
                     c = new Consultas();
@@ -68,7 +68,8 @@ namespace Comisariato.Formularios.Transacciones
 
                             string numcaja = "", sucursal = "", documentoActual = "";
                             string IpMaquina = bitacora.LocalIPAddress();
-                            DataTable Dt = c.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
+                            //IPESTACION = '" + IpMaquina + "' and
+                            DataTable Dt = c.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and  ESTADO=1;");
                             if (Dt.Rows.Count > 0)
                             {
                                 bool banderaCaja = false;
@@ -82,6 +83,7 @@ namespace Comisariato.Formularios.Transacciones
                                         numcaja = myRows["SERIE2"].ToString();
                                         documentoActual = myRows["DOCUMENTOACTUAL"].ToString();
                                         banderaCaja = false;
+                                        Program.NumeroCaja = Convert.ToInt32(numcaja);
                                         break;
                                         //FrmPrincipal.menuMostrar.Visible = false;
                                     }                                    
@@ -127,26 +129,41 @@ namespace Comisariato.Formularios.Transacciones
                             //{
                             //f.ShowDialog();
                             //f = new FrmFactura();
-                            if (f == null || f.IsDisposed)
+                            //                      SELECT[IDCIERRECAJA]
+                            //,[TOTALBILLETES]
+                            //,[TOTALMONEDAS]
+                            //,[TOTALCHEQUES]
+                            //,[TOTALAVANCES]
+                            //,[TOTALRECAUDADO]
+                            //,[TOTALENTREGADO]
+                            //,[FECHA]
+                            //,[IDUSUARIO]
+                            //,[CAJA]
+                            if (!c.Existe("CAJA = " + Program.NumeroCaja + " AND IDUSUARIO = " + Program.IDUsuarioMenu + " AND FECHA", Funcion.reemplazarcaracterFecha(DateTime.Now.Date.ToShortDateString()), "TbCierreCaja"))
                             {
-                                f = new FrmFactura();
-                                f.IDCLIENTEINICIO = c.ObtenerID("IDCLIENTE", "TbCliente", condicion);
+                                if (f == null || f.IsDisposed)
+                                {
+                                    f = new FrmFactura();
+                                    f.IDCLIENTEINICIO = c.ObtenerID("IDCLIENTE", "TbCliente", condicion);
 
-                                f.numfact = Convert.ToInt32(documentoActual);
-                                f.sucursal = sucursal;
-                                f.numcaja = numcaja;
+                                    f.numfact = Convert.ToInt32(documentoActual);
+                                    f.sucursal = sucursal;
+                                    f.numcaja = numcaja;
 
-                                f.MdiParent = Program.panelPrincipalVariable;
-                                f.BringToFront();
-                                f.Show();
+                                    //f.MdiParent = Program.panelPrincipalVariable;
+                                    //f.BringToFront();
+                                    f.ShowDialog();
 
+                                }
+                                else { f.BringToFront(); }
+                                //f.verificarMetodo = 1;
+                                //objFuncion.AddFormInPanel(f, Program.panelPrincipalVariable);
+                                f.Dock = DockStyle.Top;
+                                //FrmPrincipal.menuMostrar.Visible = false; 
+                                //}
                             }
-                            else { f.BringToFront(); }
-                            //f.verificarMetodo = 1;
-                            //objFuncion.AddFormInPanel(f, Program.panelPrincipalVariable);
-                            f.Dock = DockStyle.Top;
-                            //FrmPrincipal.menuMostrar.Visible = false; 
-                            //}
+                            else
+                                MessageBox.Show("Este usuario ya cerro esta caja");
                         }
                         else
                         {
@@ -188,6 +205,7 @@ namespace Comisariato.Formularios.Transacciones
 
         private void FrmClaveUsuario_Load(object sender, EventArgs e)
         {
+            txtClave.Focus();
             SendKeys.Send("{TAB}");
 
             txtClave.Focus();

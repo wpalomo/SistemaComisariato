@@ -37,6 +37,8 @@
             this.ckbActivoProducto = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gbDescripcionProducto = new System.Windows.Forms.GroupBox();
+            this.TxtStockActual = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.txtPeso = new System.Windows.Forms.TextBox();
             this.txtUnidadProducto = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -81,13 +83,14 @@
             this.label16 = new System.Windows.Forms.Label();
             this.cbUnidadMedidaProducto = new System.Windows.Forms.ComboBox();
             this.tpConsultarModificarProducto = new System.Windows.Forms.TabPage();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.rbtInactivos = new System.Windows.Forms.RadioButton();
             this.rbtActivos = new System.Windows.Forms.RadioButton();
             this.dgvDatosProducto = new System.Windows.Forms.DataGridView();
-            this.txtConsultarProducto = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Deshabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.txtConsultarProducto = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.tcProducto.SuspendLayout();
             this.tpNuevoProducto.SuspendLayout();
             this.gbDescripcionProducto.SuspendLayout();
@@ -199,6 +202,8 @@
             // 
             // gbDescripcionProducto
             // 
+            this.gbDescripcionProducto.Controls.Add(this.TxtStockActual);
+            this.gbDescripcionProducto.Controls.Add(this.label6);
             this.gbDescripcionProducto.Controls.Add(this.txtPeso);
             this.gbDescripcionProducto.Controls.Add(this.txtUnidadProducto);
             this.gbDescripcionProducto.Controls.Add(this.label5);
@@ -231,6 +236,28 @@
             this.gbDescripcionProducto.TabIndex = 2;
             this.gbDescripcionProducto.TabStop = false;
             this.gbDescripcionProducto.Text = "Descripción del Producto";
+            // 
+            // TxtStockActual
+            // 
+            this.TxtStockActual.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.TxtStockActual.Location = new System.Drawing.Point(516, 139);
+            this.TxtStockActual.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.TxtStockActual.Name = "TxtStockActual";
+            this.TxtStockActual.Size = new System.Drawing.Size(84, 22);
+            this.TxtStockActual.TabIndex = 50;
+            this.TxtStockActual.Text = "0";
+            this.TxtStockActual.Enter += new System.EventHandler(this.TxtStockActual_Enter);
+            this.TxtStockActual.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtStockActual_KeyPress);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.label6.Location = new System.Drawing.Point(414, 142);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(86, 16);
+            this.label6.TabIndex = 51;
+            this.label6.Text = "Stock Actual:";
             // 
             // txtPeso
             // 
@@ -659,10 +686,10 @@
             // txtStockMinimoProducto
             // 
             this.txtStockMinimoProducto.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtStockMinimoProducto.Location = new System.Drawing.Point(439, 139);
+            this.txtStockMinimoProducto.Location = new System.Drawing.Point(319, 139);
             this.txtStockMinimoProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtStockMinimoProducto.Name = "txtStockMinimoProducto";
-            this.txtStockMinimoProducto.Size = new System.Drawing.Size(143, 22);
+            this.txtStockMinimoProducto.Size = new System.Drawing.Size(84, 22);
             this.txtStockMinimoProducto.TabIndex = 12;
             this.txtStockMinimoProducto.Text = "0";
             this.txtStockMinimoProducto.Click += new System.EventHandler(this.txtStockMinimoProducto_Click);
@@ -673,10 +700,10 @@
             // txtStockMaximoProducto
             // 
             this.txtStockMaximoProducto.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.txtStockMaximoProducto.Location = new System.Drawing.Point(154, 139);
+            this.txtStockMaximoProducto.Location = new System.Drawing.Point(125, 139);
             this.txtStockMaximoProducto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtStockMaximoProducto.Name = "txtStockMaximoProducto";
-            this.txtStockMaximoProducto.Size = new System.Drawing.Size(143, 22);
+            this.txtStockMaximoProducto.Size = new System.Drawing.Size(82, 22);
             this.txtStockMaximoProducto.TabIndex = 11;
             this.txtStockMaximoProducto.Text = "0";
             this.txtStockMaximoProducto.Click += new System.EventHandler(this.txtStockMaximoProducto_Click);
@@ -742,7 +769,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.label15.Location = new System.Drawing.Point(320, 142);
+            this.label15.Location = new System.Drawing.Point(221, 142);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(92, 16);
             this.label15.TabIndex = 34;
@@ -790,6 +817,7 @@
             // tpConsultarModificarProducto
             // 
             this.tpConsultarModificarProducto.BackColor = System.Drawing.Color.Bisque;
+            this.tpConsultarModificarProducto.Controls.Add(this.BtnExportarExcel);
             this.tpConsultarModificarProducto.Controls.Add(this.rbtInactivos);
             this.tpConsultarModificarProducto.Controls.Add(this.rbtActivos);
             this.tpConsultarModificarProducto.Controls.Add(this.dgvDatosProducto);
@@ -802,6 +830,17 @@
             this.tpConsultarModificarProducto.Size = new System.Drawing.Size(1026, 562);
             this.tpConsultarModificarProducto.TabIndex = 1;
             this.tpConsultarModificarProducto.Text = "Consultar - Modificar Producto";
+            // 
+            // BtnExportarExcel
+            // 
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(970, 27);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 24;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click);
             // 
             // rbtInactivos
             // 
@@ -858,6 +897,21 @@
             this.dgvDatosProducto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosProducto_CellClick);
             this.dgvDatosProducto.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosProducto_CellPainting);
             // 
+            // Modificar
+            // 
+            this.Modificar.FillWeight = 5.076141F;
+            this.Modificar.HeaderText = "";
+            this.Modificar.Name = "Modificar";
+            this.Modificar.ReadOnly = true;
+            this.Modificar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Deshabilitar
+            // 
+            this.Deshabilitar.FillWeight = 194.9239F;
+            this.Deshabilitar.HeaderText = "";
+            this.Deshabilitar.Name = "Deshabilitar";
+            this.Deshabilitar.ReadOnly = true;
+            // 
             // txtConsultarProducto
             // 
             this.txtConsultarProducto.Font = new System.Drawing.Font("Arial", 9.75F);
@@ -881,28 +935,13 @@
             this.label25.TabIndex = 7;
             this.label25.Text = "Consultar:";
             // 
-            // Modificar
-            // 
-            this.Modificar.FillWeight = 5.076141F;
-            this.Modificar.HeaderText = "";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.ReadOnly = true;
-            this.Modificar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Deshabilitar
-            // 
-            this.Deshabilitar.FillWeight = 194.9239F;
-            this.Deshabilitar.HeaderText = "";
-            this.Deshabilitar.Name = "Deshabilitar";
-            this.Deshabilitar.ReadOnly = true;
-            // 
             // FrmProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1052, 614);
+            this.ClientSize = new System.Drawing.Size(1052, 613);
             this.Controls.Add(this.tcProducto);
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -991,5 +1030,8 @@
         private System.Windows.Forms.CheckBox CkbLibreImpuesto;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
         private System.Windows.Forms.DataGridViewButtonColumn Deshabilitar;
+        private System.Windows.Forms.TextBox TxtStockActual;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button BtnExportarExcel;
     }
 }

@@ -31,6 +31,8 @@ namespace Comisariato.Formularios.Transacciones
         //private bool chequear;
         string PathLocal = @"C:\Users\Public\Documents\ArchivosXml\Generados\";
 
+        InfoTributaria objcit;
+
         public FrmCobrar()
         {
             InitializeComponent();
@@ -72,7 +74,6 @@ namespace Comisariato.Formularios.Transacciones
                 dg.Rows.Add();
             }
        }
-
 
         private void ckbEfectivo_CheckedChanged(object sender, EventArgs e)
         {
@@ -718,7 +719,36 @@ namespace Comisariato.Formularios.Transacciones
         {
             try
             {
-                ProceCambioBd();
+                if (!ckbCheque.Checked && !ckbTarjeta.Checked && !ckbEfectivo.Checked)
+                {
+                    MessageBox.Show("Por favor elige un tipo de pago.");
+                }
+                else
+                {
+                    bool procederGrabarFactura =true ;
+                    if (ckbCheque.Checked)
+                    {
+                        if (!VerificarPrecios(1))
+                        {
+                            MessageBox.Show("El monto en la tabla cheque no es un valor valido.\nPor favor verifica e ingresa un valor valido");
+                            procederGrabarFactura = false;
+                        }
+                    }
+                    if (ckbTarjeta.Checked)
+                    {
+                        if (!VerificarPrecios(2))
+                        {
+                            MessageBox.Show("El monto en la tabla Credito no es un valor valido.\nPor favor verifica e ingresa un valor valido");
+                            procederGrabarFactura = false;
+                        }
+                    }
+                    if (procederGrabarFactura)
+                    {
+                        ProceCambioBd();
+                    }
+                   
+                }
+                
 
 
             }
@@ -729,11 +759,58 @@ namespace Comisariato.Formularios.Transacciones
           
         }
 
+        private bool VerificarPrecios(int tipopag)
+        {
+            try
+            {
+                if (tipopag == 1)
+                {
+                   
+                    for (int i = 0; i < dgvCheque.RowCount; i++)
+                    {
+                        if (dgvCheque.Rows[i].Cells[0].Value != null)
+                        {
+                            float n = Convert.ToSingle(dgvCheque.Rows[i].Cells[5].Value);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < dgvTarjeta.RowCount; i++)
+                    {
+                        if (dgvTarjeta.Rows[i].Cells[0].Value != null)
+                        {
+                            float n = Convert.ToSingle(dgvTarjeta.Rows[i].Cells[2].Value);
+                        }
+                        else
+                        {
+                            break;
+                        }
+
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+          
+        }
+
         private void ProceCambioBd()
         {
             c = new Consultas();
             try
             {
+                string claveacceso = "";
+                string serie = "";
                 int sucursal = Program.em.Sucursal;
                 int caja = Program.em.Caja;
                 int numfactbd = Program.em.Numfact;
@@ -813,7 +890,7 @@ namespace Comisariato.Formularios.Transacciones
                     int auxiliar = totalfilas;
                     for (int i = 0; i < totalfacturasAGenerar; i++)
                     {
-                        
+
                         if (auxiliar > ItemsPermitidos)
                         {
                             int aux1 = auxiliar;
@@ -836,10 +913,30 @@ namespace Comisariato.Formularios.Transacciones
                         }
                         List<double> DetallePago = calcularDetallepago(inicioContador, filasaxuiliar);
                         detallepago.Add(Funcion.reemplazarcaracter(DetallePago[0].ToString()));
-                        detallepago.Add(Funcion.reemplazarcaracter(DetallePago[1].ToString()));
+                        detallepago.Add(Funcion.reemplazarcaracter(Convert.ToString(DetallePago[1]/1.12)));
                         detallepago.Add(Funcion.reemplazarcaracter(DetallePago[2].ToString()));
                         detallepago.Add(Funcion.reemplazarcaracter(DetallePago[3].ToString()));
 
+                        objcit = new InfoTributaria();
+
+                        objcit.Ambiente = 2;
+                        objcit.TipoEmision = 1;
+                        objcit.RazonSociaL = Program.razonsocialempresa;
+                        objcit.NombreComerciaL = Program.nombreempresa;
+                        objcit.RuC = Program.rucempresa;
+                        objcit.CodDoC = "01";
+                        objcit.EstaB = Program.em.Sucursal.ToString("D3");
+                        objcit.PtoEmI = caja.ToString("D3");
+                        objcit.SecuenciaL = numfactbd.ToString("D9");
+                        objcit.DirMatriz = Program.direccionempresa;
+                        serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
+                        string fecha = DateTime.Now.Date.ToShortDateString();
+                        //Si la fecha Obtenida no tienen los ceros en dias y meses
+                        fecha = Funcion.FormarFecha(fecha);
+                        claveacceso = objcit.GenerarClaveAcceso(fecha, "1", serie);
+
+
+                        encabezadofact.Add(claveacceso);
                         bool b = c.GuardarFact(filasaxuiliar, dg, encabezadofact, detallepago, ivas, inicioContador);
                         detallepago.RemoveRange(6, 4);
                         if (b)
@@ -862,19 +959,21 @@ namespace Comisariato.Formularios.Transacciones
                                 ImprimirenRed();
                             }
 
+                            var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
+                            c.RegistrarArchivosXml(claveacceso, PathServer, fecha);
 
-                            Imprimirfact(inicioContador, filasaxuiliar);
-                            encabezadofact[2] = (Convert.ToInt32(encabezadofact[2])+1).ToString();
+                            Imprimirfact(inicioContador, filasaxuiliar, claveacceso);
+                            encabezadofact[2] = (Convert.ToInt32(encabezadofact[2]) + 1).ToString();
                             Program.em.Numfact = Convert.ToInt32(encabezadofact[2]);
 
-                            if (i == (totalfacturasAGenerar-1))
+                            if (i == (totalfacturasAGenerar - 1))
                             {
                                 FrmFactura.verificadorfrm = 3;
                                 FrmFactura.numfactnuevo = Convert.ToInt32(encabezadofact[2]);
                                 this.Close();
                             }
+                            
 
-                           
 
                         }
                         else
@@ -883,7 +982,7 @@ namespace Comisariato.Formularios.Transacciones
                         }
 
                         inicioContador += (filasaxuiliar);
-                      FormarXml(sucursal, caja, numfactbd);
+                        FormarXml(sucursal, caja, numfactbd, claveacceso, serie);
                     }
                 }
                 else
@@ -894,7 +993,7 @@ namespace Comisariato.Formularios.Transacciones
                 
 
             }
-            catch (Exception EX)
+            catch (Exception Ex)
             {
 
                 //throw;
@@ -902,10 +1001,10 @@ namespace Comisariato.Formularios.Transacciones
            
         }
 
-        private void FormarXml(int sucursal, int caja,int numfactbd)
+        private void FormarXml(int sucursal, int caja,int numfactbd,string claveacceso,string serie)
         {
-            //if (Program.BoolAutorizadoImprimir)
-            //{
+            if (Program.BoolAutorizadoImprimir)
+            {
 
                 Xml xml = new Xml();
                 //C:\Users\Programacion\Desktop\ArchivosXml\Generados
@@ -916,21 +1015,7 @@ namespace Comisariato.Formularios.Transacciones
                 {
                     Directory.CreateDirectory(PathLocal);
                 }
-            InfoTributaria objcit = new InfoTributaria();
-
-            objcit.Ambiente = 1;
-            objcit.TipoEmision = 1;
-            objcit.RazonSociaL = Program.razonsocialempresa;
-            objcit.NombreComerciaL = Program.nombreempresa;
-            objcit.RuC = Program.rucempresa;
-            objcit.CodDoC = "01";
-            objcit.EstaB = Program.em.Sucursal.ToString("D3");
-            objcit.PtoEmI = caja.ToString("D3");
-            objcit.SecuenciaL = numfactbd.ToString("D9");
-            objcit.DirMatriz = Program.direccionempresa;
-            string serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
-            string fecha = DateTime.Now.Date.ToShortDateString();
-           string claveacceso = objcit.GenerarClaveAcceso(fecha,"1",serie);
+             
 
             xml._crearXml(PathLocal + @"\"+ claveacceso + ".xml", "factura");
             string pathfinal = PathLocal + @"\" +claveacceso + ".xml";
@@ -943,7 +1028,7 @@ namespace Comisariato.Formularios.Transacciones
                 for (int j = 0; j < dg.RowCount; j++)
                 {
                     if (dg.Rows[j].Cells[0].Value != null)
-                        totalSinImpuesto += Convert.ToInt32(dg.Rows[j].Cells[2].Value) * Convert.ToDouble(dg.Rows[j].Cells[4].Value);
+                        totalSinImpuesto += Convert.ToSingle(dg.Rows[j].Cells[2].Value) * Convert.ToDouble(dg.Rows[j].Cells[4].Value);
                     else
                         break;
                 }
@@ -1006,16 +1091,16 @@ namespace Comisariato.Formularios.Transacciones
                 xml.infoFactura("infoFactura", objcif,dgvCheque,dgvTarjeta,ckbEfectivo,txtEfectivo.Text,dg);
                 xml.detalleFactura("detalles", dg);
 
-            //System.IO.File.WriteAllBytes(@"C:\Users\Galito\Desktop\valida1.xml", bytes);
-            var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-            if (Directory.Exists(PathServer+@"\Generados\"))
+                //System.IO.File.WriteAllBytes(@"C:\Users\Galito\Desktop\valida1.xml", bytes);
+                var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
+            if (!Directory.Exists(PathServer))
             {
                 Directory.CreateDirectory(PathServer + @"\Generados\");
             }
             
             File.Copy(pathfinal, PathServer+ @"\Generados\" + @"\" + claveacceso + ".xml", true);
 
-            //}
+           }
         }
 
         private int obtenercantidadFactura(int cantidadDeFilas, int ItemsPermitidos)
@@ -1049,7 +1134,7 @@ namespace Comisariato.Formularios.Transacciones
             }
         }
 
-        private void Imprimirfact(int inicioContador, int filasaxuiliar)
+        private void Imprimirfact(int inicioContador, int filasaxuiliar,string claveacceso)
         {
             //Creamos una instancia d ela clase CrearTicket
             CrearTicket ticket = new CrearTicket();
@@ -1080,7 +1165,7 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.TextoCentro("RUC: " + Program.rucempresa);
                 ticket.TextoIzquierda(Program.direccionempresa);
                 ticket.TextoIzquierda("Valido: " + fechactual + " Hasta: " + fechaexpira);
-                ticket.TextoIzquierda("Clave: 4530000");
+                ticket.TextoIzquierda("Clave: "+claveacceso);
             }
             else if (Program.BoolPreimpresa)
             {
@@ -1175,15 +1260,15 @@ namespace Comisariato.Formularios.Transacciones
             for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
             {
 
-                double total = Convert.ToDouble(dg.Rows[J].Cells[4].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
+                double total = Convert.ToDouble(dg.Rows[J].Cells[10].Value.ToString()) * Convert.ToSingle(dg.Rows[J].Cells[2].Value.ToString());
                 if (Convert.ToSingle(dg.Rows[J].Cells[5].Value.ToString()) != 0)
                 {
-                    ticket.AgregaArticulo("*" + dg.Rows[J].Cells[1].Value.ToString(), int.Parse(dg.Rows[J].Cells[2].Value.ToString()),
+                    ticket.AgregaArticulo("*" + dg.Rows[J].Cells[1].Value.ToString(), Convert.ToSingle(dg.Rows[J].Cells[2].Value.ToString()),
                     Convert.ToSingle(dg.Rows[J].Cells[4].Value).ToString("#####0.00"), total.ToString("#####0.00"));
                 }
                 else
                 {
-                    ticket.AgregaArticulo(" " + dg.Rows[J].Cells[1].Value.ToString(), int.Parse(dg.Rows[J].Cells[2].Value.ToString()),
+                    ticket.AgregaArticulo(" " + dg.Rows[J].Cells[1].Value.ToString(), Convert.ToSingle(dg.Rows[J].Cells[2].Value.ToString()),
                 Convert.ToSingle(dg.Rows[J].Cells[4].Value).ToString("#####0.00"), total.ToString("#####0.00"));
                 }
             }
@@ -1204,11 +1289,16 @@ namespace Comisariato.Formularios.Transacciones
 
             ticket.lineasAsteriscos();
             //Resumen de la venta. Sólo son ejemplos
+
+            //posible error
+            float posibleerror =Convert.ToSingle( DetallePago[1])/1.12f;
+
             ticket.AgregarTotales("SUBTOTAL  0%", DetallePago[0]);
-            ticket.AgregarTotales("SUBTOTAL 12% ", DetallePago[1]);
+            ticket.AgregarTotales("SUBTOTAL 12% ", posibleerror);
             ticket.AgregarTotales("Descuento", Convert.ToSingle(descuento));
             ticket.AgregarTotales("Iva 12%  ", DetallePago[2]);
             ticket.AgregarTotales("Total a pagar", Convert.ToSingle(DetallePago[3]));
+            //MessageBox.Show("Total a pagar: "+Convert.ToSingle(DetallePago[3]));
 
             if (Program.BoolAutorizadoImprimir)
             {
@@ -1281,7 +1371,7 @@ namespace Comisariato.Formularios.Transacciones
             if (Program.BoolAutorizadoImprimir)
             {
                 ticket.TextoIzquierda("");
-                ticket.TextoIzquierda("ARTICULOS VENDIDOS: " + cantidadVendida);
+                ticket.TextoIzquierda("ITEMS VENDIDOS: " + cantidadVendida);
                 ticket.TextoIzquierda("");
                 String PIEFA = Program.piefactura;
                 string[] PIES = PIEFA.Split('\n');
@@ -1311,21 +1401,21 @@ namespace Comisariato.Formularios.Transacciones
             filasaxuiliar = filasaxuiliar + inicioContador;
             for (int J = inicioContador; J < filasaxuiliar; J++)//dgvLista es el nombre del datagridview
             {
-
-                double total = Convert.ToDouble(dg.Rows[J].Cells[4].Value.ToString()) * Convert.ToInt32(dg.Rows[J].Cells[2].Value.ToString());
+                double total = Convert.ToDouble(dg.Rows[J].Cells[10].Value.ToString()) * Convert.ToSingle(dg.Rows[J].Cells[2].Value.ToString());
                 double iva = 0.0f;
                 if (Convert.ToSingle(dg.Rows[J].Cells[5].Value.ToString()) != 0)
                 {
                     iva = (Convert.ToDouble(dg.Rows[J].Cells[5].Value.ToString()));
 
-                    imivasuma += Convert.ToDouble(dg.Rows[J].Cells[5].Value);
+                    imivasuma += ((Convert.ToDouble(dg.Rows[J].Cells[2].Value)* Convert.ToDouble(dg.Rows[J].Cells[10].Value))*12)/100;
                     subtotaliva += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
                 }
                 else
                 {
+                    iva = 0;
                     imsubtotal += Convert.ToSingle(dg.Rows[J].Cells[6].Value.ToString());
                 }
-                totaapagar += total + iva;
+                totaapagar += Convert.ToSingle(dg.Rows[J].Cells[6].Value);
             }
 
             imsubtotal = Math.Round(imsubtotal, 2);
@@ -1340,8 +1430,6 @@ namespace Comisariato.Formularios.Transacciones
             DetallePago.Add(totaapagar);
 
             return DetallePago;
-
-
         }
 
         private void ImprimirenRed()
@@ -1375,7 +1463,7 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.lineasAsteriscos();
             //ticket.TextoIzquierda("Corporacion AirNet");
             //ticket.TextoIzquierda("Corporacion AirNet" );
-                ticket.CortaTicket();
+            ticket.CortaTicket();
             //pd.PrinterSettings.PrinterName = "\\SCLIENTE-PC\\PedidoBodega";
             //MessageBox.Show(""+ pd.PrinterSettings.PrinterName);
             //string r = pd.PrinterSettings.PrinterName;
@@ -1391,150 +1479,21 @@ namespace Comisariato.Formularios.Transacciones
 
         private void Calcular()
         {
-            float totalCheque=0, TotalCredito = 0;
-            if (ckbCheque.Checked && ckbEfectivo.Checked && ckbTarjeta.Checked)
+            try
             {
-                string valor = "";
-                float suma = 0.0f;
-                valor =Convert.ToString(dgvCheque.Rows[0].Cells[0].Value);
-                if (valor!="")
-                {
-                    for (int i = 0; i < dgvCheque.RowCount; i++)
-                    {
-                        if (dgvCheque.Rows[i].Cells[0].Value!=null)
-                        {
-                            string con =Convert.ToString(dgvCheque.Rows[i].Cells[5].Value);
-                            con = Funcion.reemplazarcaracterViceversa(con);
-                            totalCheque += Convert.ToSingle(con);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    valor = "";
-                    
-                   // float t = totalCheque + Convert.ToSingle(txtRecibido.Text);
-                    //txtRecibido.Text = "" + t.ToString("#####0.00");
-                } 
-
-                 valor =Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
-                if (valor!="")
-                {
-                    for (int i = 0; i < dgvTarjeta.RowCount; i++)
-                    {
-                        if (dgvTarjeta.Rows[i].Cells[0].Value != null)
-                        {
-                            string con = Convert.ToString(dgvTarjeta.Rows[i].Cells[2].Value);
-                            con = Funcion.reemplazarcaracterViceversa(con);
-                            TotalCredito += Convert.ToSingle(con);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                        
-                    }
-                    
-                    //float t = totalCheque + Convert.ToSingle(txtRecibido.Text);
-                    //txtRecibido.Text = "" + t.ToString("#####0.00");
-                }
-
-                if (txtEfectivo.Text != "")
-                {
-                    suma = TotalCredito + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtEfectivo.Text))+totalCheque;
-                }
-                else
-                {
-                    suma = TotalCredito + 0+totalCheque;
-                }
-
-               
-                float cambio = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtRecibido.Text))- Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-
-                if (cambio<0)
-                {
-                    cambio *= -1;
-                }
-                txtCheque.Text = "" + totalCheque.ToString("#####0.00");
-                txtCredito.Text = "" + TotalCredito.ToString("#####0.00");
-                txtRecibido.Text = suma.ToString("#####0.00");
-                Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                if (suma < tpagar)
-                {
-                    txtCambio.Text = "";
-                }
-                else
-                {
-                    txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
-                }
-                //txtCambio.Text = "" + cambio.ToString("#####0.00");
-
-            }
-            else
-            {
-                if (ckbTarjeta.Checked && ckbEfectivo.Checked)
+                float totalCheque = 0, TotalCredito = 0;
+                if (ckbCheque.Checked && ckbEfectivo.Checked && ckbTarjeta.Checked)
                 {
                     string valor = "";
-                    float suma = 0.0f,cambio=0.0f;
-                    valor = Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
+                    float suma = 0.0f;
+                    valor = Convert.ToString(dgvCheque.Rows[0].Cells[0].Value);
                     if (valor != "")
                     {
-                        for (int i = 0; i < dgvTarjeta.RowCount; i++)
-                        {
-                            if (dgvTarjeta.Rows[i].Cells[0].Value != null)
-                            {
-                                string con = Convert.ToString(dgvTarjeta.Rows[i].Cells[2].Value);
-                                con = Funcion.reemplazarcaracterViceversa(con);
-                                TotalCredito += Convert.ToSingle(con);
-                            }
-                            else
-                            {
-                                break;
-                            }
-
-                        }
-                    }
-                    if (txtEfectivo.Text!="")
-                    {
-                        suma = TotalCredito + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtEfectivo.Text));
-                    }
-                    else
-                    {
-                        suma = TotalCredito +0;
-                    }
-                    cambio = suma -Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                    if (cambio<0)
-                    {
-                        cambio *= -1;
-                    }
-                    txtCredito.Text = "" + TotalCredito.ToString("#####0.00");
-                    txtRecibido.Text=""+ suma.ToString("#####0.00");
-                    txtCheque.Text = "0.00";
-                    Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                    if (suma < tpagar)
-                    {
-                        txtCambio.Text = "";
-                    }
-                    else
-                    {
-                        txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
-                    }
-                    //txtCambio.Text=cambio.ToString("#####0.00");
-
-                }
-                else
-                {
-                    if (ckbCheque.Checked&& ckbEfectivo.Checked)
-                    {
-                        string valor = "";
-                        float suma = 0.0f, cambio = 0.0f;
-                        valor =Convert.ToString(dgvCheque.Rows[0].Cells[0].Value);
-                        if (valor != "")
+                        if (VerificarPrecios(1))
                         {
                             for (int i = 0; i < dgvCheque.RowCount; i++)
                             {
-                                if ( dgvCheque.Rows[i].Cells[0].Value != null)
+                                if (dgvCheque.Rows[i].Cells[0].Value != null)
                                 {
                                     string con = Convert.ToString(dgvCheque.Rows[i].Cells[5].Value);
                                     con = Funcion.reemplazarcaracterViceversa(con);
@@ -1545,44 +1504,81 @@ namespace Comisariato.Formularios.Transacciones
                                     break;
                                 }
                             }
+                            
                         }
 
-                        if (txtEfectivo.Text != "")
-                        {
-                            suma = totalCheque + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtEfectivo.Text));
-                        }
-                        else
-                        {
-                            suma = totalCheque + 0;
-                        }
-                        cambio = suma - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                        if (cambio<0)
-                        {
-                            cambio *= -1;
-                        }
-                        txtCheque.Text=totalCheque.ToString("#####0.00");
-                        txtRecibido.Text=suma.ToString("#####0.00");
-                        Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                        if (suma < tpagar)
-                        {
-                            txtCambio.Text = "";
-                        }
-                        else
-                        {
-                            txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
-                        }
+                        valor = "";
+                        // float t = totalCheque + Convert.ToSingle(txtRecibido.Text);
+                        //txtRecibido.Text = "" + t.ToString("#####0.00");
+                    }
 
-                       // txtCambio.Text = cambio.ToString("#####0.00");
-                        txtCredito.Text = "0.00";
+                    valor = Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
+                    if (valor != "")
+                    {
+                        if (VerificarPrecios(2))
+                        {
+                            for (int i = 0; i < dgvTarjeta.RowCount; i++)
+                            {
+                                if (dgvTarjeta.Rows[i].Cells[0].Value != null)
+                                {
+                                    string con = Convert.ToString(dgvTarjeta.Rows[i].Cells[2].Value);
+                                    con = Funcion.reemplazarcaracterViceversa(con);
+                                    TotalCredito += Convert.ToSingle(con);
+                                }
+                                else
+                                {
+                                    break;
+                                }
 
+                            }
+                        }
+                        
+
+                        //float t = totalCheque + Convert.ToSingle(txtRecibido.Text);
+                        //txtRecibido.Text = "" + t.ToString("#####0.00");
+                    }
+
+                    if (txtEfectivo.Text != "")
+                    {
+                        suma = TotalCredito + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtEfectivo.Text)) + totalCheque;
                     }
                     else
                     {
-                        if (ckbCheque.Checked && ckbTarjeta.Checked)
+                        suma = TotalCredito + 0 + totalCheque;
+                    }
+
+
+                    float cambio = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtRecibido.Text)) - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+
+                    if (cambio < 0)
+                    {
+                        cambio *= -1;
+                    }
+                    txtCheque.Text = "" + totalCheque.ToString("#####0.00");
+                    txtCredito.Text = "" + TotalCredito.ToString("#####0.00");
+                    txtRecibido.Text = suma.ToString("#####0.00");
+                    Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                    if (suma < tpagar)
+                    {
+                        txtCambio.Text = "";
+                    }
+                    else
+                    {
+                        txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
+                    }
+                    //txtCambio.Text = "" + cambio.ToString("#####0.00");
+
+                }
+                else
+                {
+                    if (ckbTarjeta.Checked && ckbEfectivo.Checked)
+                    {
+                        string valor = "";
+                        float suma = 0.0f, cambio = 0.0f;
+                        valor = Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
+                        if (valor != "")
                         {
-                            string valor = "";
-                            valor = Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
-                            if (valor!=" ")
+                            if (VerificarPrecios(2))
                             {
                                 for (int i = 0; i < dgvTarjeta.RowCount; i++)
                                 {
@@ -1600,56 +1596,45 @@ namespace Comisariato.Formularios.Transacciones
                                 }
                             }
                            
-                            
-                            valor =Convert.ToString(dgvCheque.Rows[0].Cells[0].Value);
-                            if (valor!="")
-                            {
-                                for (int i = 0; i < dgvCheque.RowCount; i++)
-                                {
-                                    if (dgvCheque.Rows[i].Cells[0].Value != null)
-                                    {
-                                        string con = Convert.ToString(dgvCheque.Rows[i].Cells[5].Value);
-                                        con = Funcion.reemplazarcaracterViceversa(con);
-                                        totalCheque += Convert.ToSingle(con);
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                            
-                           
-
-                            float r = TotalCredito + totalCheque;
-                            float cam = r - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                            if (cam<0)
-                            {
-                                cam *= -1;
-                            }
-                            txtCredito.Text = "" + TotalCredito.ToString("#####0.00");
-                            Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                            if (r < tpagar)
-                            {
-                                txtCambio.Text = "";
-                            }
-                            else
-                            {
-                                txtCambio.Text = Funcion.reemplazarcaracter(cam.ToString("#####0.00"));
-                            }
-                            //txtCambio.Text=cam.ToString("#####0.00");
-                            txtCheque.Text = "" + totalCheque.ToString("#####0.00");
-                            txtRecibido.Text= r.ToString("#####0.00");
-                            txtEfectivo.Text = "0.00";
+                        }
+                        if (txtEfectivo.Text != "")
+                        {
+                            suma = TotalCredito + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtEfectivo.Text));
                         }
                         else
                         {
+                            suma = TotalCredito + 0;
+                        }
+                        cambio = suma - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                        if (cambio < 0)
+                        {
+                            cambio *= -1;
+                        }
+                        txtCredito.Text = "" + TotalCredito.ToString("#####0.00");
+                        txtRecibido.Text = "" + suma.ToString("#####0.00");
+                        txtCheque.Text = "0.00";
+                        Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                        if (suma < tpagar)
+                        {
+                            txtCambio.Text = "";
+                        }
+                        else
+                        {
+                            txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
+                        }
+                        //txtCambio.Text=cambio.ToString("#####0.00");
 
-                            if (ckbCheque.Checked)
+                    }
+                    else
+                    {
+                        if (ckbCheque.Checked && ckbEfectivo.Checked)
+                        {
+                            string valor = "";
+                            float suma = 0.0f, cambio = 0.0f;
+                            valor = Convert.ToString(dgvCheque.Rows[0].Cells[0].Value);
+                            if (valor != "")
                             {
-                                string valor = "";
-                                valor = Convert.ToString(dgvCheque.Rows[0].Cells[0].Value);
-                                if (valor!="")
+                                if (VerificarPrecios(1))
                                 {
                                     for (int i = 0; i < dgvCheque.RowCount; i++)
                                     {
@@ -1665,66 +1650,154 @@ namespace Comisariato.Formularios.Transacciones
                                         }
                                     }
                                 }
-                                
-                                
                                
-                                //if (Convert.ToSingle(r) >= total)
-                                //{
+                            }
 
-                                   // reci = Convert.ToSingle(txtCheque.Text);
-                                    float cambio = totalCheque - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                                    if (cambio < 0)
+                            if (txtEfectivo.Text != "")
+                            {
+                                suma = totalCheque + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtEfectivo.Text));
+                            }
+                            else
+                            {
+                                suma = totalCheque + 0;
+                            }
+                            cambio = suma - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                            if (cambio < 0)
+                            {
+                                cambio *= -1;
+                            }
+                            txtCheque.Text = totalCheque.ToString("#####0.00");
+                            txtRecibido.Text = suma.ToString("#####0.00");
+                            Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                            if (suma < tpagar)
+                            {
+                                txtCambio.Text = "";
+                            }
+                            else
+                            {
+                                txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
+                            }
+
+                            // txtCambio.Text = cambio.ToString("#####0.00");
+                            txtCredito.Text = "0.00";
+
+                        }
+                        else
+                        {
+                            if (ckbCheque.Checked && ckbTarjeta.Checked)
+                            {
+                                string valor = "";
+                                valor = Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
+                                if (valor != " ")
+                                {
+                                    if (VerificarPrecios(2))
                                     {
-                                        cambio *= -1;
+                                        for (int i = 0; i < dgvTarjeta.RowCount; i++)
+                                        {
+                                            if (dgvTarjeta.Rows[i].Cells[0].Value != null)
+                                            {
+                                                string con = Convert.ToString(dgvTarjeta.Rows[i].Cells[2].Value);
+                                                con = Funcion.reemplazarcaracterViceversa(con);
+                                                TotalCredito += Convert.ToSingle(con);
+                                            }
+                                            else
+                                            {
+                                                break;
+                                            }
+
+                                        }
                                     }
-                                txtCheque.Text = "" + totalCheque.ToString("#####0.00");
+                                    
+                                }
+
+
+                                valor = Convert.ToString(dgvCheque.Rows[0].Cells[0].Value);
+                                if (valor != "")
+                                {
+                                    if (VerificarPrecios(1))
+                                    {
+                                        for (int i = 0; i < dgvCheque.RowCount; i++)
+                                        {
+                                            if (dgvCheque.Rows[i].Cells[0].Value != null)
+                                            {
+                                                string con = Convert.ToString(dgvCheque.Rows[i].Cells[5].Value);
+                                                con = Funcion.reemplazarcaracterViceversa(con);
+                                                totalCheque += Convert.ToSingle(con);
+                                            }
+                                            else
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+
+
+
+                                float r = TotalCredito + totalCheque;
+                                float cam = r - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                                if (cam < 0)
+                                {
+                                    cam *= -1;
+                                }
+                                txtCredito.Text = "" + TotalCredito.ToString("#####0.00");
                                 Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                                if (totalCheque < tpagar)
+                                if (r < tpagar)
                                 {
                                     txtCambio.Text = "";
                                 }
                                 else
                                 {
-                                    txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
+                                    txtCambio.Text = Funcion.reemplazarcaracter(cam.ToString("#####0.00"));
                                 }
-
-                               // txtCambio.Text = cambio.ToString("#####0.00");
-                                txtRecibido.Text = txtCheque.Text;
-                                txtCredito.Text = "0.00";
-                                txtCredito.Text = "0.00";
-                               
+                                //txtCambio.Text=cam.ToString("#####0.00");
+                                txtCheque.Text = "" + totalCheque.ToString("#####0.00");
+                                txtRecibido.Text = r.ToString("#####0.00");
+                                txtEfectivo.Text = "0.00";
                             }
                             else
                             {
-                                //TODO BIEN
-                                if (ckbEfectivo.Checked)
+
+                                if (ckbCheque.Checked)
                                 {
-                                    Double reci = 0;
-                                    string r = "";
+                                    string valor = "";
+                                    valor = Convert.ToString(dgvCheque.Rows[0].Cells[0].Value);
+                                    if (valor != "")
+                                    {
+                                        if (VerificarPrecios(1))
+                                        {
+                                            for (int i = 0; i < dgvCheque.RowCount; i++)
+                                            {
+                                                if (dgvCheque.Rows[i].Cells[0].Value != null)
+                                                {
+                                                    string con = Convert.ToString(dgvCheque.Rows[i].Cells[5].Value);
+                                                    con = Funcion.reemplazarcaracterViceversa(con);
+                                                    totalCheque += Convert.ToSingle(con);
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        
+                                    }
+
+
 
                                     //if (Convert.ToSingle(r) >= total)
                                     //{
-                                    if (txtEfectivo.Text != "")
-                                    {
-                                        r = txtEfectivo.Text;
-                                    }
-                                    else
-                                    {
-                                        r = "0";
-                                    }
-                                    reci = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(r));
-                                    //string prueba = Funcion.reemplazarcaracter(txtTotalPagar.Text);
-                                    Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                                    Double cambio = tpagar - reci;
+
+                                    // reci = Convert.ToSingle(txtCheque.Text);
+                                    float cambio = totalCheque - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
                                     if (cambio < 0)
                                     {
                                         cambio *= -1;
                                     }
-                                    //  else
-                                    //{
-                                    //    txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
-                                    //}
-                                    if (reci < tpagar)
+                                    txtCheque.Text = "" + totalCheque.ToString("#####0.00");
+                                    Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                                    if (totalCheque < tpagar)
                                     {
                                         txtCambio.Text = "";
                                     }
@@ -1732,49 +1805,44 @@ namespace Comisariato.Formularios.Transacciones
                                     {
                                         txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
                                     }
-                                    //}
-                                    //else
-                                    //{
-                                    //    txtCambio.Text = "0.00";
-                                    //}
-                                    txtRecibido.Text = txtEfectivo.Text;
+
+                                    // txtCambio.Text = cambio.ToString("#####0.00");
+                                    txtRecibido.Text = txtCheque.Text;
                                     txtCredito.Text = "0.00";
-                                    txtCheque.Text = "0.00";
+                                    txtCredito.Text = "0.00";
+
                                 }
                                 else
                                 {
-                                    if (ckbTarjeta.Checked)
+                                    //TODO BIEN
+                                    if (ckbEfectivo.Checked)
                                     {
-                                        string valor = "";
-                                        valor = Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
-                                        if (valor!=" ")
+                                        Double reci = 0;
+                                        string r = "";
+
+                                        //if (Convert.ToSingle(r) >= total)
+                                        //{
+                                        if (txtEfectivo.Text != "")
                                         {
-                                            for (int i = 0; i < dgvTarjeta.RowCount; i++)
-                                            {
-                                                if (dgvTarjeta.Rows[i].Cells[0].Value != null)
-                                                {
-                                                    string con = Convert.ToString(dgvTarjeta.Rows[i].Cells[2].Value);
-                                                    con = Funcion.reemplazarcaracterViceversa(con);
-                                                    TotalCredito += Convert.ToSingle(con);
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-
-                                            }
+                                            r = txtEfectivo.Text;
                                         }
-                                        
-
-
-                                        float cambio = TotalCredito - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                                        else
+                                        {
+                                            r = "0";
+                                        }
+                                        reci = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(r));
+                                        //string prueba = Funcion.reemplazarcaracter(txtTotalPagar.Text);
+                                        Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                                        Double cambio = tpagar - reci;
                                         if (cambio < 0)
                                         {
                                             cambio *= -1;
                                         }
-                                        txtCredito.Text = "" + TotalCredito.ToString("#####0.00");
-                                        Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
-                                        if (TotalCredito < tpagar)
+                                        //  else
+                                        //{
+                                        //    txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
+                                        //}
+                                        if (reci < tpagar)
                                         {
                                             txtCambio.Text = "";
                                         }
@@ -1782,16 +1850,71 @@ namespace Comisariato.Formularios.Transacciones
                                         {
                                             txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
                                         }
-
-                                        //txtCambio.Text = cambio.ToString("#####0.00");
-                                        txtRecibido.Text = txtCredito.Text;
+                                        //}
+                                        //else
+                                        //{
+                                        //    txtCambio.Text = "0.00";
+                                        //}
+                                        txtRecibido.Text = txtEfectivo.Text;
+                                        txtCredito.Text = "0.00";
                                         txtCheque.Text = "0.00";
-                                        txtEfectivo.Text = "0.00";
                                     }
                                     else
                                     {
-                                        txtCambio.Text = "0.00";
-                                        txtRecibido.Text = "0.00";
+                                        if (ckbTarjeta.Checked)
+                                        {
+                                            string valor = "";
+                                            valor = Convert.ToString(dgvTarjeta.Rows[0].Cells[0].Value);
+                                            if (valor != " ")
+                                            {
+                                                if (VerificarPrecios(2))
+                                                {
+                                                    for (int i = 0; i < dgvTarjeta.RowCount; i++)
+                                                    {
+                                                        if (dgvTarjeta.Rows[i].Cells[0].Value != null)
+                                                        {
+                                                            string con = Convert.ToString(dgvTarjeta.Rows[i].Cells[2].Value);
+                                                            con = Funcion.reemplazarcaracterViceversa(con);
+                                                            TotalCredito += Convert.ToSingle(con);
+                                                        }
+                                                        else
+                                                        {
+                                                            break;
+                                                        }
+
+                                                    }
+                                                }
+                                                
+                                            }
+
+
+
+                                            float cambio = TotalCredito - Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                                            if (cambio < 0)
+                                            {
+                                                cambio *= -1;
+                                            }
+                                            txtCredito.Text = "" + TotalCredito.ToString("#####0.00");
+                                            Double tpagar = Convert.ToDouble(Funcion.reemplazarcaracterViceversa(txtTotalPagar.Text));
+                                            if (TotalCredito < tpagar)
+                                            {
+                                                txtCambio.Text = "";
+                                            }
+                                            else
+                                            {
+                                                txtCambio.Text = Funcion.reemplazarcaracter(cambio.ToString("#####0.00"));
+                                            }
+
+                                            //txtCambio.Text = cambio.ToString("#####0.00");
+                                            txtRecibido.Text = txtCredito.Text;
+                                            txtCheque.Text = "0.00";
+                                            txtEfectivo.Text = "0.00";
+                                        }
+                                        else
+                                        {
+                                            txtCambio.Text = "0.00";
+                                            txtRecibido.Text = "0.00";
+                                        }
                                     }
                                 }
                             }
@@ -1799,6 +1922,12 @@ namespace Comisariato.Formularios.Transacciones
                     }
                 }
             }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+           
         }
 
     }

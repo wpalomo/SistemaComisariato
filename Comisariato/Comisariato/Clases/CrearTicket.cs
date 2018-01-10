@@ -245,7 +245,7 @@ namespace Comisariato.Clases
         }
 
         //Metodo para agreagar articulos al ticket de venta
-        public void AgregaArticulo(string articulo, int cant, string precio, string importe)
+        public void AgregaArticulo(string articulo, float cant, string precio, string importe)
         {
             //Valida que cant precio e importe esten dentro del rango.
             if (cant.ToString().Length <= 5 && precio.Length <= 7 && importe.Length <= 8)
@@ -253,8 +253,8 @@ namespace Comisariato.Clases
                 string elemento = "", espacios = "";
                 bool bandera = false;//Indicara si es la primera linea que se escribe cuando bajemos a la segunda si el nombre del articulo no entra en la primera linea
                 int nroEspacios = 0;
-                if(articulo.Length > 15)
-                    articulo = articulo.Substring(0, 15);
+                if(articulo.Length > 18)
+                    articulo = articulo.Substring(0, 18);
                 //Si el nombre o descripcion del articulo es mayor a 20, bajar a la siguiente linea
                 if (articulo.Length > 20)
                 {
@@ -397,9 +397,11 @@ namespace Comisariato.Clases
         //Para cortar el ticket
         public void CortaTicket()
         {
+            linea.AppendLine("\x1B" + "d" + "\x06"); //Avanza 9 renglones, Tambien varian
             linea.AppendLine("\x1B" + "m"); //Caracteres de corte. Estos comando varian segun el tipo de impresora
-            linea.AppendLine("\x1B" + "d" + "\x09"); //Avanza 9 renglones, Tambien varian
         }
+
+
         //Para abrir el cajon
         public void AbreCajon()
         {

@@ -39,7 +39,7 @@ namespace Comisariato.Clases
             try
             {
                 Objc.conectar();
-                SqlCommand Sentencia = new SqlCommand("SELECT TbUsuario.CONTRASEÑA, TbUsuario.USUARIO, TbTipousuario.TIPO, TbUsuario.IDTIPOUSUARIO, TbEmpresa.NOMBRECOMERCIAL, TbEmpresa.RUC, TbEmpresa.DIRECCION,TbEmpresa.RAZONSOCIAL from TbUsuario  INNER JOIN TbTipousuario ON(TbUsuario.FACTURA='1') and TbUsuario.USUARIO = '" + Program.Usuario + "' and TbUsuario.CONTRASEÑA= '" + Contraseña + "' INNER JOIN TbEmpresa ON (TbEmpresa.IDEMPRESA='" + Program.IDEMPRESA + "')  where TbTipousuario.IDTIPOUSUARIO = TbUsuario.IDTIPOUSUARIO;");
+                SqlCommand Sentencia = new SqlCommand("SELECT TbUsuario.CONTRASEÑA, TbUsuario.USUARIO, TbTipousuario.TIPO, TbUsuario.IDTIPOUSUARIO, TbEmpresa.NOMBRECOMERCIAL, TbEmpresa.RUC, TbEmpresa.DIRECCION,TbEmpresa.RAZONSOCIAL,TbEmpresa.CLAVESUPERVISOR from TbUsuario  INNER JOIN TbTipousuario ON(TbUsuario.FACTURA='1') and TbUsuario.USUARIO = '" + Program.Usuario + "' and TbUsuario.CONTRASEÑA= '" + Contraseña + "' INNER JOIN TbEmpresa ON (TbEmpresa.IDEMPRESA='" + Program.IDEMPRESA + "')  where TbTipousuario.IDTIPOUSUARIO = TbUsuario.IDTIPOUSUARIO;");
                 Sentencia.Connection = ConexionBD.connection;
                 SqlDataReader dato = Sentencia.ExecuteReader();
                 Objc.Cerrar();
@@ -49,6 +49,7 @@ namespace Comisariato.Clases
                     Program.rucempresa = (String)dato["RUC"];
                     Program.direccionempresa = Convert.ToString( dato["DIRECCION"]);
                     Program.razonsocialempresa = (String)dato["RAZONSOCIAL"];
+                    Program.clavesupervisor = (String)dato["CLAVESUPERVISOR"];
                     return true;
                 }
                 else { return false; }
@@ -142,6 +143,7 @@ namespace Comisariato.Clases
                 return false;
             }
         }
+
         public void BoolLlenarComboBox(ComboBox cb, String SQL)
         {
             try
@@ -164,6 +166,7 @@ namespace Comisariato.Clases
                 //throw;
             }
         }
+
         public void BoolLlenarComboBoxDgv(DataGridViewComboBoxColumn cb, String SQL)
         {
             try
@@ -265,6 +268,29 @@ namespace Comisariato.Clases
             }
             
         }
+
+        public DataTable BoolDataTableFactElect(String SQL)
+        {
+            try
+            {
+                Objc.conectarBDFact();
+                SqlDataAdapter objDA;
+                DataTable objDS = new DataTable();
+                objDA = new SqlDataAdapter(SQL, ConexionBD.connection);
+                //2. Llenar el DataSet
+                objDA.Fill(objDS);
+                Objc.CerrarBDFact();
+                objDA.Dispose();
+                return objDS;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+
         public bool RegistrarCheque(DataGridView dg, int ultimafact)
         {
             try
@@ -297,6 +323,26 @@ namespace Comisariato.Clases
                 return false;
             }
         }
+
+        public bool RegistrarArchivosXml(string nombrexml,string rutaxml,string fecha)
+        {
+            try
+            {
+                SqlCommand Sentencia;
+                Objc.conectarBDFact();
+                Sentencia = new SqlCommand("INSERT INTO TbDocumentosGeneradosFact (NombreXML, RutaXML, FechaEmision, EstadoAutorizacion, RecepcionSRI, AutorizadoSRI, RutaRide) VALUES ( '" + nombrexml + "','" + rutaxml + "','" + fecha + "','" + 0 + "','" + "F" + "','" + "F" + "','" + " " + "')");
+                Sentencia.Connection = ConexionBD.connection;
+                Sentencia.ExecuteNonQuery();
+                Objc.CerrarBDFact();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error.. " + ex.Message);
+                return false;
+            }
+        }
+
 
         public bool RegistrarTarjeta(DataGridView dg, int utl)
         {
@@ -346,7 +392,6 @@ namespace Comisariato.Clases
         }
 
 
-
         public bool GuardarFact(int nfilas, DataGridView dg, List<string> encabezado, List<string> detallepago, List<string> ivas, int inicioContador)
         {
             try
@@ -362,7 +407,7 @@ namespace Comisariato.Clases
                 int contador = 0;
                 for (int i = inicioContador; i < nfilas; i++)
                 {
-                    precio = Funcion.reemplazarcaracter(dg.Rows[i].Cells[4].Value.ToString());
+                    precio = Funcion.reemplazarcaracter(dg.Rows[i].Cells[10].Value.ToString());
                     cmd = new SqlCommand("REGISTRAR_FACTURA", ConexionBD.connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@CONTADOR ", contador);
@@ -372,13 +417,15 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@fecha", Funcion.reemplazarcaracterFecha(enca[3]));
                     cmd.Parameters.AddWithValue("@hora", enca[4]);
                     cmd.Parameters.AddWithValue("@descuento", detalle[0]);
-                    cmd.Parameters.AddWithValue("@cant", dg.Rows[i].Cells[2].Value);
-                    cmd.Parameters.AddWithValue("@iva", detalle[7]);
+                    cmd.Parameters.AddWithValue("@cant", Funcion.reemplazarcaracter(Convert.ToString(dg.Rows[i].Cells[2].Value)));
+                    cmd.Parameters.AddWithValue("@iva", detalle[8]);
                     cmd.Parameters.AddWithValue("@efectivo", detalle[1]);
                     cmd.Parameters.AddWithValue("@cheque", detalle[2]);
                     cmd.Parameters.AddWithValue("@credito", detalle[3]);
                     cmd.Parameters.AddWithValue("@idempleado", enca[5]);
                     cmd.Parameters.AddWithValue("@idcliente", enca[6]);
+                    cmd.Parameters.AddWithValue("@claveacceso", enca[7]);
+                    //cmd.Parameters.AddWithValue("@claveacceso", "12345");
                     cmd.Parameters.AddWithValue("@precio", precio);
                     cmd.Parameters.AddWithValue("@codigobarraproducto", dg.Rows[i].Cells[0].Value);
                     cmd.Parameters.AddWithValue("@recibido", detalle[4]);
@@ -388,8 +435,9 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@idempresa", idempresa);
                     cmd.Parameters.AddWithValue("@cantcaja", dg.Rows[i].Cells[8].Value);
                     cmd.Parameters.AddWithValue("@subtotal0", detallepago[6]);
-                    cmd.Parameters.AddWithValue("@subtotal12", detallepago[8]);
+                    cmd.Parameters.AddWithValue("@subtotal12", detallepago[7]);
                     cmd.Parameters.AddWithValue("@totalpagar", detallepago[9]);
+                    
 
                     result = cmd.ExecuteNonQuery();
                     contador += 1;
@@ -407,7 +455,7 @@ namespace Comisariato.Clases
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
                 return false;
             }
         }
@@ -504,22 +552,30 @@ namespace Comisariato.Clases
                     if (activo == 1)
                     {
                         producto.Nombreproducto = (String)dato["DETALLE"];
-                        producto.Cantidad = Convert.ToInt32(dato["CANTIDAD"]);
+                        producto.Cantidad = Convert.ToSingle(dato["CANTIDAD"]);
                         if (Convert.ToString(dato["CAJA"]) != "")
                         {
-                            producto.Caja = Convert.ToInt32(dato["CAJA"]);
+                            producto.Caja = Convert.ToSingle(dato["CAJA"]);
                         }
                         else
                         {
                             producto.Caja = 0;
                         }
-                       
+                        if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
+                        {
+                            producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
+                        }
+                        else
+                        {
+                            producto.LibreImpuesto = false;
+                        }
+
                         producto.Preciopublico_sin_iva = Convert.ToSingle(dato["PRECIOVENTAPUBLICO"]);
                         producto.Ivaestado = Convert.ToBoolean(dato["IVAESTADO"]);
                         producto.Iva = Convert.ToInt32(dato["IVA"]);
                         producto.Precioalmayor_sin_iva = Convert.ToSingle(dato["PRECIOVENTAMAYORISTA"]);
                         producto.Precioporcaja_sin_iva = Convert.ToSingle(dato["PRECIOVENTACAJA"]);
-                        producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
+                        //producto.LibreImpuesto = Convert.ToBoolean(dato["LIBREIMPUESTO"]);
                     }
                     else
                     {
@@ -610,7 +666,7 @@ namespace Comisariato.Clases
             {
                 detallepagoreim = new List<string>();
                 Objc.conectar();
-                string sql = "SELECT U.SUCURSAL, U.CAJA, U.NFACTURA, U.FECHA, U.HORA, U.IDEMPLEADO, U.IDCLIENTE, C.NOMBRES AS NCLIENTE, C.APELLIDOS AS ACLIENTE, C.IDENTIFICACION, A.NOMBRES AS NEMPLEADO, A.APELLIDOS AS AEMPLEADO, P.EFECTIVO, P.CHEQUE, P.CREDITO, P.IVA, P.DESCUENTO, P.CAMBIO, P.RECIBIDO from TbEncabezadoFactura U INNER JOIN TbEmpleado A ON(U.SUCURSAL='" + sucursal + "' and U.CAJA= '" + caja + "' and NFACTURA='" + numfact + "') AND ( A.IDEMPLEADO= U.IDEMPLEADO) INNER JOIN TbCliente C ON( A.IDEMPLEADO= U.IDEMPLEADO and C.IDCLIENTE=U.IDCLIENTE)  INNER JOIN TbDetallePago P ON(U.IDFACTURA=P.IDENCABEZADOFACT)";
+                string sql = "SELECT U.SUCURSAL, U.CAJA, U.NFACTURA, U.FECHA, U.HORA, U.IDEMPLEADO, U.IDCLIENTE, U.CLAVEACCESO, C.NOMBRES AS NCLIENTE, C.APELLIDOS AS ACLIENTE, C.IDENTIFICACION, A.NOMBRES AS NEMPLEADO, A.APELLIDOS AS AEMPLEADO, P.EFECTIVO, P.CHEQUE, P.CREDITO, P.IVA, P.DESCUENTO, P.CAMBIO, P.RECIBIDO, P.TOTAPAGAR, P.SUBTOTAL12, P.SUBTOTAL0 from TbEncabezadoFactura U INNER JOIN TbEmpleado A ON(U.SUCURSAL='" + sucursal + "' and U.CAJA= '" + caja + "' and NFACTURA='" + numfact + "') AND ( A.IDEMPLEADO= U.IDEMPLEADO) INNER JOIN TbCliente C ON( A.IDEMPLEADO= U.IDEMPLEADO and C.IDCLIENTE=U.IDCLIENTE)  INNER JOIN TbDetallePago P ON(U.IDFACTURA=P.IDENCABEZADOFACT)";
 
                 SqlCommand Sentencia = new SqlCommand(sql);
                 Sentencia.Connection = ConexionBD.connection;
@@ -636,8 +692,9 @@ namespace Comisariato.Clases
                     encabezado.NombreUsuario = (String)dato["NEMPLEADO"] + " " + (String)dato["AEMPLEADO"];
                     encabezado.Identificacion = (String)dato["IDENTIFICACION"];
                     encabezado.Fecha = Convert.ToDateTime(dato["FECHA"]).ToString();
+                    encabezado.Claveacceso = (String)dato["CLAVEACCESO"];
                     //encabezado.Hora = Convert.ToDateTime( dato["HORA"]).ToString("HHMMss");
-                    detalleFact = DetalleFact(numfact, metodo);
+                    detalleFact = DetalleFact(numfact, metodo, caja);
                     detallepagoreim.Add(Convert.ToString(dato["EFECTIVO"]));
                     detallepagoreim.Add(Convert.ToString(dato["CHEQUE"]));
                     detallepagoreim.Add(Convert.ToString(dato["CREDITO"]));
@@ -645,7 +702,9 @@ namespace Comisariato.Clases
                     detallepagoreim.Add(Convert.ToString(dato["IVA"]));
                     detallepagoreim.Add(Convert.ToString(dato["RECIBIDO"]));
                     detallepagoreim.Add(Convert.ToString(dato["CAMBIO"]));
-
+                    detallepagoreim.Add(Convert.ToString(dato["TOTAPAGAR"]));
+                    detallepagoreim.Add(Convert.ToString(dato["SUBTOTAL12"]));
+                    detallepagoreim.Add(Convert.ToString(dato["SUBTOTAL0"]));
                 }
                 else
                 {
@@ -666,7 +725,7 @@ namespace Comisariato.Clases
             return encabezado;
         }
 
-        public List<Producto> DetalleFact(int nfact, int verimetodo)
+        public List<Producto> DetalleFact(int nfact, int verimetodo,int caja)
         {
             try
             {
@@ -675,7 +734,7 @@ namespace Comisariato.Clases
                 //string sql = " SELECT U.PRECIO, U.CANTDEVUELTA, U.CANTIDAD, U.CODIGOBARRAPRODUCTO, U.ESTADO, U.IVA, P.NOMBREPRODUCTO, P.IVAESTADO from TbDetalleFactura U INNER JOIN TbProducto P  ON(U.NFACTURA = '" + nfact + "') AND(P.CODIGOBARRA = U.CODIGOBARRAPRODUCTO)";
                 String sql = "SELECT        dbo.TbDetalleFactura.PRECIO, dbo.TbDetalleFactura.CANTDEVUELTA, dbo.TbDetalleFactura.CANTIDAD, dbo.TbDetalleFactura.CODIGOBARRAPRODUCTO, dbo.TbDetalleFactura.ESTADO, dbo.TbDetalleFactura.IVA, dbo.TbProducto.NOMBREPRODUCTO, dbo.TbProducto.IVAESTADO, dbo.TbEncabezadoFactura.NFACTURA FROM  dbo.TbDetalleFactura INNER JOIN" +
                          " dbo.TbProducto ON dbo.TbDetalleFactura.CODIGOBARRAPRODUCTO = dbo.TbProducto.CODIGOBARRA INNER JOIN dbo.TbEncabezadoFactura ON dbo.TbDetalleFactura.NFACTURA = dbo.TbEncabezadoFactura.IDFACTURA" +
-                         " WHERE(dbo.TbEncabezadoFactura.NFACTURA = '" + nfact + "')";
+                         " WHERE(dbo.TbEncabezadoFactura.NFACTURA = '" + nfact + "' and dbo.TbEncabezadoFactura.CAJA = '" + caja + "') order by ID asc";
                 SqlCommand comando = new SqlCommand(sql);
                 comando.Connection = ConexionBD.connection;
                 SqlDataReader dato = comando.ExecuteReader();
@@ -684,11 +743,11 @@ namespace Comisariato.Clases
                 {
                     Producto p = new Producto();
                     p.Preciopublico_sin_iva = Convert.ToSingle(dato["PRECIO"].ToString());
-                    p.Cantidad = Convert.ToInt32(dato["CANTIDAD"].ToString());
+                    p.Cantidad = Convert.ToSingle(dato["CANTIDAD"].ToString());
                     p.Codigobarra = (String)dato["CODIGOBARRAPRODUCTO"];
                     p.Nombreproducto = (String)dato["NOMBREPRODUCTO"];
                     p.Iva = Convert.ToInt32(dato["IVA"].ToString());
-                    p.Cantidad1 = Convert.ToInt32(dato["CANTDEVUELTA"].ToString());
+                    p.Cantidad1 = Convert.ToSingle(dato["CANTDEVUELTA"].ToString());
                     if (verimetodo == 1)
                     {
                         lista.Add(p);
@@ -698,7 +757,7 @@ namespace Comisariato.Clases
                         bool b = Convert.ToBoolean(dato["ESTADO"]);
                         if (b)
                         {
-                            int resultado = p.Cantidad - p.Cantidad1;
+                            float resultado = p.Cantidad - p.Cantidad1;
                             if (resultado != 0)
                             {
                                 p.Cantidad = resultado;
@@ -856,19 +915,20 @@ namespace Comisariato.Clases
                 return false;
             }
         }
+
         public Boolean BoolCrearDateTable(DataGridView Tb, String SQL)
         {
 
             DataTable dt = new DataTable();
             dt.Columns.Add("CODIGO", typeof(String));
             dt.Columns.Add("DETALLE", typeof(String));
-            dt.Columns.Add("CANT.", typeof(int));
+            dt.Columns.Add("CANT.", typeof(float));
             dt.Columns.Add("P. PUBLICO", typeof(String));
             dt.Columns.Add("P. MAYORISTA", typeof(String));
             dt.Columns.Add("P. CAJA", typeof(String));
             dt.Columns.Add("ESTADO IVA", typeof(int));
             dt.Columns.Add("IVA", typeof(int));
-            dt.Columns.Add("Cant. Caja", typeof(int));
+            dt.Columns.Add("Cant. Caja", typeof(float));
             dt.Columns.Add("LI", typeof(int));
 
             try
@@ -891,33 +951,35 @@ namespace Comisariato.Clases
                         if (ivaestado)
                         {
                             v = 1;
-                            int caja = 0, libreImpuesto = 0;
+                            int libreImpuesto = 0;
+                            float caja=0;
                             int iva = int.Parse(dato["IVA"].ToString());
                             if (dato["CAJA"] != System.DBNull.Value)
                             {
-                                caja = (int)dato["CAJA"];
+                                caja =Convert.ToSingle(dato["CAJA"]);
                             }
                             if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
                             {
                                 libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
                             }
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, iva, caja, libreImpuesto);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"],Convert.ToSingle(dato["CANTIDAD"]), pp.ToString(), pm.ToString(), pc.ToString(), v, iva, caja, libreImpuesto);
                         }
                         else
                         {
                             v = 0;
-                            int caja = 0, libreImpuesto = 0;
+                            float caja = 0;
+                            int  libreImpuesto = 0;
                             int iva = int.Parse(dato["IVA"].ToString());
                             if (dato["CAJA"] != System.DBNull.Value)
                             {
-                                caja = (int)dato["CAJA"];
+                                caja = Convert.ToSingle(dato["CAJA"]);
                             }
                             if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
                             {
                                 libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
                             }
 
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, 0, caja, libreImpuesto);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"],Convert.ToSingle(dato["CANTIDAD"]), pp.ToString(), pm.ToString(), pc.ToString(), v, 0, caja, libreImpuesto);
                         }
                         //dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, (int)dato["IVA"]);
 
@@ -944,6 +1006,61 @@ namespace Comisariato.Clases
 
         }
 
+
+        public Boolean BoolCrearDateTableConsultaCliente(DataGridView Tb, String SQL)
+        {
+            //Select tbCliente.IDENTIFICACION, tbCliente.NOMBRES, tbCliente.APELLIDOS, tbCliente.EMAIL, tbCliente.RAZONSOCIAL, tbCliente.DIRECCION,tbCliente.IDCLIENTE from tbCliente
+            DataTable dt = new DataTable();
+            dt.Columns.Add("IDENTIFICACION", typeof(String));
+            dt.Columns.Add("NOMBRES", typeof(String));
+            dt.Columns.Add("APELLIDOS", typeof(String));
+            dt.Columns.Add("EMAIL", typeof(String));
+            dt.Columns.Add("RAZONSOCIAL", typeof(String));
+            dt.Columns.Add("DIRECCION", typeof(String));
+            dt.Columns.Add("IDCLIENTE", typeof(int));
+            
+            try
+            {
+                Objc.conectar();
+                SqlCommand Sentencia = new SqlCommand(SQL);
+                Sentencia.Connection = ConexionBD.connection;
+                SqlDataReader dato = Sentencia.ExecuteReader();
+                Objc.Cerrar();
+                while (dato.Read() == true)
+                {
+                    string email = " ", razonsocial=" ";
+                    if (dato["EMAIL"] != System.DBNull.Value)
+                    {
+                        email = (String)dato["EMAIL"];
+                    }
+
+                    if (dato["RAZONSOCIAL"] != System.DBNull.Value)
+                    {
+                        razonsocial = (String)dato["RAZONSOCIAL"];
+                    }
+                   
+                            dt.Rows.Add((String)dato["IDENTIFICACION"], (String)dato["NOMBRES"], (String)dato["APELLIDOS"], email, razonsocial, (String)dato["DIRECCION"], (int)dato["IDCLIENTE"]);
+   
+
+                }
+                Tb.DataSource = dt;
+
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("" + ex.Message);
+                return false;
+
+            }
+
+
+            //return false;
+
+
+        }
 
         public Boolean BoolCrearDateTableProductos(DataGridView Tb, String SQL)
         {
@@ -1255,6 +1372,7 @@ namespace Comisariato.Clases
                 cmd.Parameters.AddWithValue("@EMAILCONTADOR", ObjEmpresa.EmailContador);
                 cmd.Parameters.AddWithValue("@CELULAR1CONTADOR", ObjEmpresa.Celular1Contador);
                 cmd.Parameters.AddWithValue("@CELULAR2CONTADOR", ObjEmpresa.Celular2Contador);
+                cmd.Parameters.AddWithValue("@CLAVESUPERVISOR", ObjEmpresa.ClaveSupervisor);
                 if (ObjEmpresa.LogoEmpresa != null)
                 { cmd.Parameters.AddWithValue("@LOGO", ObjEmpresa.LogoEmpresa); }
                 else

@@ -72,7 +72,7 @@ namespace Comisariato.Formularios
 
         private void FrmClientes_Load(object sender, EventArgs e)
         {
-
+                
             cbTipoCliente.SelectedIndex = 0;
             cbIdentificacionCliente.SelectedIndex = 0;
             cbCategoriaCliente.SelectedIndex = 0;
@@ -118,7 +118,7 @@ namespace Comisariato.Formularios
 
         private void txtRazonSocialCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Funcion.validar_Num_Letras(e);
+            //Funcion.validar_Num_Letras(e);
             if (e.KeyChar == (char)Keys.Return)
             {
                 SendKeys.Send("{TAB}");
@@ -127,7 +127,7 @@ namespace Comisariato.Formularios
 
         private void txtDireccion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Funcion.validar_Num_Letras(e);
+            //Funcion.validar_Num_Letras(e);
             if (e.KeyChar == (char)Keys.Return)
             {
                 SendKeys.Send("{TAB}");
@@ -211,7 +211,7 @@ namespace Comisariato.Formularios
 
         private void btnGuardarCliente_Click(object sender, EventArgs e)
         {
-            if (txtIdentificacionCliente.Text != "" && txtNombresCliente.Text != "" && txtApellidosCliente.Text != "" && txtRazonSocialCliente.Text != "")
+            if (txtIdentificacionCliente.Text != "" && txtNombresCliente.Text != "" && txtApellidosCliente.Text != "" && txtRazonSocialCliente.Text != "" && txtDireccion.Text!="")
             {
                 String categoriaChequeada = obtenerCategoriaChequeada();
                 Cliente Objcliente = new Cliente(cbTipoCliente.Text, cbIdentificacionCliente.Text, txtIdentificacionCliente.Text, ckClienteActivo.Checked, txtNombresCliente.Text, txtApellidosCliente.Text,
@@ -227,7 +227,7 @@ namespace Comisariato.Formularios
                         if (resultado == "Datos Guardados")
                         {
                             inicializarDatos();
-                            cargarDatos("1");
+                            //cargarDatos("1");
                             InsertarOtraInfCliente(idcliente);
                             MessageBox.Show("Cliente Registrado Correctamente ", "Exito", MessageBoxButtons.OK);
                             rbtActivosCliente.Checked = true;
@@ -248,9 +248,18 @@ namespace Comisariato.Formularios
                             {
                                 FrmFactura.DatosCliente.Clear();
                             }
+
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[0].Value.ToString()); //Identificacion
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[1].Value.ToString() + " " + dgvDatosUsuario.CurrentRow.Cells[2].Value.ToString());//Nombre + Apellido
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[5].Value.ToString()); // Direccion
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[4].Value.ToString()); //RazonSocial
+                            //FrmFactura.DatosCliente.Add(dgvDatosUsuario.CurrentRow.Cells[6].Value.ToString()); //IDcLIENTE
+
                             FrmFactura.verificadorfrm = 0;
                             FrmFactura.DatosCliente.Add(txtIdentificacionCliente.Text);
                             FrmFactura.DatosCliente.Add(txtNombresCliente.Text.ToUpper() + " " + txtApellidosCliente.Text.ToUpper());
+                            FrmFactura.DatosCliente.Add(txtDireccion.Text);
+                            FrmFactura.DatosCliente.Add(txtRazonSocialCliente.Text);
                             string condicion = " where IDENTIFICACION= '"+txtIdentificacionCliente.Text+"'";
                             Consultas c = new Consultas();
                             int numero = c.ObtenerID("IDCLIENTE", "TbCliente", condicion);
@@ -271,7 +280,7 @@ namespace Comisariato.Formularios
                     if (Resultado == "Correcto")
                     {
                         MessageBox.Show("Cliente Actualizado", "Exito");
-                        cargarDatos("1");
+                        //cargarDatos("1");
                         rbtActivosCliente.Checked = true;
                         identificacion = "";
                         inicializarDatos();
@@ -307,130 +316,145 @@ namespace Comisariato.Formularios
 
         private void dgvDatosCliente_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Cliente ObjCliente = new Cliente();
-            if (Convert.ToString(dgvDatosCliente.CurrentRow.Cells[2].Value) != "")
+            try
             {
-                if (rbtActivosCliente.Checked)
-            {
-                if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
+                Cliente ObjCliente = new Cliente();
+                if (Convert.ToString(dgvDatosCliente.CurrentRow.Cells[2].Value) != "")
                 {
-                        ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 2);
-                        cargarDatos("1");
-                }
-            }
-            else if (rbtInactivosCliente.Checked)
-            {
-                if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
-                {
-                        ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 1);
-                        cargarDatos("0");
-                }
-            }
-
-                if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "modificarCliente")
-                {
-                    //este vale
-
-                    //MessageBox.Show("modificar toca");
-                    bandera_Estado = true;
-                    tcCliente.SelectedIndex = 0;
-                    btnGuardarCliente.Text = "&Modificar";
-                    btnLimpiarCliente.Text = "&Cancelar";
-                    identificacion = dgvDatosCliente.CurrentRow.Cells[2].Value.ToString();
-
-                    //Llenar el DataTable
-                    DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDENTIFICACION = " + dgvDatosCliente.Rows[e.RowIndex].Cells[2].Value.ToString() + "");
-                    if (dt.Rows.Count > 0)
+                    if (rbtActivosCliente.Checked)
                     {
-                        DataRow myRow = dt.Rows[0];
-                        cbTipoCliente.SelectedItem = myRow["TIPOCLIENTE"].ToString();
-                        //llenar identificacion y seleccionar combobox tipodoc
-                        txtIdentificacionCliente.Text = myRow["IDENTIFICACION"].ToString();
-                        if (myRow["IDENTIFICACION"].ToString().Length == 10)
-                            cbIdentificacionCliente.SelectedIndex = 0;
-                        else if (myRow["IDENTIFICACION"].ToString().Length == 13)
-                            cbIdentificacionCliente.SelectedIndex = 1;
-                        else
-                            cbIdentificacionCliente.SelectedIndex = 2;
-
-                        ckClienteActivo.Checked = Convert.ToBoolean(myRow["ACTIVO"]);
-                        txtNombresCliente.Text = myRow["NOMBRES"].ToString();
-                        txtApellidosCliente.Text = myRow["APELLIDOS"].ToString();
-                        dtpFechaNacimientoCliente.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
-                        txtRazonSocialCliente.Text = myRow["RAZONSOCIAL"].ToString();
-                        txtEmailCliente.Text = myRow["EMAIL"].ToString();
-                        txtDireccion.Text = myRow["DIRECCION"].ToString();
-                        cbActividadEconomicaCliente.SelectedItem = myRow["ACTIVIDADECONOMICA"].ToString();
-                        //// cargar los combo de pais canton provincia y parroquia
-                        consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisCliente, ref cbProvinciaCliente, ref cbCantonCliente, ref cbParroquiaCliente);
-
-                        cbCategoriaCliente.SelectedItem = myRow["ESPECIFICACIONES_CATEGORIA"].ToString();
-
-                        // marcar especificaciones TIPO CREDITO
-                        String tipoCredito = myRow["ESPECIFICACIONES_TIPOCREDITO"].ToString();
-                        if (tipoCredito == "Crédito")
-                            rbCreditoCliente.Checked = true;
-                        else if (tipoCredito == "Contado")
-                            rbContadoCliente.Checked = true;
-                        else
-                            rbAmbasCliente.Checked = true;
-
-                        txtCreditoAsignadoCliente.Text = myRow["CONDICIONES_COMERC_CREDITOASIGNADO"].ToString();
-                        txtCupoCreditoCliente.Text = myRow["CONDICIONES_COMERC_CUPOCREDITO"].ToString();
-                        txtDescuentoCliente.Text = myRow["CONDICIONES_COMERC_DESCUENTO"].ToString();
-                        txtCasillaCliente.Text = myRow["CASILLA"].ToString();
-                        txtFaxCliente.Text = myRow["FAX"].ToString();
-                        txtCelular1Cliente.Text = myRow["CELULAR1"].ToString();
-                        txtCelular2Cliente.Text = myRow["CELULAR2"].ToString();
-                        txtObservacionCliente.Text = myRow["OBSERVACION"].ToString();
-
-                        cbCuentaContable.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
-                        int indexcuenta = cbCuentaContable.SelectedIndex;
-                        cbCuentaContable.SelectedIndex = indexcuenta;
-
-                        int IdCliente = Convert.ToInt32(myRow["IDCLIENTE"]);
-
-
-                        //cargar lista OTRA INFORMACION Cliente
-                        DataTable DTOtrainformacion = consultas.BoolDataTable("Select * from TbOtraInformacionCliente where IDCLIENTE = " + IdCliente.ToString() + "");
-                        int contador = 0;
-                        if (DTOtrainformacion.Rows.Count > 0)
+                        if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
                         {
+                            ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 2);
+                            cargarDatos("1");
+                        }
+                    }
+                    else if (rbtInactivosCliente.Checked)
+                    {
+                        if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "DeshabilitarCliente")
+                        {
+                            ObjCliente.EstadoCliente(dgvDatosCliente.CurrentRow.Cells[2].Value.ToString(), 1);
+                            cargarDatos("0");
+                        }
+                    }
 
-                            while (DTOtrainformacion.Rows.Count - 1 >= contador)
+                    if (this.dgvDatosCliente.Columns[e.ColumnIndex].Name == "modificarCliente")
+                    {
+                        //este vale
+
+                        //MessageBox.Show("modificar toca");
+                        bandera_Estado = true;
+                        tcCliente.SelectedIndex = 0;
+                        btnGuardarCliente.Text = "&Modificar";
+                        btnLimpiarCliente.Text = "&Cancelar";
+                        identificacion = dgvDatosCliente.CurrentRow.Cells[2].Value.ToString();
+
+                        //Llenar el DataTable
+                        DataTable dt = consultas.BoolDataTable("Select * from TbCliente where IDENTIFICACION = '" + dgvDatosCliente.Rows[e.RowIndex].Cells[2].Value.ToString() + "'");
+                        if (dt.Rows.Count > 0)
+                        {
+                            DataRow myRow = dt.Rows[0];
+                            cbTipoCliente.SelectedItem = myRow["TIPOCLIENTE"].ToString();
+                            //llenar identificacion y seleccionar combobox tipodoc
+                            txtIdentificacionCliente.Text = myRow["IDENTIFICACION"].ToString();
+                            if (myRow["IDENTIFICACION"].ToString().Length == 10)
+                                cbIdentificacionCliente.SelectedIndex = 0;
+                            else if (myRow["IDENTIFICACION"].ToString().Length == 13)
+                                cbIdentificacionCliente.SelectedIndex = 1;
+                            else
+                                cbIdentificacionCliente.SelectedIndex = 2;
+
+                            ckClienteActivo.Checked = Convert.ToBoolean(myRow["ACTIVO"]);
+                            txtNombresCliente.Text = myRow["NOMBRES"].ToString();
+                            txtApellidosCliente.Text = myRow["APELLIDOS"].ToString();
+                            dtpFechaNacimientoCliente.Value = Convert.ToDateTime(myRow["FECHANACIMIENTO"]);
+                            txtRazonSocialCliente.Text = myRow["RAZONSOCIAL"].ToString();
+                            txtEmailCliente.Text = myRow["EMAIL"].ToString();
+                            txtDireccion.Text = myRow["DIRECCION"].ToString();
+                            cbActividadEconomicaCliente.SelectedItem = myRow["ACTIVIDADECONOMICA"].ToString();
+                            //// cargar los combo de pais canton provincia y parroquia
+                            consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisCliente, ref cbProvinciaCliente, ref cbCantonCliente, ref cbParroquiaCliente);
+
+                            cbCategoriaCliente.SelectedItem = myRow["ESPECIFICACIONES_CATEGORIA"].ToString();
+
+                            // marcar especificaciones TIPO CREDITO
+                            String tipoCredito = myRow["ESPECIFICACIONES_TIPOCREDITO"].ToString();
+                            if (tipoCredito == "Crédito")
+                                rbCreditoCliente.Checked = true;
+                            else if (tipoCredito == "Contado")
+                                rbContadoCliente.Checked = true;
+                            else
+                                rbAmbasCliente.Checked = true;
+
+                            if (myRow["CONDICIONES_COMERC_CREDITOASIGNADO"] != System.DBNull.Value)
+                                txtCreditoAsignadoCliente.Text = myRow["CONDICIONES_COMERC_CREDITOASIGNADO"].ToString();
+                            if (myRow["CONDICIONES_COMERC_CUPOCREDITO"] != System.DBNull.Value)
+                                txtCupoCreditoCliente.Text = myRow["CONDICIONES_COMERC_CUPOCREDITO"].ToString();
+                            if (myRow["CONDICIONES_COMERC_DESCUENTO"] != System.DBNull.Value)
+                                txtDescuentoCliente.Text = myRow["CONDICIONES_COMERC_DESCUENTO"].ToString();
+                            if (myRow["CASILLA"] != System.DBNull.Value)
+                                txtCasillaCliente.Text = myRow["CASILLA"].ToString();
+                            if (myRow["FAX"] != System.DBNull.Value)
+                                txtFaxCliente.Text = myRow["FAX"].ToString();
+                            if (myRow["CELULAR1"] != System.DBNull.Value)
+                                txtCelular1Cliente.Text = myRow["CELULAR1"].ToString();
+                            if (myRow["CELULAR2"] != System.DBNull.Value)
+                                txtCelular2Cliente.Text = myRow["CELULAR2"].ToString();
+                            txtObservacionCliente.Text = myRow["OBSERVACION"].ToString();
+
+                            cbCuentaContable.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
+                            int indexcuenta = cbCuentaContable.SelectedIndex;
+                            cbCuentaContable.SelectedIndex = indexcuenta;
+
+                            int IdCliente = Convert.ToInt32(myRow["IDCLIENTE"]);
+
+
+                            //cargar lista OTRA INFORMACION Cliente
+                            DataTable DTOtrainformacion = consultas.BoolDataTable("Select * from TbOtraInformacionCliente where IDCLIENTE = " + IdCliente.ToString() + "");
+                            int contador = 0;
+                            if (DTOtrainformacion.Rows.Count > 0)
                             {
-                                DataRow row = DTOtrainformacion.Rows[contador];
-                                if (row["TIPO"].ToString() == "Representante Legal")
-                                {
-                                    txtIdentificacionRepresentanteLegalCliente.Text = row["IDENTIFICACION"].ToString();
-                                    txtNombreRepresentanteLegalCliente.Text = row["NOMBRE"].ToString();
-                                    txtEmailRepresentanteLegalCliente.Text = row["EMAIL"].ToString();
-                                    txtCelularRepresentanteLegalCliente.Text = row["CELULAR"].ToString();
-                                }
-                                else if (row["TIPO"].ToString() == "Gerente General")
-                                {
-                                    txtIdentificacionGerenteGeneralCliente.Text = row["IDENTIFICACION"].ToString();
-                                    txtNombreGerenteGeneralCliente.Text = row["NOMBRE"].ToString();
-                                    txtEmailGerenteGeneralCliente.Text = row["EMAIL"].ToString();
-                                    txtCelularGerenteGeneralCliente.Text = row["CELULAR"].ToString();
-                                }
 
-                                else if (row["TIPO"].ToString() == "Garante")
+                                while (DTOtrainformacion.Rows.Count - 1 >= contador)
                                 {
-                                    txtIdentificacionGaranteCliente.Text = row["IDENTIFICACION"].ToString();
-                                    txtNombreGaranteCliente.Text = row["NOMBRE"].ToString();
-                                    txtEmailGaranteCliente.Text = row["EMAIL"].ToString();
-                                    txtCelularGaranteCliente.Text = row["CELULAR"].ToString();
+                                    DataRow row = DTOtrainformacion.Rows[contador];
+                                    if (row["TIPO"].ToString() == "Representante Legal")
+                                    {
+                                        txtIdentificacionRepresentanteLegalCliente.Text = row["IDENTIFICACION"].ToString();
+                                        txtNombreRepresentanteLegalCliente.Text = row["NOMBRE"].ToString();
+                                        txtEmailRepresentanteLegalCliente.Text = row["EMAIL"].ToString();
+                                        txtCelularRepresentanteLegalCliente.Text = row["CELULAR"].ToString();
+                                    }
+                                    else if (row["TIPO"].ToString() == "Gerente General")
+                                    {
+                                        txtIdentificacionGerenteGeneralCliente.Text = row["IDENTIFICACION"].ToString();
+                                        txtNombreGerenteGeneralCliente.Text = row["NOMBRE"].ToString();
+                                        txtEmailGerenteGeneralCliente.Text = row["EMAIL"].ToString();
+                                        txtCelularGerenteGeneralCliente.Text = row["CELULAR"].ToString();
+                                    }
+
+                                    else if (row["TIPO"].ToString() == "Garante")
+                                    {
+                                        txtIdentificacionGaranteCliente.Text = row["IDENTIFICACION"].ToString();
+                                        txtNombreGaranteCliente.Text = row["NOMBRE"].ToString();
+                                        txtEmailGaranteCliente.Text = row["EMAIL"].ToString();
+                                        txtCelularGaranteCliente.Text = row["CELULAR"].ToString();
+                                    }
+                                    contador++;
                                 }
-                                contador++;
                             }
+
                         }
 
                     }
 
                 }
+            }
+            catch (Exception)
+            {
 
             }
+            
         }
 
         private void cargarDatos(string condicion)
@@ -510,32 +534,35 @@ namespace Comisariato.Formularios
         {
             if (txtIdentificacionCliente.Text != "")
             {
-                if (cbIdentificacionCliente.SelectedIndex == 0)
-                {
-                    if (!Funcion.VerificarCedula(txtIdentificacionCliente.Text))
+                //if (cbIdentificacionCliente.Focus())
+                //{
+                    if (cbIdentificacionCliente.SelectedIndex == 0)
                     {
-                        MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        txtIdentificacionCliente.Focus();
-                        txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
-                    }
-                }
-                if (cbIdentificacionCliente.SelectedIndex == 1)
-                {
-                    if (txtIdentificacionCliente.Text.Length == 13)
-                    {
-                        if (txtIdentificacionCliente.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtIdentificacionCliente.Text.Substring(0, 10)) == false)
+                        if (!Funcion.VerificarCedula(txtIdentificacionCliente.Text))
                         {
-                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                             txtIdentificacionCliente.Focus();
                             txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
                         }
                     }
-                    else
+                    if (cbIdentificacionCliente.SelectedIndex == 1)
                     {
-                        MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtIdentificacionCliente.Focus();
-                        txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
+                        if (txtIdentificacionCliente.Text.Length == 13)
+                        {
+                            if (txtIdentificacionCliente.Text.Substring(10, 3) != "001")
+                            {
+                                MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                txtIdentificacionCliente.Focus();
+                                txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtIdentificacionCliente.Focus();
+                            txtIdentificacionCliente.Select(0, txtIdentificacionCliente.Text.Length);
+                        }
                     }
-                }
+                //}
             }
         }
 
@@ -799,6 +826,32 @@ namespace Comisariato.Formularios
                     consultas.BoolCrearDateTableCliente(dgvDatosCliente, "Select IDENTIFICACION AS 'CEDULA/RUC',NOMBRES, APELLIDOS, DIRECCION, CELULAR1, TIPOCLIENTE as 'TIPO', ESPECIFICACIONES_TIPOCREDITO AS 'CREDITO',ACTIVO from TbCliente WHERE ACTIVO = 0 and (IDENTIFICACION like '%" + txtConsultarCliente.Text + "%' or NOMBRES like '%" + txtConsultarCliente.Text + "%' or APELLIDOS like '%" + txtConsultarCliente.Text + "%')");
                     //dgvDatosCliente.Columns["ID"].Visible = false;
                 }
+            }
+        }
+
+        private void FrmClientes_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            inicializarDatos();
+        }
+
+        private void txtIdentificacionCliente_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnExportarExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvDatosCliente.Rows.Count > 0)
+            {
+                if (Funcion.ExportarDataGridViewExcel(dgvDatosCliente,2))
+                {
+                    MessageBox.Show("Reporte creado con exito.");
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al crear el reporte.");
+                }
+
             }
         }
     }

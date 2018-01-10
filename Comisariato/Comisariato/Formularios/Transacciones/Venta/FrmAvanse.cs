@@ -30,6 +30,7 @@ namespace Comisariato.Formularios.Transacciones
 
         private void FrmAvanse_Load(object sender, EventArgs e)
         {
+            txtDinero.Focus();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -100,6 +101,7 @@ namespace Comisariato.Formularios.Transacciones
                     ticket.TextoIzquierda("");
                     ticket.TextoIzquierda("");
                     ticket.TextoCentro("Firma");
+
                     ticket.CortaTicket();
                     var valor = ConfigurationManager.AppSettings["Local"];
                     ticket.ImprimirTicket(valor);

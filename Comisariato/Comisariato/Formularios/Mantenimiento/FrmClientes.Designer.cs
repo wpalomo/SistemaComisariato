@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcCliente = new System.Windows.Forms.TabControl();
             this.tpNuevoCliente = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -121,13 +121,14 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.tpConsultarModificarCliente = new System.Windows.Forms.TabPage();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.dgvDatosCliente = new System.Windows.Forms.DataGridView();
+            this.modificarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DeshabilitarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
             this.rbtInactivosCliente = new System.Windows.Forms.RadioButton();
             this.rbtActivosCliente = new System.Windows.Forms.RadioButton();
             this.txtConsultarCliente = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.modificarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DeshabilitarCliente = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tcCliente.SuspendLayout();
             this.tpNuevoCliente.SuspendLayout();
             this.gbDatosPersonalesClientes.SuspendLayout();
@@ -264,6 +265,7 @@
             // dtpFechaNacimientoCliente
             // 
             this.dtpFechaNacimientoCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaNacimientoCliente.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaNacimientoCliente.Location = new System.Drawing.Point(167, 84);
             this.dtpFechaNacimientoCliente.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFechaNacimientoCliente.Name = "dtpFechaNacimientoCliente";
@@ -320,6 +322,7 @@
             this.txtIdentificacionCliente.Name = "txtIdentificacionCliente";
             this.txtIdentificacionCliente.Size = new System.Drawing.Size(169, 22);
             this.txtIdentificacionCliente.TabIndex = 3;
+            this.txtIdentificacionCliente.Enter += new System.EventHandler(this.txtIdentificacionCliente_Enter);
             this.txtIdentificacionCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdentificacionCliente_KeyPress);
             this.txtIdentificacionCliente.Leave += new System.EventHandler(this.txtIdentificacionCliente_Leave);
             // 
@@ -485,6 +488,7 @@
             this.txtCelular2Cliente.Name = "txtCelular2Cliente";
             this.txtCelular2Cliente.Size = new System.Drawing.Size(160, 22);
             this.txtCelular2Cliente.TabIndex = 16;
+            this.txtCelular2Cliente.Text = "0";
             this.txtCelular2Cliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCelular1Cliente_KeyPress);
             // 
             // txtCelular1Cliente
@@ -495,6 +499,7 @@
             this.txtCelular1Cliente.Name = "txtCelular1Cliente";
             this.txtCelular1Cliente.Size = new System.Drawing.Size(160, 22);
             this.txtCelular1Cliente.TabIndex = 15;
+            this.txtCelular1Cliente.Text = "0";
             this.txtCelular1Cliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCelular1Cliente_KeyPress);
             // 
             // txtFaxCliente
@@ -505,6 +510,7 @@
             this.txtFaxCliente.Name = "txtFaxCliente";
             this.txtFaxCliente.Size = new System.Drawing.Size(160, 22);
             this.txtFaxCliente.TabIndex = 14;
+            this.txtFaxCliente.Text = "0";
             this.txtFaxCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFaxCliente_KeyPress);
             // 
             // label36
@@ -760,9 +766,9 @@
             this.label6.Location = new System.Drawing.Point(16, 43);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 16);
+            this.label6.Size = new System.Drawing.Size(76, 16);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Dirección:";
+            this.label6.Text = "Dirección: *";
             // 
             // tpInformacionFinancieraCliente
             // 
@@ -1283,6 +1289,7 @@
             // tpConsultarModificarCliente
             // 
             this.tpConsultarModificarCliente.BackColor = System.Drawing.Color.Bisque;
+            this.tpConsultarModificarCliente.Controls.Add(this.BtnExportarExcel);
             this.tpConsultarModificarCliente.Controls.Add(this.dgvDatosCliente);
             this.tpConsultarModificarCliente.Controls.Add(this.rbtInactivosCliente);
             this.tpConsultarModificarCliente.Controls.Add(this.rbtActivosCliente);
@@ -1297,19 +1304,31 @@
             this.tpConsultarModificarCliente.TabIndex = 1;
             this.tpConsultarModificarCliente.Text = "Consultar - Modificar Cliente";
             // 
+            // BtnExportarExcel
+            // 
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(991, 19);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 25;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click);
+            // 
             // dgvDatosCliente
             // 
             this.dgvDatosCliente.AllowUserToAddRows = false;
             this.dgvDatosCliente.AllowUserToDeleteRows = false;
             this.dgvDatosCliente.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvDatosCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDatosCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDatosCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosCliente.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.modificarCliente,
@@ -1317,16 +1336,31 @@
             this.dgvDatosCliente.Location = new System.Drawing.Point(16, 86);
             this.dgvDatosCliente.Name = "dgvDatosCliente";
             this.dgvDatosCliente.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            this.dgvDatosCliente.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            this.dgvDatosCliente.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvDatosCliente.Size = new System.Drawing.Size(1011, 460);
             this.dgvDatosCliente.TabIndex = 10;
             this.dgvDatosCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellClick);
             this.dgvDatosCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellContentClick);
             this.dgvDatosCliente.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDatosCliente_CellFormatting);
             this.dgvDatosCliente.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDatosCliente_CellPainting);
+            // 
+            // modificarCliente
+            // 
+            this.modificarCliente.FillWeight = 105F;
+            this.modificarCliente.HeaderText = "";
+            this.modificarCliente.Name = "modificarCliente";
+            this.modificarCliente.ReadOnly = true;
+            this.modificarCliente.Text = "";
+            // 
+            // DeshabilitarCliente
+            // 
+            this.DeshabilitarCliente.FillWeight = 105F;
+            this.DeshabilitarCliente.HeaderText = "";
+            this.DeshabilitarCliente.Name = "DeshabilitarCliente";
+            this.DeshabilitarCliente.ReadOnly = true;
             // 
             // rbtInactivosCliente
             // 
@@ -1379,30 +1413,13 @@
             this.label25.TabIndex = 4;
             this.label25.Text = "Consultar:";
             // 
-            // modificarCliente
-            // 
-            this.modificarCliente.FillWeight = 105F;
-            this.modificarCliente.HeaderText = "";
-            this.modificarCliente.Name = "modificarCliente";
-            this.modificarCliente.ReadOnly = true;
-            this.modificarCliente.Text = "";
-            this.modificarCliente.Width = 35;
-            // 
-            // DeshabilitarCliente
-            // 
-            this.DeshabilitarCliente.FillWeight = 105F;
-            this.DeshabilitarCliente.HeaderText = "";
-            this.DeshabilitarCliente.Name = "DeshabilitarCliente";
-            this.DeshabilitarCliente.ReadOnly = true;
-            this.DeshabilitarCliente.Width = 35;
-            // 
             // FrmClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Bisque;
-            this.ClientSize = new System.Drawing.Size(1089, 589);
+            this.ClientSize = new System.Drawing.Size(1089, 588);
             this.Controls.Add(this.tcCliente);
             this.Font = new System.Drawing.Font("Arial", 10F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -1412,6 +1429,7 @@
             this.Name = "FrmClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Administrar Clientes";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmClientes_FormClosing);
             this.Load += new System.EventHandler(this.FrmClientes_Load);
             this.tcCliente.ResumeLayout(false);
             this.tpNuevoCliente.ResumeLayout(false);
@@ -1538,5 +1556,6 @@
         private System.Windows.Forms.DataGridView dgvDatosCliente;
         private System.Windows.Forms.DataGridViewButtonColumn modificarCliente;
         private System.Windows.Forms.DataGridViewButtonColumn DeshabilitarCliente;
+        private System.Windows.Forms.Button BtnExportarExcel;
     }
 }

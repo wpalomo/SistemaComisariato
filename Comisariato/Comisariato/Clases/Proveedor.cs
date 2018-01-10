@@ -481,6 +481,7 @@ namespace Comisariato.Clases
             try
             {
                 String idproveedor = ObjConsulta.ObtenerValorCampo("IDPROVEEDOR", "TbProveedor", "where TbProveedor.IDENTIFICACION = '" + identificacionProve + "'");
+                ObjConsulta.EjecutarSQL("DELETE FROM [dbo].[TbRetencionProveedor] WHERE IDPROVEEDOR = "+ idproveedor);
                 for (int i = 0; i < dgv.RowCount; i++)
                 {
                     if (dgv.Rows[i].Cells[0].Value.ToString() != "")

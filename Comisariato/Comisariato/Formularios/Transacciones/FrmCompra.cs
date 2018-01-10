@@ -35,6 +35,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
         int posicion = 0;
         bool tieneIVA=false;
         float ivaTotal = 0.0f;
+        public static string CodigoBarraConsultaProducto = "";
         public void incializar()
         {
             tieneIVA = false;
@@ -450,6 +451,10 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                         Funcion.ValidaCeldasPrecios(datosProductoCompra, posicion, ref banderaFocoCelda);
                         datosProductoCompra.CurrentCell = datosProductoCompra.CurrentRow.Cells[12];
                         datosProductoCompra.Rows[e.RowIndex + 1].Cells[0].ReadOnly = false;
+                        if (e.RowIndex == dgvProductosIngresos.RowCount - 2)
+                        {
+                            dgvProductosIngresos.Rows.Add();
+                        }
                         SendKeys.Send("{TAB}");
                     }
                     banderaTab = true;
@@ -645,6 +650,31 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "",
             cadenaConsultar = "";
 
+        private void FrmCompra_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F6:
+                    Program.banderaProductosCompras = true;
+                    for (int i = 0; i < dgvProductosIngresos.ColumnCount; i++)
+                    {
+                        dgvProductosIngresos.CurrentRow.Cells[i].Value = "";
+                    }
+                    for (int i = 1; i < dgvProductosIngresos.ColumnCount; i++)
+                    {
+                        dgvProductosIngresos.CurrentRow.Cells[i].ReadOnly = true;
+                    }
+                    FrmConsultarProducto FrmConsultarProduct = new FrmConsultarProducto();
+                    FrmConsultarProduct.ShowDialog();
+                    dgvProductosIngresos.Focus();
+                    dgvProductosIngresos.CurrentCell = dgvProductosIngresos.CurrentRow.Cells[0];
+                    dgvProductosIngresos.BeginEdit(true);
+                    dgvProductosIngresos.CurrentCell.Value = CodigoBarraConsultaProducto;                    
+                    SendKeys.Send("{ENTER}");
+                    break;
+            }
+        }
+
         private void txtConsultar_TextChanged(object sender, EventArgs e)
         {
             try
@@ -743,10 +773,9 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 if (datosProductoCompra.CurrentCell == datosProductoCompra.CurrentRow.Cells[8])
                     datosProductoCompra.BeginEdit(true);
                 if (datosProductoCompra.CurrentCell == datosProductoCompra.CurrentRow.Cells[9])
-                    datosProductoCompra.BeginEdit(true);
-
+                    datosProductoCompra.BeginEdit(true);                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
             }
         }

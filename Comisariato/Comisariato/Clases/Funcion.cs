@@ -1,13 +1,20 @@
 ﻿using System;
+using Comisariato.ServiceRecepcion;
+//using Comisariato.ServiceAutorizacion;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.Xml;
 using System.Drawing;
+using System.Xml;
 using System.IO;
 using System.Net;
 using Comisariato.Formularios;
+using System.Configuration;
 
 namespace Comisariato.Clases
 {
@@ -17,7 +24,7 @@ namespace Comisariato.Clases
         {
             //Form fh = formHijo as Form;
             //fh.TopLevel = false;
-            //panelPrincipal.Controls.Add(fh);
+            //panelPrincipal.Controls.Add(fh);  
             ////panelPrincipal.Tag = fh;
             //int index = panelPrincipal.Controls.GetChildIndex(fh);
             //fh.BringToFront();
@@ -34,6 +41,45 @@ namespace Comisariato.Clases
 
             }
             else { formHijo.BringToFront(); }
+        }
+
+        public static bool ExportarDataGridViewExcel(DataGridView grd, int InicioDeColumna) //InicioDeColumna comienza desde 0
+        {
+            try
+            {
+                //SaveFileDialog fichero = new SaveFileDialog();
+                //fichero.Filter = "Excel (*.xls)|*.xls";
+                //if (fichero.ShowDialog() == DialogResult.OK)
+                //{
+                //    Microsoft.Office.Interop.Excel.Application aplicacion;
+                //    Microsoft.Office.Interop.Excel.Workbook libros_trabajo;
+                //    Microsoft.Office.Interop.Excel.Worksheet hoja_trabajo;
+                //    aplicacion = new Microsoft.Office.Interop.Excel.Application();
+                //    libros_trabajo = aplicacion.Workbooks.Add();
+                //    hoja_trabajo = (Microsoft.Office.Interop.Excel.Worksheet)libros_trabajo.Worksheets.get_Item(1);
+                //    for (int i = 0; i < grd.ColumnCount; i++)
+                //    {
+                //        hoja_trabajo.Cells[1, i + 1] = grd.Columns[i].HeaderText;
+                //    }
+                //    //Recorremos el DataGridView rellenando la hoja de trabajo
+                //    for (int i = 1; i < grd.Rows.Count - 1; i++)
+                //    {
+                //        for (int j = InicioDeColumna; j < grd.Columns.Count; j++)
+                //        {
+                //            hoja_trabajo.Cells[i + 1, j + 1] = grd.Rows[i].Cells[j].Value.ToString();
+                //        }
+                //    }
+                //    libros_trabajo.SaveAs(fichero.FileName,
+                //    Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+                //    libros_trabajo.Close(true);
+                //    aplicacion.Quit();
+                //}
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public static void ValidarNumerosStock(DataGridViewCellValidatingEventArgs e, DataGridView Dgv)
@@ -347,6 +393,7 @@ namespace Comisariato.Clases
             {
                 return cadena;
             }
+
         }
 
         /// Verificar Cedula
@@ -472,6 +519,144 @@ namespace Comisariato.Clases
 
                 return null;
             }
+        }
+
+        /// <summary>
+        /// FirmaXml
+        /// </summary>
+        /// 
+
+        
+
+        private static Random rnd = new Random(DateTime.Now.Millisecond);
+        public const string XmlDsigRSASHA1Url = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+        public static void FirmaXML(string RutaXml, string nombrexml)
+        {
+            try
+            {
+                //Declaro variable XMLDocument
+                XmlDocument xmlDoc = new XmlDocument();
+                // Cargo el documento en el xmlDoc
+                xmlDoc.PreserveWhitespace = true;
+                //var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
+                var PathServer = @"C:\Users\Public\Documents\ArchivosXml";
+                string pathXml = PathServer + @"\sonna_judith_vega_solis.p12";
+                xmlDoc.Load(@RutaXml);
+                //string soapSecNS = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+                //Obtengo la firma en el Certificado X509
+                X509Certificate2 uidCert = new X509Certificate2(pathXml, "Sonnav67", X509KeyStorageFlags.DefaultKeySet);
+                //string nombre = uidCert.GetNameInfo(System.Security.Cryptography.X509Certificates.X509NameType.DnsName,true);
+                //Console.WriteLine(nombre);
+                //Inicializo el RSA
+                RSACryptoServiceProvider rsaKey = (RSACryptoServiceProvider)uidCert.PrivateKey;
+
+                //Agrego el SgnedXml que permite firmar el xml
+                SignedXml signedXml = new SignedXml(xmlDoc);
+
+                // Add the key to the SignedXml document.
+                signedXml.SigningKey = rsaKey;
+
+                signedXml.Signature.Id = newID("Signature");
+
+
+                //Agregamos el metodo de firmado
+                signedXml.SignedInfo.SignatureMethod = XmlDsigRSASHA1Url;
+
+                signedXml.SignedInfo.Id = newID("Signature-SignedInfo");
+
+                // Create a reference to be signed.
+                Reference reference = new Reference();
+                //reference.Id = newID("#Certificate");
+                reference.Uri = "";
+
+                // Add an enveloped transformation to the reference.
+                XmlDsigEnvelopedSignatureTransform env = new XmlDsigEnvelopedSignatureTransform();
+                reference.AddTransform(env);
+
+                // Add the reference to the SignedXml object.
+                signedXml.AddReference(reference);
+
+
+                // Add an RSAKeyValue KeyInfo (optional; helps recipient find key to validate).
+                KeyInfo keyInfo = new KeyInfo();
+
+                KeyInfoX509Data clause = new KeyInfoX509Data();
+                clause.AddSubjectName(uidCert.Subject);
+                clause.AddCertificate(uidCert);
+                keyInfo.AddClause(clause);
+
+                keyInfo.Id = newID("Certificate1");
+
+                signedXml.KeyInfo = keyInfo;
+
+                // Compute the signature.
+                signedXml.ComputeSignature();
+
+
+                Boolean respuesta = signedXml.CheckSignature();
+                System.Console.WriteLine(respuesta);
+
+                // Get the XML representation of the signature and save
+                // it to an XmlElement object.
+                XmlElement xmlDigitalSignature = signedXml.GetXml();
+
+
+                //XmlElement signature = signedXml.GetXml();
+                foreach (XmlNode node in xmlDigitalSignature.SelectNodes(
+                    "descendant-or-self::*[namespace-uri()='http://www.w3.org/2000/09/xmldsig#']"))
+                {
+                    node.Prefix = "ds";
+                }
+
+
+                System.Console.WriteLine(signedXml.GetXml().InnerXml);
+                // Append the element to the XML document.
+                xmlDoc.DocumentElement.AppendChild(xmlDoc.ImportNode(xmlDigitalSignature, true));
+
+
+                //Preguntar sobre el directorio
+
+                if (!Directory.Exists(PathServer + @"\Firmados\"))
+                {
+                    Directory.CreateDirectory(PathServer + @"\Firmados\");
+                }
+
+
+                xmlDoc.Save(@PathServer + @"\Firmados\" + @"\"+ nombrexml + ".xml");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                System.Console.ReadLine();
+            }
+        }
+        private static String newID(String prefix)
+        {
+            String newID = prefix + rnd.Next(1048576);
+            newID = prefix + rnd.Next(1048576);
+            return newID;
+        }
+
+        public static string FormarFecha(string fecha)
+        {
+            //Dia-Mes-Año
+            string [] arregloFecha = fecha.Split('/');
+            //dia
+            if (arregloFecha[0].Length < 2)
+            {
+                arregloFecha[0] = "0" + arregloFecha[0];
+            }
+            //Mes
+            if (arregloFecha[1].Length < 2)
+            {
+                arregloFecha[1] = "0" + arregloFecha[1];
+            }
+
+            return arregloFecha[0] + "/" + arregloFecha[1] + "/" + arregloFecha[2];
         }
 
     }

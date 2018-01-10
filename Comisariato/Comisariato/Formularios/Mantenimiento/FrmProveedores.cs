@@ -89,7 +89,7 @@ namespace Comisariato.Formularios
             //    default:
             //        break;
             //}
-            txtCodigo.Text = GlobalCodigoProveedor;
+            TxtCodigo2.Text = GlobalCodigoProveedor;
 
             cbCreditoProveedor.DataSource = null;
             cbICEProveedor.DataSource = null;
@@ -169,55 +169,102 @@ namespace Comisariato.Formularios
         {
             if (txtNombreProveedor.Text != "" && txtNumeroIdentificacionProveedor.Text != "" && txtDireccionProveedor.Text != "" && cbCreditoProveedor.Text != "" && cbICEProveedor.Text != "" && cbCodigo101Proveedor.Text != "")
             {
-                Proveedor ObjProvee = new Proveedor(txtFax.Text, ckbEstado.Checked, txtPlazo.Text, txtCodigo.Text, cbIdentificacionProveedor.Text,
-                    txtNombreProveedor.Text, txtNumeroIdentificacionProveedor.Text, cbNacionalidadProveedor.Text, cbNaturalezaProveedor.Text,
-                    txtDireccionProveedor.Text, txtRazonSocialProveedor.Text, txtEmailProveedor.Text, txtTelefonoProveedor.Text, txtCelularProveedor.Text,
-                    txtGiraChequeProveedor.Text, txtResponsableProveedor.Text, cbTipoGastoProveedor.Text, cbTipoServicioProveedor.Text,
-                    Convert.ToInt32(cbParroquiaProveedor.SelectedValue), ckbRISEProveedor.Checked, Convert.ToInt32(cbCuentaContableProveedor.SelectedValue), Convert.ToInt32(cbCreditoProveedor.SelectedValue), Convert.ToInt32(cbICEProveedor.SelectedValue), Convert.ToInt32(cbCodigo101Proveedor.SelectedValue), TxtCelularResponsable.Text);
-                if (!bandera_Estado)
+                ////
+                bool erroresIdentificacion = false;
+
+                if (txtNumeroIdentificacionProveedor.Text != "")
                 {
-                    String resultado = ObjProvee.InsertarProveedor(ObjProvee);
-                    if (resultado == "Datos Guardados")
+                    if (cbIdentificacionProveedor.SelectedIndex == 0)
                     {
-                        //string res = ObjProvee.InsertarAutorizacionProveedor()
-                        ObjProvee.InsertarAutorizacionProveedor(dgvDatosAutorizacionProveedor, txtNumeroIdentificacionProveedor.Text);
-                        ObjProvee.InsertarRetencion(dgvCodigoRetencionProveedor, txtNumeroIdentificacionProveedor.Text);
-                        MessageBox.Show("Proveedor Registrado Correctamente ", "Exito", MessageBoxButtons.OK);
-                        cargarDatos("1");
-                        rbtActivosProveedor.Checked = true;
-                        inicializarDatos();
-                        if (Program.FormularioLlamado)
+                        if (!Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text))
                         {
-                            Program.FormularioLlamado = false;
-                            Program.FormularioProveedorCompra = true;
-                            consultas.BoolLlenarComboBox(FrmCompra.datosProveedor, "select IDPROVEEDOR AS Id, NOMBRES AS Texto from TbProveedor");
-                            FrmCompra.datosProveedor.SelectedValue = consultas.ObtenerID("IDPROVEEDOR", "TbProveedor", "");
-                            this.Close();
+                            erroresIdentificacion = true;
+                            MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            txtNumeroIdentificacionProveedor.Focus();
+                            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
                         }
                     }
-                    else if (resultado == "Error al Registrar") { MessageBox.Show("Error al guardar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-                    else if (resultado == "Existe") { MessageBox.Show("Ya Existe el Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information); }
-                }
-                else if (bandera_Estado)
-                {
-                    String Resultado = ObjProvee.ModificarProveedor(identificacion);
-                    if (Resultado == "Correcto")
+                    if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 0)
                     {
-                        consultas.EjecutarSQL("DELETE FROM [dbo].[TbAutorizacionProveedor] WHERE IDPROVEEDOR = " + Convert.ToInt32(txtCodigo.Text));
-                        ObjProvee.InsertarAutorizacionProveedor(dgvDatosAutorizacionProveedor, txtNumeroIdentificacionProveedor.Text);
-                        consultas.EjecutarSQL("DELETE FROM [dbo].[TbRetencionProveedor] WHERE IDPROVEEDOR = "+Convert.ToInt32(txtCodigo.Text));
-                        ObjProvee.InsertarRetencion(dgvCodigoRetencionProveedor, txtNumeroIdentificacionProveedor.Text);
-                        MessageBox.Show("Proveedor Actualizado", "Exito");
-                        cargarDatos("1");
-                        rbtActivosProveedor.Checked = true;
-                        identificacion = "";
+                        if (txtNumeroIdentificacionProveedor.Text.Length == 13)
+                        {
+                            if (txtNumeroIdentificacionProveedor.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text.Substring(0, 10)) == false)
+                            {
+                                erroresIdentificacion = true;
+                                MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                txtNumeroIdentificacionProveedor.Focus();
+                                txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+                            }
+                        }
+                        else
+                        {
+                            erroresIdentificacion = true;
+                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
+                            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+                        }
                     }
-                    else { MessageBox.Show("Error al actualizar Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-                    bandera_Estado = false;
-                    btnGuardarProveedor.Text = "&Guardar";
-                    btnLimpiarProveedor.Text = "&Limpiar";
-                    //Funcion.Limpiarobjetos(gbDatosAutorizacionProveedor);
-                    inicializarDatos();
+                    else if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 1)
+                    {
+                        if (txtNumeroIdentificacionProveedor.Text.Length != 13)
+                        {
+                            erroresIdentificacion = true;
+                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
+                            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+                        }
+                    }
+                }
+                if(!erroresIdentificacion)
+                {
+                    Proveedor ObjProvee = new Proveedor(txtFax.Text, ckbEstado.Checked, txtPlazo.Text, txtCodigo.Text, cbIdentificacionProveedor.Text,
+                        txtNombreProveedor.Text, txtNumeroIdentificacionProveedor.Text, cbNacionalidadProveedor.Text, cbNaturalezaProveedor.Text,
+                        txtDireccionProveedor.Text, txtRazonSocialProveedor.Text, txtEmailProveedor.Text, txtTelefonoProveedor.Text, txtCelularProveedor.Text,
+                        txtGiraChequeProveedor.Text, txtResponsableProveedor.Text, cbTipoGastoProveedor.Text, cbTipoServicioProveedor.Text,
+                        Convert.ToInt32(cbParroquiaProveedor.SelectedValue), ckbRISEProveedor.Checked, Convert.ToInt32(cbCuentaContableProveedor.SelectedValue), Convert.ToInt32(cbCreditoProveedor.SelectedValue), Convert.ToInt32(cbICEProveedor.SelectedValue), Convert.ToInt32(cbCodigo101Proveedor.SelectedValue), TxtCelularResponsable.Text);
+                    if (!bandera_Estado)
+                    {
+                        String resultado = ObjProvee.InsertarProveedor(ObjProvee);
+                        if (resultado == "Datos Guardados")
+                        {
+                            //string res = ObjProvee.InsertarAutorizacionProveedor()
+                            ObjProvee.InsertarAutorizacionProveedor(dgvDatosAutorizacionProveedor, txtNumeroIdentificacionProveedor.Text);
+                            ObjProvee.InsertarRetencion(dgvCodigoRetencionProveedor, txtNumeroIdentificacionProveedor.Text);
+                            MessageBox.Show("Proveedor Registrado Correctamente ", "Exito", MessageBoxButtons.OK);
+                            cargarDatos("1");
+                            rbtActivosProveedor.Checked = true;
+                            inicializarDatos();
+                            if (Program.FormularioLlamado)
+                            {
+                                Program.FormularioLlamado = false;
+                                Program.FormularioProveedorCompra = true;
+                                consultas.BoolLlenarComboBox(FrmCompra.datosProveedor, "select IDPROVEEDOR AS Id, NOMBRES AS Texto from TbProveedor");
+                                FrmCompra.datosProveedor.SelectedValue = consultas.ObtenerID("IDPROVEEDOR", "TbProveedor", "");
+                                this.Close();
+                            }
+                        }
+                        else if (resultado == "Error al Registrar") { MessageBox.Show("Error al guardar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                        else if (resultado == "Existe") { MessageBox.Show("Ya Existe el Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+                    }
+                    else if (bandera_Estado)
+                    {
+                        String Resultado = ObjProvee.ModificarProveedor(identificacion);
+                        if (Resultado == "Correcto")
+                        {
+                            consultas.EjecutarSQL("DELETE FROM [dbo].[TbAutorizacionProveedor] WHERE IDPROVEEDOR = " + Convert.ToInt32(txtCodigo.Text));
+                            ObjProvee.InsertarAutorizacionProveedor(dgvDatosAutorizacionProveedor, txtNumeroIdentificacionProveedor.Text);
+                            consultas.EjecutarSQL("DELETE FROM [dbo].[TbRetencionProveedor] WHERE IDPROVEEDOR = " + Convert.ToInt32(txtCodigo.Text));
+                            ObjProvee.InsertarRetencion(dgvCodigoRetencionProveedor, txtNumeroIdentificacionProveedor.Text);
+                            MessageBox.Show("Proveedor Actualizado", "Exito");
+                            cargarDatos("1");
+                            rbtActivosProveedor.Checked = true;
+                            identificacion = "";
+                        }
+                        else { MessageBox.Show("Error al actualizar Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                        bandera_Estado = false;
+                        btnGuardarProveedor.Text = "&Guardar";
+                        btnLimpiarProveedor.Text = "&Limpiar";
+                        //Funcion.Limpiarobjetos(gbDatosAutorizacionProveedor);
+                        inicializarDatos();
+                    }
                 }
             }
             else { MessageBox.Show("Ingrese los datos del Proveedor", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -282,7 +329,7 @@ namespace Comisariato.Formularios
 
         private void TxtDireccion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Funcion.validar_Num_Letras(e);
+            //Funcion.validar_Num_Letras(e);
             if (e.KeyChar == (char)Keys.Return)
             {
                 SendKeys.Send("{TAB}");
@@ -334,119 +381,142 @@ namespace Comisariato.Formularios
 
         private void dgvDatosProveedor_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Proveedor ObjProvee = new Proveedor();
-            if (Convert.ToString(dgvDatosProveedor.CurrentRow.Cells[2].Value) != "")
+
+            try
             {
-                if (rbtActivosProveedor.Checked)
+
+
+                Proveedor ObjProvee = new Proveedor();
+                if (Convert.ToString(dgvDatosProveedor.CurrentRow.Cells[2].Value) != "")
                 {
+                    if (rbtActivosProveedor.Checked)
+                    {
                         if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "DeshabilitarProveedor")
+                        {
+                            ObjProvee.EstadoProveedor(dgvDatosProveedor.CurrentRow.Cells[2].Value.ToString(), 2);
+                            cargarDatos("1");
+                        }
+                    }
+                    else if (rbtInactivosProveedor.Checked)
                     {
-                        ObjProvee.EstadoProveedor(dgvDatosProveedor.CurrentRow.Cells[2].Value.ToString(), 2);
-                        cargarDatos("1");
+                        if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "DeshabilitarProveedor")
+                        {
+                            ObjProvee.EstadoProveedor(dgvDatosProveedor.CurrentRow.Cells[2].Value.ToString(), 1);
+                            cargarDatos("0");
+                        }
+                    }
+
+                    if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "modificarProveedor")
+                    {
+                        identificacion = dgvDatosProveedor.CurrentRow.Cells[2].Value.ToString();
+                        tcProveedor.SelectedIndex = 0;
+                        bandera_Estado = true;
+                        //Llenar el DataTable
+                        DataTable dt = consultas.BoolDataTable("Select * from TbProveedor where IDENTIFICACION = '" + identificacion + "'");
+                        //Arreglo de byte en donde se almacenara la foto en bytes
+                        byte[] MyData = new byte[0];
+                        //Verificar si tiene Datos
+                        if (dt.Rows.Count > 0)
+                        {
+                            DataRow myRow = dt.Rows[0];
+                            txtCodigo.Text = myRow["IDPROVEEDOR"].ToString();
+                            if (myRow["CODIGO"] != System.DBNull.Value)
+                                TxtCodigo2.Text = myRow["CODIGO"].ToString();
+                            txtNombreProveedor.Text = myRow["NOMBRES"].ToString();
+                            txtNumeroIdentificacionProveedor.Text = myRow["IDENTIFICACION"].ToString();
+                            txtDireccionProveedor.Text = myRow["DIRECCION"].ToString();
+                            txtRazonSocialProveedor.Text = myRow["RAZONSOCIAL"].ToString();
+                            txtCelularProveedor.Text = myRow["CELULAR"].ToString();
+                            txtTelefonoProveedor.Text = myRow["TELEFONO"].ToString();
+                            txtResponsableProveedor.Text = myRow["RESPONSABLE"].ToString();
+                            txtPlazo.Text = myRow["PLAZO"].ToString();
+                            txtEmailProveedor.Text = myRow["EMAIL"].ToString();
+                            txtGiraChequeProveedor.Text = myRow["GIRACHEQUEA"].ToString();
+                            txtFax.Text = myRow["FAX"].ToString();
+
+                            ckbEstado.Checked = Convert.ToBoolean(myRow["ESTADO"]);
+                            ckbRISEProveedor.Checked = Convert.ToBoolean(myRow["PROVEEDORRISE"]);
+
+
+                            string tipoidentificacion = myRow["TIPOIDENTIFICACION"].ToString();
+                            string nacionalidad = myRow["NACIONALIDAD"].ToString();
+                            string naturaleza = myRow["NATURALEZA"].ToString();
+                            string tipogasto = myRow["TIPOGASTO"].ToString();
+
+
+                            cbIdentificacionProveedor.SelectedItem = myRow["TIPOIDENTIFICACION"].ToString();
+                            cbNacionalidadProveedor.SelectedItem = myRow["NACIONALIDAD"].ToString();
+                            cbNaturalezaProveedor.SelectedItem = myRow["NATURALEZA"].ToString();
+                            cbTipoGastoProveedor.SelectedItem = myRow["TIPOGASTO"].ToString();
+
+
+
+
+
+
+
+                            int idservicion = consultas.ObtenerID("IDSERVICIO", "TbTipoServicio", " where DESCRIPCION = '" + myRow["TIPOSERVICIO"].ToString() + "' ");
+
+                            cbTipoServicioProveedor.SelectedValue = idservicion;
+                            int indexservicio = cbTipoServicioProveedor.SelectedIndex;
+                            cbTipoServicioProveedor.SelectedIndex = indexservicio;
+
+
+                            if (myRow["IDCuentaContable"] != System.DBNull.Value)
+                            {
+                                cbCuentaContableProveedor.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
+
+                            }
+
+                            int indexcuenta = cbCuentaContableProveedor.SelectedIndex;
+                            cbCuentaContableProveedor.SelectedIndex = indexcuenta;
+
+                            //cbCreditoProveedor.SelectedValue = Convert.ToInt32(myRow["CREDITO"]);
+                            //int indexcredito = cbCreditoProveedor.SelectedIndex;
+                            //cbCreditoProveedor.SelectedIndex = indexcredito;
+                            if (myRow["CREDITO"] != System.DBNull.Value)
+                            {
+                                consultas.BoolLlenarComboBox(cbCreditoProveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["CREDITO"]));
+                            }
+                            if (myRow["ICE"] != System.DBNull.Value)
+                            {
+                                consultas.BoolLlenarComboBox(cbICEProveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["ICE"]));
+                            }
+                            if (myRow["CODIGO_101"] != System.DBNull.Value)
+                            {
+                                consultas.BoolLlenarComboBox(cbCodigo101Proveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["CODIGO_101"]));
+                            }
+
+                            //cbICEProveedor.SelectedValue = Convert.ToInt32(myRow["ICE"]);
+                            //int indexcIce = cbICEProveedor.SelectedIndex;
+                            //cbICEProveedor.SelectedIndex = indexcIce;
+
+                            //cbCodigo101Proveedor.SelectedValue = Convert.ToInt32(myRow["CODIGO_101"]);
+                            //int indexCodigo101 = cbCodigo101Proveedor.SelectedIndex;
+                            //cbCodigo101Proveedor.SelectedIndex = indexCodigo101;
+
+                            string sqlRetencion = "select c.IDCODIGOSRI,  c.DESCRIPCION, tc.CODIGO, c.RETENCION,' ' , c.FECHAVALIDODESDE +''+ c.FECHAVALIDOHASTA as VALIDEZ " +
+    " from TbRetencionProveedor rp, TbProveedor p, TbCodigoSRI C, TbTipoCodigoSRI tc" +
+    " where p.IDPROVEEDOR = rp.IDPROVEEDOR and c.IDCODIGOSRI = rp.IDRETENCION and tc.IDTIPOCODIGOSRI = c.IDTIPOCODIGOSRI and p.IDENTIFICACION = '" + Convert.ToString(dgvDatosProveedor.CurrentRow.Cells[2].Value) + "'";
+                            consultas.boolLlenarDataGrid(dgvCodigoRetencionProveedor, sqlRetencion, 5, 5, 0);
+
+                            consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisProveedor, ref cbProvinciaProveedor, ref cbCantonProveedor, ref cbParroquiaProveedor);
+
+                            int IDPROVEEDOR = consultas.ObtenerID("IDPROVEEDOR", "TbProveedor", " where IDENTIFICACION = '" + myRow["IDENTIFICACION"].ToString() + "' ");
+
+                            //llenar datagridview DatosAutorizacion
+                            consultas.BoolCrearDateTableProveedoresAutorizacion(dgvDatosAutorizacionProveedor, "Select * from TbAutorizacionProveedor where IDPROVEEDOR = '" + IDPROVEEDOR + "'");
+
+
+                            btnLimpiarProveedor.Text = "&Cancelar";
+                            btnGuardarProveedor.Text = "&Modificar";
+                        }
                     }
                 }
-                else if (rbtInactivosProveedor.Checked)
-                {
-                    if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "DeshabilitarProveedor")
-                    {
-                        ObjProvee.EstadoProveedor(dgvDatosProveedor.CurrentRow.Cells[2].Value.ToString(), 1);
-                        cargarDatos("0");
-                    }
-                }
+            }
+            catch (Exception)
+            {
 
-                if (this.dgvDatosProveedor.Columns[e.ColumnIndex].Name == "modificarProveedor")
-                {
-                    identificacion = dgvDatosProveedor.CurrentRow.Cells[2].Value.ToString();
-                    tcProveedor.SelectedIndex = 0;
-                    bandera_Estado = true;
-                    //Llenar el DataTable
-                    DataTable dt = consultas.BoolDataTable("Select * from TbProveedor where IDENTIFICACION = '" + identificacion + "'");
-                    //Arreglo de byte en donde se almacenara la foto en bytes
-                    byte[] MyData = new byte[0];
-                    //Verificar si tiene Datos
-                    if (dt.Rows.Count > 0)
-                    {
-                        DataRow myRow = dt.Rows[0];
-                        txtCodigo.Text = myRow["CODIGO"].ToString();
-                        txtNombreProveedor.Text = myRow["NOMBRES"].ToString();
-                        txtNumeroIdentificacionProveedor.Text = myRow["IDENTIFICACION"].ToString();
-                        txtDireccionProveedor.Text = myRow["DIRECCION"].ToString();
-                        txtRazonSocialProveedor.Text = myRow["RAZONSOCIAL"].ToString();
-                        txtCelularProveedor.Text = myRow["CELULAR"].ToString();
-                        txtTelefonoProveedor.Text = myRow["TELEFONO"].ToString();
-                        txtResponsableProveedor.Text = myRow["RESPONSABLE"].ToString();
-                        txtPlazo.Text = myRow["PLAZO"].ToString();
-                        txtEmailProveedor.Text = myRow["EMAIL"].ToString();
-                        txtGiraChequeProveedor.Text = myRow["GIRACHEQUEA"].ToString();
-                        txtFax.Text = myRow["FAX"].ToString();
-
-                        ckbEstado.Checked = Convert.ToBoolean(myRow["ESTADO"]);
-                        ckbRISEProveedor.Checked = Convert.ToBoolean(myRow["PROVEEDORRISE"]);
-
-
-                        cbIdentificacionProveedor.SelectedItem = myRow["TIPOIDENTIFICACION"].ToString();
-                        cbNacionalidadProveedor.SelectedItem = myRow["NACIONALIDAD"].ToString();
-                        cbNaturalezaProveedor.SelectedItem = myRow["NATURALEZA"].ToString();
-                        cbTipoGastoProveedor.SelectedItem = myRow["TIPOGASTO"].ToString();
-
-
-                        int idservicion = consultas.ObtenerID("IDSERVICIO", "TbTipoServicio", " where DESCRIPCION = '" + myRow["TIPOSERVICIO"].ToString() + "' ");
-
-                        cbTipoServicioProveedor.SelectedValue = idservicion;
-                        int indexservicio = cbTipoServicioProveedor.SelectedIndex;
-                        cbTipoServicioProveedor.SelectedIndex = indexservicio;
-
-
-                        if (myRow["IDCuentaContable"] != System.DBNull.Value)
-                        {
-                            cbCuentaContableProveedor.SelectedValue = Convert.ToInt32(myRow["IDCuentaContable"]);
-
-                        }
-
-                        int indexcuenta = cbCuentaContableProveedor.SelectedIndex;
-                        cbCuentaContableProveedor.SelectedIndex = indexcuenta;
-
-                        //cbCreditoProveedor.SelectedValue = Convert.ToInt32(myRow["CREDITO"]);
-                        //int indexcredito = cbCreditoProveedor.SelectedIndex;
-                        //cbCreditoProveedor.SelectedIndex = indexcredito;
-                        if (myRow["CREDITO"] != System.DBNull.Value)
-                        {
-                            consultas.BoolLlenarComboBox(cbCreditoProveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["CREDITO"]));
-                        }
-                        if (myRow["ICE"] != System.DBNull.Value)
-                        {
-                            consultas.BoolLlenarComboBox(cbICEProveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["ICE"]));
-                        }
-                        if (myRow["CODIGO_101"] != System.DBNull.Value)
-                        {
-                            consultas.BoolLlenarComboBox(cbCodigo101Proveedor, "Select IDCODIGOSRI as ID, '[' + CODIGOSRI + '] - ' + DESCRIPCION as TEXTO from TbCodigoSRI where IDCODIGOSRI =" + Convert.ToInt32(myRow["CODIGO_101"]));
-                        }
-
-                        //cbICEProveedor.SelectedValue = Convert.ToInt32(myRow["ICE"]);
-                        //int indexcIce = cbICEProveedor.SelectedIndex;
-                        //cbICEProveedor.SelectedIndex = indexcIce;
-
-                        //cbCodigo101Proveedor.SelectedValue = Convert.ToInt32(myRow["CODIGO_101"]);
-                        //int indexCodigo101 = cbCodigo101Proveedor.SelectedIndex;
-                        //cbCodigo101Proveedor.SelectedIndex = indexCodigo101;
-
-                        string sqlRetencion = "select c.IDCODIGOSRI,  c.DESCRIPCION, tc.CODIGO, c.RETENCION,' ' , c.FECHAVALIDODESDE +''+ c.FECHAVALIDOHASTA as VALIDEZ " +
-" from TbRetencionProveedor rp, TbProveedor p, TbCodigoSRI C, TbTipoCodigoSRI tc" +
-" where p.IDPROVEEDOR = rp.IDPROVEEDOR and c.IDCODIGOSRI = rp.IDRETENCION and tc.IDTIPOCODIGOSRI = c.IDTIPOCODIGOSRI and p.IDENTIFICACION = '" + Convert.ToString(dgvDatosProveedor.CurrentRow.Cells[2].Value) + "'";
-                        consultas.boolLlenarDataGrid(dgvCodigoRetencionProveedor, sqlRetencion, 5, 5, 0);
-
-                        consultas.LLenarCombosUbicacion(Convert.ToInt32(myRow["IDPARROQUIA"]), ref cbPaisProveedor, ref cbProvinciaProveedor, ref cbCantonProveedor, ref cbParroquiaProveedor);
-
-                        int IDPROVEEDOR = consultas.ObtenerID("IDPROVEEDOR", "TbProveedor", " where IDENTIFICACION = '" + myRow["IDENTIFICACION"].ToString() + "' ");
-
-                        //llenar datagridview DatosAutorizacion
-                        consultas.BoolCrearDateTableProveedoresAutorizacion(dgvDatosAutorizacionProveedor,"Select * from TbAutorizacionProveedor where IDPROVEEDOR = '" + IDPROVEEDOR + "'");
-
-
-                        btnLimpiarProveedor.Text = "&Cancelar";
-                        btnGuardarProveedor.Text = "&Modificar";
-                    }
-                }
             }
         }
 
@@ -482,43 +552,43 @@ namespace Comisariato.Formularios
 
         private void txtNumeroIdentificacionProveedor_Leave(object sender, EventArgs e)
         {
-            if (txtNumeroIdentificacionProveedor.Text != "")
-            {
-                if (cbIdentificacionProveedor.SelectedIndex == 0)
-                {
-                    if (!Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text))
-                    {
-                        MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        txtNumeroIdentificacionProveedor.Focus();
-                        txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
-                    }
-                }
-                if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 0)
-                {
-                    if (txtNumeroIdentificacionProveedor.Text.Length == 13)
-                    {
-                        if (txtNumeroIdentificacionProveedor.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text.Substring(0, 10)) == false)
-                        {
-                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                            txtNumeroIdentificacionProveedor.Focus();
-                            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
-                        txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
-                    }
-                }
-                else if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 1)
-                {
-                    if (txtNumeroIdentificacionProveedor.Text.Length != 13)
-                    {
-                        MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
-                        txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
-                    }
-                }
-            }
+            //if (txtNumeroIdentificacionProveedor.Text != "")
+            //{
+            //    if (cbIdentificacionProveedor.SelectedIndex == 0)
+            //    {
+            //        if (!Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text))
+            //        {
+            //            MessageBox.Show("Ingrese la Cédula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            //            txtNumeroIdentificacionProveedor.Focus();
+            //            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+            //        }
+            //    }
+            //    if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 0)
+            //    {
+            //        if (txtNumeroIdentificacionProveedor.Text.Length == 13)
+            //        {
+            //            if (txtNumeroIdentificacionProveedor.Text.Substring(10, 3) != "001" || Funcion.VerificarCedula(txtNumeroIdentificacionProveedor.Text.Substring(0, 10)) == false)
+            //            {
+            //                MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            //                txtNumeroIdentificacionProveedor.Focus();
+            //                txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
+            //            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+            //        }
+            //    }
+            //    else if (cbIdentificacionProveedor.SelectedIndex == 1 && cbNaturalezaProveedor.SelectedIndex == 1)
+            //    {
+            //        if (txtNumeroIdentificacionProveedor.Text.Length != 13)
+            //        {
+            //            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk); txtNumeroIdentificacionProveedor.Focus();
+            //            txtNumeroIdentificacionProveedor.Select(0, txtNumeroIdentificacionProveedor.Text.Length);
+            //        }
+            //    }
+            //}
         }
 
         private void dgvDatosProveedor_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -1031,6 +1101,23 @@ namespace Comisariato.Formularios
         private void FrmProveedores_FormClosing(object sender, FormClosingEventArgs e)
         {
             Program.FormularioProveedorCompra = false;
+            inicializarDatos();
+        }
+
+        private void BtnExportarExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvDatosProveedor.Rows.Count > 0)
+            {
+                if (Funcion.ExportarDataGridViewExcel(dgvDatosProveedor,2))
+                {
+                    MessageBox.Show("Reporte creado con exito.");
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al crear el reporte.");
+                }
+
+            }
         }
     }
 }

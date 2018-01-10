@@ -51,6 +51,8 @@ namespace Comisariato.Formularios
         public static FrmCambioClave FrmCambioClave;
         public static FrmRegistrarIVA FrmRegistrarIVA;
         public static FrmInformesCajas FrmInformesCajas;
+        public static FrmComprobantesSri FrmComprobantesSri;
+        public static FormEnviarArchivos forSri;
 
         public bool primerIngresoSistema;
 
@@ -369,6 +371,7 @@ namespace Comisariato.Formularios
             else if (nombre == "Devolución en Venta")
             {
                 string IpMaquina = bitacora.LocalIPAddress();
+                //IPESTACION = '" + IpMaquina + "' and
                 DataTable Dt = objConsulta.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
                 bool banderaCaja = false;
                 if (Dt.Rows.Count > 0)
@@ -422,6 +425,17 @@ namespace Comisariato.Formularios
                 }
                 else { FrmDeclaracionSRI.BringToFront(); }
             }
+            else if (nombre == "Comprobantes")
+            {
+                if (FrmComprobantesSri == null || FrmComprobantesSri.IsDisposed)
+                {
+                    FrmComprobantesSri = new FrmComprobantesSri();
+                    FrmComprobantesSri.MdiParent = this;
+                    //FrmDevolucionVenta.BringToFront();
+                    FrmComprobantesSri.Show();
+                }
+                else { FrmComprobantesSri.BringToFront(); }
+            }
             else if (nombre == "Informe Caja")
             {
                 if (FrmInformesCajas == null || FrmInformesCajas.IsDisposed)
@@ -432,6 +446,17 @@ namespace Comisariato.Formularios
                     FrmInformesCajas.Show();
                 }
                 else { FrmInformesCajas.BringToFront(); }
+            }
+            else if (nombre == "Enviar Archivos")
+            {
+                if (forSri == null || forSri.IsDisposed)
+                {
+                    forSri = new FormEnviarArchivos();
+                    forSri.MdiParent = this;
+                    //FrmDevolucionVenta.BringToFront();
+                    forSri.Show();
+                }
+                else { forSri.BringToFront(); }
             }
         }
 
