@@ -21,13 +21,13 @@ namespace Comisariato.Formularios.Transacciones
         internal static List<string> DatosProducto = new List<string>();
         internal static int  correcta;
         internal static int verificadorfrm;
-        private int  posicion, ivaporcentaje, tipoprecio = 0, cantmayorita = 20, fila,contador=0,factenter, tipoprecio1 = 0, formapago = 0, fr, idcliente,idclienteespe,cantcaja=0;
+        private int  posicion, ivaporcentaje, tipoprecio = 0, cantmayorita = 20, fila,contador=0,factenter, tipoprecio1 = 0, formapago = 0, fr, idcliente,idclienteespe;
         private string codactual = "",cantactual="";
         public string numcaja;
         public string sucursal,direccionComprador;
         public int numfact=0,IDCLIENTEINICIO;
         internal static int numfactnuevo = 0;
-        private float cantidadanterior;
+        private float cantidadanterior, cantcaja = 0;
         private string PrecioTodoslosDecimales;
         List<String> listatipo = new List<String>();
         List<String> pedidos = new List<String>();
@@ -98,6 +98,7 @@ namespace Comisariato.Formularios.Transacciones
 
         private void FrmFactura_Load(object sender, EventArgs e)
         {
+            
             // this.dgvDetalleProductos.CellValidating += new DataGridViewCellValidatingEventHandler(dgv_validating);
             //propiedadesdgv();
             Program.FormularioVentaAbierto = true;
@@ -262,7 +263,7 @@ namespace Comisariato.Formularios.Transacciones
                                 float prueba = 0.0f;
                                 txtIvaPrecio.Text = prueba.ToString("#####0.00");
                             }
-                            cantcaja =Convert.ToInt32(DatosProducto[8]);
+                            cantcaja =Convert.ToSingle(DatosProducto[8]);
                             txtCodigo.Text = DatosProducto[0];
                             txtDetalle.Text = DatosProducto[1];
                             txtBodega.Text = DatosProducto[2];
@@ -328,7 +329,7 @@ namespace Comisariato.Formularios.Transacciones
 
                     if (rdbCaja.Checked)
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >=((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
+                        if (Convert.ToSingle(txtBodega.Text) >=((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
                         {
                             dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
 
@@ -357,7 +358,7 @@ namespace Comisariato.Formularios.Transacciones
                     }
                     else
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
+                        if (Convert.ToSingle(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
                         {
                             dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
 
@@ -407,7 +408,7 @@ namespace Comisariato.Formularios.Transacciones
                     {
                     if (rdbCaja.Checked)
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >= ((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
+                        if (Convert.ToSingle(txtBodega.Text) >= ((Convert.ToSingle(txtCantidad.Text) + cantidadanterior) * cantcaja))
                         {
                             dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
                             total = Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString()) * Convert.ToSingle(PrecioTodoslosDecimales);
@@ -420,14 +421,14 @@ namespace Comisariato.Formularios.Transacciones
                         }
                         else
                         {
-                            MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                            MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                             txtCantidad.Focus();
                             pr = false;
                         }
                     }
                     else
                     {
-                        if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
+                        if (Convert.ToSingle(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) + cantidadanterior))
                         {
                             dgvDetalleProductos.Rows[posicion].Cells[2].Value = Convert.ToSingle(txtCantidad.Text) + cantidadanterior;
                             total = Convert.ToSingle(dgvDetalleProductos.Rows[posicion].Cells[2].Value.ToString()) * Convert.ToSingle(PrecioTodoslosDecimales);
@@ -440,7 +441,7 @@ namespace Comisariato.Formularios.Transacciones
                         }
                         else
                         {
-                            MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                            MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                             txtCantidad.Focus();
                             pr = false;
                         }
@@ -638,103 +639,113 @@ namespace Comisariato.Formularios.Transacciones
 
         private void txtIdentidicacion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Consultas objCns = new Consultas();
-            if (txtIdentidicacion.Focus())
+            try
             {
-                if (e.KeyChar == (char)Keys.Return)
+                Consultas objCns = new Consultas();
+                if (txtIdentidicacion.Focus())
                 {
-                    bool cedu = false;
-                    int cor = 0;
-                    if (txtIdentidicacion.Text.Length<=10)
+                    if (e.KeyChar == (char)Keys.Return)
                     {
-                        cedu = Funcion.VerificarCedula(txtIdentidicacion.Text);
-                    }
-                    else
-                    {
-                        if (txtIdentidicacion.Text.Substring(10, 3) != "001")
+                        bool cedu = false;
+                        //int cor = 0;
+                        if (txtIdentidicacion.Text.Length == 10)
                         {
-                            cedu = false;
-                            cor = 1;
+                            cedu = Funcion.VerificarCedula(txtIdentidicacion.Text);
                         }
                         else
                         {
-                            cedu = true;
-                            //MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        }
-                    }
-                    //bool cedu=Funcion.VerificarCedula(txtIdentidicacion.Text);
-                    if (cedu)
-                    {
-                        Cliente cliente = objCns.buscarcliente(txtIdentidicacion.Text);
-                        if (cliente != null)
-                        {
-                            //string[] vector = datoscliente.Split(';');
-                            if (cliente.Activo)
+                            if (/*txtIdentidicacion.Text.Substring(10, 3)*/txtIdentidicacion.Text.Length == 13)
                             {
-
-                                DatosCliente.Add(cliente.Identificacion); //Identificacion
-                                DatosCliente.Add(cliente.Nombres + " " + cliente.Apellidos);//Nombre + Apellido
-                                DatosCliente.Add(cliente.Direccion); // Direccion
-                                DatosCliente.Add(cliente.RazonSocial); //RazonSocial
-                                DatosCliente.Add("" + cliente.Casilla); //IDcLIENTE
-
-                                txtConsumidor.Text = cliente.Nombres + " " + cliente.Apellidos;
-                                idcliente = cliente.Casilla;
-                                comprobarmetodo = true;
-                                txtCodigo.Focus();
+                                cedu = true;
+                               // cor = 1;
                             }
                             else
                             {
-                                MessageBox.Show("Este cliente está desabilitado", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                cedu = false;
+                                MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
+                        }
+                        //bool cedu=Funcion.VerificarCedula(txtIdentidicacion.Text);
+                        if (cedu)
+                        {
+                            Cliente cliente = objCns.buscarcliente(txtIdentidicacion.Text);
+                            if (cliente != null)
+                            {
+                                //string[] vector = datoscliente.Split(';');
+                                if (cliente.Activo)
+                                {
+
+                                    DatosCliente.Add(cliente.Identificacion); //Identificacion
+                                    DatosCliente.Add(cliente.Nombres + " " + cliente.Apellidos);//Nombre + Apellido
+                                    DatosCliente.Add(cliente.Direccion); // Direccion
+                                    DatosCliente.Add(cliente.RazonSocial); //RazonSocial
+                                    DatosCliente.Add("" + cliente.Casilla); //IDcLIENTE
+
+                                    txtConsumidor.Text = cliente.Nombres + " " + cliente.Apellidos;
+                                    idcliente = cliente.Casilla;
+                                    comprobarmetodo = true;
+                                    txtCodigo.Focus();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Este cliente está desabilitado", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                    comprobarmetodo = false;
+                                    rdbConsumidorFinal.Checked = true;
+                                    txtCodigo.Focus();
+
+                                }
+                                //rdbFacturaDatos.Checked = true;
+                                //btnBuscar.Text = "Buscar";
+                            }
+                            else
+                            {
+                                txtIdentidicacion.Focus();
                                 comprobarmetodo = false;
-                                rdbConsumidorFinal.Checked = true;
-                                txtCodigo.Focus();
+                                //idcliente = 1;
+                                //btnBuscar.Text = "Registrar";
+                                if (MessageBox.Show("No existe un cliente registrado con la identificacion: " + txtIdentidicacion.Text + "\n¿Quieres registrarlo?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                                {
+                                    FrmClientes f = new FrmClientes();
+                                    f.VerifiMetodo = 2;
+                                    f.ShowDialog();
+                                    rdbFacturaDatos.Checked = true;
+                                    //posible error
+                                    FrmFactura_Activated(null, null);
+                                    txtCodigo.Focus();
+                                }
+                                else
+                                {
 
-                            }
-                            //rdbFacturaDatos.Checked = true;
-                            //btnBuscar.Text = "Buscar";
-                        }
-                        else
-                        {
-                            txtIdentidicacion.Focus();
-                            comprobarmetodo = false;
-                            //idcliente = 1;
-                            //btnBuscar.Text = "Registrar";
-                            if (MessageBox.Show("No existe un cliente registrado con la identificacion: " + txtIdentidicacion.Text + "\n¿Quieres registrarlo?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                            {
-                               FrmClientes f = new FrmClientes();
-                                f.VerifiMetodo = 2;
-                               f.ShowDialog();
-                                rdbFacturaDatos.Checked = true;
-                                //posible error
-                                FrmFactura_Activated(null,null);
-                                txtCodigo.Focus();
-                            }
-                            else
-                            {
-                                rdbConsumidorFinal.Checked = true;
-                                txtCodigo.Focus();
+                                    rdbConsumidorFinal.Checked = true;
+                                    txtCodigo.Focus();
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        if (cor==1)
-                        {
-                            MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Ingrese la Cedula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        }
+                        //else
+                        //{
+                        //    if (cor == 1)
+                        //    {
+                        //        MessageBox.Show("Ingrese el RUC Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        //    }
+                        //    else
+                        //    {
+                        //        MessageBox.Show("Ingrese la Cedula Correctamente", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        //    }
 
-                        txtIdentidicacion.Focus();
-                        rdbFacturaDatos.Checked = true;
-                        rdbConsumidorFinal.Checked = false;
+                        //    txtIdentidicacion.Focus();
+                        //    rdbFacturaDatos.Checked = true;
+                        //    rdbConsumidorFinal.Checked = false;
+                        //}
+
                     }
-                   
                 }
             }
+            catch (Exception)
+            {
+
+                //throw;
+            }
+           
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -999,7 +1010,7 @@ namespace Comisariato.Formularios.Transacciones
                             {
                                 if (rdbCaja.Checked)
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
+                                    if (Convert.ToSingle(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
                                     {
                                         iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(txtCantidad.Text)) * ivaporcentaje) / 100;
                                         txtIvaPrecio.Text = iva.ToString("#####0.00");
@@ -1025,14 +1036,14 @@ namespace Comisariato.Formularios.Transacciones
                                     }
                                     else
                                     {
-                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                                         txtCantidad.Focus();
                                         pr = false;
                                     }
                                 }
                                 else //////////// Iva O%
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
+                                    if (Convert.ToSingle(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
                                     {
                                         iva = ((Convert.ToSingle(PrecioTodoslosDecimales) * Convert.ToSingle(txtCantidad.Text)) * ivaporcentaje) / 100;
                                         txtIvaPrecio.Text = iva.ToString("#####0.00");
@@ -1058,7 +1069,7 @@ namespace Comisariato.Formularios.Transacciones
                                     }
                                     else
                                     {
-                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                                         txtCantidad.Focus();
                                         pr = false;
                                     }
@@ -1073,7 +1084,7 @@ namespace Comisariato.Formularios.Transacciones
                                 Producto.Iva = 0;
                                 if (rdbCaja.Checked)
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
+                                    if (Convert.ToSingle(txtBodega.Text) >= (Convert.ToSingle(txtCantidad.Text) * cantcaja))
                                     {
                                         if (tipoprecio == 1)
                                         {
@@ -1099,14 +1110,14 @@ namespace Comisariato.Formularios.Transacciones
                                     }
                                     else
                                     {
-                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToInt32(txtBodega.Text) + " unidades");
+                                        MessageBox.Show("El Stock del Producto\n\rExistente es de " + Convert.ToSingle(txtBodega.Text) + " unidades");
                                         txtCantidad.Focus();
                                         pr = false;
                                     }
                                 }
                                 else
                                 {
-                                    if (Convert.ToInt32(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
+                                    if (Convert.ToSingle(txtBodega.Text) >= Convert.ToSingle(txtCantidad.Text))
                                     {
                                         if (tipoprecio == 1)
                                         {
@@ -1210,17 +1221,9 @@ namespace Comisariato.Formularios.Transacciones
                 }
                 else
                 {
-                    //txtCodigo.Focus();
-                    //if (dgvDetalleProductos.Rows[e.RowIndex].Cells[0].Value != null && dgvDetalleProductos.Rows[e.RowIndex].Cells[1].Value != null)
+                    //if (dgvDetalleProductos.Rows[e.RowIndex].Cells[0].Value==null)
                     //{
-                    //    if (verificarindex(e.RowIndex))
-                    //    {
-                    //        indezp.RemoveAt(posindexp);
-                    //    }
-                    //    else
-                    //    {
-                    //        indezp.Add(e.RowIndex);
-                    //    }
+                    //    dgvDetalleProductos.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
                     //}
                 }
             }
@@ -1361,7 +1364,7 @@ namespace Comisariato.Formularios.Transacciones
                         dgvDetalleProductos.Rows[i].Cells[5].Value = retencionfact[i].Precioporcaja_sin_iva;
                         dgvDetalleProductos.Rows[i].Cells[6].Value = retencionfact[i].Precioalmayor_sin_iva;
                         dgvDetalleProductos.Rows[i].Cells[9].Value = Convert.ToInt32(retencionfact[i].LibreImpuesto);
-                        dgvDetalleProductos.Rows[i].Cells[8].Value = Convert.ToInt32(retencionfact[i].Caja);
+                        dgvDetalleProductos.Rows[i].Cells[8].Value = Convert.ToSingle(retencionfact[i].Caja);
                         dgvDetalleProductos.Rows[i].Cells[10].Value = retencionfact[i].Preciopublico_iva;
 
                     }
@@ -1514,7 +1517,7 @@ namespace Comisariato.Formularios.Transacciones
                             p.Precioporcaja_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[5].Value.ToString());
                             p.Precioalmayor_sin_iva = Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[6].Value.ToString());
                             p.LibreImpuesto = Convert.ToBoolean(Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[9].Value));
-                            p.Caja= Convert.ToInt32(dgvDetalleProductos.Rows[i].Cells[8].Value.ToString());
+                            p.Caja= Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[8].Value.ToString());
                             p.Preciopublico_iva= Convert.ToSingle(dgvDetalleProductos.Rows[i].Cells[10].Value.ToString()); 
                             //codigos.Add(dgvDetalleProductos.Rows[i].Cells[0].Value.ToString());
                             retencionfact.Add(p);
@@ -1756,7 +1759,7 @@ namespace Comisariato.Formularios.Transacciones
             Program.em.Idempleado = int.Parse(Program.IDUsuario);
             Program.em.Idcliente = idcliente;
 
-           Program.em.Numfact = numfact;
+            Program.em.Numfact = numfact;
 
             //Consultas objCns = new Consultas();
             // objCns.Insertar("INSERT INTO TbEncabezadoFactura (SUCURSAL,CAJA,NFACTURA,FECHA,HORA,DESCUENTO,IVA,IDEMPLEADO,IDCLIENTE) VALUES ('" + txtSucursal.Text + "','" + txtCaja.Text + "','"+txtNumFact.Text+"','"+Program.FecaInicio+"','"+ DateTime.Now.Date.ToShortDateString()+"','"+ DateTime.Now.TimeOfDay.ToString()+"','0','"+txtIva.Text+"','"+Program.IDUsuario+"','"+idcliente+"'"+ ");");
@@ -1782,7 +1785,7 @@ namespace Comisariato.Formularios.Transacciones
             frmcobrar.ivas = Ivas;
             frmcobrar.DatosCliente = DatosCliente;
             frmcobrar.ShowDialog();
-            //FrmFactura_Activated(null, null);
+            FrmFactura_Activated(null, null);
             //    if (DatosCliente.Count>0)
             //    {
             //        DatosCliente.Clear();
@@ -1830,6 +1833,10 @@ namespace Comisariato.Formularios.Transacciones
             Ivas.Clear();
             indezp.Clear();
             listatipo.Clear();
+            //Posible error
+            indezp = new List<int>();
+            listatipo = new List<string>();
+            //Fin posible error
 
             DatosCliente = new List<string>();
             Ivas = new List<string>();
@@ -1841,6 +1848,13 @@ namespace Comisariato.Formularios.Transacciones
                 DatosClientefactespe.Clear();
                 codigosfactespe.Clear();
                 idcliente = IDCLIENTEINICIO;
+
+                //posible error
+                Ivas1 = new List<string>();
+                indezpfactespe = new List<int>();
+                DatosClientefactespe = new List<string>();
+                codigosfactespe = new List<string>();
+                //fin porsible error
             }
             
             
@@ -1856,6 +1870,7 @@ namespace Comisariato.Formularios.Transacciones
             if (DatosProducto.Count>=0)
             {
                 DatosProducto.Clear();
+                DatosProducto = new List<string>();
             }
             txtCodigo.Focus();
         }

@@ -175,11 +175,13 @@
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.TxtPrecioPVP);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "FrmConsultarPrecios";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Consultar Precios";
             this.Load += new System.EventHandler(this.FrmConsultarPrecios_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmConsultarPrecios_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 

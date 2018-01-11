@@ -13,6 +13,9 @@ namespace Comisariato.Formularios.Transacciones.Venta
 {
     public partial class FrmConsultarPrecios : Form
     {
+        internal static List<string> DatosProducto = new List<string>();
+        //internal static Boolean ConsultarPrecio = true;
+
         public FrmConsultarPrecios()
         {
             InitializeComponent();
@@ -85,6 +88,36 @@ namespace Comisariato.Formularios.Transacciones.Venta
         {
             txtCodigo.Focus();
 
+        }
+
+        private void FrmConsultarPrecios_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F6:
+                    Program.banderaProductosConsultarPrecio = true;
+                    FrmConsultarProducto FrmConsultarProduct = new FrmConsultarProducto();
+                    FrmConsultarProduct.ShowDialog();
+                    //}
+
+                    if (DatosProducto.Count > 0)
+                    {
+                        txtCodigo.Text =  DatosProducto[0].ToString();
+                        if (DatosProducto.Count > 0)
+                        {
+                            DatosProducto.Clear();
+                            Program.banderaProductosConsultarPrecio = false;
+                            // DatosCliente = DatosClienteAUX;
+                        }
+                        SendKeys.Send("{ENTER}");
+                    }
+                    else
+                    {
+                        txtCodigo.Focus();
+                    }
+
+                    break;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Comisariato.Clases;
 using Comisariato.Formularios.Mantenimiento.Inventario;
+using Comisariato.Formularios.Transacciones.Venta;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace Comisariato.Formularios.Transacciones
     public partial class FrmConsultarProducto : Form
     {
         Consultas ObjConsul;
+
 
         public FrmConsultarProducto()
         {
@@ -65,26 +67,33 @@ namespace Comisariato.Formularios.Transacciones
                             FrmCompra.CodigoBarraConsultaProducto = dgvProductos.CurrentRow.Cells[0].Value.ToString();
                             Program.banderaProductosCompras = false;
                         }
+                        else if(Program.banderaProductosConsultarPrecio)
+                        {
+                            //FrmConsultarPrecios.DatosProducto.Cear();
+                            FrmConsultarPrecios.DatosProducto.Add(dgvProductos.CurrentRow.Cells[0].Value.ToString());
+                            this.Close();
+                        }
                         else
                         {
                             if (Convert.ToSingle(dgvProductos.CurrentRow.Cells[2].Value) > 0)
                             {
-                                if (FrmFactura.DatosProducto.Count > 0)
-                                {
-                                    FrmFactura.DatosProducto.Clear();
-                                }
-                                FrmFactura.verificadorfrm = 2;
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[0].Value.ToString());
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[1].Value.ToString());
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[2].Value.ToString());
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[3].Value.ToString());
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[4].Value.ToString());
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[5].Value.ToString());
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[6].Value.ToString());
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[7].Value.ToString());
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[8].Value.ToString());
-                                FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[9].Value.ToString());
-                                this.Close();
+
+                                    if (FrmFactura.DatosProducto.Count > 0)
+                                    {
+                                        FrmFactura.DatosProducto.Clear();
+                                    }
+                                    FrmFactura.verificadorfrm = 2;
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[0].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[1].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[2].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[3].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[4].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[5].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[6].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[7].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[8].Value.ToString());
+                                    FrmFactura.DatosProducto.Add(dgvProductos.CurrentRow.Cells[9].Value.ToString());
+                                    this.Close();
                             }
                             else
                             {

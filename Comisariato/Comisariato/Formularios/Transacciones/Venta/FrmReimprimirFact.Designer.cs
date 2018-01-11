@@ -61,6 +61,7 @@
             this.txtNumFact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNumFact.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNumFact.Location = new System.Drawing.Point(351, 20);
+            this.txtNumFact.MaxLength = 9;
             this.txtNumFact.Name = "txtNumFact";
             this.txtNumFact.Size = new System.Drawing.Size(144, 22);
             this.txtNumFact.TabIndex = 8;
@@ -82,6 +83,7 @@
             this.txtCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCaja.Location = new System.Drawing.Point(220, 21);
+            this.txtCaja.MaxLength = 3;
             this.txtCaja.Name = "txtCaja";
             this.txtCaja.Size = new System.Drawing.Size(98, 22);
             this.txtCaja.TabIndex = 6;
@@ -103,6 +105,7 @@
             this.txtSucursal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSucursal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSucursal.Location = new System.Drawing.Point(99, 20);
+            this.txtSucursal.MaxLength = 3;
             this.txtSucursal.Name = "txtSucursal";
             this.txtSucursal.Size = new System.Drawing.Size(98, 22);
             this.txtSucursal.TabIndex = 5;

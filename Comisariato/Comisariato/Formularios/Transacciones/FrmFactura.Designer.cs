@@ -87,7 +87,6 @@
             this.rdbMayorista = new System.Windows.Forms.RadioButton();
             this.rdbPublico = new System.Windows.Forms.RadioButton();
             this.rdbCaja = new System.Windows.Forms.RadioButton();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -110,6 +109,7 @@
             this.btnFactEspera = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.BtnConsultarPrecio = new System.Windows.Forms.Button();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleProductos)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -484,6 +484,7 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.Color.Bisque;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblCajero,
             this.lblGrabarFact,
@@ -735,11 +736,6 @@
             this.rdbCaja.Text = "Caja";
             this.rdbCaja.UseVisualStyleBackColor = true;
             this.rdbCaja.CheckedChanged += new System.EventHandler(this.rdbCaja_CheckedChanged);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
             // 
             // groupBox1
             // 
@@ -1032,6 +1028,11 @@
             this.BtnConsultarPrecio.UseVisualStyleBackColor = true;
             this.BtnConsultarPrecio.Click += new System.EventHandler(this.BtnConsultarPrecio_Click);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // FrmFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -1141,7 +1142,6 @@
         private System.Windows.Forms.Button btnReimprimirFact;
         private System.Windows.Forms.DataGridView dgvDetalleProductos;
         private System.Windows.Forms.Button btnEliminarFact;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtDescuento;
@@ -1177,5 +1177,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AplicaImpuesto;
         private System.Windows.Forms.DataGridViewTextBoxColumn preciosoriginales;
         private System.Windows.Forms.Button BtnConsultarPrecio;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }

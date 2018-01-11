@@ -425,6 +425,7 @@ namespace Comisariato.Clases
                     cmd.Parameters.AddWithValue("@idempleado", enca[5]);
                     cmd.Parameters.AddWithValue("@idcliente", enca[6]);
                     cmd.Parameters.AddWithValue("@claveacceso", enca[7]);
+                    //cmd.Parameters.AddWithValue("@claveacceso", "12345");
                     cmd.Parameters.AddWithValue("@precio", precio);
                     cmd.Parameters.AddWithValue("@codigobarraproducto", dg.Rows[i].Cells[0].Value);
                     cmd.Parameters.AddWithValue("@recibido", detalle[4]);
@@ -551,10 +552,10 @@ namespace Comisariato.Clases
                     if (activo == 1)
                     {
                         producto.Nombreproducto = (String)dato["DETALLE"];
-                        producto.Cantidad = Convert.ToInt32(dato["CANTIDAD"]);
+                        producto.Cantidad = Convert.ToSingle(dato["CANTIDAD"]);
                         if (Convert.ToString(dato["CAJA"]) != "")
                         {
-                            producto.Caja = Convert.ToInt32(dato["CAJA"]);
+                            producto.Caja = Convert.ToSingle(dato["CAJA"]);
                         }
                         else
                         {
@@ -733,7 +734,7 @@ namespace Comisariato.Clases
                 //string sql = " SELECT U.PRECIO, U.CANTDEVUELTA, U.CANTIDAD, U.CODIGOBARRAPRODUCTO, U.ESTADO, U.IVA, P.NOMBREPRODUCTO, P.IVAESTADO from TbDetalleFactura U INNER JOIN TbProducto P  ON(U.NFACTURA = '" + nfact + "') AND(P.CODIGOBARRA = U.CODIGOBARRAPRODUCTO)";
                 String sql = "SELECT        dbo.TbDetalleFactura.PRECIO, dbo.TbDetalleFactura.CANTDEVUELTA, dbo.TbDetalleFactura.CANTIDAD, dbo.TbDetalleFactura.CODIGOBARRAPRODUCTO, dbo.TbDetalleFactura.ESTADO, dbo.TbDetalleFactura.IVA, dbo.TbProducto.NOMBREPRODUCTO, dbo.TbProducto.IVAESTADO, dbo.TbEncabezadoFactura.NFACTURA FROM  dbo.TbDetalleFactura INNER JOIN" +
                          " dbo.TbProducto ON dbo.TbDetalleFactura.CODIGOBARRAPRODUCTO = dbo.TbProducto.CODIGOBARRA INNER JOIN dbo.TbEncabezadoFactura ON dbo.TbDetalleFactura.NFACTURA = dbo.TbEncabezadoFactura.IDFACTURA" +
-                         " WHERE(dbo.TbEncabezadoFactura.NFACTURA = '" + nfact + "' and dbo.TbEncabezadoFactura.CAJA = '" + caja + "')";
+                         " WHERE(dbo.TbEncabezadoFactura.NFACTURA = '" + nfact + "' and dbo.TbEncabezadoFactura.CAJA = '" + caja + "') order by ID asc";
                 SqlCommand comando = new SqlCommand(sql);
                 comando.Connection = ConexionBD.connection;
                 SqlDataReader dato = comando.ExecuteReader();
@@ -921,13 +922,13 @@ namespace Comisariato.Clases
             DataTable dt = new DataTable();
             dt.Columns.Add("CODIGO", typeof(String));
             dt.Columns.Add("DETALLE", typeof(String));
-            dt.Columns.Add("CANT.", typeof(int));
+            dt.Columns.Add("CANT.", typeof(float));
             dt.Columns.Add("P. PUBLICO", typeof(String));
             dt.Columns.Add("P. MAYORISTA", typeof(String));
             dt.Columns.Add("P. CAJA", typeof(String));
             dt.Columns.Add("ESTADO IVA", typeof(int));
             dt.Columns.Add("IVA", typeof(int));
-            dt.Columns.Add("Cant. Caja", typeof(int));
+            dt.Columns.Add("Cant. Caja", typeof(float));
             dt.Columns.Add("LI", typeof(int));
 
             try
@@ -950,33 +951,35 @@ namespace Comisariato.Clases
                         if (ivaestado)
                         {
                             v = 1;
-                            int caja = 0, libreImpuesto = 0;
+                            int libreImpuesto = 0;
+                            float caja=0;
                             int iva = int.Parse(dato["IVA"].ToString());
                             if (dato["CAJA"] != System.DBNull.Value)
                             {
-                                caja = (int)dato["CAJA"];
+                                caja =Convert.ToSingle(dato["CAJA"]);
                             }
                             if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
                             {
                                 libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
                             }
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString(), pm.ToString(), pc.ToString(), v, iva, caja, libreImpuesto);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"],Convert.ToSingle(dato["CANTIDAD"]), pp.ToString(), pm.ToString(), pc.ToString(), v, iva, caja, libreImpuesto);
                         }
                         else
                         {
                             v = 0;
-                            int caja = 0, libreImpuesto = 0;
+                            float caja = 0;
+                            int  libreImpuesto = 0;
                             int iva = int.Parse(dato["IVA"].ToString());
                             if (dato["CAJA"] != System.DBNull.Value)
                             {
-                                caja = (int)dato["CAJA"];
+                                caja = Convert.ToSingle(dato["CAJA"]);
                             }
                             if (dato["LIBREIMPUESTO"] != System.DBNull.Value)
                             {
                                 libreImpuesto = Convert.ToInt32(dato["LIBREIMPUESTO"]);
                             }
 
-                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString(), pm.ToString(), pc.ToString(), v, 0, caja, libreImpuesto);
+                            dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"],Convert.ToSingle(dato["CANTIDAD"]), pp.ToString(), pm.ToString(), pc.ToString(), v, 0, caja, libreImpuesto);
                         }
                         //dt.Rows.Add((String)dato["CODIGOBARRA"], (String)dato["DETALLE"], (int)dato["CANTIDAD"], pp.ToString("#####0.00"), pm.ToString("#####0.00"), pc.ToString("#####0.00"), v, (int)dato["IVA"]);
 
