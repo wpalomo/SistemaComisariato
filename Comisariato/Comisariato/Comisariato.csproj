@@ -76,6 +76,7 @@
     <Compile Include="Clases\Bitacora.cs" />
     <Compile Include="Clases\Bodega.cs" />
     <Compile Include="Clases\CajaTalonarioEmpresa.cs" />
+    <Compile Include="Clases\ClaveAcceso.cs" />
     <Compile Include="Clases\Cliente.cs" />
     <Compile Include="Clases\CrearTicket.cs" />
     <Compile Include="Clases\DatosTributarios.cs" />

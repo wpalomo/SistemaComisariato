@@ -933,6 +933,7 @@ namespace Comisariato.Formularios.Transacciones
                         string fecha = DateTime.Now.Date.ToShortDateString();
                         //Si la fecha Obtenida no tienen los ceros en dias y meses
                         fecha = Funcion.FormarFecha(fecha);
+
                         claveacceso = objcit.GenerarClaveAcceso(fecha, "1", serie);
 
 
