@@ -174,8 +174,10 @@ namespace Comisariato.Clases
             string clave ="",NumCualquiera="00000010";
             string[] vector = fecha.Split('/');
             clave = vector[0] + vector[1] + vector[2] + "0"+tipoComprobante + Ruc + ambiente + serie + Secuencial + NumCualquiera + tipoEmision;
-            string numeroverificador = GetCheckDigit(clave);
-            clave += numeroverificador;
+            ClaveAcceso ObjClave = new ClaveAcceso();
+            string clave1 = ObjClave.invertirCadena(clave);
+            int numeroVerificador = ObjClave.obtenerSumaPorDigitos(clave1);
+            clave += "" + numeroVerificador;
             return clave;
         }
 
