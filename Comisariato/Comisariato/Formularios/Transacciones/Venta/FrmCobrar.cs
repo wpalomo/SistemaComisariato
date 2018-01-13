@@ -919,7 +919,7 @@ namespace Comisariato.Formularios.Transacciones
 
                         objcit = new InfoTributaria();
 
-                        objcit.Ambiente = 2;
+                        objcit.Ambiente = Program.Ambiente;
                         objcit.TipoEmision = 1;
                         objcit.RazonSociaL = Program.razonsocialempresa;
                         objcit.NombreComerciaL = Program.nombreempresa;
@@ -931,6 +931,7 @@ namespace Comisariato.Formularios.Transacciones
                         objcit.DirMatriz = Program.direccionempresa;
                         serie = sucursal.ToString("D3") + "" + caja.ToString("D3");
                         string fecha = DateTime.Now.Date.ToShortDateString();
+                        string hora = DateTime.Now.Date.ToShortTimeString();
                         //Si la fecha Obtenida no tienen los ceros en dias y meses
                         fecha = Funcion.FormarFecha(fecha);
 
@@ -961,7 +962,7 @@ namespace Comisariato.Formularios.Transacciones
                             }
 
                             var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-                            c.RegistrarArchivosXml(claveacceso, PathServer, fecha);
+                            c.RegistrarArchivosXml(claveacceso, PathServer, fecha, hora, "Factura");
 
                             Imprimirfact(inicioContador, filasaxuiliar, claveacceso);
                             encabezadofact[2] = (Convert.ToInt32(encabezadofact[2]) + 1).ToString();
