@@ -1383,7 +1383,6 @@ namespace Comisariato.Formularios.Transacciones
                 ticket.TextoCentro("¡GRACIAS POR SU COMPRA!");
             }
             ticket.CortaTicket();
-
             //String ruta = @"\\AIRCONTROL\BodegaPedido";
             //ticket.ImprimirTicket(ruta);
             var valor = ConfigurationManager.AppSettings["Local"];
@@ -1437,20 +1436,28 @@ namespace Comisariato.Formularios.Transacciones
         {
             CrearTicket ticket = new CrearTicket();
             int numcaja = Program.em.Caja;
+
+            int sucursal = Program.em.Sucursal;
+            int numfac = Program.em.Numfact;
             //PrintDialog pd = new PrintDialog();
             //pd.PrinterSettings = new PrinterSettings();
             //if (DialogResult.OK == pd.ShowDialog(this))
             //{
-                ticket.TextoCentro(""+Program.nombreempresa);
+            ticket.TextoCentro(""+Program.nombreempresa);
             ticket.TextoCentro("              ");
             ticket.TextoCentro("PEDIDO A BODEGA");
             ticket.TextoCentro("              ");
             ticket.TextoIzquierda("USUARIO: " + Program.Usuario);
-                ticket.TextoIzquierda( "# CAJA: " + numcaja.ToString("D3"));
+            ticket.TextoIzquierda( "# CAJA: " + numcaja.ToString("D3"));
             ticket.TextoIzquierda("                 ");
             ticket.TextoIzquierda("");
             string[] h = DateTime.Now.TimeOfDay.ToString().Split('.');
-                ticket.TextoIzquierda("Fecha: " + Program.FecaInicio + "          " + h[0]);
+
+            ticket.TextoIzquierda("Factura #: " + sucursal.ToString("D3") + "-" + numcaja.ToString("D3") + "-" + numfac.ToString("D9"));
+            ticket.TextoIzquierda("Fecha: " + Program.FecaInicio + "          " + h[0]);
+            ticket.TextoIzquierda("         Informacion del Consumidor");
+            ticket.TextoIzquierda("RUC: " + identificacion);
+            ticket.TextoIzquierda("Cliente: " + nombre);
             ticket.TextoIzquierda("                 ");
             ticket.TextoIzquierda("                 ");
             ticket.lineasAsteriscos();
@@ -1462,6 +1469,11 @@ namespace Comisariato.Formularios.Transacciones
                 }
                 
                 ticket.lineasAsteriscos();
+            ticket.TextoIzquierda("                 ");
+            ticket.TextoIzquierda("                 ");
+            ticket.TextoCentro("Firma");
+            ticket.TextoIzquierda("                 ");
+
             //ticket.TextoIzquierda("Corporacion AirNet");
             //ticket.TextoIzquierda("Corporacion AirNet" );
             ticket.CortaTicket();

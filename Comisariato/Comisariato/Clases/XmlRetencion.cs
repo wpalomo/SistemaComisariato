@@ -111,7 +111,7 @@ namespace Comisariato.Clases
             doc.Load(rutaXml);
             string fecha = DateTime.Now.Date.ToShortDateString();
           
-            XmlNode NodoInfoTributarios = CrearInfoCompRetencion(objciCompRetencion.FechaEmision, objciCompRetencion.DirEstablecimiento, objciCompRetencion.ContribuyenteEspecial, objciCompRetencion.ObligadoContabilidad, objciCompRetencion.TipoIdentificacionSujetoRetenido, objciCompRetencion.RazonSocialSujetoRetenido, objciCompRetencion.IdentificacionSujetoRetenido, objciCompRetencion.PeriodoFiscal);
+            XmlNode NodoInfoTributarios = CrearInfoCompRetencion(Funcion.FormarFecha(objciCompRetencion.FechaEmision), objciCompRetencion.DirEstablecimiento, objciCompRetencion.ContribuyenteEspecial, objciCompRetencion.ObligadoContabilidad, objciCompRetencion.TipoIdentificacionSujetoRetenido, objciCompRetencion.RazonSocialSujetoRetenido, objciCompRetencion.IdentificacionSujetoRetenido, objciCompRetencion.PeriodoFiscal);
 
             XmlNode nodoRaiz = doc.DocumentElement;
 
@@ -131,7 +131,47 @@ namespace Comisariato.Clases
                 if (dgv.Rows[i].Cells[0].Value != null)
                 {
                     XmlNode NodoDetalles = null;
-                    NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[8].Value), Convert.ToString(dgv.Rows[i].Cells[9].Value), Convert.ToString(dgv.Rows[i].Cells[3].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0"+ tipoDocumento, serie, fecha);
+
+
+
+                    string codigoRetencionIva = "";
+                    string Codigo = "";
+                    if (Convert.ToString(dgv.Rows[i].Cells[1].Value) == "FUENTE") //Si es impuesto a la renta
+                    {
+                        codigoRetencionIva = Convert.ToString(dgv.Rows[i].Cells[8].Value);
+                        Codigo = "1";
+                    }
+                    else //Si es impuesto I.V.A
+                    {
+                        Codigo = "2";
+                        switch (Convert.ToString(dgv.Rows[i].Cells[2].Value))
+                        {
+                            case "10":
+                                codigoRetencionIva = "9";
+                                break;
+                            case "20":
+                                codigoRetencionIva = "10";
+                                break;
+                            case "30":
+                                codigoRetencionIva = "1";
+                                break;
+                            case "50":
+                                codigoRetencionIva = "11";
+                                break;
+                            case "70":
+                                codigoRetencionIva = "2";
+                                break;
+                            case "100":
+                                codigoRetencionIva = "3";
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+
+                    //NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[9].Value), Convert.ToString(dgv.Rows[i].Cells[3].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0"+ tipoDocumento, serie, Funcion.FormarFecha(fecha));
+                    NodoDetalles = nodototalConImpuestos(Codigo, codigoRetencionIva, Funcion.reemplazarcaracter(Convert.ToDouble(Funcion.reemplazarcaracterViceversa(dgv.Rows[i].Cells[3].Value.ToString())).ToString("#####0.00")), Convert.ToString(dgv.Rows[i].Cells[2].Value), Funcion.reemplazarcaracter(Convert.ToDouble(Funcion.reemplazarcaracterViceversa(dgv.Rows[i].Cells[4].Value.ToString())).ToString("#####0.00")), "0" + tipoDocumento, serie, Funcion.FormarFecha(fecha));
 
                     impuestos.AppendChild(NodoDetalles);
                 }
@@ -171,7 +211,7 @@ namespace Comisariato.Clases
             //doc.Load(rutaXml);
             XmlNode SubNodototalConImpuestos = doc.CreateElement("impuesto");
 
-            XmlElement nodocodigo = doc.CreateElement("código");
+            XmlElement nodocodigo = doc.CreateElement("codigo");
             nodocodigo.InnerText = codigo;
             SubNodototalConImpuestos.AppendChild(nodocodigo);
 
@@ -213,6 +253,7 @@ namespace Comisariato.Clases
         {
             XmlNode Nodoraiz = doc.CreateElement("infoCompRetencion");
 
+            fechaEmision = Convert.ToDateTime(fechaEmision).ToShortDateString();
 
             XmlElement nodofechaEmision = doc.CreateElement("fechaEmision");
             nodofechaEmision.InnerText = fechaEmision;

@@ -110,6 +110,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.BtnConsultarPrecio = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.ChkTodoBodega = new System.Windows.Forms.CheckBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleProductos)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -151,6 +152,7 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.ChkTodoBodega);
             this.groupBox4.Controls.Add(this.label18);
             this.groupBox4.Controls.Add(this.txtPrecio);
             this.groupBox4.Controls.Add(this.label17);
@@ -178,7 +180,7 @@
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.Teal;
-            this.label18.Location = new System.Drawing.Point(620, 21);
+            this.label18.Location = new System.Drawing.Point(555, 21);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(73, 13);
             this.label18.TabIndex = 13;
@@ -189,7 +191,7 @@
             this.txtPrecio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPrecio.Enabled = false;
             this.txtPrecio.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrecio.Location = new System.Drawing.Point(1008, 13);
+            this.txtPrecio.Location = new System.Drawing.Point(916, 13);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(96, 26);
             this.txtPrecio.TabIndex = 12;
@@ -200,7 +202,7 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Teal;
-            this.label17.Location = new System.Drawing.Point(959, 21);
+            this.label17.Location = new System.Drawing.Point(867, 21);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(47, 13);
             this.label17.TabIndex = 11;
@@ -211,7 +213,7 @@
             this.txtIvaPrecio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIvaPrecio.Enabled = false;
             this.txtIvaPrecio.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIvaPrecio.Location = new System.Drawing.Point(856, 13);
+            this.txtIvaPrecio.Location = new System.Drawing.Point(764, 13);
             this.txtIvaPrecio.Name = "txtIvaPrecio";
             this.txtIvaPrecio.Size = new System.Drawing.Size(90, 26);
             this.txtIvaPrecio.TabIndex = 10;
@@ -222,7 +224,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.Teal;
-            this.label15.Location = new System.Drawing.Point(823, 21);
+            this.label15.Location = new System.Drawing.Point(731, 21);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(31, 13);
             this.label15.TabIndex = 9;
@@ -233,9 +235,9 @@
             this.txtBodega.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBodega.Enabled = false;
             this.txtBodega.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBodega.Location = new System.Drawing.Point(694, 13);
+            this.txtBodega.Location = new System.Drawing.Point(629, 13);
             this.txtBodega.Name = "txtBodega";
-            this.txtBodega.Size = new System.Drawing.Size(116, 26);
+            this.txtBodega.Size = new System.Drawing.Size(92, 26);
             this.txtBodega.TabIndex = 8;
             // 
             // label12
@@ -250,10 +252,10 @@
             // 
             this.txtCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCantidad.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidad.Location = new System.Drawing.Point(511, 13);
+            this.txtCantidad.Location = new System.Drawing.Point(469, 13);
             this.txtCantidad.MaxLength = 4;
             this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.Size = new System.Drawing.Size(96, 26);
+            this.txtCantidad.Size = new System.Drawing.Size(77, 26);
             this.txtCantidad.TabIndex = 6;
             this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
             this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
@@ -265,7 +267,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Teal;
-            this.label8.Location = new System.Drawing.Point(472, 21);
+            this.label8.Location = new System.Drawing.Point(430, 21);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(37, 13);
             this.label8.TabIndex = 5;
@@ -277,9 +279,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDetalle.Enabled = false;
             this.txtDetalle.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDetalle.Location = new System.Drawing.Point(274, 13);
+            this.txtDetalle.Location = new System.Drawing.Point(258, 13);
             this.txtDetalle.Name = "txtDetalle";
-            this.txtDetalle.Size = new System.Drawing.Size(189, 26);
+            this.txtDetalle.Size = new System.Drawing.Size(164, 26);
             this.txtDetalle.TabIndex = 4;
             // 
             // label7
@@ -287,7 +289,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Teal;
-            this.label7.Location = new System.Drawing.Point(220, 21);
+            this.label7.Location = new System.Drawing.Point(204, 21);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 13);
             this.label7.TabIndex = 3;
@@ -298,7 +300,7 @@
             this.txtCodigo.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCodigo.Location = new System.Drawing.Point(68, 13);
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(151, 26);
+            this.txtCodigo.Size = new System.Drawing.Size(132, 26);
             this.txtCodigo.TabIndex = 2;
             this.txtCodigo.TextChanged += new System.EventHandler(this.txtCodigo_TextChanged);
             this.txtCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodigo_KeyPress);
@@ -1033,6 +1035,18 @@
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
+            // ChkTodoBodega
+            // 
+            this.ChkTodoBodega.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ChkTodoBodega.AutoSize = true;
+            this.ChkTodoBodega.Location = new System.Drawing.Point(1024, 19);
+            this.ChkTodoBodega.Name = "ChkTodoBodega";
+            this.ChkTodoBodega.Size = new System.Drawing.Size(84, 17);
+            this.ChkTodoBodega.TabIndex = 52;
+            this.ChkTodoBodega.Text = "Select Todo";
+            this.ChkTodoBodega.UseVisualStyleBackColor = true;
+            this.ChkTodoBodega.CheckedChanged += new System.EventHandler(this.ChkTodoBodega_CheckedChanged);
+            // 
             // FrmFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -1178,5 +1192,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn preciosoriginales;
         private System.Windows.Forms.Button BtnConsultarPrecio;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.CheckBox ChkTodoBodega;
     }
 }

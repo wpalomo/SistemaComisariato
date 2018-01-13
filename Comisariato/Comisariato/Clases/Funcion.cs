@@ -659,5 +659,18 @@ namespace Comisariato.Clases
             return arregloFecha[0] + "/" + arregloFecha[1] + "/" + arregloFecha[2];
         }
 
+        public static string FormarFechaperiodoFiscal(string fecha)
+        {
+            //Dia-Mes-Año
+            string[] arregloFecha = fecha.Split('/');
+            //MES
+            if (arregloFecha[0].Length < 2)
+            {
+                arregloFecha[0] = "0" + arregloFecha[0];
+            }
+
+            return arregloFecha[0] + "/" + arregloFecha[1];
+        }
+
     }
 }
