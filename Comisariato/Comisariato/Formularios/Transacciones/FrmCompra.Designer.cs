@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -92,7 +93,17 @@
             this.dtpFechaOC = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnAnular = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnConsultar = new System.Windows.Forms.Button();
             this.dgvInformeCompras = new System.Windows.Forms.DataGridView();
+            this.txtConsultar = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dtpHasta = new System.Windows.Forms.DateTimePicker();
+            this.dtpDesde = new System.Windows.Forms.DateTimePicker();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.Factura = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,15 +112,8 @@
             this.Irbp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtConsultar = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dtpHasta = new System.Windows.Forms.DateTimePicker();
-            this.dtpDesde = new System.Windows.Forms.DateTimePicker();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.idProveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.pcOrdenCompra.SuspendLayout();
             this.gbDetalleProducto.SuspendLayout();
@@ -218,14 +222,14 @@
             this.dgvProductosIngresos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProductosIngresos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProductosIngresos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvProductosIngresos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProductosIngresos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codigo,
@@ -241,19 +245,20 @@
             this.subtotal,
             this.iva,
             this.total});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvProductosIngresos.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvProductosIngresos.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgvProductosIngresos.Location = new System.Drawing.Point(9, 20);
             this.dgvProductosIngresos.Margin = new System.Windows.Forms.Padding(2);
             this.dgvProductosIngresos.Name = "dgvProductosIngresos";
             this.dgvProductosIngresos.Size = new System.Drawing.Size(1015, 150);
             this.dgvProductosIngresos.TabIndex = 11;
+            this.dgvProductosIngresos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductosIngresos_CellClick);
             this.dgvProductosIngresos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductosIngresos_CellEndEdit);
             this.dgvProductosIngresos.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductosIngresos_CellEnter);
             this.dgvProductosIngresos.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvProductosIngresos_EditingControlShowing);
@@ -814,6 +819,9 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Bisque;
+            this.tabPage2.Controls.Add(this.btnAnular);
+            this.tabPage2.Controls.Add(this.btnModificar);
+            this.tabPage2.Controls.Add(this.btnConsultar);
             this.tabPage2.Controls.Add(this.dgvInformeCompras);
             this.tabPage2.Controls.Add(this.txtConsultar);
             this.tabPage2.Controls.Add(this.label8);
@@ -826,16 +834,50 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Consultar Orden de  Compra";
             // 
+            // btnAnular
+            // 
+            this.btnAnular.Enabled = false;
+            this.btnAnular.Font = new System.Drawing.Font("Arial", 10F);
+            this.btnAnular.Location = new System.Drawing.Point(920, 104);
+            this.btnAnular.Name = "btnAnular";
+            this.btnAnular.Size = new System.Drawing.Size(75, 23);
+            this.btnAnular.TabIndex = 25;
+            this.btnAnular.Text = "Anular";
+            this.btnAnular.UseVisualStyleBackColor = true;
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Enabled = false;
+            this.btnModificar.Font = new System.Drawing.Font("Arial", 10F);
+            this.btnModificar.Location = new System.Drawing.Point(839, 104);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(75, 23);
+            this.btnModificar.TabIndex = 24;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
+            // btnConsultar
+            // 
+            this.btnConsultar.Font = new System.Drawing.Font("Arial", 10F);
+            this.btnConsultar.Location = new System.Drawing.Point(881, 40);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(114, 25);
+            this.btnConsultar.TabIndex = 23;
+            this.btnConsultar.Text = "Consultar";
+            this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            // 
             // dgvInformeCompras
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInformeCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvInformeCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvInformeCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInformeCompras.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Factura,
@@ -846,31 +888,106 @@
             this.Irbp,
             this.Subtotal0,
             this.Subtotal12,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvInformeCompras.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridViewTextBoxColumn3,
+            this.idProveedor});
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvInformeCompras.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvInformeCompras.Location = new System.Drawing.Point(6, 133);
             this.dgvInformeCompras.Name = "dgvInformeCompras";
             this.dgvInformeCompras.ReadOnly = true;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInformeCompras.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvInformeCompras.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvInformeCompras.RowHeadersVisible = false;
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Teal;
+            this.dgvInformeCompras.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvInformeCompras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvInformeCompras.Size = new System.Drawing.Size(1039, 406);
             this.dgvInformeCompras.TabIndex = 22;
+            this.dgvInformeCompras.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInformeCompras_CellEnter);
+            // 
+            // txtConsultar
+            // 
+            this.txtConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConsultar.Location = new System.Drawing.Point(501, 43);
+            this.txtConsultar.Name = "txtConsultar";
+            this.txtConsultar.Size = new System.Drawing.Size(320, 22);
+            this.txtConsultar.TabIndex = 4;
+            this.txtConsultar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Teal;
+            this.label8.Location = new System.Drawing.Point(414, 46);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 16);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Consultar:";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dtpHasta);
+            this.groupBox2.Controls.Add(this.dtpDesde);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.ForeColor = System.Drawing.Color.Teal;
+            this.groupBox2.Location = new System.Drawing.Point(17, 14);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(389, 113);
+            this.groupBox2.TabIndex = 19;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Fecha";
+            // 
+            // dtpHasta
+            // 
+            this.dtpHasta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpHasta.Location = new System.Drawing.Point(81, 66);
+            this.dtpHasta.Name = "dtpHasta";
+            this.dtpHasta.Size = new System.Drawing.Size(292, 22);
+            this.dtpHasta.TabIndex = 20;
+            this.dtpHasta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
+            // 
+            // dtpDesde
+            // 
+            this.dtpDesde.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDesde.Location = new System.Drawing.Point(81, 27);
+            this.dtpDesde.Name = "dtpDesde";
+            this.dtpDesde.Size = new System.Drawing.Size(292, 22);
+            this.dtpDesde.TabIndex = 19;
+            this.dtpDesde.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(15, 71);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(47, 16);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "Hasta:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(15, 32);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(52, 16);
+            this.label16.TabIndex = 17;
+            this.label16.Text = "Desde:";
             // 
             // Factura
             // 
@@ -901,21 +1018,21 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Iva";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 55;
+            this.dataGridViewTextBoxColumn1.Width = 75;
             // 
             // Ice
             // 
             this.Ice.HeaderText = "ICE";
             this.Ice.Name = "Ice";
             this.Ice.ReadOnly = true;
-            this.Ice.Width = 60;
+            this.Ice.Width = 75;
             // 
             // Irbp
             // 
             this.Irbp.HeaderText = "IRBP";
             this.Irbp.Name = "Irbp";
             this.Irbp.ReadOnly = true;
-            this.Irbp.Width = 60;
+            this.Irbp.Width = 75;
             // 
             // Subtotal0
             // 
@@ -923,7 +1040,7 @@
             this.Subtotal0.HeaderText = "Sub 0%";
             this.Subtotal0.Name = "Subtotal0";
             this.Subtotal0.ReadOnly = true;
-            this.Subtotal0.Width = 85;
+            this.Subtotal0.Width = 90;
             // 
             // Subtotal12
             // 
@@ -931,14 +1048,7 @@
             this.Subtotal12.HeaderText = "Sub12%";
             this.Subtotal12.Name = "Subtotal12";
             this.Subtotal12.ReadOnly = true;
-            this.Subtotal12.Width = 85;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "IVA%";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 90;
+            this.Subtotal12.Width = 90;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -946,82 +1056,13 @@
             this.dataGridViewTextBoxColumn3.HeaderText = "Total";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 80;
             // 
-            // txtConsultar
+            // idProveedor
             // 
-            this.txtConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConsultar.Location = new System.Drawing.Point(556, 57);
-            this.txtConsultar.Name = "txtConsultar";
-            this.txtConsultar.Size = new System.Drawing.Size(414, 22);
-            this.txtConsultar.TabIndex = 4;
-            this.txtConsultar.TextChanged += new System.EventHandler(this.txtConsultar_TextChanged);
-            this.txtConsultar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Teal;
-            this.label8.Location = new System.Drawing.Point(469, 60);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 16);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Consultar:";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dtpHasta);
-            this.groupBox2.Controls.Add(this.dtpDesde);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.ForeColor = System.Drawing.Color.Teal;
-            this.groupBox2.Location = new System.Drawing.Point(17, 14);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(389, 113);
-            this.groupBox2.TabIndex = 19;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Fecha";
-            // 
-            // dtpHasta
-            // 
-            this.dtpHasta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpHasta.Location = new System.Drawing.Point(91, 66);
-            this.dtpHasta.Name = "dtpHasta";
-            this.dtpHasta.Size = new System.Drawing.Size(292, 22);
-            this.dtpHasta.TabIndex = 20;
-            this.dtpHasta.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
-            this.dtpHasta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
-            // 
-            // dtpDesde
-            // 
-            this.dtpDesde.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDesde.Location = new System.Drawing.Point(91, 27);
-            this.dtpDesde.Name = "dtpDesde";
-            this.dtpDesde.Size = new System.Drawing.Size(292, 22);
-            this.dtpDesde.TabIndex = 19;
-            this.dtpDesde.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
-            this.dtpDesde.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSerie1_KeyDown);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(25, 71);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(47, 16);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "Hasta:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(25, 32);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(52, 16);
-            this.label16.TabIndex = 17;
-            this.label16.Text = "Desde:";
+            this.idProveedor.HeaderText = "IDProveedor";
+            this.idProveedor.Name = "idProveedor";
+            this.idProveedor.ReadOnly = true;
+            this.idProveedor.Visible = false;
             // 
             // FrmCompra
             // 
@@ -1126,6 +1167,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn iva;
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridView dgvInformeCompras;
+        private System.Windows.Forms.Button btnConsultar;
+        private System.Windows.Forms.Button btnAnular;
+        private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Factura;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor;
@@ -1134,7 +1178,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Irbp;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal0;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idProveedor;
     }
 }
