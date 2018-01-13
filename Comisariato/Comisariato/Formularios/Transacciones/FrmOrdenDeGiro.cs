@@ -497,7 +497,8 @@ namespace Comisariato.Formularios.Transacciones
                 Directory.CreateDirectory(PathLocal);
             }
             string serie = txtSerie1Retencion.Text + txtSerie2Retencion.Text;
-            string fecha = DateTime.Now.Date.ToShortDateString();
+            //string fecha = DateTime.Now.Date.ToShortDateString();
+            string fecha = dtpFechaRetencion.Value.Date.ToShortDateString();
             string hora = DateTime.Now.Date.ToShortTimeString();
 
             //Si la fecha Obtenida no tienen los ceros en dias y meses
@@ -575,7 +576,7 @@ namespace Comisariato.Formularios.Transacciones
             xmlRetencion.infoCompRetencion(infoCompReten);
 
             //xmlRetencion.impuestos(dgvDatosRetencion,txtSerie1.Text+txtSerie2.Text+ txtNumero.Text);
-            xmlRetencion.impuestos(dgvDatosRetencion, txtSerie1.Text + txtSerie2.Text + txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString(), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
+            xmlRetencion.impuestos(dgvDatosRetencion, txtSerie1.Text + txtSerie2.Text + txtNumero.Text, Funcion.FormarFecha(dtpFechaDocumentacion.Value.Date.ToShortDateString()), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
 
             var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
             if (!Directory.Exists(PathServer + @"\Generados\"))
