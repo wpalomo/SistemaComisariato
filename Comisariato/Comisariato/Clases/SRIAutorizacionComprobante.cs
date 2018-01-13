@@ -227,7 +227,7 @@ namespace Comisariato.Clases
                     docxmlSRI.Save(@PathServer + @"\No Autorizados\" + @"\" + sClaveAcceso + ".xml");
                     string rutaNAT = @PathServer + @"\No Autorizados\";
                     string fechafinal = Funcion.reemplazarcaracterFecha(fechaEmision);
-                    objConsultas.EjecutarSQL("INSERT INTO [dbo].[TbErroresDocEnviados]([NombreXML],[Ruta],[FechaEmision] ,[EstadoError] )" +
+                    objConsultas.EjecutarSQLFactElectronica("INSERT INTO [dbo].[TbErroresDocEnviados]([NombreXML],[Ruta],[FechaEmision] ,[EstadoError] )" +
                     "VALUES ('" + sClaveAcceso + "','" + rutaNAT + "','" + fechafinal + "','" + 1 + "')");
                     MessageBox.Show("Estado: " + estadorecepcion + "\nAutorización: " + estado + "\nAmbiente: " + ambiente + "\nClave Acceso: " + claveAcceso + "\nError: " + mensaje + "\n:Info. Adicional: " + infoadicional);
                 }
