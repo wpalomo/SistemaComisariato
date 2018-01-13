@@ -533,7 +533,7 @@ namespace Comisariato.Formularios.Transacciones
             xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
             var ruta = ConfigurationManager.AppSettings["XmlServidor"];
             xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
-            string pathfinal = PathLocal + @"\" + claveacceso + ".xml";
+            string pathfinal = PathLocal + claveacceso + ".xml";
 
             imprimir();
 
@@ -574,12 +574,17 @@ namespace Comisariato.Formularios.Transacciones
             xmlRetencion.impuestos(dgvDatosRetencion, txtSerie1.Text + txtSerie2.Text + txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString(), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
 
             var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-            if (Directory.Exists(PathServer + @"\Generados\"))
+            if (!Directory.Exists(PathServer + @"\Generados\"))
             {
                 Directory.CreateDirectory(PathServer + @"\Generados\");
             }
 
-            File.Copy(pathfinal, @"C: \Users\Public\Documents\ArchivosXml" + @"\" + claveacceso + ".xml", true);
+            if (!Directory.Exists(PathLocal))
+            {
+                Directory.CreateDirectory(PathLocal);
+            }
+
+            File.Copy(pathfinal, PathServer + @"\Generados\" + @"\" + @claveacceso + ".xml", true);
 
 
             //Insertar BDFactuElec
@@ -622,7 +627,7 @@ namespace Comisariato.Formularios.Transacciones
                         //Fin menuInferior
                         //var PathServer = @"C:\ArchivosXml";
                         //var ruta = ConfigurationManager.AppSettings["XmlServidor"];
-                        string RutaXML1 = @"C:\Users\Public\Documents\ArchivosXml" /*ConfigurationManager.AppSettings["XmlServidor"]*/;
+                        string RutaXML1 = ConfigurationManager.AppSettings["XmlServidor"];
                         string pathXml = RutaXML1 + @"\sonna_judith_vega_solis.p12";
                         if (System.IO.File.Exists(RutaXML1 + @"\Generados" + @"\" + NombreXML + ".xml"))
                         {
