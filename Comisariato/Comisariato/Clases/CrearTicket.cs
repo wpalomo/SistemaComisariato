@@ -357,6 +357,8 @@ namespace Comisariato.Clases
             string elemento = "", espacios = "";
             
             int nroEspacios = 0;
+            if (articulo.Length > 20)
+                articulo = articulo.Substring(0, 20);
             for (int i = 0; i < (20 - articulo.Length); i++)
             {
                 espacios += " "; //Agrega espacios para completar los 20 caracteres
