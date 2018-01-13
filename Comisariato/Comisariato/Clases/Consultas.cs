@@ -324,13 +324,26 @@ namespace Comisariato.Clases
             }
         }
 
-        public bool RegistrarArchivosXml(string nombrexml,string rutaxml,string fecha)
+        public bool RegistrarArchivosXml(string nombrexml,string rutaxml,string fecha, string hora,String tipo)
         {
             try
             {
-                SqlCommand Sentencia;
+                SqlCommand Sentencia = null;
                 Objc.conectarBDFact();
-                Sentencia = new SqlCommand("INSERT INTO TbDocumentosGeneradosFact (NombreXML, RutaXML, FechaEmision, EstadoAutorizacion, RecepcionSRI, AutorizadoSRI, RutaRide) VALUES ( '" + nombrexml + "','" + rutaxml + "','" + fecha + "','" + 0 + "','" + "F" + "','" + "F" + "','" + " " + "')");
+                switch (tipo)
+                {
+                    case "Factura":
+                        Sentencia = new SqlCommand("INSERT INTO TbDocumentosGeneradosFact (NombreXML, RutaXML, FechaEmision, EstadoAutorizacion, RecepcionSRI, AutorizadoSRI, RutaRide,Hora) VALUES ( '" + nombrexml + "','" + rutaxml + "','" + fecha + "','" + 0 + "','" + "F" + "','" + "F" + "','" + " " + "','" + hora + "')");
+                        break;
+                    case "OrdenGiro":
+                        Sentencia = new SqlCommand("INSERT INTO TbDocumentosGeneradosRect (NombreXML, Ruta, FechaEmision, EstadoAutorizacion, RecepcionSRI, AutorizadoSRI, RutaRide,Hora) VALUES ( '" + nombrexml + "','" + rutaxml + "','" + fecha + "','" + 0 + "','" + "F" + "','" + "F" + "','" + " " + "','" + hora + "')");
+                        break;
+                    case "NotaDebito":
+                        break;
+                    default:
+                        break;
+                }
+                
                 Sentencia.Connection = ConexionBD.connection;
                 Sentencia.ExecuteNonQuery();
                 Objc.CerrarBDFact();
@@ -2227,5 +2240,8 @@ namespace Comisariato.Clases
 
 
         }
+
+
+        //public bool GuardarXMLFacturacionElectronica
     }
 }

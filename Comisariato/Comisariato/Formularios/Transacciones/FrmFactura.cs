@@ -129,7 +129,7 @@ namespace Comisariato.Formularios.Transacciones
 
             txtCodigo.Focus();
             idcliente = IDCLIENTEINICIO;
-            txtNumFact.Text = numfact.ToString("D8");
+            txtNumFact.Text = numfact.ToString("D9");
             txtCaja.Text = numcaja;
             txtSucursal.Text = sucursal;
             lblCajero.Text = "Cajero:  " + Program.Usuario;
@@ -607,8 +607,8 @@ namespace Comisariato.Formularios.Transacciones
                 MessageBox.Show("No hay Items para eliminar");
                 txtCodigo.Focus();
             }
-           
-                
+
+            ChkTodoBodega.Checked = false;
            
         }
 
@@ -1252,6 +1252,41 @@ namespace Comisariato.Formularios.Transacciones
             frmPrecios.ShowDialog();
         }
 
+        private void ChkTodoBodega_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ChkTodoBodega.Checked)
+                {
+                    for (int i = 0; i < dgvDetalleProductos.Rows.Count; i++)
+                    {
+                        if (dgvDetalleProductos.Rows[i].Cells[0].Value != null)
+                        {
+                            dgvDetalleProductos.Rows[i].Cells[7].Value = true;
+                        }
+
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < dgvDetalleProductos.Rows.Count; i++)
+                    {
+                        if (dgvDetalleProductos.Rows[i].Cells[0].Value != null)
+                        {
+                            dgvDetalleProductos.Rows[i].Cells[7].Value = false;
+                        }
+
+                    }
+                }
+
+                FrmFactura_Activated(null, null);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
         private void dgvDetalleProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -1592,7 +1627,7 @@ namespace Comisariato.Formularios.Transacciones
 
         private void FacturaenEspera()
         {
-            txtNumFact.Text = numfact.ToString("D8");
+            txtNumFact.Text = numfact.ToString("D9");
             rdbPublico.Checked = true;
             rdbConsumidorFinal.Checked = true;
             //ckbEfectivo.Checked = true;
@@ -1793,7 +1828,7 @@ namespace Comisariato.Formularios.Transacciones
 
             //nuevafact();
             }
-
+            ChkTodoBodega.Checked = false;
         }
 
         private void nuevafact()

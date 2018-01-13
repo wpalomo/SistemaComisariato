@@ -28,6 +28,8 @@ namespace Comisariato
         public static string DatosPreimpresa = "";
         public static string IVA;
         public static string obligadoContabilidad;
+        public static int Ambiente = 2;
+
 
         //public static string IDUsuarioMenu = "";
         public static EmcabezadoFactura em = new EmcabezadoFactura();
@@ -49,6 +51,8 @@ namespace Comisariato
         public static string razonsocialempresa;
         public static string clavesupervisor;
 
+
+        
         //otros
         public static int tamañoVentanaPrincipal;
 
