@@ -299,38 +299,38 @@ namespace Comisariato.Formularios
             }
             else if (nombre == "Devolución en Compras")
             {
-                string IpMaquina = bitacora.LocalIPAddress();
-                DataTable Dt = objConsulta.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
-                bool banderaCaja = false;
-                if (Dt.Rows.Count > 0)
+                //string IpMaquina = bitacora.LocalIPAddress();
+                //DataTable Dt = objConsulta.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
+                //bool banderaCaja = false;
+                //if (Dt.Rows.Count > 0)
+                //{
+                //    for (int i = 0; i < Dt.Rows.Count; i++)
+                //    {
+                //        banderaCaja = true;
+                //        DataRow myRows = Dt.Rows[i];
+                //        if (myRows["TIPODOCUMENTO"].ToString() == "NCRE")
+                //        {
+                //            banderaCaja = false;
+                if (FrmDevolucionCompra == null || FrmDevolucionCompra.IsDisposed)
                 {
-                    for (int i = 0; i < Dt.Rows.Count; i++)
-                    {
-                        banderaCaja = true;
-                        DataRow myRows = Dt.Rows[i];
-                        if (myRows["TIPODOCUMENTO"].ToString() == "NCRE")
-                        {
-                            banderaCaja = false;
-                            if (FrmDevolucionCompra == null || FrmDevolucionCompra.IsDisposed)
-                            {
-                                FrmDevolucionCompra = new FrmDevolucionCompra();
-                                FrmDevolucionCompra.MdiParent = this;
-                                //FrmDevolucionVenta.BringToFront();
-                                FrmDevolucionCompra.Show();
-                                break;
-                            }
-                            else { FrmDevolucionCompra.BringToFront(); }
-                        }
-                    }
-                    if (banderaCaja)
-                    {
-                        MessageBox.Show("Caja no registrada");
-                    }
+                    FrmDevolucionCompra = new FrmDevolucionCompra();
+                    FrmDevolucionCompra.MdiParent = this;
+                    //FrmDevolucionVenta.BringToFront();
+                    FrmDevolucionCompra.Show();
+                    //break;
                 }
-                else
-                {
-                    MessageBox.Show("Caja no registrada");
-                }
+                else { FrmDevolucionCompra.BringToFront(); }
+                //        }
+                //    }
+                //    if (banderaCaja)
+                //    {
+                //        MessageBox.Show("Caja no registrada");
+                //    }
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Caja no registrada");
+                //}
             }
             else if (nombre == "Orden de Giro")
             {

@@ -28,7 +28,7 @@ namespace Comisariato.Formularios.Transacciones
         public void inicializar()
         {
             int i = 0;
-            objConsultas.seriesDocumentoRetencion(txtNumeroNC, txtSerie1NC, txtSerie2NC, txtAutorizacionNC, "NCRE", bitacora.LocalIPAddress());
+            //objConsultas.seriesDocumentoRetencion(txtNumeroNC, txtSerie1NC, txtSerie2NC, txtAutorizacionNC, "NCRE", bitacora.LocalIPAddress());
             txtSerie1.Text = "";
             txtSerie2.Text = "";
             txtNumero.Text = "";
