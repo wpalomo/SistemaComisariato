@@ -148,8 +148,11 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                                 resultadoEncabezado = ObjEncabezadoCompra.InsertarEncabezadoyPieCompra(ObjEncabezadoCompra); // retorna true si esta correcto todo
                             if (resultadoEncabezado == "Datos Guardados")
                             {
-                                actualizarProducto();
-                                objConsulta.EjecutarSQL("DELETE FROM [dbo].[TbDetalleCompra] WHERE IDENCABEZADOCOMPRA = " + idEncabezadoCompra);
+                                if (modificarVer)
+                                {
+                                    actualizarProducto();
+                                    objConsulta.EjecutarSQL("DELETE FROM [dbo].[TbDetalleCompra] WHERE IDENCABEZADOCOMPRA = " + idEncabezadoCompra);
+                                }                                
                                 for (int i = 0; i < datosProductoCompra.RowCount; i++)
                                 {
                                     ObjDetalleCompra = new DetalleCompra(Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.Rows[i].Cells[5].Value.ToString())), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.Rows[i].Cells[6].Value.ToString())),
