@@ -18,9 +18,15 @@ namespace Comisariato.Formularios.Informes
             InitializeComponent();
         }
         Consultas objConsulta = new Consultas();
-        string cadenaGeneral = "select * from Vista_InformeCompras", cadeCondicion = "", condicionEntre="", añoDesde = "", 
-            fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "", 
-            cadenaConsultar = "";
+        string cadenaGeneral = "select SERIE1 +''+ SERIE2 +''+ NUMERO AS SERIES , FECHAORDENCOMPRA, IDENTIFICACION, NOMBRES, TOTALIVA," +
+" TOTALICE, TOTALIRBP, SUBTOTAL0, SUBTOTALIVA, TOTAL " +
+" from Vista_InformeCompras", añoDesde = "", fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "";
+
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            obtenerFechas();
+            consultaCompras();
+        }
 
         private void BtnExportarExcel_Click(object sender, EventArgs e)
         {
@@ -58,10 +64,39 @@ namespace Comisariato.Formularios.Informes
         {
             for (int i = 0; i < 20; i++)
                 dgvInformeCompras.Rows.Add();
-            cadenaConsultar = cadenaGeneral;
+            //cadenaConsultar = cadenaGeneral;
             //llenarDgv();
         }
-
+        public void consultaCompras()
+        {
+            string sql = cadenaGeneral + " where (FECHAORDENCOMPRA between '" + fechaDesde + "' AND '" + fechaHasta + "') and (IDENTIFICACION like '%" + txtConsultar.Text + "%' or NOMBRES like '%" + txtConsultar.Text + "%' or NUMERO like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%')";
+            objConsulta.boolLlenarDataGrid(dgvInformeCompras, sql, 20, 9, 0);
+            for (int i = 4; i < 10; i++)
+                dgvInformeCompras.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            for (int i = 0; i < 4; i++)
+                dgvInformeCompras.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            for (int i = 0; i < dgvInformeCompras.RowCount - 1; i++)
+            {
+                if (Convert.ToString(dgvInformeCompras.Rows[i].Cells[0].Value) != "")
+                {
+                    for (int j = 4; j < 10; j++)
+                        dgvInformeCompras.Rows[i].Cells[j].Value = Funcion.reemplazarcaracter(dgvInformeCompras.Rows[i].Cells[j].Value.ToString());
+                    if (Convert.ToString(dgvInformeCompras.Rows[i + 1].Cells[0].Value) == "")
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for (int i = 0; i < dgvInformeCompras.RowCount - 1; i++)
+            {
+                dgvInformeCompras.Rows[i].Cells[1].Value = Convert.ToDateTime(dgvInformeCompras.Rows[i].Cells[1].Value).ToShortDateString();
+            }
+            dgvInformeCompras.Focus();
+        }
         public void obtenerFechas()
         {
             añoDesde = Convert.ToString(dtpDesde.Value.Date.Year);
@@ -72,80 +107,6 @@ namespace Comisariato.Formularios.Informes
             mesHasta = Convert.ToString(dtpHasta.Value.Date.Month);
             diaHasta = Convert.ToString(dtpHasta.Value.Date.Day);
             fechaHasta = añoHasta + "-" + mesHasta + "-" + diaHasta;
-        }
-
-        private void txtConsultar_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                cadeCondicion = " NOMBRES like '%" + txtConsultar.Text + "%'";
-                cadeCondicion = cadeCondicion + " or NUMERO like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%'";
-                llenarDgv();
-            }
-            catch (Exception)
-            {
-            }
-            //---------------------FALTA REALIZAR EL MINIMO Y MAXIMO DE LOS DATA TIME PIKER----------------------------
-            //DataTable fechas = objConsulta.BoolDataTable("select FECHA from TbEncabezadoFactura ORDER BY FECHA");
-            //dtpDesde.MinDate = Convert.ToDateTime(fechas.Rows[0]);
-            //---------------------------------------------------------------------------------------------------------
-        }
-
-        private void dtpDesde_ValueChanged(object sender, EventArgs e)
-        {
-            obtenerFechas();
-            condicionEntre = " FECHAORDENCOMPRA between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
-            //objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
-            llenarDgv();
-        }
-        public void llenarDgv()
-        {
-            string and = "", where = "";
-            if (cadeCondicion == "" && condicionEntre == "")
-            {
-                where = "";
-                and = "";
-            }
-            else if (cadeCondicion != "" || condicionEntre != "")
-                where = " where ";
-            if (cadeCondicion != "" && condicionEntre != "")
-            {
-                where = " where ";
-                and = " and ";
-            }
-            cadenaConsultar = cadenaGeneral + where + cadeCondicion + and + condicionEntre;
-            DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
-            if (dt.Rows.Count > 0)
-            {//Select EF.SUCURSAL, EF.CAJA, EF.NFACTURA, EF.FECHA, U.USUARIO,	C.NOMBRES + ' ' + C.APELLIDOS AS NOMBRECLIENTE" +
-                dgvInformeCompras.Rows.Clear();
-                for (int i = 0; i < 20; i++)
-                    dgvInformeCompras.Rows.Add();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    DataRow row = dt.Rows[i];
-                    if (i == dgvInformeCompras.RowCount - 1)
-                        dgvInformeCompras.Rows.Add();
-                    string numeros = Convert.ToInt32(row["SERIE1"]).ToString("D3") + Convert.ToInt32(row["SERIE2"]).ToString("D3") + Convert.ToInt32(row["NUMERO"]).ToString("D9"); ;
-                    dgvInformeCompras.Rows[i].Cells[0].Value = numeros;
-                    dgvInformeCompras.Rows[i].Cells[1].Value = row["FECHAORDENCOMPRA"];
-                    dgvInformeCompras.Rows[i].Cells[2].Value = row["NOMBRES"];
-                    dgvInformeCompras.Rows[i].Cells[3].Value = row["TOTALIVA"]; 
-                    dgvInformeCompras.Rows[i].Cells[4].Value = row["TOTALICE"];
-                    dgvInformeCompras.Rows[i].Cells[5].Value = row["TOTALIRBP"];
-                    dgvInformeCompras.Rows[i].Cells[6].Value = row["SUBTOTAL0"];
-                    dgvInformeCompras.Rows[i].Cells[7].Value = row["SUBTOTALIVA"];
-                    dgvInformeCompras.Rows[i].Cells[8].Value = row["IMPUESTO"];
-                    dgvInformeCompras.Rows[i].Cells[9].Value = row["TOTAL"];
-
-                }
-            }
-            else
-            {
-                dgvInformeCompras.Rows.Clear();
-                for (int i = 0; i < 20; i++)
-                    dgvInformeCompras.Rows.Add();
-            }
-
         }
     }
 }
