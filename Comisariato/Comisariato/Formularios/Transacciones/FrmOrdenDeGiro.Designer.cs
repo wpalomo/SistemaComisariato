@@ -31,6 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnSalirCompra = new System.Windows.Forms.Button();
@@ -376,6 +379,7 @@
             this.txtTotalDebe.Name = "txtTotalDebe";
             this.txtTotalDebe.Size = new System.Drawing.Size(100, 22);
             this.txtTotalDebe.TabIndex = 39;
+            this.txtTotalDebe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtTotalHaber
             // 
@@ -383,6 +387,7 @@
             this.txtTotalHaber.Name = "txtTotalHaber";
             this.txtTotalHaber.Size = new System.Drawing.Size(100, 22);
             this.txtTotalHaber.TabIndex = 38;
+            this.txtTotalHaber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // dgvDatosLibroDiario
             // 
@@ -478,6 +483,7 @@
             this.txtSaldo.ReadOnly = true;
             this.txtSaldo.Size = new System.Drawing.Size(100, 22);
             this.txtSaldo.TabIndex = 27;
+            this.txtSaldo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtICE
             // 
@@ -487,6 +493,7 @@
             this.txtICE.ReadOnly = true;
             this.txtICE.Size = new System.Drawing.Size(100, 22);
             this.txtICE.TabIndex = 26;
+            this.txtICE.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtBaseImponible
             // 
@@ -496,6 +503,7 @@
             this.txtBaseImponible.ReadOnly = true;
             this.txtBaseImponible.Size = new System.Drawing.Size(100, 22);
             this.txtBaseImponible.TabIndex = 24;
+            this.txtBaseImponible.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtValorPagar
             // 
@@ -505,6 +513,7 @@
             this.txtValorPagar.ReadOnly = true;
             this.txtValorPagar.Size = new System.Drawing.Size(100, 22);
             this.txtValorPagar.TabIndex = 18;
+            this.txtValorPagar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtValorPagar.TextChanged += new System.EventHandler(this.txtValorPagar_TextChanged);
             this.txtValorPagar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
             this.txtValorPagar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValorPagar_KeyPress);
@@ -527,6 +536,7 @@
             this.txtTotal.ReadOnly = true;
             this.txtTotal.Size = new System.Drawing.Size(100, 22);
             this.txtTotal.TabIndex = 200;
+            this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtSubtotalIVA
             // 
@@ -536,6 +546,7 @@
             this.txtSubtotalIVA.ReadOnly = true;
             this.txtSubtotalIVA.Size = new System.Drawing.Size(100, 22);
             this.txtSubtotalIVA.TabIndex = 17;
+            this.txtSubtotalIVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtIVA
             // 
@@ -545,6 +556,7 @@
             this.txtIVA.ReadOnly = true;
             this.txtIVA.Size = new System.Drawing.Size(100, 22);
             this.txtIVA.TabIndex = 16;
+            this.txtIVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtIRBP
             // 
@@ -554,6 +566,7 @@
             this.txtIRBP.ReadOnly = true;
             this.txtIRBP.Size = new System.Drawing.Size(100, 22);
             this.txtIRBP.TabIndex = 15;
+            this.txtIRBP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtSubtotal0
             // 
@@ -563,6 +576,7 @@
             this.txtSubtotal0.ReadOnly = true;
             this.txtSubtotal0.Size = new System.Drawing.Size(100, 22);
             this.txtSubtotal0.TabIndex = 14;
+            this.txtSubtotal0.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label28
             // 
@@ -717,9 +731,27 @@
             this.IdRetencion,
             this.CODIGOSRI,
             this.IDTIPOCODIGOSRI});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9.75F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDatosRetencion.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDatosRetencion.Location = new System.Drawing.Point(0, 104);
             this.dgvDatosRetencion.Name = "dgvDatosRetencion";
             this.dgvDatosRetencion.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9.75F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDatosRetencion.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Teal;
+            this.dgvDatosRetencion.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvDatosRetencion.Size = new System.Drawing.Size(996, 221);
             this.dgvDatosRetencion.TabIndex = 20;
             this.dgvDatosRetencion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CmbProveedor_KeyDown);
@@ -1291,14 +1323,14 @@
             // dgvDatosOG
             // 
             this.dgvDatosOG.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDatosOG.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDatosOG.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvDatosOG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosOG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.numeroOrdenGiro,
