@@ -28,7 +28,7 @@ namespace Comisariato
         public static string DatosPreimpresa = "";
         public static string IVA;
         public static string obligadoContabilidad;
-        public static int Ambiente = 2;
+        public static int Ambiente = 1;
 
 
         //public static string IDUsuarioMenu = "";

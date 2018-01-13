@@ -491,7 +491,7 @@ namespace Comisariato.Formularios.Transacciones
             {
                 Directory.CreateDirectory(PathLocal);
             }
-            string serie = txtSerie1.Text + txtSerie2.Text;
+            string serie = txtSerie1Retencion.Text + txtSerie2Retencion.Text;
             string fecha = DateTime.Now.Date.ToShortDateString();
             string hora = DateTime.Now.Date.ToShortTimeString();
 
@@ -524,8 +524,7 @@ namespace Comisariato.Formularios.Transacciones
             }
 
 
-
-            InfoTributaria infotribu = new InfoTributaria(Program.Ambiente, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa); // 07 porque es retencion
+            InfoTributaria infotribu = new InfoTributaria(Program.Ambiente, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1Retencion.Text, txtSerie2Retencion.Text, txtNumeroRetencion.Text, Program.direccionempresa); // 07 porque es retencion
                                                                                                                                                                                                                         //string serie = txtSerie1.Text + txtSerie2.Text;
                                                                                                                                                                                                                         //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
 
