@@ -307,5 +307,23 @@ namespace Comisariato.Clases
             }
             else { return "Existe"; }
         }
+        public string ActualizarEncabezadoyPieCompra(EmcabezadoCompra objEncabezadoCompra, int idEncabezado)
+        {
+            ObjConsulta = new Consultas();
+            string sql = "UPDATE[dbo].[TbEncabezadoyPieCompra] set " +
+        " [IDSUCURSAL] = "+ objEncabezadoCompra.Sucursal +" ,[FLETE] = "+ objEncabezadoCompra.Flete +" " +
+      " ,[FECHAORDENCOMPRA] = '" + Funcion.reemplazarcaracterFecha(objEncabezadoCompra.FechaOrdenCompra.ToShortDateString()) + "' ,[IDPROVEEDOR] = " + objEncabezadoCompra.Proveedor + " ,[TERMINOPAGO] = '"+ objEncabezadoCompra.TerminoPago + "' ,[PLAZOORDENCOMPRA] = '" + objEncabezadoCompra.Plazo + "' " +
+      " ,[IMPUESTO] = '" + objEncabezadoCompra.Impuesto + "' ,[OBSERVACION] = '" + objEncabezadoCompra.Observacion + "' ,[TOTALIVA] = " + Funcion.reemplazarcaracter(objEncabezadoCompra.Iva.ToString()) + " ,[TOTALICE] = " + Funcion.reemplazarcaracter(objEncabezadoCompra.Ice.ToString()) + " ,[TOTALIRBP] = " + Funcion.reemplazarcaracter(objEncabezadoCompra.Irbp.ToString()) + " " +
+      " ,[SUBTOTALIVA] = " + Funcion.reemplazarcaracter(objEncabezadoCompra.SubtotalIva.ToString()) + " ,[SUBTOTAL0] = " + Funcion.reemplazarcaracter(objEncabezadoCompra.Subtotal0.ToString()) + " ,[SUBTOTAL] = " + Funcion.reemplazarcaracter(objEncabezadoCompra.Subtotal.ToString()) + " ,[TOTAL] = " + Funcion.reemplazarcaracter(objEncabezadoCompra.Total.ToString()) + " " +
+      " ,[SERIE1] = '" + objEncabezadoCompra.Serie1 + "' ,[SERIE2] = '" + objEncabezadoCompra.Serie2 + "' ,[NUMERO] = '" + objEncabezadoCompra.Numero + "' " +
+ " WHERE IDEMCABEZADOCOMPRA = "+ idEncabezado;
+            if (ObjConsulta.EjecutarSQL(sql))
+            {
+                return "Datos Guardados";
+            }
+            else { return "Error al Registrar"; }
+        }
+        
+
     }
 }
