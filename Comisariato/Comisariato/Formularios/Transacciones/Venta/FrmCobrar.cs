@@ -1469,7 +1469,7 @@ namespace Comisariato.Formularios.Transacciones
                     ticket.AgregarDatosRed(vector[0],Convert.ToInt32(vector[1]));
                 }
                 
-                ticket.lineasAsteriscos();
+            ticket.lineasAsteriscos();
             ticket.TextoIzquierda("                 ");
             ticket.TextoIzquierda("                 ");
             ticket.TextoCentro("Firma");

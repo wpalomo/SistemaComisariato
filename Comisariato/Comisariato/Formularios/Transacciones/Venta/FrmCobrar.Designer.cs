@@ -40,22 +40,22 @@
             this.txtTotalPagar = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvCheque = new System.Windows.Forms.DataGridView();
+            this.dgvTarjeta = new System.Windows.Forms.DataGridView();
+            this.btnImprimir = new System.Windows.Forms.Button();
+            this.txtCheque = new System.Windows.Forms.TextBox();
+            this.txtCredito = new System.Windows.Forms.TextBox();
+            this.txtEfectivo = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.NCheque = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CUENTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BANCO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FECHA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PROPIETARIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MONTO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvTarjeta = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TIPO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnImprimir = new System.Windows.Forms.Button();
-            this.txtCheque = new System.Windows.Forms.TextBox();
-            this.txtCredito = new System.Windows.Forms.TextBox();
-            this.txtEfectivo = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.gbDinero.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheque)).BeginInit();
@@ -223,38 +223,6 @@
             this.dgvCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvCheque_KeyPress);
             this.dgvCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dgvCheque_KeyUp);
             // 
-            // NCheque
-            // 
-            this.NCheque.HeaderText = "Nº. CHEQUE";
-            this.NCheque.Name = "NCheque";
-            // 
-            // CUENTA
-            // 
-            this.CUENTA.HeaderText = "Nº. CUENTA";
-            this.CUENTA.Name = "CUENTA";
-            // 
-            // BANCO
-            // 
-            this.BANCO.HeaderText = "BANCO";
-            this.BANCO.Name = "BANCO";
-            this.BANCO.Width = 80;
-            // 
-            // FECHA
-            // 
-            this.FECHA.HeaderText = "FECHA";
-            this.FECHA.Name = "FECHA";
-            this.FECHA.ReadOnly = true;
-            // 
-            // PROPIETARIO
-            // 
-            this.PROPIETARIO.HeaderText = "PROPIETARIO";
-            this.PROPIETARIO.Name = "PROPIETARIO";
-            // 
-            // MONTO
-            // 
-            this.MONTO.HeaderText = "MONTO";
-            this.MONTO.Name = "MONTO";
-            // 
             // dgvTarjeta
             // 
             this.dgvTarjeta.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -273,27 +241,6 @@
             this.dgvTarjeta.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvTarjeta_EditingControlShowing);
             this.dgvTarjeta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvTarjeta_KeyDown);
             this.dgvTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dgvTarjeta_KeyUp);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Nº. TARJETA";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "FECHA";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "MONTO";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // TIPO
-            // 
-            this.TIPO.HeaderText = "TIPO TARJETA";
-            this.TIPO.Name = "TIPO";
             // 
             // btnImprimir
             // 
@@ -344,6 +291,69 @@
             this.label1.Size = new System.Drawing.Size(74, 19);
             this.label1.TabIndex = 9;
             this.label1.Text = "Efectivo";
+            // 
+            // NCheque
+            // 
+            this.NCheque.HeaderText = "Nº. CHEQUE";
+            this.NCheque.Name = "NCheque";
+            this.NCheque.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // CUENTA
+            // 
+            this.CUENTA.HeaderText = "Nº. CUENTA";
+            this.CUENTA.Name = "CUENTA";
+            this.CUENTA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // BANCO
+            // 
+            this.BANCO.HeaderText = "BANCO";
+            this.BANCO.Name = "BANCO";
+            this.BANCO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BANCO.Width = 80;
+            // 
+            // FECHA
+            // 
+            this.FECHA.HeaderText = "FECHA";
+            this.FECHA.Name = "FECHA";
+            this.FECHA.ReadOnly = true;
+            this.FECHA.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // PROPIETARIO
+            // 
+            this.PROPIETARIO.HeaderText = "PROPIETARIO";
+            this.PROPIETARIO.Name = "PROPIETARIO";
+            this.PROPIETARIO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // MONTO
+            // 
+            this.MONTO.HeaderText = "MONTO";
+            this.MONTO.Name = "MONTO";
+            this.MONTO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Nº. TARJETA";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "FECHA";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "MONTO";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // TIPO
+            // 
+            this.TIPO.HeaderText = "TIPO TARJETA";
+            this.TIPO.Name = "TIPO";
+            this.TIPO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // FrmCobrar
             // 
