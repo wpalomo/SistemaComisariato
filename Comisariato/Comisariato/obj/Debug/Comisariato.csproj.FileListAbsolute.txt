@@ -823,3 +823,5 @@ C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\bin\D
 C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\bin\Debug\xmlsec-1.4.2-ADSI-1.0.dll
 C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\bin\Debug\FactLinkFirma.pdb
 C:\Users\MaxDJ\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\bin\Debug\FactLinkFirma.xml
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\bin\Debug\FactLinkFirma.pdb
+C:\Users\Byron\Documents\GitHub\SistemaComisariato\Comisariato\Comisariato\bin\Debug\FactLinkFirma.xml

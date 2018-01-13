@@ -603,16 +603,16 @@ namespace Comisariato.Formularios.Transacciones
             try
             {
                 string fecha = DateTime.Now.Date.ToShortDateString();
-                DtDocuemtosXML = ObjConsul.BoolDataTableFactElect("Select * from TbDocumentosGeneradosFact DocFact where DocFact.FechaEmision = '" + fecha + "' and   DocFact.EstadoAutorizacion = '0' and DocFact.NombreXML='"+claveacceso+"'");
-                int contadorAutorizado = 0, contadorEnviados = 0, contadorNoautorizados = 0, contadorDevuelta = 0, contadorRecibida = 0, contador = 0, estadoautorizacion;
-                string Recibida = "", AUT = "";
+                DtDocuemtosXML = ObjConsul.BoolDataTableFactElect("Select * from TbDocumentosGeneradosRect DocRect where DocRect.FechaEmision = '" + fecha + "' and   DocRect.EstadoAutorizacion = '0' and DocRect.NombreXML='" + claveacceso+"'");
+                int contadorAutorizado = 0, contadorEnviados = 0, contadorNoautorizados = 0, contadorDevuelta = 0, contadorRecibida = 0, contador = 0, estadoautorizacion = 0;
+                string Recibida = "", AUT = "NO";
                 if (DtDocuemtosXML.Rows.Count > 0)
                 {
                     //btnEnviar.Enabled = false;
                     //lblTotalArchivos.Text = "Total de Archivos: " + DtDocuemtosXML.Rows.Count;
                     foreach (DataRow myRow in DtDocuemtosXML.Rows)
                     {
-                        RutaXML = myRow["RutaXML"].ToString();
+                        RutaXML = myRow["Ruta"].ToString();
                         NombreXML = myRow["NombreXML"].ToString();
                         FechaEmision = myRow["FechaEmision"].ToString();
                         contador++;
@@ -622,7 +622,7 @@ namespace Comisariato.Formularios.Transacciones
                         //Fin menuInferior
                         //var PathServer = @"C:\ArchivosXml";
                         //var ruta = ConfigurationManager.AppSettings["XmlServidor"];
-                        string RutaXML1 = ConfigurationManager.AppSettings["XmlServidor"];
+                        string RutaXML1 = @"C:\Users\Public\Documents\ArchivosXml" /*ConfigurationManager.AppSettings["XmlServidor"]*/;
                         string pathXml = RutaXML1 + @"\sonna_judith_vega_solis.p12";
                         if (System.IO.File.Exists(RutaXML1 + @"\Generados" + @"\" + NombreXML + ".xml"))
                         {
@@ -630,13 +630,36 @@ namespace Comisariato.Formularios.Transacciones
                             Firma.Firmalo(pathXml, "Sonna1967", RutaXML1 + @"\Generados\" + NombreXML + ".xml", RutaXML1 + @"\Firmados\" + NombreXML + ".xml", RutaXML1);
 
                             SRIRecepcionComprobante sriRecepcion = new SRIRecepcionComprobante();
-                            string respuestaRecepcion = sriRecepcion.RecepcionArchivos(RutaXML1 + @"\Firmados" + @"\" + NombreXML + ".xml", "https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl", NombreXML, RutaXML1);
+                            string respuestaRecepcion = sriRecepcion.RecepcionArchivos(RutaXML1 + @"\Firmados" + @"\" + NombreXML + ".xml", "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl", NombreXML, RutaXML1);
                             //Fin RecepcionSRI
 
                             if (respuestaRecepcion == "RECIBIDA")
                             {
                                 contadorRecibida++;
                                 Recibida = "R";
+
+
+                                SRIAutorizacionComprobante sriAutori = new SRIAutorizacionComprobante("https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl");
+                                string estado = sriAutori.AutorizacionArchivos(NombreXML, RutaXML1, respuestaRecepcion);
+                                if (estado == "AUTORIZADO")
+                                {
+                                    contadorAutorizado++;
+                                    estadoautorizacion = 1;
+                                    AUT = "SI";
+                                }
+                                else
+                                {
+                                    contadorNoautorizados++;
+                                    estadoautorizacion = 0;
+                                    AUT = "NO";
+                                }
+                                contadorEnviados++;
+                                //Thread.Sleep(500);
+
+                                //string contadoraenviar = contador + " de " + DtDocuemtosXML.Rows.Count + " Archivos.";
+                                //CambiarProgreso(NombreXML, FechaEmision, contadorDevuelta.ToString(), contadorRecibida.ToString(), contadorAutorizado.ToString(), contadorNoautorizados.ToString(), contadorEnviados.ToString(), contadoraenviar, "" + DtDocuemtosXML.Rows.Count);
+                                
+
                             }
                             else
                             {
@@ -644,28 +667,8 @@ namespace Comisariato.Formularios.Transacciones
                                 Recibida = "D";
                             }
 
-
-                            SRIAutorizacionComprobante sriAutori = new SRIAutorizacionComprobante("https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl");
-                            string estado = sriAutori.AutorizacionArchivos(NombreXML, RutaXML1, respuestaRecepcion);
-                            if (estado == "AUTORIZADO")
-                            {
-                                contadorAutorizado++;
-                                estadoautorizacion = 1;
-                                AUT = "SI";
-                            }
-                            else
-                            {
-                                contadorNoautorizados++;
-                                estadoautorizacion = 0;
-                                AUT = "NO";
-                            }
-                            contadorEnviados++;
-                            //Thread.Sleep(500);
-
-                            //string contadoraenviar = contador + " de " + DtDocuemtosXML.Rows.Count + " Archivos.";
-                            //CambiarProgreso(NombreXML, FechaEmision, contadorDevuelta.ToString(), contadorRecibida.ToString(), contadorAutorizado.ToString(), contadorNoautorizados.ToString(), contadorEnviados.ToString(), contadoraenviar, "" + DtDocuemtosXML.Rows.Count);
                             Consultas Objconsul = new Consultas();
-                            Objconsul.EjecutarSQLFactElectronica("UPDATE [dbo].[TbDocumentosGeneradosFact] SET [EstadoAutorizacion] = '" + estadoautorizacion + "',[RecepcionSRI] ='" + Recibida + "',[AutorizadoSRI]='" + AUT + "'  WHERE  NombreXML = '" + NombreXML + "'");
+                            Objconsul.EjecutarSQLFactElectronica("UPDATE [dbo].[TbDocumentosGeneradosRect] SET [EstadoAutorizacion] = '" + estadoautorizacion + "',[RecepcionSRI] ='" + Recibida + "',[AutorizadoSRI]='" + AUT + "'  WHERE  NombreXML = '" + NombreXML + "'");
 
                         }
 

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Net;
+using System.Windows.Forms;
 
 namespace Comisariato.Clases
 {
@@ -111,6 +112,10 @@ namespace Comisariato.Clases
             return sw.ToString();
         }
 
+
+
+        Consultas objConsultas = new Consultas();
+
         public string RecepcionArchivos(string pathDocumento, string urlDocumeto, string nombreArchivo,string PathServer)
         {
             //string PathServer = @"C:\ArchivosXml";
@@ -167,6 +172,7 @@ namespace Comisariato.Clases
             XmlDocument docxml1 = new XmlDocument();
             docxml1.LoadXml(_xmlResutado);
             string estado = docxml1.GetElementsByTagName("estado")[0].InnerText;
+            
             //Preguntar sobre el directorio
 
             if (estado == "RECIBIDA")
@@ -176,14 +182,26 @@ namespace Comisariato.Clases
                     Directory.CreateDirectory(PathServer + @"\Recibidos\");
                 }
                 docxml.Save(@PathServer + @"\Recibidos\" + @"\" + nombreArchivo + ".xml");
+
             }
             else
             {
+                string CodigoError = docxml1.GetElementsByTagName("identificador")[0].InnerText;
+                string mensaje = docxml1.GetElementsByTagName("mensaje")[0].InnerText + "-" + docxml1.GetElementsByTagName("informacionAdicional")[0].InnerText;
                 if (!Directory.Exists(PathServer + @"\Devueltos\"))
                 {
                     Directory.CreateDirectory(PathServer + @"\Devueltos\");
                 }
                 docxml.Save(@PathServer + @"\Devueltos\" + @"\" + nombreArchivo + ".xml");
+
+                string rutaNAT = @PathServer + @"\Devueltos\";
+
+                string fechafinal = Funcion.reemplazarcaracterFecha(DateTime.Now.Date.ToShortDateString());
+
+                objConsultas.EjecutarSQLFactElectronica("INSERT INTO [dbo].[TbErroresDocEnviados]([NombreXML],[Ruta],[FechaEmision] ,[EstadoError],[CodigoError],[MensajeError] )" +
+                "VALUES ('" + nombreArchivo + "','" + rutaNAT + "','" + fechafinal + "','" + 1 + "','"+ CodigoError + "','"+mensaje+"')");
+                MessageBox.Show("Estado: " + estado + "\nClave Acceso: " + nombreArchivo + "\nError: " + mensaje );
+
             }
 
 
