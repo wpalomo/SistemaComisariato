@@ -75,8 +75,8 @@ namespace Comisariato.Formularios.SRI
                         }
 
                         //Autorizacion
-                        SRIAutorizacionComprobante sriAutori = new SRIAutorizacionComprobante();
-                        sriAutori.ConsultarAutorizaciones(claveAcceso);
+                        //SRIAutorizacionComprobante sriAutori = new SRIAutorizacionComprobante();
+                        //sriAutori.ConsultarAutorizaciones(claveAcceso);
                         //FIN Autorizacion
 
                     }
