@@ -47,6 +47,8 @@ namespace Comisariato.Formularios.Transacciones
             txtSerie2.ReadOnly = false;
             txtNumero.ReadOnly = false;
             txtConcepto.Text = "";
+            txtTotalDebe.Text = "";
+            txtTotalHaber.Text = "";
             cbSustentoTributario.Text = "";
             cbTipo.SelectedIndex = 0;
             cbAutorizacionSRI.SelectedIndex = 0;
@@ -155,7 +157,10 @@ namespace Comisariato.Formularios.Transacciones
         private void FrmOrdenDeGiro_Load(object sender, EventArgs e)
         {
             Program.FormularioOrdenGiro = true;
-            
+            for (int i = 1; i < 3; i++)
+                dgvDatosLibroDiario.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            for (int i = 3; i < 5; i++)
+                dgvDatosRetencion.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             inicializar();
             ObjConsul = new Clases.Consultas();
             ObjConsul.BoolLlenarComboBox(CmbProveedor, "Select IDPROVEEDOR AS ID , NOMBRES AS TEXTO from TbProveedor");
@@ -418,7 +423,7 @@ namespace Comisariato.Formularios.Transacciones
         }
         private void btnGuardarProveedor_Click(object sender, EventArgs e)
         {
-            if (txtValorPagar.Text != "" && cbFormaPago.Text != "" && txtNAutorizacion.Text != "" && cbTipo.Text != "")
+            if (txtValorPagar.Text != "" && cbFormaPago.Text != "" && txtNAutorizacion.Text != "" && cbTipo.Text != "" && txtTotalDebe.Text != "" && txtTotalHaber.Text != "")
             {
                 string idEncabezado = ObjConsul.ObtenerValorCampo("IDEMCABEZADOCOMPRA", "TbEncabezadoyPieCompra", " WHERE SERIE1 ="+ txtSerie1.Text + " AND SERIE2 =" + txtSerie2.Text + " AND NUMERO = " + txtNumero.Text + "");
                 EncabezadoOrdenGiro objEncabezadoOG = new EncabezadoOrdenGiro(Convert.ToInt32(txtOrdenGiro.Text), Convert.ToInt32(CmbTipoDocumento.SelectedValue), Convert.ToInt32(CmbProveedor.SelectedValue), cbTipo.Text, txtPlazo.Text,
