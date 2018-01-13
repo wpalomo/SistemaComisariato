@@ -175,7 +175,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 10F);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -197,8 +197,8 @@
             this.devolucion});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 8F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Teal;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
@@ -397,7 +397,6 @@
             this.txtAutorizacionNC.Location = new System.Drawing.Point(515, 21);
             this.txtAutorizacionNC.MaxLength = 9;
             this.txtAutorizacionNC.Name = "txtAutorizacionNC";
-            this.txtAutorizacionNC.ReadOnly = true;
             this.txtAutorizacionNC.Size = new System.Drawing.Size(185, 23);
             this.txtAutorizacionNC.TabIndex = 63;
             // 
@@ -415,7 +414,6 @@
             this.txtNumeroNC.Location = new System.Drawing.Point(268, 21);
             this.txtNumeroNC.MaxLength = 9;
             this.txtNumeroNC.Name = "txtNumeroNC";
-            this.txtNumeroNC.ReadOnly = true;
             this.txtNumeroNC.Size = new System.Drawing.Size(156, 23);
             this.txtNumeroNC.TabIndex = 62;
             // 
@@ -436,7 +434,6 @@
             this.txtSerie1NC.Location = new System.Drawing.Point(147, 21);
             this.txtSerie1NC.MaxLength = 3;
             this.txtSerie1NC.Name = "txtSerie1NC";
-            this.txtSerie1NC.ReadOnly = true;
             this.txtSerie1NC.Size = new System.Drawing.Size(56, 23);
             this.txtSerie1NC.TabIndex = 60;
             // 
@@ -456,7 +453,6 @@
             this.txtSerie2NC.Location = new System.Drawing.Point(207, 21);
             this.txtSerie2NC.MaxLength = 3;
             this.txtSerie2NC.Name = "txtSerie2NC";
-            this.txtSerie2NC.ReadOnly = true;
             this.txtSerie2NC.Size = new System.Drawing.Size(56, 23);
             this.txtSerie2NC.TabIndex = 61;
             // 
