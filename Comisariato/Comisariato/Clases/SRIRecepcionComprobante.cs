@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Net;
 
 namespace Comisariato.Clases
 {
@@ -109,5 +110,142 @@ namespace Comisariato.Clases
             xmlDoc.WriteTo(xw);
             return sw.ToString();
         }
+
+        public string RecepcionArchivos(string pathDocumento, string urlDocumeto, string nombreArchivo,string PathServer)
+        {
+            //string PathServer = @"C:\ArchivosXml";
+            _URLWS = urlDocumeto;
+            byte[] bytes = File.ReadAllBytes(pathDocumento);
+            object RESULTADO = "";
+            //convertir el archivo en formato 64 bytes
+            RESULTADO = Convert.ToBase64String(bytes);
+            HttpWebRequest request = CreateWebRequest();
+            XmlDocument soapEnvelopeXml = new XmlDocument();
+            soapEnvelopeXml.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
+                <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:ec=""http://ec.gob.sri.ws.recepcion"">
+                <soapenv:Header/>
+                    <soapenv:Body>
+                        <ec:validarComprobante>
+                            <!--Optional:-->
+                            <xml>" + RESULTADO + "</xml>" +
+                        "</ec:validarComprobante>" +
+                     "</soapenv:Body>" +
+                    "</soapenv:Envelope>");
+            string soapResult = "";
+            try
+            {
+                using (Stream stream = request.GetRequestStream())
+                {
+                    soapEnvelopeXml.Save(stream);
+                }
+                try
+                {
+                    using (WebResponse response = request.GetResponse())
+                    {
+                        using (StreamReader rd = new StreamReader(response.GetResponseStream()))
+                        {
+                            _xmlResutado = rd.ReadToEnd();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    soapResult = "Error en enviar al SRI" + ex.Message;
+
+                    RecepcionArchivos(pathDocumento, urlDocumeto, nombreArchivo, PathServer);
+                }
+            }
+            catch (Exception x)
+            {
+                soapResult = "Error en enviar al SRI" + x.Message;
+            }
+
+
+            XmlDocument docxml = new XmlDocument();
+            docxml.Load(pathDocumento);
+
+            XmlDocument docxml1 = new XmlDocument();
+            docxml1.LoadXml(_xmlResutado);
+            string estado = docxml1.GetElementsByTagName("estado")[0].InnerText;
+            //Preguntar sobre el directorio
+
+            if (estado == "RECIBIDA")
+            {
+                if (!Directory.Exists(PathServer + @"\Recibidos\"))
+                {
+                    Directory.CreateDirectory(PathServer + @"\Recibidos\");
+                }
+                docxml.Save(@PathServer + @"\Recibidos\" + @"\" + nombreArchivo + ".xml");
+            }
+            else
+            {
+                if (!Directory.Exists(PathServer + @"\Devueltos\"))
+                {
+                    Directory.CreateDirectory(PathServer + @"\Devueltos\");
+                }
+                docxml.Save(@PathServer + @"\Devueltos\" + @"\" + nombreArchivo + ".xml");
+            }
+
+
+            if (!Directory.Exists(PathServer + @"\Enviados\"))
+            {
+                Directory.CreateDirectory(PathServer + @"\Enviados\");
+            }
+
+
+
+            docxml.Save(@PathServer + @"\Enviados\" + @"\" + nombreArchivo + ".xml");
+
+
+
+
+            return estado;
+        }
+
+        private string _URLWS;
+
+        public string URLWS
+        {
+            get
+            {
+                return _URLWS;
+            }
+
+            set
+            {
+                _URLWS = value;
+            }
+        }
+
+        public string XmlResutado
+        {
+            get
+            {
+                return _xmlResutado;
+            }
+
+            set
+            {
+                _xmlResutado = value;
+            }
+        }
+
+        private string _xmlResutado;
+
+        public HttpWebRequest CreateWebRequest()
+        {
+            //HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(@"https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl");
+            //HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(@"https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl");
+
+            //OffLine
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(URLWS);
+
+            webRequest.Headers.Add(@"SOAP:Action");
+            webRequest.ContentType = "text/xml;charset=\"utf-8\"";
+            webRequest.Accept = "text/xml";
+            webRequest.Method = "POST";
+            return webRequest;
+        }
     }
 }
+

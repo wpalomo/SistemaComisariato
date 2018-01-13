@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace Comisariato.Clases
 {
@@ -131,6 +133,113 @@ namespace Comisariato.Clases
                 return null;
             }
 
+        }
+
+        string sUrl = "";
+        string sSoapAction = "";
+        public string xmlResultado = "";
+        Consultas objConsultas = new Consultas();
+        public SRIAutorizacionComprobante(string urlVerificacion)
+        {
+            //this.sUrl = "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes";
+            this.sUrl = urlVerificacion;
+            this.sSoapAction = "AutorizacionComprobante";
+        }
+
+        public string AutorizacionArchivos(string sClaveAcceso,string PathServer,string estadorecepcion)
+        {
+            string sResult = "";
+            StringBuilder sSoap = new StringBuilder();
+            XmlDocument oXmlDoc = new XmlDocument();
+            HttpWebRequest oHttpRequest = null;
+            StreamReader oReader = null;
+            string estado = "";
+            sSoap.Append("<soapenv:Envelope xmlns:soapenv=" + Convert.ToChar(34) + "http://schemas.xmlsoap.org/soap/envelope/" + Convert.ToChar(34) + " xmlns:ec=" + Convert.ToChar(34) + "http://ec.gob.sri.ws.autorizacion" + ((char)34) + "><soapenv:Header/>");
+            sSoap.Append("\n	<soapenv:Body>");
+            sSoap.Append("\n 		<ec:autorizacionComprobante>");
+            sSoap.Append("\n 			<claveAccesoComprobante>" + sClaveAcceso.Trim() + "</claveAccesoComprobante>");
+            sSoap.Append("\n		</ec:autorizacionComprobante>");
+            sSoap.Append("\n	</soapenv:Body>");
+            sSoap.Append("\n</soapenv:Envelope>");
+
+            try
+            {
+                oHttpRequest = (HttpWebRequest)WebRequest.Create(this.sUrl);
+                oHttpRequest.ContentType = "text/xml;action=\"" + this.sSoapAction;
+                oHttpRequest.Method = "POST";
+
+                oXmlDoc.LoadXml(sSoap.ToString());
+                oXmlDoc.Save(oHttpRequest.GetRequestStream());
+
+                oReader = new StreamReader(oHttpRequest.GetResponse().GetResponseStream());
+                xmlResultado = oReader.ReadToEnd();
+
+                XmlDocument docxmlSRI = new XmlDocument();
+                docxmlSRI.LoadXml(xmlResultado);
+
+
+                xmlResultado = WebUtility.HtmlDecode(xmlResultado);
+
+
+                //Cargo a un XML
+                XmlDocument docxml = new XmlDocument();
+
+                var caracterPrincipal = xmlResultado.IndexOf('?') - 1;
+                var caracterSecundario = xmlResultado.LastIndexOf('?') + 2;
+                xmlResultado = xmlResultado.Remove(caracterPrincipal, (caracterSecundario - caracterPrincipal));
+                xmlResultado = "<?xml version=" + "\"1.0\"" + " encoding=" + "\"UTF-8\"" + "?>" + xmlResultado;
+                docxml.LoadXml(xmlResultado);
+
+
+
+
+
+                //Preguntar sobre el directorio
+                string FechaAutorizacion = "", mensaje = "", infoadicional = "", tipo = "", claveconsultada = "", numeroAutorizacion = "", claveAcceso = "";
+                estado = docxml.GetElementsByTagName("estado")[0].InnerText;
+                string ambiente = docxml.GetElementsByTagName("ambiente")[0].InnerText;
+                claveconsultada = docxml.GetElementsByTagName("claveAccesoConsultada")[0].InnerText;
+
+                if (estado == "AUTORIZADO")
+                {
+                    numeroAutorizacion = docxml.GetElementsByTagName("numeroAutorizacion")[0].InnerText;
+                    claveAcceso = docxml.GetElementsByTagName("claveAcceso")[0].InnerText;
+                    numeroAutorizacion = docxml.GetElementsByTagName("numeroAutorizacion")[0].InnerText;
+                    FechaAutorizacion = Convert.ToDateTime(docxml.GetElementsByTagName("fechaAutorizacion")[0].InnerText).ToString();
+                    if (!Directory.Exists(PathServer + @"\Autorizados\"))
+                    {
+                        Directory.CreateDirectory(PathServer + @"\Autorizados\");
+                    }
+                    docxmlSRI.Save(@PathServer + @"\Autorizados\" + @"\" + sClaveAcceso + ".xml");
+                    MessageBox.Show("Estado: "+estadorecepcion+ "\nAutorización: "+estado+ "\nAmbiente: "+ ambiente+ "\nClave Acceso: "+ claveAcceso+ "\nNumero de Autorización: "+ numeroAutorizacion+ "\nFecha Autorización: "+ FechaAutorizacion);
+                }
+                else
+                {
+
+                    tipo = docxml.GetElementsByTagName("tipo")[0].InnerText;
+                    mensaje = docxml.GetElementsByTagName("mensaje")[0].InnerText;
+                    infoadicional = docxml.GetElementsByTagName("informacionAdicional")[0].InnerText;
+                    string fechaEmision = docxml.GetElementsByTagName("fechaEmision")[0].InnerText;
+                    if (!Directory.Exists(PathServer + @"\No Autorizados\"))
+                    {
+                        Directory.CreateDirectory(PathServer + @"\No Autorizados\");
+                    }
+                    docxmlSRI.Save(@PathServer + @"\No Autorizados\" + @"\" + sClaveAcceso + ".xml");
+                    string rutaNAT = @PathServer + @"\No Autorizados\";
+                    string fechafinal = Funcion.reemplazarcaracterFecha(fechaEmision);
+                    objConsultas.EjecutarSQL("INSERT INTO [dbo].[TbErroresDocEnviados]([NombreXML],[Ruta],[FechaEmision] ,[EstadoError] )" +
+                    "VALUES ('" + sClaveAcceso + "','" + rutaNAT + "','" + fechafinal + "','" + 1 + "')");
+                    MessageBox.Show("Estado: " + estadorecepcion + "\nAutorización: " + estado + "\nAmbiente: " + ambiente + "\nClave Acceso: " + claveAcceso + "\nError: " + mensaje + "\n:Info. Adicional: " + infoadicional);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                sResult = ex.Message;
+
+            }
+
+            return estado;
         }
     }
 }

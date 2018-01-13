@@ -404,6 +404,23 @@ namespace Comisariato.Clases
             }
         }
 
+        public bool EjecutarSQLFactElectronica(string SQL)
+        {
+            try
+            {
+                SqlCommand Sentencia;
+                Sentencia = new SqlCommand(SQL);
+                Objc.conectarBDFact();
+                Sentencia.Connection = ConexionBD.connection;
+                Sentencia.ExecuteNonQuery();
+                Objc.CerrarBDFact();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         public bool GuardarFact(int nfilas, DataGridView dg, List<string> encabezado, List<string> detallepago, List<string> ivas, int inicioContador)
         {
