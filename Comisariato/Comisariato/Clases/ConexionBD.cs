@@ -18,11 +18,11 @@ namespace Comisariato.Clases
         //Data Source=DESKTOP-G14ID1U;Initial Catalog=BDComisariato;Integrated Security=True
         //------------------------------Conexion Servidor----------------------------------------//
         //data source = AIRCONTROL, 1433; initial catalog = BDComisariato; user id = COMI; password = server@1;
-        
+
         //------------------------------Conexion Byron ----------------------------------------//
         //Data Source = DESKTOP-SI5M9C5; Initial Catalog = BDComisariato; Integrated Security = True
 
-
+        //DJSERATO\SQLEXPRESS
 
 
 

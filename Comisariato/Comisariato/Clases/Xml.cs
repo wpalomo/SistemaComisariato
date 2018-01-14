@@ -29,7 +29,7 @@ namespace Comisariato.Clases
 
             XmlElement newCd = doc.CreateElement(nodoRaiz);
             newCd.SetAttribute("id", "comprobante");
-            newCd.SetAttribute("version", "1.0.0");
+            newCd.SetAttribute("version", "1.1.0");
 
             doc.AppendChild(newCd);
             doc.Save(ruta);
@@ -79,19 +79,19 @@ namespace Comisariato.Clases
                     else
                     {
                         //int valor = Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[5].Value));
-                        if (Convert.ToString(dgv.Rows[i].Cells[5].Value) == "0,00")
+                        if (Convert.ToSingle(dgv.Rows[i].Cells[5].Value) == 0)
                         {
-                            NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "0", "0", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
+                            NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "0", "0", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
                         }
                         else
                         {
                             if (Program.IVA=="14")
                             {
-                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "3", "14.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
+                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "3", "14.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
                             }
                             else
                             {
-                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "2", "12.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
+                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "2", "12.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
                             }
                             
                         }
@@ -237,31 +237,7 @@ namespace Comisariato.Clases
             //SubNodototalConImpuestos.AppendChild(nodototalConImpuestos(dgvDetalle));
             Nodoraiz.AppendChild(nodototalConImpuestos(dgvDetalle));
 
-            ////subnodo del nodo totalConImpuestos
-            //XmlNode SubNodototalImpuesto = doc.CreateElement("totalImpuesto");
-            //SubNodototalConImpuestos.AppendChild(SubNodototalImpuesto);
-
-            //XmlElement nodocodigo = doc.CreateElement("codigo");
-            //nodocodigo.InnerText = codigo;
-            //SubNodototalImpuesto.AppendChild(nodocodigo);
-
-
-            //XmlElement nodocodigoPorcentaje = doc.CreateElement("codigoPorcentaje");
-            //nodocodigoPorcentaje.InnerText = codigoPorcentaje;
-            //SubNodototalImpuesto.AppendChild(nodocodigoPorcentaje);
-
-            //XmlElement nododescuentoAdicional = doc.CreateElement("descuentoAdicional");
-            //nododescuentoAdicional.InnerText = descuentoAdicional;
-            //SubNodototalImpuesto.AppendChild(nododescuentoAdicional);
-
-            //XmlElement nodobaseImponible = doc.CreateElement("baseImponible");
-            ////nodobaseImponible.InnerText = Funcion.reemplazarcaracter(baseImponible);
-            //SubNodototalImpuesto.AppendChild(nodobaseImponible);
-
-            //XmlElement nodovalor = doc.CreateElement("valor");
-            //nodovalor.InnerText = valor;
-            //SubNodototalImpuesto.AppendChild(nodovalor);
-
+           
             XmlElement nodopropina = doc.CreateElement("propina");
             nodopropina.InnerText = propina;
             Nodoraiz.AppendChild(nodopropina);
@@ -281,7 +257,7 @@ namespace Comisariato.Clases
 
             if (chkefectivo.Checked)
             {
-                SubNodopagos.AppendChild(agregarformapago("01", valorefectivo, "", "", 1));
+                SubNodopagos.AppendChild(agregarformapago("01", importeTotal, "", "", 1));
             }
 
 
@@ -290,7 +266,7 @@ namespace Comisariato.Clases
                 if (dgvcheque.Rows[i].Cells[0].Value!=null)
                 {
                     TimeSpan diferencia;
-                    diferencia = Convert.ToDateTime(dgvcheque.Rows[i].Cells[3].Value)- DateTime.Now.Date;
+                    diferencia = Convert.ToDateTime(dgvcheque.Rows[i].Cells[3].Value) - DateTime.Now.Date;
                     SubNodopagos.AppendChild(agregarformapago("20",Convert.ToString(dgvcheque.Rows[i].Cells[5].Value),""+diferencia.Days, "dias",2));
                 }
                 else
@@ -309,32 +285,7 @@ namespace Comisariato.Clases
             }
 
 
-            //SubNodopagos = agregarformapago();
-
-
-            //subnodo del subnodo
-            //XmlNode SubNodopago = doc.CreateElement("pago");
-            //SubNodopagos.AppendChild(SubNodopago);
-
-
-
-            //XmlElement Subnodoformapago = doc.CreateElement("formaPago");
-            //Subnodoformapago.InnerText = moneda;
-            //SubNodopago.AppendChild(Subnodoformapago);
-
-            //XmlElement Subnodototal = doc.CreateElement("total");
-            //Subnodototal.InnerText = moneda;
-            //SubNodopago.AppendChild(Subnodototal);
-
-            ////nodos cuando correspondan
-            //XmlElement Subplazo = doc.CreateElement("plazo");
-            //Subplazo.InnerText = moneda;
-            //SubNodopago.AppendChild(Subplazo);
-
-            //XmlElement SubunidadTiempo = doc.CreateElement("unidadTiempo");
-            //SubunidadTiempo.InnerText = moneda;
-            //SubNodopago.AppendChild(SubunidadTiempo);
-
+            
 
             return Nodoraiz;
         }
@@ -355,24 +306,24 @@ namespace Comisariato.Clases
                 {
                     if (Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[9].Value)) == 1)
                     {
-                        baseimponibleLibreImpuesto += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[4].Value);
+                        baseimponibleLibreImpuesto += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[10].Value);
                     }
                     else
                     {
                         //int valor = Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[5].Value));
-                        if (Convert.ToString(dgv.Rows[i].Cells[5].Value) == "0,00")
+                        if (Convert.ToSingle(dgv.Rows[i].Cells[5].Value) == 0)
                         {
-                            baseimponiblecero += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[4].Value);
+                            baseimponiblecero += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[10].Value);
                         }
                         else
                         {
                             if (Program.IVA == "14")
                             {
-                                baseimponiblecatorce += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[4].Value);
+                                baseimponiblecatorce += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[10].Value);
                             }
                             else
                             {
-                                baseimponibledoce += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[4].Value);
+                                baseimponibledoce += Convert.ToDouble(dgv.Rows[i].Cells[2].Value) * Convert.ToDouble(dgv.Rows[i].Cells[10].Value);
                             }
 
                         }
@@ -418,10 +369,6 @@ namespace Comisariato.Clases
 
         public XmlNode CrearNodoTotalConImpuesto(string codigo, string codigoPorcentaje, string descuentoAdicional, string baseImponible, string tarifa, string valor)
         {
-            //subnodo del nodo raiz totalConImpuestos
-            //XmlNode SubNodototalConImpuestos = doc.CreateElement("totalImpuesto");
-
-            //Nodoraiz.AppendChild(SubNodototalConImpuestos);
 
             //subnodo del nodo totalConImpuestos
             XmlNode SubNodototalImpuesto = doc.CreateElement("totalImpuesto");
