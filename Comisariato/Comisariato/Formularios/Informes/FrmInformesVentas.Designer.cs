@@ -39,17 +39,19 @@
             this.txtConsultar = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.dgvInformeVentas = new System.Windows.Forms.DataGridView();
+            this.BtnExportarExcel = new System.Windows.Forms.Button();
+            this.btnConsultar = new System.Windows.Forms.Button();
             this.Sucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Caja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NFactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.identificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Iva = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BtnExportarExcel = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInformeVentas)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +78,6 @@
             this.dtpHasta.Name = "dtpHasta";
             this.dtpHasta.Size = new System.Drawing.Size(340, 23);
             this.dtpHasta.TabIndex = 20;
-            this.dtpHasta.ValueChanged += new System.EventHandler(this.dtpDesde_ValueChanged);
             // 
             // dtpDesde
             // 
@@ -86,7 +87,6 @@
             this.dtpDesde.Name = "dtpDesde";
             this.dtpDesde.Size = new System.Drawing.Size(340, 23);
             this.dtpDesde.TabIndex = 19;
-            this.dtpDesde.ValueChanged += new System.EventHandler(this.dtpDesde_ValueChanged);
             // 
             // label14
             // 
@@ -113,9 +113,8 @@
             this.txtConsultar.Font = new System.Drawing.Font("Arial", 10F);
             this.txtConsultar.Location = new System.Drawing.Point(568, 50);
             this.txtConsultar.Name = "txtConsultar";
-            this.txtConsultar.Size = new System.Drawing.Size(425, 23);
+            this.txtConsultar.Size = new System.Drawing.Size(340, 23);
             this.txtConsultar.TabIndex = 22;
-            this.txtConsultar.TextChanged += new System.EventHandler(this.txtConsultar_TextChanged);
             // 
             // label8
             // 
@@ -145,6 +144,7 @@
             this.NFactura,
             this.Fecha,
             this.Usuario,
+            this.identificacion,
             this.Cliente,
             this.Iva,
             this.Subtotal0,
@@ -174,13 +174,35 @@
             this.dgvInformeVentas.Size = new System.Drawing.Size(1039, 442);
             this.dgvInformeVentas.TabIndex = 21;
             // 
+            // BtnExportarExcel
+            // 
+            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
+            this.BtnExportarExcel.Location = new System.Drawing.Point(1017, 91);
+            this.BtnExportarExcel.Name = "BtnExportarExcel";
+            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
+            this.BtnExportarExcel.TabIndex = 23;
+            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnExportarExcel.UseVisualStyleBackColor = true;
+            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click_1);
+            // 
+            // btnConsultar
+            // 
+            this.btnConsultar.Font = new System.Drawing.Font("Arial", 10F);
+            this.btnConsultar.Location = new System.Drawing.Point(924, 49);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(114, 25);
+            this.btnConsultar.TabIndex = 26;
+            this.btnConsultar.Text = "Consultar";
+            this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            // 
             // Sucursal
             // 
             this.Sucursal.FillWeight = 160.7917F;
-            this.Sucursal.HeaderText = "Sucursal";
+            this.Sucursal.HeaderText = "Scl";
             this.Sucursal.Name = "Sucursal";
             this.Sucursal.ReadOnly = true;
-            this.Sucursal.Width = 75;
+            this.Sucursal.Width = 35;
             // 
             // Caja
             // 
@@ -188,7 +210,7 @@
             this.Caja.HeaderText = "Caja";
             this.Caja.Name = "Caja";
             this.Caja.ReadOnly = true;
-            this.Caja.Width = 75;
+            this.Caja.Width = 35;
             // 
             // NFactura
             // 
@@ -204,6 +226,7 @@
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 80;
             // 
             // Usuario
             // 
@@ -211,7 +234,14 @@
             this.Usuario.HeaderText = "Usuario";
             this.Usuario.Name = "Usuario";
             this.Usuario.ReadOnly = true;
-            this.Usuario.Width = 110;
+            this.Usuario.Width = 85;
+            // 
+            // identificacion
+            // 
+            this.identificacion.HeaderText = "Identificación";
+            this.identificacion.Name = "identificacion";
+            this.identificacion.ReadOnly = true;
+            this.identificacion.Width = 125;
             // 
             // Cliente
             // 
@@ -227,7 +257,7 @@
             this.Iva.HeaderText = "Iva";
             this.Iva.Name = "Iva";
             this.Iva.ReadOnly = true;
-            this.Iva.Width = 86;
+            this.Iva.Width = 80;
             // 
             // Subtotal0
             // 
@@ -253,23 +283,13 @@
             this.Total.ReadOnly = true;
             this.Total.Width = 85;
             // 
-            // BtnExportarExcel
-            // 
-            this.BtnExportarExcel.Image = global::Comisariato.Properties.Resources.Excel_2013_24px_1180012_easyicon_net;
-            this.BtnExportarExcel.Location = new System.Drawing.Point(999, 50);
-            this.BtnExportarExcel.Name = "BtnExportarExcel";
-            this.BtnExportarExcel.Size = new System.Drawing.Size(36, 29);
-            this.BtnExportarExcel.TabIndex = 23;
-            this.BtnExportarExcel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.BtnExportarExcel.UseVisualStyleBackColor = true;
-            this.BtnExportarExcel.Click += new System.EventHandler(this.BtnExportarExcel_Click_1);
-            // 
             // FrmInformeVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(1065, 580);
+            this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.BtnExportarExcel);
             this.Controls.Add(this.dgvInformeVentas);
             this.Controls.Add(this.txtConsultar);
@@ -299,16 +319,18 @@
         private System.Windows.Forms.TextBox txtConsultar;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView dgvInformeVentas;
+        private System.Windows.Forms.Button BtnExportarExcel;
+        private System.Windows.Forms.Button btnConsultar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sucursal;
         private System.Windows.Forms.DataGridViewTextBoxColumn Caja;
         private System.Windows.Forms.DataGridViewTextBoxColumn NFactura;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn identificacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Iva;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal0;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
-        private System.Windows.Forms.Button BtnExportarExcel;
     }
 }

@@ -28,6 +28,7 @@ namespace Comisariato.Formularios.Transacciones.Venta
         }
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
+            
             string sqlInsert = " INSERT INTO[dbo].[TbCierreCaja]([TOTALBILLETES],[TOTALMONEDAS],[TOTALCHEQUES],[TOTALAVANCES],[TOTALRECAUDADO],[TOTALENTREGADO],[FECHA],[IDUSUARIO],[CAJA])" +
                                           " VALUES(" + Funcion.reemplazarcaracter(billetesTotal.ToString()) + ", "+ Funcion.reemplazarcaracter(monedasTotal.ToString()) + ","+ Funcion.reemplazarcaracter(totalCheque.ToString()) + ","+ Funcion.reemplazarcaracter(txtAvances.Text.ToString()) + ","+ Funcion.reemplazarcaracter(totalRecaudado.ToString()) + ",0,'"+ Funcion.reemplazarcaracterFecha(DateTime.Now.Date.ToShortDateString()) +"', "+ Program.IDUsuarioMenu +", "+ Program.NumeroCaja+")";
             bool correcto = objConsulta.EjecutarSQL(sqlInsert);
@@ -56,7 +57,7 @@ namespace Comisariato.Formularios.Transacciones.Venta
             string Empresa = objConsulta.ObtenerValorCampo("NOMBRE", "TbEmpresa", "where IDEMPRESA = " + Program.IDEMPRESA);
             ticket.TextoCentro(Empresa);
             ticket.TextoIzquierda("     ");
-            ticket.TextoCentro("AVANCE DE DINERO");
+            ticket.TextoCentro("ARQUEO DE CAJA");
             ticket.TextoIzquierda("         ");
             ticket.TextoCentro(cajaImprimir);
             ticket.TextoCentro(Program.Usuario);
@@ -331,6 +332,16 @@ namespace Comisariato.Formularios.Transacciones.Venta
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
             inicializar();
+        }
+
+        private void txtMonedas1Dolar_Leave(object sender, EventArgs e)
+        {
+            calcularMonedas();
+            //txtTotalMonedas.Text = Funcion.reemplazarcaracter((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtMonedas1Dolar.Text))).ToString());
+            //e.Handled = true;
+            txtTotalRecaudado.Text = Funcion.reemplazarcaracter((Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalBillestes.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalMonedas.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalCheque.Text)) + Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtAvances.Text))).ToString());
+            totalRecaudado = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(txtTotalRecaudado.Text));
+            BtnGuardar.Focus();
         }
 
         private void txtMonedas50_Enter(object sender, EventArgs e)
