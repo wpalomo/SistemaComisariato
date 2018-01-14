@@ -69,7 +69,11 @@ namespace Comisariato.Formularios.Transacciones
                             string numcaja = "", sucursal = "", documentoActual = "";
                             string IpMaquina = bitacora.LocalIPAddress();
                             //IPESTACION = '" + IpMaquina + "' and
+<<<<<<< HEAD
                             DataTable Dt = c.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1 ;");
+=======
+                            DataTable Dt = c.BoolDataTable("Select TIPODOCUMENTO, SERIE1,SERIE2,DOCUMENTOACTUAL,DOCUMENTOINICIAL,DOCUMENTOFINAL,AUTORIZACION,ESTACION,IPESTACION from TbCajasTalonario where IPESTACION = '" + IpMaquina + "' and ESTADO=1;");
+>>>>>>> f2c772a0a8bdbeb8330b47d632305510403a8e38
                             if (Dt.Rows.Count > 0)
                             {
                                 bool banderaCaja = false;
