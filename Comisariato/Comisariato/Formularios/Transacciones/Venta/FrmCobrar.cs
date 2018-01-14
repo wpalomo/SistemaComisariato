@@ -1030,7 +1030,12 @@ namespace Comisariato.Formularios.Transacciones
                 for (int j = 0; j < dg.RowCount; j++)
                 {
                     if (dg.Rows[j].Cells[0].Value != null)
-                        totalSinImpuesto += Convert.ToSingle(dg.Rows[j].Cells[2].Value) * Convert.ToDouble(dg.Rows[j].Cells[4].Value);
+                    {
+                        //if (Convert.ToSingle(dg.Rows[j].Cells[5].Value)==0)
+                        //{
+                            totalSinImpuesto += Convert.ToSingle(dg.Rows[j].Cells[2].Value) * Convert.ToDouble(dg.Rows[j].Cells[10].Value);
+                        //}
+                    }    
                     else
                         break;
                 }
@@ -1090,7 +1095,7 @@ namespace Comisariato.Formularios.Transacciones
                 objcif.DirEstablecimiento = Program.direccionempresa;
                 //objcif.ContribuyenteEspecial = Program.direccionempresa;
                 objcif.GuiaRemision = sucursal.ToString("D3") + "-" + caja.ToString("D3") + "-" + numfactbd.ToString("D9");
-                xml.infoFactura("infoFactura", objcif,dgvCheque,dgvTarjeta,ckbEfectivo,txtEfectivo.Text,dg);
+                xml.infoFactura("infoFactura", objcif,dgvCheque,dgvTarjeta,ckbEfectivo,txtTotalPagar.Text,dg);
                 xml.detalleFactura("detalles", dg);
 
                 //System.IO.File.WriteAllBytes(@"C:\Users\Galito\Desktop\valida1.xml", bytes);
