@@ -67,6 +67,8 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
         }
         private void FrmCompra_Load(object sender, EventArgs e)
         {
+            for (int i = 2; i < 13; i++)
+                dgvProductosIngresos.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             SendKeys.Send("{TAB}");
             SendKeys.Send("{TAB}");
             txtSerie1.Focus();
@@ -99,7 +101,11 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
         {
             if (txtSerie1.Text != "" && txtSerie2.Text != "" && txtNumero.Text != "")
             {
-                bool cantidadRegistros = consultas.Existe("SERIE1 = " + Convert.ToInt32(txtSerie1.Text) + " and SERIE2 = " + Convert.ToInt32(txtSerie2.Text) + " and NUMERO = " + Convert.ToInt32(txtNumero.Text) + " and IDPROVEEDOR", Convert.ToString(cbProveedor.SelectedValue), "TbEncabezadoyPieCompra");
+                bool cantidadRegistros = false;
+                if (!modificarVer)
+                {
+                    cantidadRegistros = consultas.Existe("SERIE1 = " + Convert.ToInt32(txtSerie1.Text) + " and SERIE2 = " + Convert.ToInt32(txtSerie2.Text) + " and NUMERO = " + Convert.ToInt32(txtNumero.Text) + " and IDPROVEEDOR", Convert.ToString(cbProveedor.SelectedValue), "TbEncabezadoyPieCompra");
+                }
                 if (!cantidadRegistros)
                 {
                     bool dataGridCorrecto = false;
@@ -127,15 +133,26 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                     }
                     if (dataGridCorrecto)
                     {
-                        if (MessageBox.Show("¿Desea guaradar la compra?", "CONFIRMACIÓN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (MessageBox.Show("¿Desea guardar la compra?", "CONFIRMACIÓN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             ObjEncabezadoCompra = new EmcabezadoCompra(txtSerie1.Text, txtSerie2.Text, txtNumero.Text, sumasubiva, sumasubcero, subtotalPie, totalpagar, txtOrdenCompra.Text,
                                 Convert.ToInt32(cbSucursal.SelectedValue), Convert.ToSingle(txtFlete.Text), dtpFechaOC.Value, Convert.ToInt32(datosProveedor.SelectedValue), cbTerminoPago.Text,
                                 txtPlazoOC.Text, cbImpuesto.Text, txtObservacion.Text, ivatotal, sumaice, sumairbp);
                             String resultadoDetalle = "";
-                            String resultadoEncabezado = ObjEncabezadoCompra.InsertarEncabezadoyPieCompra(ObjEncabezadoCompra); // retorna true si esta correcto todo
+                            String resultadoEncabezado = "";
+                            if (modificarVer)
+                            {
+                                resultadoEncabezado = ObjEncabezadoCompra.ActualizarEncabezadoyPieCompra(ObjEncabezadoCompra, Convert.ToInt32(idEncabezadoCompra)); // retorna true si esta correcto todo
+                            }
+                            else
+                                resultadoEncabezado = ObjEncabezadoCompra.InsertarEncabezadoyPieCompra(ObjEncabezadoCompra); // retorna true si esta correcto todo
                             if (resultadoEncabezado == "Datos Guardados")
                             {
+                                if (modificarVer)
+                                {
+                                    actualizarProducto();
+                                    objConsulta.EjecutarSQL("DELETE FROM [dbo].[TbDetalleCompra] WHERE IDENCABEZADOCOMPRA = " + idEncabezadoCompra);
+                                }                                
                                 for (int i = 0; i < datosProductoCompra.RowCount; i++)
                                 {
                                     ObjDetalleCompra = new DetalleCompra(Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.Rows[i].Cells[5].Value.ToString())), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.Rows[i].Cells[6].Value.ToString())),
@@ -143,13 +160,24 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                                         Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.Rows[i].Cells[3].Value.ToString())), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.Rows[i].Cells[4].Value.ToString())),
                                         Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.Rows[i].Cells[7].Value.ToString())), Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.Rows[i].Cells[8].Value.ToString())),
                                         Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.Rows[i].Cells[9].Value.ToString())), Convert.ToInt32(txtSerie1.Text), Convert.ToInt32(txtSerie2.Text), Convert.ToInt32(txtNumero.Text), Convert.ToInt32(cbProveedor.SelectedValue));
-                                    resultadoDetalle = ObjDetalleCompra.InsertarDetalleCompra(ObjDetalleCompra);
+                                    //if (modificarVer)
+                                    //{
+                                    //    int idProductoDetalleCompra = Convert.ToInt32(objConsulta.ObtenerValorCampo("IDDETALLECOMPRA", "TbDetalleCompra", "where CODIGOBARRAPRODUCTO = '" + Convert.ToString(datosProductoCompra.Rows[i].Cells[0].Value) + "' AND IDENCABEZADOCOMPRA = " + Convert.ToInt32(idEncabezadoCompra)));
+                                    //    //resultadoDetalle = ObjDetalleCompra.ActualizarDetalleCompra(ObjDetalleCompra, Convert.ToInt32(idEncabezadoCompra), idProductoDetalleCompra);
+                                    //    if (!objConsulta.Existe(" IDENCABEZADOCOMPRA = " + Convert.ToInt32(idEncabezadoCompra) + " and CODIGOBARRAPRODUCTO", Convert.ToString(datosProductoCompra.Rows[i + 1].Cells[0].Value), "TbDetalleCompra"))
+                                    //    {
+                                    //        modificarVer = false;
+                                    //    }
+                                    //}
+                                    //else                                    
+                                        resultadoDetalle = ObjDetalleCompra.InsertarDetalleCompra(ObjDetalleCompra);
                                     if (Convert.ToString(datosProductoCompra.Rows[i + 1].Cells[0].Value) == "")
                                         break;
                                 }
                                 if (resultadoDetalle == "Datos Guardados")
                                 {
                                     MessageBox.Show("Compra Registrada Correctamente ", "Exito", MessageBoxButtons.OK);
+                                    modificarVer = false;
                                     if (MessageBox.Show("¿Desea ingresar la orden de giro?", "CONFIRMACIÓN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                     {
                                         Program.FormularioLlamado = true;
@@ -301,12 +329,12 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             }
             return repetido;
         }
-        
+        float ivaFila = 0.0f, subtotalFila = 0.0f, totalFila = 0.0f;
         private void dgvProductosIngresos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             bool banderaTab = false;
             objProducto = new Producto();
-            float iva = 0.0f, subtotal = 0.0f, total = 0.0f;
+            
             try
             {
                 if (datosProductoCompra.Columns[e.ColumnIndex].Name == "codigo")
@@ -464,26 +492,7 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 }
                 if (datosProductoCompra.Columns[e.ColumnIndex].Name == "precioCompra" || datosProductoCompra.Columns[e.ColumnIndex].Name == "cantidad" || datosProductoCompra.Columns[e.ColumnIndex].Name == "iceProducto" || datosProductoCompra.Columns[e.ColumnIndex].Name == "irbpProducto" || datosProductoCompra.Columns[e.ColumnIndex].Name == "codigo")
                 {
-                    float precioCompra = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.CurrentRow.Cells[3].Value.ToString()));
-                    float cantidad = Convert.ToInt32(datosProductoCompra.CurrentRow.Cells[2].Value.ToString());
-                    float precioICE = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.CurrentRow.Cells[5].Value.ToString()));
-                    float precioIRBP = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.CurrentRow.Cells[6].Value.ToString()));
-                    string[] separadorPorcentaje = cbImpuesto.Text.Split('%');
-                    int tipoIva = Convert.ToInt32(separadorPorcentaje[0]);
-                    if (tieneIVA)
-                    {
-                        iva = (((precioCompra + precioICE) * cantidad) * tipoIva) / 100;
-                    }
-                    else
-                    {
-                        iva = 0;
-                    }
-                    subtotal = ((precioCompra + precioICE + precioIRBP) * cantidad);
-                    total = subtotal + iva;
-                    ivaTotal = iva;
-                    datosProductoCompra.CurrentRow.Cells[11].Value = Funcion.reemplazarcaracter(Math.Round(iva, 2).ToString("#####0.00"));
-                    datosProductoCompra.CurrentRow.Cells[10].Value = Funcion.reemplazarcaracter(Math.Round(subtotal, 2).ToString("#####0.00"));
-                    datosProductoCompra.CurrentRow.Cells[12].Value = Funcion.reemplazarcaracter(Math.Round(total, 2).ToString("#####0.00"));
+                    calcularFila();
                 }
                 if (datosProductoCompra.Columns[e.ColumnIndex].Name == "precioCaja")
                 {
@@ -499,6 +508,29 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 SendKeys.Send("{RIGHT}");
             else
                 banderaTab = false;
+        }
+        public void calcularFila()
+        {
+            float precioCompra = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.CurrentRow.Cells[3].Value.ToString()));
+            float cantidad = Convert.ToInt32(datosProductoCompra.CurrentRow.Cells[2].Value.ToString());
+            float precioICE = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.CurrentRow.Cells[5].Value.ToString()));
+            float precioIRBP = Convert.ToSingle(Funcion.reemplazarcaracterViceversa(datosProductoCompra.CurrentRow.Cells[6].Value.ToString()));
+            string[] separadorPorcentaje = cbImpuesto.Text.Split('%');
+            int tipoIva = Convert.ToInt32(separadorPorcentaje[0]);
+            if (tieneIVA)
+            {
+                ivaFila = (((precioCompra + precioICE) * cantidad) * tipoIva) / 100;
+            }
+            else
+            {
+                ivaFila = 0;
+            }
+            subtotalFila = ((precioCompra + precioICE + precioIRBP) * cantidad);
+            totalFila = subtotalFila + ivaFila;
+            ivaTotal = ivaFila;
+            datosProductoCompra.CurrentRow.Cells[11].Value = Funcion.reemplazarcaracter(Math.Round(ivaFila, 2).ToString("#####0.00"));
+            datosProductoCompra.CurrentRow.Cells[10].Value = Funcion.reemplazarcaracter(Math.Round(subtotalFila, 2).ToString("#####0.00"));
+            datosProductoCompra.CurrentRow.Cells[12].Value = Funcion.reemplazarcaracter(Math.Round(totalFila, 2).ToString("#####0.00"));
         }
         private void Calcular()
         {
@@ -654,11 +686,45 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
 " TOTALICE, TOTALIRBP, SUBTOTAL0, SUBTOTALIVA, TOTAL, IDPROVEEDOR "+
 " from Vista_InformeCompras", añoDesde = "", fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "", cadenaConsultar = "";
 
+        private void btnAnular_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea eliminar esta compra?", "CONFIRMACIÓN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                actualizarProducto();   
+                if (objConsulta.EjecutarSQL("DELETE FROM [dbo].[TbDetalleCompra] WHERE IDENCABEZADOCOMPRA = " + idEncabezadoCompra))
+                {
+                    if (objConsulta.EjecutarSQL("DELETE FROM [dbo].[TbEncabezadoyPieCompra] WHERE IDEMCABEZADOCOMPRA = " + idEncabezadoCompra))
+                    {
+                        MessageBox.Show("Eliminado correctamente");
+                    }
+                }
+                consultaCompras();
+            }
+        }
+        public void actualizarProducto()
+        {
+            DataTable dtProductoCantidad = objConsulta.BoolDataTable("select dc.CODIGOBARRAPRODUCTO, dc.CANTIDAD from TbDetalleCompra dc, TbEncabezadoyPieCompra ec where ec.IDEMCABEZADOCOMPRA = dc.IDENCABEZADOCOMPRA and ec.IDEMCABEZADOCOMPRA = " + idEncabezadoCompra);
+            if (dtProductoCantidad.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtProductoCantidad.Rows.Count; i++)
+                {
+                    DataRow rowCantidad = dtProductoCantidad.Rows[i];
+                    float cantidadActualProducto = Convert.ToSingle(objConsulta.ObtenerValorCampo("CANTIDAD", "TbProducto", "where CODIGOBARRA = '" + rowCantidad[0] + "'"));
+                    float cantidadFinal = cantidadActualProducto - Convert.ToSingle(rowCantidad[1]);
+                    objConsulta.EjecutarSQL("UPDATE [dbo].[TbProducto] SET [CANTIDAD] = " + cantidadFinal + "  WHERE CODIGOBARRA = " + rowCantidad[0]);
+                }
+            }
+        }
+
+        bool modificarVer = false;
+        //string valorNumeroOrdenCopra = "";
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            //valorNumeroOrdenCopra = txtOrdenCompra.Text;
+            modificarVer = true;
+            incializar();
             if (existeOG)
-            {
-                tabControl1.SelectedIndex = 0;
+            {                
                 BtnGuardar.Enabled = false;
                 dgvProductosIngresos.ReadOnly = true;
                 txtSerie1.ReadOnly = true;
@@ -671,8 +737,24 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 cbSucursal.Enabled = false;
                 txtOrdenCompra.Text = idEncabezadoCompra;
             }
+            else
+            {
+                BtnGuardar.Text = "Modificar";
+                BtnGuardar.Enabled = true;
+                dgvProductosIngresos.ReadOnly = false;
+                txtSerie1.ReadOnly = false;
+                txtSerie2.ReadOnly = false;
+                txtNumero.ReadOnly = false;
+                txtObservacion.ReadOnly = false;
+                cbImpuesto.Enabled = true;
+                cbProveedor.Enabled = true;
+                cbTerminoPago.Enabled = false;
+                cbSucursal.Enabled = true;
+                txtOrdenCompra.Text = idEncabezadoCompra;
+            }
+            tabControl1.SelectedIndex = 0;
             DataTable encabezadoPie = objConsulta.BoolDataTable("select * from TbEncabezadoyPieCompra where IDEMCABEZADOCOMPRA = " + idEncabezadoCompra);
-            DataTable detalleCompra = objConsulta.BoolDataTable("select dc.CODIGOBARRAPRODUCTO, p.NOMBREPRODUCTO, dc.CANTIDAD, dc.PRECIOCOMRPA, dc.DESCUENTO, dc.ICE, dc.IRBP, dc.PRECIOVENTAPUBLICO, dc.PRECIOMAYORISTA, dc.PRECIOCAJAS from TbDetalleCompra dc, TbEncabezadoyPieCompra ec, TbProducto p where dc.IDENCABEZADOCOMPRA = ec.IDEMCABEZADOCOMPRA and dc.CODIGOBARRAPRODUCTO = p.CODIGOBARRA and ec.IDEMCABEZADOCOMPRA = " + idEncabezadoCompra);
+            DataTable detalleCompra = objConsulta.BoolDataTable("select dc.CODIGOBARRAPRODUCTO, p.NOMBREPRODUCTO, dc.CANTIDAD, dc.PRECIOCOMRPA, dc.DESCUENTO, dc.ICE, dc.IRBP, dc.PRECIOVENTAPUBLICO, dc.PRECIOMAYORISTA, dc.PRECIOCAJAS from TbDetalleCompra dc, TbEncabezadoyPieCompra ec, TbProducto p where dc.IDENCABEZADOCOMPRA = ec.IDEMCABEZADOCOMPRA and dc.CODIGOBARRAPRODUCTO = p.CODIGOBARRA and ec.IDEMCABEZADOCOMPRA = " + idEncabezadoCompra + " order by IDDETALLECOMPRA");
             if (encabezadoPie.Rows.Count > 0)
             {
                 DataRow rowEncabezado = encabezadoPie.Rows[0];
@@ -680,26 +762,43 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 cbSucursal.SelectedValue = Convert.ToInt32(rowEncabezado["IDSUCURSAL"]);
                 //cbImpuesto.SelectedText = rowEncabezado["IMPUESTO"].ToString();
                 txtObservacion.Text = rowEncabezado["OBSERVACION"].ToString();
-                txtTotal.Text = Funcion.reemplazarcaracter(rowEncabezado["TOTAL"].ToString());
-                txtSubtutalIVA.Text = Funcion.reemplazarcaracter(rowEncabezado["SUBTOTALIVA"].ToString());
-                txtSubtotal0.Text = Funcion.reemplazarcaracter(rowEncabezado["SUBTOTAL0"].ToString());
-                txtSubtotal.Text = Funcion.reemplazarcaracter(rowEncabezado["SUBTOTAL"].ToString());
-                txtICE.Text = Funcion.reemplazarcaracter(rowEncabezado["TOTALICE"].ToString());
-                txtIRBP.Text = Funcion.reemplazarcaracter(rowEncabezado["TOTALIRBP"].ToString());
+                txtTotal.Text = Funcion.reemplazarcaracter(Convert.ToSingle(rowEncabezado["TOTAL"]).ToString("####0.00"));
+                txtSubtutalIVA.Text = Funcion.reemplazarcaracter(Convert.ToSingle(rowEncabezado["SUBTOTALIVA"]).ToString("####0.00"));
+                txtSubtotal0.Text = Funcion.reemplazarcaracter(Convert.ToSingle(rowEncabezado["SUBTOTAL0"]).ToString("####0.00"));
+                txtSubtotal.Text = Funcion.reemplazarcaracter(Convert.ToSingle(rowEncabezado["SUBTOTAL"]).ToString("####0.00"));
+                txtICE.Text = Funcion.reemplazarcaracter(Convert.ToSingle(rowEncabezado["TOTALICE"]).ToString("####0.00"));
+                txtIRBP.Text = Funcion.reemplazarcaracter(Convert.ToSingle(rowEncabezado["TOTALIRBP"]).ToString("####0.00"));
                 txtSerie1.Text = rowEncabezado["SERIE1"].ToString();
                 txtSerie2.Text = rowEncabezado["SERIE2"].ToString();
                 txtNumero.Text = rowEncabezado["NUMERO"].ToString();
-                txtIVA.Text = Funcion.reemplazarcaracter(rowEncabezado["TOTALIVA"].ToString());
+                txtIVA.Text = Funcion.reemplazarcaracter(Convert.ToSingle(rowEncabezado["TOTALIVA"]).ToString("####0.00"));
             }
             if (detalleCompra.Rows.Count > 0)
             {
-                for (int i = 0; i < detalleCompra.Rows.Count; i++)
+                int i = 0;
+                for (i = 0; i < detalleCompra.Rows.Count; i++)
                 {
+                    if (i >= dgvProductosIngresos.RowCount - 1)
+                    {
+                        dgvProductosIngresos.Rows.Add();
+                    }
                     DataRow rowDetalle = detalleCompra.Rows[i];
                     for (int j = 0; j < 10; j++)
                     {
-                        dgvProductosIngresos.Rows[i].Cells[j].Value = rowDetalle[j];
+                        if (j==0)
+                        {
+                            string ivaBool = objConsulta.ObtenerValorCampo("IVAESTADO", "TbProducto", "where CODIGOBARRA = '" + rowDetalle[j] + "'");
+                            tieneIVA = Convert.ToBoolean(ivaBool);
+                        }
+                        if (j > 1)
+                        {
+                            dgvProductosIngresos.Rows[i].Cells[j].Value = Funcion.reemplazarcaracter(rowDetalle[j].ToString());
+                        }
+                        else
+                            dgvProductosIngresos.Rows[i].Cells[j].Value = rowDetalle[j];
                     }
+                    dgvProductosIngresos.CurrentCell = dgvProductosIngresos.Rows[i].Cells[0];
+                    calcularFila();
                 }
             }
         }
@@ -736,11 +835,9 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
             }
 
         }
-
-        private void btnConsultar_Click(object sender, EventArgs e)
+        public void consultaCompras()
         {
-            obtenerFechas();
-            string sql =  cadenaGeneral + " where (FECHAORDENCOMPRA between '" + fechaDesde + "' AND '" + fechaHasta + "') and (NOMBRES like '%" + txtConsultar.Text + "%' or NUMERO like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%')";
+            string sql = cadenaGeneral + " where (FECHAORDENCOMPRA between '" + fechaDesde + "' AND '" + fechaHasta + "') and (IDENTIFICACION like '%" + txtConsultar.Text + "%' or NOMBRES like '%" + txtConsultar.Text + "%' or NUMERO like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%' or SERIE2 like '%" + txtConsultar.Text + "%')";
             objConsulta.boolLlenarDataGrid(dgvInformeCompras, sql, 20, 9, 0);
             if (Convert.ToString(dgvInformeCompras.Rows[0].Cells[0].Value) != "")
             {
@@ -752,7 +849,36 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
                 btnModificar.Enabled = false;
                 btnAnular.Enabled = false;
             }
+            for (int i = 3; i < 9; i++)
+                dgvInformeCompras.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            for (int i = 0; i < 3; i++)
+                dgvInformeCompras.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            for (int i = 0; i < dgvInformeCompras.RowCount - 1; i++)
+            {
+                if (Convert.ToString(dgvInformeCompras.Rows[i].Cells[0].Value) != "")
+                {
+                    for (int j = 3; j < 9; j++)
+                        dgvInformeCompras.Rows[i].Cells[j].Value = Funcion.reemplazarcaracter(dgvInformeCompras.Rows[i].Cells[j].Value.ToString());
+                    if (Convert.ToString(dgvInformeCompras.Rows[i + 1].Cells[0].Value) == "")
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for (int i = 0; i < dgvInformeCompras.RowCount - 1; i++)
+            {
+                dgvInformeCompras.Rows[i].Cells[1].Value = Convert.ToDateTime(dgvInformeCompras.Rows[i].Cells[1].Value).ToShortDateString();
+            }
             dgvInformeCompras.Focus();
+        }
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            obtenerFechas();
+            consultaCompras();
         }
 
         private void dgvProductosIngresos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -866,9 +992,24 @@ namespace Comisariato.Formularios.Mantenimiento.Inventario
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
             string ordenNumero = txtOrdenCompra.Text;
-            Funcion.Limpiarobjetos(gbEncabezadoCompra);
-            incializar();
+            Funcion.Limpiarobjetos(gbEncabezadoCompra);            
             txtOrdenCompra.Text = ordenNumero;
+            if (modificarVer)
+            {
+                txtOrdenCompra.Text = Convert.ToString(objConsulta.ObtenerCantidadRegistros("Select count(*) as Numeros from TbEncabezadoyPieCompra") + 1);
+                BtnGuardar.Enabled = true;
+                dgvProductosIngresos.ReadOnly = false;
+                txtSerie1.ReadOnly = false;
+                txtSerie2.ReadOnly = false;
+                txtNumero.ReadOnly = false;
+                txtObservacion.ReadOnly = false;
+                cbImpuesto.Enabled = true;
+                cbProveedor.Enabled = true;
+                cbTerminoPago.Enabled = false;
+                cbSucursal.Enabled = true;
+            }
+            BtnGuardar.Text = "&Guardar";
+            incializar();
         }
 
         private void btnSalirCompra_Click(object sender, EventArgs e)

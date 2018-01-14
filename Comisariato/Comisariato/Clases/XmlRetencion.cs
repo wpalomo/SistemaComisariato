@@ -111,7 +111,7 @@ namespace Comisariato.Clases
             doc.Load(rutaXml);
             string fecha = DateTime.Now.Date.ToShortDateString();
           
-            XmlNode NodoInfoTributarios = CrearInfoCompRetencion(Funcion.FormarFecha(objciCompRetencion.FechaEmision), objciCompRetencion.DirEstablecimiento, objciCompRetencion.ContribuyenteEspecial, objciCompRetencion.ObligadoContabilidad, objciCompRetencion.TipoIdentificacionSujetoRetenido, objciCompRetencion.RazonSocialSujetoRetenido, objciCompRetencion.IdentificacionSujetoRetenido, objciCompRetencion.PeriodoFiscal);
+            XmlNode NodoInfoTributarios = CrearInfoCompRetencion(objciCompRetencion.FechaEmision, objciCompRetencion.DirEstablecimiento, objciCompRetencion.ContribuyenteEspecial, objciCompRetencion.ObligadoContabilidad, objciCompRetencion.TipoIdentificacionSujetoRetenido, objciCompRetencion.RazonSocialSujetoRetenido, objciCompRetencion.IdentificacionSujetoRetenido, objciCompRetencion.PeriodoFiscal);
 
             XmlNode nodoRaiz = doc.DocumentElement;
 
@@ -171,7 +171,7 @@ namespace Comisariato.Clases
 
 
                     //NodoDetalles = nodototalConImpuestos(Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[9].Value), Convert.ToString(dgv.Rows[i].Cells[3].Value), Convert.ToString(dgv.Rows[i].Cells[2].Value), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0"+ tipoDocumento, serie, Funcion.FormarFecha(fecha));
-                    NodoDetalles = nodototalConImpuestos(Codigo, codigoRetencionIva, Funcion.reemplazarcaracter(Convert.ToDouble(Funcion.reemplazarcaracterViceversa(dgv.Rows[i].Cells[3].Value.ToString())).ToString("#####0.00")), Convert.ToString(dgv.Rows[i].Cells[2].Value), Funcion.reemplazarcaracter(Convert.ToDouble(Funcion.reemplazarcaracterViceversa(dgv.Rows[i].Cells[4].Value.ToString())).ToString("#####0.00")), "0" + tipoDocumento, serie, Funcion.FormarFecha(fecha));
+                    NodoDetalles = nodototalConImpuestos(Codigo, codigoRetencionIva, Funcion.reemplazarcaracter(Convert.ToDouble(Funcion.reemplazarcaracterViceversa(dgv.Rows[i].Cells[3].Value.ToString())).ToString("#####0.00")), Convert.ToString(dgv.Rows[i].Cells[2].Value), Funcion.reemplazarcaracter(Convert.ToDouble(Funcion.reemplazarcaracterViceversa(dgv.Rows[i].Cells[4].Value.ToString())).ToString("#####0.00")), "0" + tipoDocumento, serie, fecha);
 
                     impuestos.AppendChild(NodoDetalles);
                 }

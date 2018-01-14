@@ -47,6 +47,8 @@ namespace Comisariato.Formularios.Transacciones
             txtSerie2.ReadOnly = false;
             txtNumero.ReadOnly = false;
             txtConcepto.Text = "";
+            txtTotalDebe.Text = "";
+            txtTotalHaber.Text = "";
             cbSustentoTributario.Text = "";
             cbTipo.SelectedIndex = 0;
             cbAutorizacionSRI.SelectedIndex = 0;
@@ -155,7 +157,10 @@ namespace Comisariato.Formularios.Transacciones
         private void FrmOrdenDeGiro_Load(object sender, EventArgs e)
         {
             Program.FormularioOrdenGiro = true;
-            
+            for (int i = 1; i < 3; i++)
+                dgvDatosLibroDiario.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            for (int i = 3; i < 5; i++)
+                dgvDatosRetencion.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             inicializar();
             ObjConsul = new Clases.Consultas();
             ObjConsul.BoolLlenarComboBox(CmbProveedor, "Select IDPROVEEDOR AS ID , NOMBRES AS TEXTO from TbProveedor");
@@ -418,7 +423,7 @@ namespace Comisariato.Formularios.Transacciones
         }
         private void btnGuardarProveedor_Click(object sender, EventArgs e)
         {
-            if (txtValorPagar.Text != "" && cbFormaPago.Text != "" && txtNAutorizacion.Text != "" && cbTipo.Text != "")
+            if (txtValorPagar.Text != "" && cbFormaPago.Text != "" && txtNAutorizacion.Text != "" && cbTipo.Text != "" && txtTotalDebe.Text != "" && txtTotalHaber.Text != "")
             {
                 string idEncabezado = ObjConsul.ObtenerValorCampo("IDEMCABEZADOCOMPRA", "TbEncabezadoyPieCompra", " WHERE SERIE1 ="+ txtSerie1.Text + " AND SERIE2 =" + txtSerie2.Text + " AND NUMERO = " + txtNumero.Text + "");
                 EncabezadoOrdenGiro objEncabezadoOG = new EncabezadoOrdenGiro(Convert.ToInt32(txtOrdenGiro.Text), Convert.ToInt32(CmbTipoDocumento.SelectedValue), Convert.ToInt32(CmbProveedor.SelectedValue), cbTipo.Text, txtPlazo.Text,
@@ -491,8 +496,9 @@ namespace Comisariato.Formularios.Transacciones
             {
                 Directory.CreateDirectory(PathLocal);
             }
-            string serie = txtSerie1.Text + txtSerie2.Text;
-            string fecha = DateTime.Now.Date.ToShortDateString();
+            string serie = txtSerie1Retencion.Text + txtSerie2Retencion.Text;
+            //string fecha = DateTime.Now.Date.ToShortDateString();
+            string fecha = dtpFechaRetencion.Value.Date.ToShortDateString();
             string hora = DateTime.Now.Date.ToShortTimeString();
 
             //Si la fecha Obtenida no tienen los ceros en dias y meses
@@ -524,8 +530,7 @@ namespace Comisariato.Formularios.Transacciones
             }
 
 
-
-            InfoTributaria infotribu = new InfoTributaria(Program.Ambiente, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1.Text, txtSerie2.Text, txtNumero.Text, Program.direccionempresa); // 07 porque es retencion
+            InfoTributaria infotribu = new InfoTributaria(Program.Ambiente, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1Retencion.Text, txtSerie2Retencion.Text, txtNumeroRetencion.Text, Program.direccionempresa); // 07 porque es retencion
                                                                                                                                                                                                                         //string serie = txtSerie1.Text + txtSerie2.Text;
                                                                                                                                                                                                                         //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
 
@@ -533,7 +538,7 @@ namespace Comisariato.Formularios.Transacciones
             xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
             var ruta = ConfigurationManager.AppSettings["XmlServidor"];
             xmlRetencion._crearXml(PathLocal + @"\" + claveacceso + ".xml", "comprobanteRetencion");
-            string pathfinal = PathLocal + @"\" + claveacceso + ".xml";
+            string pathfinal = PathLocal + claveacceso + ".xml";
 
             imprimir();
 
@@ -571,15 +576,20 @@ namespace Comisariato.Formularios.Transacciones
             xmlRetencion.infoCompRetencion(infoCompReten);
 
             //xmlRetencion.impuestos(dgvDatosRetencion,txtSerie1.Text+txtSerie2.Text+ txtNumero.Text);
-            xmlRetencion.impuestos(dgvDatosRetencion, txtSerie1.Text + txtSerie2.Text + txtNumero.Text, dtpFechaDocumentacion.Value.Date.ToShortDateString(), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
+            xmlRetencion.impuestos(dgvDatosRetencion, txtSerie1.Text + txtSerie2.Text + txtNumero.Text, Funcion.FormarFecha(dtpFechaDocumentacion.Value.Date.ToShortDateString()), Convert.ToInt32(CmbTipoDocumento.SelectedValue));
 
             var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-            if (Directory.Exists(PathServer + @"\Generados\"))
+            if (!Directory.Exists(PathServer + @"\Generados\"))
             {
                 Directory.CreateDirectory(PathServer + @"\Generados\");
             }
 
-            File.Copy(pathfinal, @"C: \Users\Public\Documents\ArchivosXml" + @"\" + claveacceso + ".xml", true);
+            if (!Directory.Exists(PathLocal))
+            {
+                Directory.CreateDirectory(PathLocal);
+            }
+
+            File.Copy(pathfinal, PathServer + @"\Generados\" + @"\" + @claveacceso + ".xml", true);
 
 
             //Insertar BDFactuElec
@@ -622,7 +632,7 @@ namespace Comisariato.Formularios.Transacciones
                         //Fin menuInferior
                         //var PathServer = @"C:\ArchivosXml";
                         //var ruta = ConfigurationManager.AppSettings["XmlServidor"];
-                        string RutaXML1 = @"C:\Users\Public\Documents\ArchivosXml" /*ConfigurationManager.AppSettings["XmlServidor"]*/;
+                        string RutaXML1 = ConfigurationManager.AppSettings["XmlServidor"];
                         string pathXml = RutaXML1 + @"\sonna_judith_vega_solis.p12";
                         if (System.IO.File.Exists(RutaXML1 + @"\Generados" + @"\" + NombreXML + ".xml"))
                         {

@@ -234,5 +234,17 @@ namespace Comisariato.Clases
             else
                 return "Error al Registrar";
         }
+        public string ActualizarDetalleCompra(DetalleCompra objDetalleCompra, int idEncabezado, int idDetalleCompra)
+        {
+            string sql = "UPDATE [dbo].[TbDetalleCompra] " +
+            "   SET [CODIGOBARRAPRODUCTO] = '"+ objDetalleCompra.Codigo +"' ,[CANTIDAD] = "+objDetalleCompra.Cantidad+" " +
+      " ,[PRECIOCOMRPA] = " + Funcion.reemplazarcaracter(objDetalleCompra.PrecioCompra.ToString()) + " ,[DESCUENTO] = " + Funcion.reemplazarcaracter(objDetalleCompra.Descuento.ToString()) + " ,[PRECIOVENTAPUBLICO] = " + Funcion.reemplazarcaracter(objDetalleCompra.PrecioVentaPublico.ToString()) + " ,[PRECIOMAYORISTA] = " + Funcion.reemplazarcaracter(objDetalleCompra.PrecioMayorista.ToString()) + " " +
+      " ,[PRECIOCAJAS] = " + Funcion.reemplazarcaracter(objDetalleCompra.PrecioCajas.ToString()) + " ,[ICE] = " + Funcion.reemplazarcaracter(objDetalleCompra.Ice.ToString()) + " ,[IRBP] = " + Funcion.reemplazarcaracter(objDetalleCompra.Irbp.ToString()) + " WHERE IDENCABEZADOCOMPRA = " + idEncabezado +" and IDDETALLECOMPRA = "+ idDetalleCompra;
+            ObjConsulta = new Consultas();
+            if (ObjConsulta.EjecutarSQL(sql))
+                return "Datos Guardados";
+            else
+                return "Error al Registrar";
+        }
     }
 }

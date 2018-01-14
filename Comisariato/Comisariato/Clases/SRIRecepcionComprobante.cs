@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Net;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Comisariato.Clases
 {
@@ -24,8 +25,8 @@ namespace Comisariato.Clases
                 string a = "";
 
                 XmlDocument xmlDoc = new XmlDocument();
-                //var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
-                var PathServer = @"C:\Users\Public\Documents\ArchivosXml";
+                var PathServer = ConfigurationManager.AppSettings["XmlServidor"];
+                //var PathServer = @"C:\Users\Public\Documents\ArchivosXml";
                 xmlDoc.Load(DocXML);
                 string claveAcceso = xmlDoc.GetElementsByTagName("claveAcceso")[0].InnerText;
                 if (claveAcceso.Length == 49)
