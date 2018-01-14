@@ -640,7 +640,7 @@ namespace Comisariato.Formularios.Transacciones
                             Firma.Firmalo(pathXml, "Sonna1967", RutaXML1 + @"\Generados\" + NombreXML + ".xml", RutaXML1 + @"\Firmados\" + NombreXML + ".xml", RutaXML1);
 
                             SRIRecepcionComprobante sriRecepcion = new SRIRecepcionComprobante();
-                            string respuestaRecepcion = sriRecepcion.RecepcionArchivos(RutaXML1 + @"\Firmados" + @"\" + NombreXML + ".xml", "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl", NombreXML, RutaXML1);
+                            string respuestaRecepcion = sriRecepcion.RecepcionArchivos(RutaXML1 + @"\Firmados" + @"\" + NombreXML + ".xml", "https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl", NombreXML, RutaXML1);
                             //Fin RecepcionSRI
 
                             if (respuestaRecepcion == "RECIBIDA")
@@ -649,7 +649,7 @@ namespace Comisariato.Formularios.Transacciones
                                 Recibida = "R";
 
 
-                                SRIAutorizacionComprobante sriAutori = new SRIAutorizacionComprobante("https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl");
+                                SRIAutorizacionComprobante sriAutori = new SRIAutorizacionComprobante("https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl");
                                 string estado = sriAutori.AutorizacionArchivos(NombreXML, RutaXML1, respuestaRecepcion);
                                 if (estado == "AUTORIZADO")
                                 {
