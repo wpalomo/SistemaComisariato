@@ -72,26 +72,28 @@ namespace Comisariato.Clases
                 XmlNode NodoDetalles=null;
                 if (dgv.Rows[i].Cells[0].Value != null)
                 {
+                    float preciototalsinimpuesto = Convert.ToSingle(Convert.ToString(dgv.Rows[i].Cells[2].Value))* Convert.ToSingle(Convert.ToString(dgv.Rows[i].Cells[10].Value));
                     if (Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[9].Value))==1)
                     {
-                        NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "6", "0", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
+                        NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(preciototalsinimpuesto.ToString("#####0.00")), "2", "6", "0", Convert.ToString(preciototalsinimpuesto.ToString("#####0.00")), Convert.ToString(dgv.Rows[i].Cells[5].Value));
                     }
                     else
                     {
                         //int valor = Convert.ToInt32(Convert.ToString(dgv.Rows[i].Cells[5].Value));
                         if (Convert.ToSingle(dgv.Rows[i].Cells[5].Value) == 0)
                         {
-                            NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "0", "0", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
+                            
+                            NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00",Convert.ToString( preciototalsinimpuesto.ToString("#####0.00")), "2", "0", "0", Convert.ToString(preciototalsinimpuesto.ToString("#####0.00")), Convert.ToString(dgv.Rows[i].Cells[5].Value));
                         }
                         else
                         {
                             if (Program.IVA=="14")
                             {
-                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "3", "14.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
+                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(preciototalsinimpuesto.ToString("#####0.00")), "2", "3", "14.00", Convert.ToString(preciototalsinimpuesto.ToString("#####0.00")), Convert.ToString(dgv.Rows[i].Cells[5].Value));
                             }
                             else
                             {
-                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), "2", "2", "12.00", Convert.ToString(dgv.Rows[i].Cells[4].Value), Convert.ToString(dgv.Rows[i].Cells[5].Value));
+                                NodoDetalles = CrearNodoDetalle(Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[0].Value), Convert.ToString(dgv.Rows[i].Cells[1].Value), Funcion.reemplazarcaracter(Convert.ToString(dgv.Rows[i].Cells[2].Value)), Convert.ToString(dgv.Rows[i].Cells[4].Value), "0.00", Convert.ToString(preciototalsinimpuesto.ToString("#####0.00")), "2", "2", "12.00", Convert.ToString(preciototalsinimpuesto.ToString("#####0.00")), Convert.ToString(dgv.Rows[i].Cells[5].Value));
                             }
                             
                         }
