@@ -159,6 +159,7 @@
             this.ImpresionOG = new System.Drawing.Printing.PrintDocument();
             this.ElegirImpresero = new System.Windows.Forms.PrintDialog();
             this.ImpresionRide = new System.Drawing.Printing.PrintDocument();
+            this.ImprimirRetencionRide = new System.Windows.Forms.PrintDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -253,7 +254,7 @@
             this.label46.BackColor = System.Drawing.Color.White;
             this.label46.Font = new System.Drawing.Font("Arial", 10F);
             this.label46.ForeColor = System.Drawing.Color.Black;
-            this.label46.Location = new System.Drawing.Point(605, 94);
+            this.label46.Location = new System.Drawing.Point(661, 94);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(37, 16);
             this.label46.TabIndex = 34;
@@ -1528,6 +1529,10 @@
             // 
             this.ImpresionRide.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.ImpresionRide_PrintPage);
             // 
+            // ImprimirRetencionRide
+            // 
+            this.ImprimirRetencionRide.UseEXDialog = true;
+            // 
             // FrmOrdenDeGiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1693,5 +1698,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn concepto;
         private System.Windows.Forms.GroupBox gbInformeOG;
         private System.Drawing.Printing.PrintDocument ImpresionRide;
+        private System.Windows.Forms.PrintDialog ImprimirRetencionRide;
     }
 }
