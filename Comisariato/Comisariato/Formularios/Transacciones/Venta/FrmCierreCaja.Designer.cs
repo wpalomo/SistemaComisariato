@@ -610,6 +610,7 @@
             this.txtMonedas1Dolar.Enter += new System.EventHandler(this.txtMonedas1Dolar_Enter);
             this.txtMonedas1Dolar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMonedas1Dolar_KeyDown);
             this.txtMonedas1Dolar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillestes1_KeyPress);
+            this.txtMonedas1Dolar.Leave += new System.EventHandler(this.txtMonedas1Dolar_Leave);
             // 
             // txtTotalBillestes
             // 

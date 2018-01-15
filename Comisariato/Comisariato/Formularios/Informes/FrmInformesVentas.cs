@@ -18,10 +18,48 @@ namespace Comisariato.Formularios.Informes
             InitializeComponent();
         }
         Consultas objConsulta = new Consultas();
-        string cadenaGeneral = "select * from Vista_InformeVentas", cadeCondicion = "", condicionEntre="", añoDesde = "", 
+        string cadenaGeneral = "select SUCURSAL, CAJA, NFACTURA, FECHA , USUARIO, IDENTIFICACION, NombreCliente, IVA, SUBTOTAL0, SUBTOTAL12, TOTAPAGAR from Vista_InformeVentas", cadeCondicion = "", condicionEntre="", añoDesde = "", 
             fechaDesde = "", añoHasta = "", fechaHasta = "", mesDesde = "", diaDesde = "", mesHasta = "", diaHasta = "", 
             cadenaConsultar = "";
 
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            obtenerFechas();
+            consultaVentas();
+        }
+        public void consultaVentas()
+        {
+            string sql = cadenaGeneral + " where (FECHA between '" + fechaDesde + "' and '" + fechaHasta + "') and (NombreCliente like'%" + txtConsultar.Text + "%' or SUCURSAL like '%" + txtConsultar.Text + "%' or CAJA like '%" + txtConsultar.Text + "%' or NFACTURA like '%" + txtConsultar.Text +"%') and USUARIO != 'admin'";
+            objConsulta.boolLlenarDataGrid(dgvInformeVentas, sql, 20, 10, 0);
+            for (int i = 7; i < 11; i++)
+                dgvInformeVentas.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            for (int i = 0; i < 7; i++)
+                dgvInformeVentas.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            for (int i = 0; i < dgvInformeVentas.RowCount - 1; i++)
+            {
+                if (Convert.ToString(dgvInformeVentas.Rows[i].Cells[0].Value) != "")
+                {
+                    dgvInformeVentas.Rows[i].Cells[0].Value = Convert.ToInt32(dgvInformeVentas.Rows[i].Cells[0].Value).ToString("D3");
+                    dgvInformeVentas.Rows[i].Cells[1].Value = Convert.ToInt32(dgvInformeVentas.Rows[i].Cells[1].Value).ToString("D3");
+                    dgvInformeVentas.Rows[i].Cells[2].Value = Convert.ToInt32(dgvInformeVentas.Rows[i].Cells[2].Value).ToString("D9");
+                    for (int j = 7; j < 10; j++)
+                        dgvInformeVentas.Rows[i].Cells[j].Value = Funcion.reemplazarcaracter(dgvInformeVentas.Rows[i].Cells[j].Value.ToString());
+                    if (Convert.ToString(dgvInformeVentas.Rows[i + 1].Cells[0].Value) == "")
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for (int i = 0; i < dgvInformeVentas.RowCount - 1; i++)
+            {
+                dgvInformeVentas.Rows[i].Cells[3].Value = Convert.ToDateTime(dgvInformeVentas.Rows[i].Cells[3].Value).ToShortDateString();
+            }
+            dgvInformeVentas.Focus();
+        }
         private void BtnExportarExcel_Click_1(object sender, EventArgs e)
         {
             if (dgvInformeVentas.Rows[0].Cells[0].Value != null)
@@ -38,13 +76,11 @@ namespace Comisariato.Formularios.Informes
             }
         }
 
-
         private void FrmVentas_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < 20; i++)
                 dgvInformeVentas.Rows.Add();
             cadenaConsultar = cadenaGeneral;
-            //llenarDgv();
         }
 
         public void obtenerFechas()
@@ -57,82 +93,6 @@ namespace Comisariato.Formularios.Informes
             mesHasta = Convert.ToString(dtpHasta.Value.Date.Month);
             diaHasta = Convert.ToString(dtpHasta.Value.Date.Day);
             fechaHasta = añoHasta + "-" + mesHasta + "-" + diaHasta;
-        }
-
-        private void txtConsultar_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                cadeCondicion = " USUARIO like '%" + txtConsultar.Text + "%' OR NombreCliente like '%" + txtConsultar.Text + "%'";
-                cadeCondicion = cadeCondicion + " or NFACTURA like '%" + txtConsultar.Text + "%' or CAJA like '%" + txtConsultar.Text + "%' or SUCURSAL like '%" + txtConsultar.Text + "%'";
-                llenarDgv();
-            }
-            catch (Exception)
-            {
-            }
-            //---------------------FALTA REALIZAR EL MINIMO Y MAXIMO DE LOS DATA TIME PIKER----------------------------
-            //DataTable fechas = objConsulta.BoolDataTable("select FECHA from TbEncabezadoFactura ORDER BY FECHA");
-            //dtpDesde.MinDate = Convert.ToDateTime(fechas.Rows[0]);
-            //---------------------------------------------------------------------------------------------------------
-        }
-
-        private void dtpDesde_ValueChanged(object sender, EventArgs e)
-        {
-            obtenerFechas();
-            condicionEntre = " FECHA between '" + fechaDesde + "' AND '"+ fechaHasta +"'";
-            //objConsulta.boolLlenarDataGridView(dgvInformeVentas, cadenaConsultar);
-            llenarDgv();
-        }
-        public void llenarDgv()
-        {
-            string and = "", where = "";
-            if (cadeCondicion == "" && condicionEntre == "")
-            {
-                where = "";
-                and = "";
-            }
-            else if (cadeCondicion != "" || condicionEntre != "")
-                where = " where ";
-            if (cadeCondicion != "" && condicionEntre != "")
-            {
-                where = " where ";
-                and = " and ";
-            }
-            cadenaConsultar = cadenaGeneral + where + cadeCondicion + and + condicionEntre;
-            DataTable dt = objConsulta.BoolDataTable(cadenaConsultar);
-            if (dt.Rows.Count >0)
-            {//Select EF.SUCURSAL, EF.CAJA, EF.NFACTURA, EF.FECHA, U.USUARIO,	C.NOMBRES + ' ' + C.APELLIDOS AS NOMBRECLIENTE" +
-                dgvInformeVentas.Rows.Clear();
-                for (int i = 0; i < 20; i++)
-                    dgvInformeVentas.Rows.Add();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    DataRow row = dt.Rows[i];
-                    if (i == dgvInformeVentas.RowCount -1)
-                        dgvInformeVentas.Rows.Add();
-                    string numeros = Convert.ToInt32(row["SUCURSAL"]).ToString("D3");
-                    dgvInformeVentas.Rows[i].Cells[0].Value = numeros;
-                    numeros = Convert.ToInt32(row["CAJA"]).ToString("D3");
-                    dgvInformeVentas.Rows[i].Cells[1].Value = numeros;
-                    numeros = Convert.ToInt32(row["NFACTURA"]).ToString("D9");
-                    dgvInformeVentas.Rows[i].Cells[2].Value = numeros;
-                    dgvInformeVentas.Rows[i].Cells[3].Value = row["FECHA"];
-                    dgvInformeVentas.Rows[i].Cells[4].Value = row["USUARIO"];
-                    dgvInformeVentas.Rows[i].Cells[5].Value = row["NombreCliente"];
-                    dgvInformeVentas.Rows[i].Cells[6].Value = row["IVA"];
-                    dgvInformeVentas.Rows[i].Cells[7].Value = row["SUBTOTAL0"];
-                    dgvInformeVentas.Rows[i].Cells[8].Value = row["SUBTOTAL12"];
-                    dgvInformeVentas.Rows[i].Cells[9].Value = row["TOTAPAGAR"];
-
-                }
-            }
-            else
-            {
-                dgvInformeVentas.Rows.Clear();
-                for (int i = 0; i < 20; i++)
-                    dgvInformeVentas.Rows.Add();
-            }
-
-        }
+        }        
     }
 }
