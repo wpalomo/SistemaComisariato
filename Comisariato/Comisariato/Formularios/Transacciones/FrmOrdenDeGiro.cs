@@ -456,6 +456,9 @@ namespace Comisariato.Formularios.Transacciones
                             
                         }                        
                     }
+                    //Crear XML
+                    CrearXMLRetencion();
+                    //Fin Crear XML
                     string numeroRetencion = (Convert.ToInt32(txtNumeroRetencion.Text) + 1).ToString("D9");                    
                     ObjConsul.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET [DOCUMENTOACTUAL] = '"+ numeroRetencion +"' WHERE SERIE1 = '"+ txtSerie1Retencion.Text + "' and SERIE2 = '" + txtSerie2Retencion.Text + "' and IPESTACION = '" + bitacora.LocalIPAddress() + "' and TIPODOCUMENTO = 'RET'");
                     MessageBox.Show("Registrado Corsrectamente ", "Exito", MessageBoxButtons.OK);
@@ -466,9 +469,7 @@ namespace Comisariato.Formularios.Transacciones
                     txtOrdenGiro.Text = (Convert.ToInt32(ObjConsul.ObtenerID("NUMEROORDENGIRO", "TbEncabezadoOrdenGiro", "")) + 1).ToString();
 
 
-                    //Crear XML
-                    CrearXMLRetencion();
-                    //Fin Crear XML
+                    
 
 
                     inicializar();
