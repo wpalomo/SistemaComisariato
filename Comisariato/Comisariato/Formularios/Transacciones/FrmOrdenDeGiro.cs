@@ -456,11 +456,6 @@ namespace Comisariato.Formularios.Transacciones
                             
                         }                        
                     }
-                    //Crear XML
-                    //imprimir();
-                    //
-                    CrearXMLRetencion();
-                    
                     //Fin Crear XML
                     string numeroRetencion = (Convert.ToInt32(txtNumeroRetencion.Text) + 1).ToString("D9");                    
                     ObjConsul.EjecutarSQL("UPDATE [dbo].[TbCajasTalonario] SET [DOCUMENTOACTUAL] = '"+ numeroRetencion +"' WHERE SERIE1 = '"+ txtSerie1Retencion.Text + "' and SERIE2 = '" + txtSerie2Retencion.Text + "' and IPESTACION = '" + bitacora.LocalIPAddress() + "' and TIPODOCUMENTO = 'RET'");
@@ -472,7 +467,12 @@ namespace Comisariato.Formularios.Transacciones
                     txtOrdenGiro.Text = (Convert.ToInt32(ObjConsul.ObtenerID("NUMEROORDENGIRO", "TbEncabezadoOrdenGiro", "")) + 1).ToString();
 
 
-                    
+
+                    //Crear XML
+                    //imprimir();
+                    //
+                    CrearXMLRetencion();
+
 
 
                     inicializar();
@@ -533,8 +533,10 @@ namespace Comisariato.Formularios.Transacciones
                     break;
             }
 
+            
+            string numeroRetencion = (Convert.ToInt32(txtNumeroRetencion.Text) - 1).ToString("D9");
 
-            InfoTributaria infotribu = new InfoTributaria(Program.Ambiente, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1Retencion.Text, txtSerie2Retencion.Text, txtNumeroRetencion.Text, Program.direccionempresa); // 07 porque es retencion
+            InfoTributaria infotribu = new InfoTributaria(Program.Ambiente, 1, Program.razonsocialempresa, Program.nombreempresa, Program.rucempresa, "07", txtSerie1Retencion.Text, txtSerie2Retencion.Text, numeroRetencion, Program.direccionempresa); // 07 porque es retencion
                                                                                                                                                                                                                         //string serie = txtSerie1.Text + txtSerie2.Text;
                                                                                                                                                                                                                         //xmlRetencion.InfoTributaria("infoTributaria", infotribu, serie,claveacceso);
 
@@ -807,7 +809,8 @@ namespace Comisariato.Formularios.Transacciones
                 //DGV Retencion
 
                 e.Graphics.DrawString("N° Retención: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 25, 285);
-                string retencion = txtSerie1Retencion.Text + '-' + txtSerie2Retencion.Text + '-' + txtNumeroRetencion.Text;
+                string numeroRetencion = (Convert.ToInt32(txtNumeroRetencion.Text) - 1).ToString("D9");
+                string retencion = txtSerie1Retencion.Text + '-' + txtSerie2Retencion.Text + '-' + numeroRetencion;
                 e.Graphics.DrawString(retencion, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 175, 285);
                 e.Graphics.DrawString("Clave de Acceso: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 25, 295);
                 e.Graphics.DrawString(claveacceso, new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 175, 295);
@@ -941,7 +944,8 @@ namespace Comisariato.Formularios.Transacciones
                         e.Graphics.DrawString("|", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 795, encabezadoRetencion + 21 + i);
                     }
                     e.Graphics.DrawString("COMPROBANTE RETENCIÓN", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 575, encabezadoRetencion = encabezadoRetencion + 25);
-                    e.Graphics.DrawString("N° " + txtSerie1Retencion.Text + "-" + txtSerie2Retencion.Text + "-" + txtNumeroRetencion.Text, new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 580, encabezadoRetencion = encabezadoRetencion + 25);
+                    string numeroRetencion = (Convert.ToInt32(txtNumeroRetencion.Text) - 1).ToString("D9");
+                    e.Graphics.DrawString("N° " + txtSerie1Retencion.Text + "-" + txtSerie2Retencion.Text + "-" + numeroRetencion, new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 580, encabezadoRetencion = encabezadoRetencion + 25);
                     e.Graphics.DrawString("Fecha de Emisión: ", new Font("Verdana", 8, FontStyle.Bold), Brushes.Black, 545, encabezadoRetencion = encabezadoRetencion + 25);
                     e.Graphics.DrawString(Convert.ToString(dtpFechaRetencion.Value.ToShortDateString()), new Font("Verdana", 8, FontStyle.Regular), Brushes.Black, 660, encabezadoRetencion);
                     puntoInicioC = new Point(545, encabezadoRetencion + 20);
