@@ -205,7 +205,9 @@ namespace Comisariato.Clases
                     numeroAutorizacion = docxml.GetElementsByTagName("numeroAutorizacion")[0].InnerText;
                     claveAcceso = docxml.GetElementsByTagName("claveAcceso")[0].InnerText;
                     numeroAutorizacion = docxml.GetElementsByTagName("numeroAutorizacion")[0].InnerText;
+                    //Fecha para autorizar
                     FechaAutorizacion = Convert.ToDateTime(docxml.GetElementsByTagName("fechaAutorizacion")[0].InnerText).ToString();
+                    estado += ";" + FechaAutorizacion;
                     if (!Directory.Exists(PathServer + @"\Autorizados\"))
                     {
                         Directory.CreateDirectory(PathServer + @"\Autorizados\");
